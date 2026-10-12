@@ -379,6 +379,17 @@ nav button.on{box-shadow:none!important}
 .fab{width:56px;height:56px;border-radius:18px}
 footer{font-size:.75rem;padding:var(--s3) var(--s2)}
 body[data-tab]:not([data-tab=today]) .fab{display:none}
+
+/* ===== v13 fixed bars ===== */
+html,body{overscroll-behavior:none}
+html{height:-webkit-fill-available}
+body{min-height:100vh;min-height:100dvh;min-height:-webkit-fill-available;padding-bottom:calc(92px + env(safe-area-inset-bottom))!important;transform:none!important;filter:none!important}
+header{position:fixed!important;top:0;left:0;right:0;transform:none!important;z-index:8}
+main{padding-top:calc(67px + max(12px,env(safe-area-inset-top)))!important}
+nav{position:fixed!important;left:0!important;right:0!important;bottom:0!important;top:auto!important;transform:none!important;width:100%!important;max-width:none!important;margin:0!important;border-radius:22px 22px 0 0!important;
+ padding:6px max(10px,calc((100% - 560px)/2)) calc(6px + env(safe-area-inset-bottom))!important;z-index:9;animation:none!important;transition:background .3s!important}
+.fab{bottom:calc(84px + env(safe-area-inset-bottom))!important}
+.toast{bottom:calc(150px + env(safe-area-inset-bottom))!important}
 </style>
 </head>
 <body>
