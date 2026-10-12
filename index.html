@@ -390,6 +390,16 @@ nav{position:fixed!important;left:0!important;right:0!important;bottom:0!importa
  padding:6px max(10px,calc((100% - 560px)/2)) calc(6px + env(safe-area-inset-bottom))!important;z-index:9;animation:none!important;transition:background .3s!important}
 .fab{bottom:calc(84px + env(safe-area-inset-bottom))!important}
 .toast{bottom:calc(150px + env(safe-area-inset-bottom))!important}
+
+/* ===== v14 glow orbs + grain (replaces grid) ===== */
+body::before{content:"";position:fixed;inset:-10%;z-index:-1;pointer-events:none;-webkit-mask-image:none!important;mask-image:none!important;background-size:auto!important;
+ background-image:radial-gradient(42% 32% at 12% 8%,color-mix(in srgb,var(--a1,#e9b862) 34%,transparent),transparent 70%),radial-gradient(40% 30% at 92% 34%,color-mix(in srgb,var(--a2,#c87b2c) 30%,transparent),transparent 70%),radial-gradient(48% 34% at 30% 92%,color-mix(in srgb,var(--a2,#c87b2c) 26%,transparent),transparent 72%)!important;
+ filter:blur(30px);animation:orbs 24s ease-in-out infinite alternate}
+[data-theme=light] body::before{opacity:.75}
+@keyframes orbs{to{transform:translate3d(0,3%,0) scale(1.06)}}
+@media (prefers-reduced-motion:reduce){body::before{animation:none}}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.06;mix-blend-mode:overlay;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 </style>
 </head>
 <body>
