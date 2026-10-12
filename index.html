@@ -571,7 +571,7 @@ header.scrolled .brand{opacity:0;pointer-events:none}
 .samp{font-size:8.5px;font-weight:800;letter-spacing:.06em;padding:2px 6px;border-radius:6px;background:rgba(128,128,128,.22);color:var(--muted)}
 .crbio{font-size:12.5px;margin:4px 0 8px}.csamp{margin-top:8px;font-size:12.5px}
 /* ===== v24 intro ===== */
-#splash{position:fixed;inset:0;z-index:200;overflow:hidden;background:#0d0805!important;color:#fff4e0!important;display:grid;place-items:center;cursor:pointer;--k:1;transition:opacity .5s ease,transform .5s ease,visibility .5s}
+#splash{position:fixed;inset:0;z-index:200;overflow:hidden;background:#0d0805!important;color:#fff4e0!important;display:grid;place-items:center;--k:1;transition:opacity .5s ease,transform .5s ease,visibility .5s}
 #splash.i-short{--k:.42}#splash.gone{opacity:0;visibility:hidden;transform:scale(1.04)}
 #splash .ibg{position:absolute;inset:-4%;background:linear-gradient(180deg,rgba(13,8,5,.55),rgba(13,8,5,.82) 55%,#0d0805),url(img/hero.webp) center/cover;animation:kb calc(3s*var(--k)) ease-out both;will-change:transform}
 #splash .ibg::after{content:"";position:absolute;inset:0;background:radial-gradient(420px 360px at 50% 44%,rgba(233,160,70,.32),transparent 70%)}
@@ -635,7 +635,7 @@ body.onbing{overflow:hidden}
 <body>
 <div id="splash" aria-hidden="true"><div class="ibg"><i></i><i></i><i></i></div><div class="ivig"></div><canvas id="ember"></canvas><div class="iflash"></div>
 <div class="istage"><div class="ilogo"><img src="platejack.svg" alt="" width="150" height="150"><svg viewBox="0 0 512 512" class="iov"><defs><linearGradient id="irim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff1c4"/><stop offset=".4" stop-color="#e9b862"/><stop offset="1" stop-color="#c87b2c"/></linearGradient></defs><circle class="iring" cx="256" cy="256" r="184" fill="none" stroke="url(#irim)" stroke-width="22" stroke-linecap="round" pathLength="100" transform="rotate(-90 256 256)"/><path class="ibolt" d="M352 106l-30 50h18l-10 42l36-56h-20l14-36z" fill="#fffbe9" stroke="#2a1508" stroke-width="6" stroke-linejoin="round"/></svg></div>
-<b class="pjw iword"><i>PLATE</i><span>JACK</span></b><small class="itag">TAKE OVER YOUR PLATE</small></div><span class="iskip">Tap to skip</span></div>
+<b class="pjw iword"><i>PLATE</i><span>JACK</span></b><small class="itag">TAKE OVER YOUR PLATE</small></div></div>
 <div id="onb" style="display:none" role="dialog" aria-label="Welcome to PlateJack"><div class="oslides" id="oSlides">
  <section class="os" style="--img:url(img/intro/salmon.webp)"><div class="ot"><span class="oe">📊</span><h2>Track it</h2><p>Log meals in seconds and watch calories, protein and macros fill up through the day.</p></div></section>
  <section class="os" style="--img:url(img/intro/chicken.webp)"><div class="ot"><span class="oe">📷</span><h2>Snap &amp; scan</h2><p>Snap your plate, scan a barcode, pick a portion. Logging that keeps up with you.</p></div></section>
@@ -1820,7 +1820,7 @@ applyTheme();renderAll();$("wtDate").textContent=cur;onScroll();
  const D={full:2500,short:1000,rm:450,off:0}[mode];sp.className="i-"+mode;window._introMode=mode;
  let done=false,raf=0;const end=()=>{if(done)return;done=true;cancelAnimationFrame(raf);sp.classList.add("gone");setTimeout(()=>{sp.remove();maybeOnb();},mode==="off"?0:520);};
  if(mode==="off"){end();return;}
- sp.addEventListener("pointerdown",end);sp.addEventListener("keydown",end);setTimeout(end,D);
+ setTimeout(end,D);
  if(mode==="full"||mode==="short"){const c=$("ember"),x=c.getContext("2d"),dpr=Math.min(2,devicePixelRatio||1);c.width=innerWidth*dpr;c.height=innerHeight*dpr;x.scale(dpr,dpr);
   const P=Array.from({length:mode==="full"?46:22},()=>({x:Math.random()*innerWidth,y:innerHeight*(.45+Math.random()*.6),r:.6+Math.random()*2.2,v:.25+Math.random()*.9,w:Math.random()*6.28,a:.3+Math.random()*.6}));
   const t0=performance.now();const tick=t=>{const e=(t-t0)/1000;x.clearRect(0,0,innerWidth,innerHeight);x.globalCompositeOperation="lighter";
