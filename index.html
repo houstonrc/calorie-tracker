@@ -145,6 +145,23 @@ html[data-bg=sage] #bg::after{background:linear-gradient(180deg,rgba(238,242,230
 html[data-bg=sage] button.ghost,html[data-bg=sage] .chips button:not(.on),html[data-bg=sage] .entry,html[data-bg=sage] .statgrid>div,html[data-bg=sage] .stat3>div,html[data-bg=sage] #tip{background:#fbfdf7}html[data-bg=sage] .ringstats b{color:#1f2a17}html[data-bg=sage] #tip{color:#1f2a17}
 .swatches{grid-template-columns:repeat(3,1fr)}.sw i{position:relative;overflow:hidden}.sw i b{position:absolute;left:10%;right:10%;bottom:12%;height:42%;border-radius:8px}.sw i u{position:absolute;right:14%;top:14%;width:16px;height:16px;border-radius:50%;text-decoration:none}.sw{font-size:.82rem}
 html[data-bg] .hero .datebar button{background:rgba(255,255,255,.14)!important;color:#fff!important;border-color:rgba(255,255,255,.22)!important}
+.lockb{position:absolute;top:6px;left:6px;font-size:.7rem;background:rgba(0,0,0,.55);color:#fff;border-radius:99px;padding:2px 6px;font-weight:800}
+.sw{position:relative}
+.chips button .lk{font-size:.75em;margin-left:4px}
+.locked{position:relative;min-height:150px}.locked>.blur{filter:blur(5px);opacity:.55;pointer-events:none;-webkit-user-select:none;user-select:none}
+.locked>.lockov{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:12px}
+.lockov b{font-size:1rem}.lockov .muted{font-size:.82rem;max-width:260px}
+.probadge{display:inline-block;font-size:.7rem;font-weight:900;letter-spacing:.06em;padding:3px 8px;border-radius:99px;background:var(--grad);color:#fff;vertical-align:middle}
+#pay .phero{border-radius:20px;padding:18px;color:#fff;background:linear-gradient(180deg,rgba(13,10,7,.2),rgba(13,10,7,.85)),url(img/hero.webp) center/cover;margin-bottom:14px}
+#pay .phero h2{margin:6px 0 2px;font-size:1.6rem;font-weight:850;letter-spacing:-.02em}
+.ben{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line)}.ben:last-child{border:0}.ben .bi{width:34px;height:34px;flex:0 0 34px;border-radius:10px;display:grid;place-items:center;background:rgba(200,123,44,.16);font-size:1.1rem}.ben small{display:block;color:var(--muted);font-size:.8rem}
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.plan{border:2px solid var(--line);border-radius:16px;padding:12px;text-align:center;cursor:pointer;position:relative;background:var(--input)}.plan.on{border-color:#c87b2c;background:rgba(200,123,44,.12)}.plan b{display:block;font-size:1.3rem;font-weight:850}.plan .save{position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:.68rem;font-weight:900;background:#6f7a35;color:#fff;border-radius:99px;padding:2px 8px;white-space:nowrap}
+.fine{font-size:.74rem;color:var(--muted);text-align:center;margin:10px 0 0;line-height:1.4}
+#scanVid{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:18px;background:#000;display:block}
+.scanbox{position:relative}.scanbox .reticle{position:absolute;left:12%;right:12%;top:30%;bottom:30%;border:3px solid rgba(233,184,98,.9);border-radius:14px;box-shadow:0 0 0 999px rgba(0,0,0,.35)}
+.scanbox .laser{position:absolute;left:14%;right:14%;top:50%;height:2px;background:#e0604a;box-shadow:0 0 8px #e0604a;animation:laser 1.6s ease-in-out infinite alternate}
+@keyframes laser{from{top:33%}to{top:67%}}
+.scanph{aspect-ratio:4/3;border-radius:18px;display:grid;place-items:center;text-align:center;padding:16px;background:linear-gradient(180deg,rgba(13,10,7,.35),rgba(13,10,7,.85)),url(img/add.webp) center/cover;color:#fff}
 .sw i.sys{background:linear-gradient(135deg,#0d0a07 0 50%,#faf7f2 50% 100%)}
 [data-theme=light] #bg::after{background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(250,247,242,.72) 40%,rgba(250,247,242,.88))}
 header{background:transparent;border-bottom-color:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;transition:background .25s,border-color .25s,backdrop-filter .25s;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
@@ -222,7 +239,7 @@ dialog[open]{animation:sheet .38s cubic-bezier(.2,.9,.25,1)}
     <div class="chips" id="srcChips"><button class="on" data-s="all">All foods</button><button data-s="fav">⭐ Favorites</button></div>
     <div class="foodlist" id="foodList"></div>
   </div>
-  <div class="card"><button class="ghost" id="customBtn" style="width:100%">✏️ Enter a custom food</button></div>
+  <div class="card"><div class="row"><button id="scanBtn">📷 Scan barcode <span id="scanLock"></span></button><button class="ghost" id="customBtn">✏️ Custom food</button></div></div>
 </section>
 <!-- HISTORY / INSIGHTS -->
 <section class="tab" id="tab-history">
@@ -249,6 +266,7 @@ dialog[open]{animation:sheet .38s cubic-bezier(.2,.9,.25,1)}
 <!-- SETTINGS -->
 <section class="tab" id="tab-settings">
   <h1 class="lt">Settings</h1>
+  <div class="card" id="proCard"></div>
   <div class="card"><h2>🎨 App background</h2><div class="swatches" id="bgPick"></div><p class="muted" style="font-size:.8rem;margin:10px 0 0">The ☀️/🌙 button at the top switches between your last dark and light backgrounds.</p></div>
   <div class="card"><h2>👋 Profile</h2><label for="uName">Your name (for the greeting)</label><input id="uName" placeholder="Your name" autocomplete="given-name"></div>
   <div class="card"><h2>🎯 Daily goal</h2>
@@ -294,6 +312,20 @@ dialog[open]{animation:sheet .38s cubic-bezier(.2,.9,.25,1)}
   <div class="row" style="margin-top:8px"><button type="button" class="ghost" id="dlgCancel">Cancel</button><button type="submit" id="dlgSave" value="ok">Add</button></div>
 </form></dialog>
 <dialog id="lbl"><div id="lblBody"></div><div class="row" style="margin-top:12px"><button type="button" class="ghost" id="lblEdit">✏️ Edit</button><button type="button" id="lblClose">Close</button></div></dialog>
+<dialog id="pay"><div class="phero"><span class="probadge">PRO</span><h2>Calorie Tracker Pro</h2><div style="opacity:.9;font-size:.9rem">Go deeper on every meal.</div></div>
+ <div class="ben"><span class="bi">📷</span><div><b>Barcode scanner</b><small>Scan packaged food with your camera and fill in nutrition automatically.</small></div></div>
+ <div class="ben"><span class="bi">📊</span><div><b>Full Insights</b><small>30- and 90-day charts, nutrient averages table, best and worst days over time.</small></div></div>
+ <div class="ben"><span class="bi">🎯</span><div><b>Goal weight projection</b><small>Progress bar and estimated date to reach your goal weight.</small></div></div>
+ <div class="ben"><span class="bi">🎨</span><div><b>All app backgrounds</b><small>Espresso, Olive, Terracotta, Navy, Cream and Sage.</small></div></div>
+ <div class="plans" id="plans"><div class="plan" data-p="m"><span>Monthly</span><b>$3.99</b><small class="muted">per month</small></div><div class="plan on" data-p="y"><span class="save">SAVE 37%</span><span>Yearly</span><b>$29.99</b><small class="muted">per year</small></div></div>
+ <button id="payDemo" style="width:100%">Demo: unlock Pro (no charge)</button>
+ <p class="fine">Demo only. Prices are placeholders, and nothing is charged. Real purchases will go through Apple App Store / Google Play in-app purchase when the app launches.</p>
+ <button type="button" class="ghost" id="payClose" style="width:100%;margin-top:10px">Not now</button></dialog>
+<dialog id="scan"><h2 style="margin:0 0 10px">📷 Scan a barcode</h2><div class="scanbox" id="scanBox"></div>
+ <p class="muted" id="scanMsg" style="font-size:.85rem;margin:10px 0"></p>
+ <label for="scanCode">Or type the barcode number</label><div class="row"><input id="scanCode" inputmode="numeric" placeholder="e.g. 049000028911" autocomplete="off"><button id="scanLookup" style="flex:0 0 110px">Look up</button></div>
+ <p class="fine">Product info comes from <b>Open Food Facts</b>, a free public database. Values may be missing or approximate; you can edit them before adding.</p>
+ <div class="row" style="margin-top:10px"><button type="button" class="ghost" id="scanManual">✏️ Enter manually</button><button type="button" class="ghost" id="scanClose">Close</button></div></dialog>
 <div class="toast" id="toast"></div><div id="tip"></div>
 
 <script>
@@ -669,8 +701,8 @@ function applyTheme(){const m=bgMode(),id=curTheme(),t=THEMES[id];const html=doc
  if(!$("bgPick").children.length)renderPicker();document.querySelectorAll("#bgPick .sw").forEach(b=>b.classList.toggle("on",b.dataset.bg===m));}
 function setBg(m){S.bg=m;if(m!=="system"){S.theme=THEMES[m].dark?"dark":"light";if(THEMES[m].dark)S.lastDark=m;else S.lastLight=m;}else S.theme=null;save();applyTheme();renderAll();}
 matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change",()=>{if(bgMode()==="system"){applyTheme();renderAll();}});
-$("themeBtn").onclick=()=>setBg(document.documentElement.dataset.theme==="dark"?(S.lastLight&&THEMES[S.lastLight]?S.lastLight:"white"):(S.lastDark&&THEMES[S.lastDark]?S.lastDark:"brown"));
-$("bgPick").onclick=e=>{const b=e.target.closest(".sw");if(b){setBg(b.dataset.bg);toast(b.textContent.trim()+" background");}};
+$("themeBtn").onclick=()=>{const ok=k=>k&&THEMES[k]&&(isPro()||FREE_THEMES.includes(k)||k===bgMode());setBg(document.documentElement.dataset.theme==="dark"?(ok(S.lastLight)?S.lastLight:"white"):(ok(S.lastDark)?S.lastDark:"brown"));};
+$("bgPick").onclick=e=>{const b=e.target.closest(".sw");if(b&&!isPro()&&!FREE_THEMES.includes(b.dataset.bg)&&b.dataset.bg!==bgMode()){openPay("theme");return;}if(b){setBg(b.dataset.bg);toast(b.textContent.trim()+" background");}};
 
 /* ---------- Tabs ---------- */
 function showTab(t){document.querySelectorAll(".tab").forEach(s=>s.classList.toggle("on",s.id==="tab-"+t));document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===t));window.scrollTo(0,0);if(t==="history")renderHistory();if(t==="add")renderFoods();}
@@ -797,7 +829,7 @@ function addEntry(en){const _id=Date.now().toString(36)+Math.random().toString(3
 /* ---------- Charts ---------- */
 function prepCanvas(c){const dpr=window.devicePixelRatio||1,w=c.clientWidth||600,h=+(c.dataset.h||(c.dataset.h=c.getAttribute("height")));c.width=w*dpr;c.height=h*dpr;c.style.height=h+"px";const x=c.getContext("2d");x.setTransform(dpr,0,0,dpr,0,0);x.clearRect(0,0,w,h);return[x,w,h];}
 let range=7;
-$("rangeChips").onclick=e=>{const b=e.target.closest("button");if(!b)return;range=+b.dataset.r;[...$("rangeChips").children].forEach(x=>x.classList.toggle("on",x===b));renderHistory();};
+$("rangeChips").onclick=e=>{const b=e.target.closest("button");if(!b)return;if(+b.dataset.r>7&&!isPro()){openPay("insights");return;}range=+b.dataset.r;[...$("rangeChips").children].forEach(x=>x.classList.toggle("on",x===b));renderHistory();};
 /* ---------- Tooltips for canvas charts ---------- */
 function setHits(c,hits){c._hits=hits;if(c._tipOn)return;c._tipOn=1;const tip=$("tip");
  const show=ev=>{const r=c.getBoundingClientRect(),px=ev.clientX-r.left,py=ev.clientY-r.top;const hh=(c._hits||[]).find(z=>px>=z.x0&&px<=z.x1&&(z.y0==null||(py>=z.y0&&py<=z.y1)));
@@ -811,7 +843,7 @@ function gridY(x,w,pl,pt,ch,max,steps,fmt){x.font="11px -apple-system,system-ui,
 function rbar(x,bx,by,bw,bh,fill,glow){if(bh<=0)return;x.save();x.fillStyle=fill;if(glow){x.shadowColor=glow;x.shadowBlur=5;}const r=Math.min(6,bw/2,bh);x.beginPath();if(x.roundRect)x.roundRect(bx,by,bw,bh,[r,r,0,0]);else x.rect(bx,by,bw,bh);x.fill();x.restore();}
 const kfmt=v=>v>=1000?(v/1000).toFixed(v>=10000?0:1)+"k":Math.round(v);
 function rangeKeys(n){const end=parse(ymd(new Date())),keys=[];for(let i=n-1;i>=0;i--){const d=new Date(end);d.setDate(d.getDate()-i);keys.push(ymd(d));}return keys;}
-function renderHistory(){$("wtDate").textContent=cur;
+function renderHistory(){if(!isPro()&&range>7)range=7;$("wtDate").textContent=cur;
  const keys=rangeKeys(range),T=keys.map(k=>totals(k)),vals=T.map(t=>t.cal);const logged=keys.filter(k=>day(k).entries.length),LT=logged.map(k=>totals(k));
  $("hAvg").textContent=logged.length?Math.round(LT.reduce((a,t)=>a+t.cal,0)/logged.length).toLocaleString():"0";
  $("hDays").textContent=logged.length+" / "+range;$("hCons").textContent=Math.round(logged.length/range*100)+"%";
@@ -837,7 +869,7 @@ function renderHistory(){$("wtDate").textContent=cur;
  if(logged.length){const avg=LT.reduce((a,t)=>a+t.cal,0)/logged.length,y=pt+ch-ch*avg/max;x.strokeStyle="rgba(208,96,63,.8)";x.setLineDash([2,4]);x.lineWidth=1.5;x.beginPath();x.moveTo(pl,y);x.lineTo(w-6,y);x.stroke();x.setLineDash([]);x.fillStyle="#d0603f";x.textAlign="right";x.font="700 11px system-ui";x.fillText("avg",w-8,y-5);}
  if(!logged.length){x.fillStyle=css("--muted");x.textAlign="center";x.font="14px system-ui";x.fillText("Log some food to see your chart here",pl+cw/2,pt+ch/2);}
  renderNutAvg(logged,LT);renderMealChart(keys,logged);renderTimeChart(keys);renderTopFoods(keys);renderWeight();}
-function renderNutAvg(logged,LT){const n=logged.length;if(!n){$("nutAvg").innerHTML=`<div class="empty">No days logged in this range yet.</div>`;return;}
+function renderNutAvg(logged,LT){if(!isPro()){$("nutAvg").className="locked";$("nutAvg").innerHTML=`<div class="blur"><table class="ntab"><tr><th>Nutrient</th><th>Avg/day</th><th>Goal</th><th>Days on track</th></tr>${["Calories","Protein","Carbs","Fat","Fiber","Sugar","Sodium"].map(x=>`<tr><td>${x}</td><td>•••</td><td>•••</td><td>•/•</td></tr>`).join("")}</table></div>`+lockBox("Nutrient averages","See your daily averages and days on track for every nutrient.","insights");return;}$("nutAvg").className="";const n=logged.length;if(!n){$("nutAvg").innerHTML=`<div class="empty">No days logged in this range yet.</div>`;return;}
  const g=S.ngoals||NDEF;const rows=[["Calories","cal","kcal",S.goal,"max"],["Protein","p","g",S.macros.p,"min"],["Carbs","c","g",S.macros.c,"max"],["Fat","f","g",S.macros.f,"max"],...NUT.map(([k,nm,u,kind])=>[nm,k,u,+g[k]||0,kind])];
  $("nutAvg").innerHTML=`<table class="ntab"><tr><th>Nutrient</th><th>Avg/day</th><th>Goal</th><th>Days on track</th></tr>`+rows.map(([nm,k,u,goal,kind])=>{const avg=LT.reduce((a,t)=>a+t[k],0)/n,unk=LT.some(t=>t.unk&&t.unk[k]);
   const ok=goal?LT.filter(t=>kind==="min"?t[k]>=goal:t[k]<=goal).length:null;const pct=goal?Math.min(100,avg/goal*100):0,bad=goal&&(kind==="max"?avg>goal:avg<goal*.8);
@@ -873,7 +905,8 @@ function renderWeight(){const ks=Object.keys(S.weights).sort();$("wtGoal").value
  const chg=inR.length>=2?S.weights[inR[inR.length-1]]-S.weights[inR[0]]:null;const sgn=v=>(v>0?"+":"")+r1(v);
  $("wtStats").innerHTML=`<div><b>${last!=null?last:"–"}</b><span>current lb</span></div><div><b>${ma.length?r1(ma[ma.length-1]):"–"}</b><span>7-day avg</span></div><div><b>${chg!=null?sgn(chg):"–"}</b><span>change (${range}d)</span></div>
   <div><b>${rate!=null?sgn(rate):"–"}</b><span>lb / week trend</span></div><div><b>${ks.length?sgn(last-S.weights[ks[0]]):"–"}</b><span>since first log</span></div><div><b>${gw?gw:"–"}</b><span>goal lb</span></div>`;
- if(gw&&ks.length){const start=S.weights[ks[0]],need=start-gw,done=start-last;let pct=need?Math.max(0,Math.min(100,done/need*100)):100;const left=last-gw;
+ if(gw&&ks.length&&!isPro()){$("wtProg").innerHTML=`<div class="locked" style="min-height:120px"><div class="blur"><div class="nrow"><div class="top"><span>🎯 Progress to ${gw} lb</span><b>••%</b></div><div class="bar" style="height:14px"><i style="width:45%;background:var(--grad)"></i></div><small>•• lb to go · about •• weeks</small></div></div>${lockBox("Goal weight projection","Progress and an estimated date to reach "+gw+" lb.","insights")}</div>`;}
+ else if(gw&&ks.length){const start=S.weights[ks[0]],need=start-gw,done=start-last;let pct=need?Math.max(0,Math.min(100,done/need*100)):100;const left=last-gw;
   let eta="";if(Math.abs(left)<0.5)eta="🎉 You're at your goal!";else if(rate!=null&&Math.abs(rate)>=0.05&&Math.sign(rate)===Math.sign(-left)){const wk=Math.abs(left/rate);eta=`At your current trend: about <b>${wk<1?"under a week":Math.round(wk)+" week"+(Math.round(wk)==1?"":"s")}</b> (~${new Date(Date.now()+wk*7*864e5).toLocaleDateString([],{month:"short",day:"numeric",year:"numeric"})}).`;}else eta=ks.length<2?"Log a few more weigh-ins to estimate a timeline.":"Your recent trend isn't moving toward your goal yet.";
   $("wtProg").innerHTML=`<div class="nrow"><div class="top"><span>🎯 Progress to ${gw} lb</span><b>${Math.round(pct)}%</b></div><div class="bar" style="height:14px"><i style="width:${pct}%;background:linear-gradient(90deg,#c87b2c,#e9b862,#d0603f);color:#e9b862"></i></div><small>${Math.abs(r1(left))} lb to go · ${eta} Estimate only — not medical advice.</small></div>`;}
  else $("wtProg").innerHTML=gw?"":`<p class="muted" style="font-size:.8rem;margin:0">Set a goal weight to see progress and an estimated timeline.</p>`;
@@ -914,7 +947,50 @@ $("impFile").onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new Fi
  if(!confirm("Replace the data on this device with this backup?"))return;S=migrate(d);save();applyTheme();renderAll();toast("Backup imported");}catch(err){alert("That file doesn't look like a Calorie Tracker backup.");}e.target.value="";};rd.readAsText(f);};
 $("wipe").onclick=()=>{if(confirm("Erase ALL your data on this device? Export a backup first if you want to keep it.")){S=blank();save();applyTheme();renderAll();toast("All data erased");}};
 
-function renderAll(){renderToday();renderSettings();renderMealChips();renderFoods();if($("tab-history").classList.contains("on"))renderHistory();}
+/* ---------- Pro (demo paywall) ---------- */
+const FREE_THEMES=["brown","white","system"];
+const isPro=()=>!!S.pro;
+const LOCK='<span class="lk">🔒</span>';
+function openPay(why){$("pay").dataset.why=why||"";$("pay").showModal();}
+$("payClose").onclick=()=>$("pay").close();
+$("plans").onclick=e=>{const p=e.target.closest(".plan");if(p)[...$("plans").children].forEach(x=>x.classList.toggle("on",x===p));};
+$("payDemo").onclick=()=>{S.pro=true;save();$("pay").close();renderAll();renderPro();toast("⭐ Pro unlocked (demo, no charge)");const w=$("pay").dataset.why;if(w==="scan")openScan();};
+function renderPro(){$("proCard").innerHTML=isPro()?`<h2><span class="probadge">PRO</span> Pro is on <span class="muted" style="font-weight:500">(demo)</span></h2><p class="muted" style="margin:0 0 10px">All backgrounds, full Insights and the barcode scanner are unlocked. No charge.</p><button class="ghost" id="proOff" style="width:100%">Turn off demo Pro</button>`
+ :`<h2><span class="probadge">PRO</span> Calorie Tracker Pro</h2><p class="muted" style="margin:0 0 10px">Barcode scanner, 30/90-day Insights, nutrient table, goal weight projection and 6 more backgrounds.</p><button id="proSee" style="width:100%">See Pro</button>`;
+ const o=$("proOff");if(o)o.onclick=()=>{S.pro=false;save();if(range>7)range=7;renderAll();renderPro();toast("Back to Free");};const s=$("proSee");if(s)s.onclick=()=>openPay("settings");
+ $("scanLock").innerHTML=isPro()?"":"🔒";
+ [...$("rangeChips").children].forEach(b=>{const r=+b.dataset.r;b.innerHTML=r+" days"+(r>7&&!isPro()?LOCK:"");b.classList.toggle("on",r===range);});
+ document.querySelectorAll("#bgPick .sw").forEach(b=>{const lk=!isPro()&&!FREE_THEMES.includes(b.dataset.bg);let x=b.querySelector(".lockb");if(lk&&!x)b.insertAdjacentHTML("afterbegin",'<span class="lockb">🔒 PRO</span>');if(!lk&&x)x.remove();});}
+function lockBox(title,msg,why){return `<div class="lockov"><b>🔒 ${title}</b><span class="muted">${msg}</span><button class="small" data-pay="${why}">Unlock with Pro</button></div>`;}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-pay]");if(b){e.preventDefault();openPay(b.dataset.pay);}});
+/* ---------- Barcode scanner (Pro) ---------- */
+let scanStream=null,scanTimer=null,scanBusy=false;
+function stopScan(){clearInterval(scanTimer);scanTimer=null;if(scanStream){scanStream.getTracks().forEach(t=>t.stop());scanStream=null;}}
+async function openScan(){if(!isPro()){openPay("scan");return;}$("scanCode").value="";$("scan").showModal();const box=$("scanBox"),msg=$("scanMsg");
+ const hasBD="BarcodeDetector" in window,hasCam=!!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia);
+ if(!hasBD||!hasCam){box.innerHTML=`<div class="scanph"><div><div style="font-size:2.4rem">🔢</div><b>Camera scanning isn't supported in this browser</b><div style="font-size:.85rem;opacity:.9;margin-top:6px">${/iPhone|iPad|iPod/.test(navigator.userAgent)?"iPhone Safari doesn't support barcode detection yet.":"Use Chrome on Android for camera scanning."} Type the number under the barcode below instead.</div></div></div>`;msg.textContent="";return;}
+ box.innerHTML=`<video id="scanVid" playsinline muted></video><div class="reticle"></div><div class="laser"></div>`;msg.textContent="Point the camera at the barcode…";
+ try{let fm=["ean_13","ean_8","upc_a","upc_e"];try{const s=await BarcodeDetector.getSupportedFormats();fm=fm.filter(f=>s.includes(f));}catch(e){}
+  const det=new BarcodeDetector({formats:fm.length?fm:undefined});scanStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"},audio:false});const v=$("scanVid");v.srcObject=scanStream;await v.play();
+  scanTimer=setInterval(async()=>{if(scanBusy||!v.videoWidth)return;scanBusy=true;try{const r=await det.detect(v);if(r&&r.length){stopScan();if(navigator.vibrate)navigator.vibrate(60);$("scanCode").value=r[0].rawValue;lookupCode(r[0].rawValue);}}catch(e){}scanBusy=false;},350);
+ }catch(err){stopScan();box.innerHTML=`<div class="scanph"><div><div style="font-size:2.4rem">📷</div><b>Couldn't open the camera</b><div style="font-size:.85rem;opacity:.9;margin-top:6px">${err&&err.name==="NotAllowedError"?"Camera permission was blocked. Allow it in your browser settings, or type the barcode below.":"Type the barcode number below instead."}</div></div></div>`;msg.textContent="";}}
+async function lookupCode(code){code=String(code||"").replace(/\D/g,"");const msg=$("scanMsg");if(code.length<6){msg.textContent="Enter the full barcode number (usually 8–13 digits).";return;}
+ if(!navigator.onLine){msg.textContent="You're offline. Connect to the internet to look up a barcode, or enter the food manually.";return;}
+ msg.textContent="Looking up "+code+"…";
+ try{const r=await fetch(`https://world.openfoodfacts.org/api/v2/product/${code}.json?fields=product_name,brands,serving_size,serving_quantity,nutriments`);const j=await r.json();
+  if(!j||j.status!==1||!j.product){msg.innerHTML=`No product found for <b>${esc(code)}</b>. You can enter it manually.`;return;}
+  const p=j.product,n=p.nutriments||{},hasS=n["energy-kcal_serving"]!=null,sfx=hasS?"_serving":"_100g";const g=k=>{const v=n[k+sfx];return v==null||v===""?undefined:+v;};
+  const kcal=g("energy-kcal")??(g("energy")!=null?g("energy")/4.184:undefined);
+  const br=p.brands?String(p.brands).split(",")[0].trim():"",pn=(p.product_name||"").trim();const name=(br&&!pn.toLowerCase().includes(br.toLowerCase())?br+" "+pn:pn||br).trim()||("Product "+code);
+  const en={name:name+" ("+(hasS?(p.serving_size||"1 serving"):"100 g")+")",cal:kcal!=null?Math.round(kcal):"",p:r1(g("proteins")||0),c:r1(g("carbohydrates")||0),f:r1(g("fat")||0),qty:1,meal:selMeal};
+  const fib=g("fiber"),sug=g("sugars"),na=g("sodium"),sat=g("saturated-fat"),ch=g("cholesterol");if(fib!=null)en.fib=r1(fib);if(sug!=null)en.sug=r1(sug);if(na!=null)en.na=Math.round(na*1000);if(sat!=null)en.sat=r1(sat);if(ch!=null)en.chol=Math.round(ch*1000);
+  stopScan();$("scan").close();openDlg("add",en);$("fNote").textContent=`From Open Food Facts (barcode ${code})${hasS?"":" · values are per 100 g, adjust servings"}. Check against your label.`;
+ }catch(e){msg.textContent="Couldn't reach Open Food Facts. Check your connection, or enter the food manually.";}}
+$("scanBtn").onclick=()=>openScan();
+$("scanLookup").onclick=()=>lookupCode($("scanCode").value);$("scanCode").onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();lookupCode(e.target.value);}};
+$("scanClose").onclick=()=>{stopScan();$("scan").close();};$("scan").addEventListener("close",stopScan);
+$("scanManual").onclick=()=>{stopScan();$("scan").close();openDlg("add",{name:"",meal:selMeal,qty:1});};
+function renderAll(){renderPro();renderToday();renderSettings();renderMealChips();renderFoods();if($("tab-history").classList.contains("on"))renderHistory();}
 window.addEventListener("resize",()=>{if($("tab-history").classList.contains("on"))renderHistory();});
 applyTheme();renderAll();$("wtDate").textContent=cur;onScroll();
 setTimeout(()=>{$("splash").classList.add("gone");setTimeout(()=>$("splash").remove(),600);},650);
