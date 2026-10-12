@@ -630,12 +630,26 @@ body.onbing{overflow:hidden}
 @keyframes ikbS{0%{opacity:0;transform:scale(1.2)}25%{opacity:1}100%{opacity:1;transform:scale(1.06)}}
 #splash .ivig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(130% 70% at 50% 44%,rgba(13,8,5,.38) 0%,rgba(20,10,4,.66) 45%,rgba(10,6,3,.94) 100%),linear-gradient(180deg,rgba(13,8,5,.5),transparent 30%,transparent 62%,rgba(13,8,5,.9)),radial-gradient(260px 240px at 50% 44%,rgba(233,160,70,.22),transparent 70%);mix-blend-mode:normal}
 #splash.i-rm .ibg i:nth-child(1){opacity:1}
+/* ===== v27 accounts ===== */
+#auth{position:fixed;inset:0;z-index:160;background:radial-gradient(120% 60% at 50% 0%,rgba(200,123,44,.28),transparent 60%),linear-gradient(180deg,rgba(13,8,5,.55),var(--bg) 55%),url(img/intro/salmon.webp) center top/cover;background-color:var(--bg);color:var(--text);overflow-y:auto;transition:opacity .35s}
+#auth.gone{opacity:0}
+#aBox{max-width:420px;margin:0 auto;padding:max(28px,env(safe-area-inset-top)) 20px calc(24px + env(safe-area-inset-bottom))}
+.ahd{display:grid;justify-items:center;gap:4px;margin:6px 0 16px;color:#fff4e0}.ahd img{border-radius:16px;box-shadow:0 0 30px rgba(233,184,98,.4)}.ahd .pjw{font-size:26px}.ahd small{font:700 9.5px -apple-system,sans-serif;letter-spacing:.24em;opacity:.8}
+.acard{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.35);backdrop-filter:blur(10px)}
+.acard h2{margin:10px 0 2px;font-size:21px}.acard>p{margin:4px 0 6px;font-size:13px;line-height:1.4}
+.aseg{grid-template-columns:1fr 1fr}
+.pwf{position:relative}.pwf input{padding-right:64px!important;width:100%}.pwt{position:absolute;right:6px;top:50%;transform:translateY(-50%);min-height:0!important;height:30px;padding:0 10px!important;font-size:12px!important;background:transparent!important;color:var(--a1)!important;border:0!important;box-shadow:none!important}
+.aforgot{display:block;margin:6px 0 0 auto;font-size:12.5px}.aerr{color:#ff7a6b;font-size:12.5px;min-height:1em;margin:6px 0}
+.aor{display:flex;align-items:center;gap:10px;margin:12px 0;color:var(--muted);font-size:12px}.aor::before,.aor::after{content:"";flex:1;height:1px;background:var(--line)}
+.abig{font-size:40px;text-align:center}
+.arow{display:flex;align-items:center;gap:10px}.arow .cav{width:38px;height:38px;font-size:16px;font-weight:800;color:#fff}.arow .rl{display:grid;min-width:0}.arow .rl b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.arow .rl small{color:var(--muted);font-size:12px}
 </style>
 </head>
 <body>
 <div id="splash" aria-hidden="true"><div class="ibg"><i></i><i></i><i></i></div><div class="ivig"></div><canvas id="ember"></canvas><div class="iflash"></div>
 <div class="istage"><div class="ilogo"><img src="platejack.svg" alt="" width="150" height="150"><svg viewBox="0 0 512 512" class="iov"><defs><linearGradient id="irim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff1c4"/><stop offset=".4" stop-color="#e9b862"/><stop offset="1" stop-color="#c87b2c"/></linearGradient></defs><circle class="iring" cx="256" cy="256" r="184" fill="none" stroke="url(#irim)" stroke-width="22" stroke-linecap="round" pathLength="100" transform="rotate(-90 256 256)"/><path class="ibolt" d="M352 106l-30 50h18l-10 42l36-56h-20l14-36z" fill="#fffbe9" stroke="#2a1508" stroke-width="6" stroke-linejoin="round"/></svg></div>
 <b class="pjw iword"><i>PLATE</i><span>JACK</span></b><small class="itag">TAKE OVER YOUR PLATE</small></div></div>
+<div id="auth" style="display:none" role="dialog" aria-label="Sign in"><div id="aBox"></div></div>
 <div id="onb" style="display:none" role="dialog" aria-label="Welcome to PlateJack"><div class="oslides" id="oSlides">
  <section class="os" style="--img:url(img/intro/salmon.webp)"><div class="ot"><span class="oe">📊</span><h2>Track it</h2><p>Log meals in seconds and watch calories, protein and macros fill up through the day.</p></div></section>
  <section class="os" style="--img:url(img/intro/chicken.webp)"><div class="ot"><span class="oe">📷</span><h2>Snap &amp; scan</h2><p>Snap your plate, scan a barcode, pick a portion. Logging that keeps up with you.</p></div></section>
@@ -727,6 +741,7 @@ body.onbing{overflow:hidden}
 </section>
 <section class="tab" id="tab-settings">
   <h1 class="lt">Settings</h1>
+  <div class="grp">Account</div><div class="card" id="acctCard"></div>
   <div class="grp">Membership</div><div class="card" id="proCard"></div>
   <div class="grp">Appearance</div><div class="card"><h2>Background</h2><div class="swatches" id="bgPick"></div><p class="muted" style="font-size:.8rem;margin:10px 0 0">The ☀️/🌙 button at the top switches between your last dark and light backgrounds.</p></div>
   <div class="grp">Profile</div><div class="card"><label for="uName">Your name</label><input id="uName" placeholder="Your name" autocomplete="given-name"><label for="wUnit">Water unit</label><select id="wUnit"><option value="glass">glasses (8 oz)</option><option value="oz">ounces</option></select></div>
@@ -834,6 +849,7 @@ body.onbing{overflow:hidden}
  <div class="row" style="margin-top:8px"><button type="button" id="csMail">✉️ Email it</button><button type="button" class="ghost" id="csShare">📤 Share</button></div></dialog>
 <div class="toast" id="toast"></div><div id="tip"></div>
 
+<script src="vendor/supabase.js"></script>
 <script>
 'use strict';
 /* ---------- Built-in food list: [name, serving, kcal, protein g, carbs g, fat g, fiber g, sugar g, sodium mg, sat fat g, cholesterol mg] (approximate) ---------- */
@@ -1438,7 +1454,7 @@ $("wtAdd").onclick=()=>{const v=+$("wtIn").value;if(!(v>50&&v<1000)){toast("Ente
 $("wtList").onclick=e=>{const k=e.target.closest("[data-wk]");if(k){delete S.weights[k.dataset.wk];save();renderHistory();}};
 
 /* ---------- Settings ---------- */
-function renderSettings(){$("introOn").checked=S.intro!==false;const CO=S.coach||{};$("coachOn").checked=CO.on!==false;$("coachNotif").checked=!!CO.notif;$("coachTime").value=CO.time||"19:00";$("uName").value=S.name||"";$("goal").value=S.goal||"";$("gP").value=S.macros.p||"";$("gC").value=S.macros.c||"";$("gF").value=S.macros.f||"";$("gW").value=S.goalWeight||"";NKEYS.forEach(k=>$("nG_"+k).value=(S.ngoals||NDEF)[k]??"");}
+function renderSettings(){try{renderAccount();}catch(e){}$("introOn").checked=S.intro!==false;const CO=S.coach||{};$("coachOn").checked=CO.on!==false;$("coachNotif").checked=!!CO.notif;$("coachTime").value=CO.time||"19:00";$("uName").value=S.name||"";$("goal").value=S.goal||"";$("gP").value=S.macros.p||"";$("gC").value=S.macros.c||"";$("gF").value=S.macros.f||"";$("gW").value=S.goalWeight||"";NKEYS.forEach(k=>$("nG_"+k).value=(S.ngoals||NDEF)[k]??"");}
 $("saveGoal").onclick=()=>{const g=Math.round(+$("goal").value);if(!(g>=500&&g<=10000)){toast("Enter a goal between 500 and 10,000");return;}
  S.goal=g;S.macros={p:+$("gP").value||0,c:+$("gC").value||0,f:+$("gF").value||0};S.goalWeight=+$("gW").value||0;S.ngoals={...NDEF};NKEYS.forEach(k=>{const s=$("nG_"+k).value;if(s!==""&&+s>=0)S.ngoals[k]=+s;});save();renderToday();toast("Goal saved");showTab("today");};
 $("estBtn").onclick=()=>{const sex=$("eSex").value,age=+$("eAge").value,inches=(+$("eFt").value||0)*12+(+$("eIn").value||0),lb=+$("eLb").value;
@@ -1811,6 +1827,87 @@ $("gShare").onclick=async()=>{const G=S.grocery||{checked:{},hidden:{}};const it
 function renderAll(){renderPro();if($("tab-plan").classList.contains("on"))renderPlan();renderToday();renderSettings();renderMealChips();renderFoods();if($("tab-history").classList.contains("on"))renderHistory();}
 window.addEventListener("resize",()=>{if($("tab-history").classList.contains("on"))renderHistory();});
 applyTheme();renderAll();$("wtDate").textContent=cur;onScroll();
+/* ---------- Accounts & cloud sync (Supabase) ---------- */
+const SB_URL="https://gxlxdpsnvgdbgfzeyusd.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd4bHhkcHNudmdkYmdmemV5dXNkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE4MzYxNzMsImV4cCI6MjEwNzQxMjE3M30.164cIzZ3baF8Jc3oJV3LjN9vDACIGnQaU7Ai4jkSfLI";
+const SYNC_KEY="pj_sync_v1",AUTH_KEY="pj_auth_choice",BK_KEY="ct_data_v1_backup";
+let sb=null,sbUser=null,syncT=0,syncing=false,_applying=false,_recovery=false;
+const syncMeta=()=>{try{return JSON.parse(localStorage.getItem(SYNC_KEY))||{};}catch(e){return {};}};
+const setMeta=m=>{try{localStorage.setItem(SYNC_KEY,JSON.stringify({...syncMeta(),...m}));}catch(e){}};
+try{if(window.supabase&&/^https?:$/.test(location.protocol))sb=window.supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,flowType:"implicit",storageKey:"pj-auth"}});}catch(e){console.warn("auth init",e);}
+// hook local saves
+const _save0=save;save=function(){_save0();if(_applying)return;setMeta({localAt:new Date().toISOString(),dirty:true});queueSync();};
+function queueSync(ms=2000){if(!sbUser)return;clearTimeout(syncT);syncT=setTimeout(()=>syncNow(),ms);renderAccount();}
+const cloudCopy=()=>{const d=JSON.parse(JSON.stringify(S));delete d.pro;return d;};
+function applyCloud(data){const pro=S.pro;_applying=true;S=migrate(data);if(pro)S.pro=pro;else delete S.pro;save();_applying=false;try{applyTheme();renderAll();}catch(e){}}
+function backup(data,src){try{localStorage.setItem(BK_KEY,JSON.stringify({at:new Date().toISOString(),source:src,data}));}catch(e){}}
+async function pushCloud(){const at=syncMeta().localAt||new Date().toISOString();const {error}=await sb.from("user_data").upsert({user_id:sbUser.id,data:cloudCopy(),updated_at:at});if(error)throw error;setMeta({dirty:false,cloudAt:at,syncedAt:new Date().toISOString()});}
+async function syncNow(first){if(!sb||!sbUser||syncing)return;if(!navigator.onLine){setMeta({err:"offline"});renderAccount();return;}syncing=true;renderAccount();
+ try{const m=syncMeta();const {data:row,error}=await sb.from("user_data").select("data,updated_at").eq("user_id",sbUser.id).maybeSingle();if(error)throw error;
+  const localHas=hasData();
+  if(!row){if(localHas||m.dirty)await pushCloud();else await pushCloud();}
+  else{const cAt=new Date(row.updated_at).getTime(),lAt=m.localAt?new Date(m.localAt).getTime():0;
+   if(first||m.uid!==sbUser.id){ // sign-in merge: newest whole blob wins, other kept as backup
+    if(!localHas){applyCloud(row.data);setMeta({dirty:false,cloudAt:row.updated_at,localAt:row.updated_at});}
+    else if(cAt>=lAt){backup(cloudCopy(),"local");applyCloud(row.data);setMeta({dirty:false,cloudAt:row.updated_at,localAt:row.updated_at});toast("Synced from your account · local copy backed up");}
+    else{backup(row.data,"cloud");await pushCloud();toast("Synced to your account · cloud copy backed up");}}
+   else if(m.dirty){if(cAt>new Date(m.cloudAt||0).getTime()&&cAt>lAt){backup(cloudCopy(),"local");applyCloud(row.data);setMeta({dirty:false,cloudAt:row.updated_at,localAt:row.updated_at});}else await pushCloud();}
+   else if(cAt>new Date(m.cloudAt||0).getTime()){applyCloud(row.data);setMeta({cloudAt:row.updated_at,localAt:row.updated_at});}}
+  setMeta({uid:sbUser.id,err:null,syncedAt:new Date().toISOString()});}
+ catch(e){setMeta({err:e.message||String(e)});console.warn("sync",e.message||e);}
+ finally{syncing=false;renderAccount();}}
+window.addEventListener("online",()=>syncNow());document.addEventListener("visibilitychange",()=>{if(!document.hidden)syncNow();});window.addEventListener("focus",()=>syncNow());
+if(sb)sb.auth.onAuthStateChange((ev,ses)=>{const prev=sbUser;sbUser=ses&&ses.user||null;
+ if(ev==="PASSWORD_RECOVERY"){_recovery=true;openAuth("reset");}
+ if(sbUser&&(!prev||prev.id!==sbUser.id))setTimeout(()=>syncNow(true),0);renderAccount();});
+/* ---- auth screens ---- */
+let authMode="signin";
+function authHTML(){const M=authMode;const pw=(id,ph,ac)=>`<div class="pwf"><input id="${id}" type="password" placeholder="${ph}" autocomplete="${ac}" minlength="6"><button type="button" class="pwt" data-for="${id}" aria-label="Show password">Show</button></div>`;
+ const head=`<div class="ahd"><img src="platejack.svg" alt="" width="64" height="64"><b class="pjw">PLATE<span>JACK</span></b><small>TAKE OVER YOUR PLATE</small></div>`;
+ if(M==="check")return head+`<div class="acard"><div class="abig">📬</div><h2>Check your email</h2><p>We sent a confirmation link to <b>${esc(window._authEmail||"your inbox")}</b>. Tap it to activate your account, then sign in here.</p><p class="fine" style="text-align:left">Didn't get it? Check spam, or wait a few minutes before trying again.</p><button type="button" id="aToSignin" style="width:100%">Back to sign in</button></div>`;
+ if(M==="sent")return head+`<div class="acard"><div class="abig">🔑</div><h2>Reset link sent</h2><p>If an account exists for <b>${esc(window._authEmail||"")}</b>, a password reset link is on its way.</p><button type="button" id="aToSignin" style="width:100%">Back to sign in</button></div>`;
+ if(M==="reset")return head+`<form class="acard" id="aForm"><h2>Set a new password</h2><label for="aPw">New password</label>${pw("aPw","At least 6 characters","new-password")}<p class="aerr" id="aErr"></p><button id="aGo" style="width:100%">Save password</button></form>`;
+ if(M==="forgot")return head+`<form class="acard" id="aForm"><h2>Forgot password</h2><p class="muted">Enter your email and we'll send a reset link.</p><label for="aEmail">Email</label><input id="aEmail" type="email" autocomplete="email" placeholder="you@example.com" value="${esc(window._authEmail||"")}"><p class="aerr" id="aErr"></p><button id="aGo" style="width:100%">Send reset link</button><button type="button" class="link" id="aToSignin" style="width:100%;margin-top:6px">Back to sign in</button></form>`;
+ const up=M==="signup";
+ return head+`<form class="acard" id="aForm"><div class="seg aseg"><button type="button" data-m="signin" class="${up?"":"on"}">Sign in</button><button type="button" data-m="signup" class="${up?"on":""}">Create account</button></div>
+ <h2>${up?"Create your account":"Welcome back"}</h2><p class="muted">${up?"Back up your log and use PlateJack on any device.":"Sign in to sync your plate across devices."}</p>
+ <label for="aEmail">Email</label><input id="aEmail" type="email" autocomplete="email" placeholder="you@example.com" value="${esc(window._authEmail||"")}">
+ <label for="aPw">Password</label>${pw("aPw",up?"At least 6 characters":"Your password",up?"new-password":"current-password")}
+ ${up?"":`<button type="button" class="link aforgot" id="aForgot">Forgot password?</button>`}
+ <p class="aerr" id="aErr"></p><button id="aGo" style="width:100%">${up?"Create account":"Sign in"}</button>
+ <div class="aor"><span>or</span></div><button type="button" class="ghost" id="aSkip" style="width:100%">Continue without account</button><p class="fine">Without an account your data stays on this device only.</p></form>`;}
+function openAuth(m){authMode=m||"signin";const a=$("auth");a.style.display="";document.body.classList.add("onbing");renderAuth();}
+function closeAuth(){const a=$("auth");a.classList.add("gone");setTimeout(()=>{a.style.display="none";a.classList.remove("gone");document.body.classList.remove("onbing");if(window._afterAuth){const f=window._afterAuth;window._afterAuth=null;f();}},350);}
+function renderAuth(){const a=$("aBox");a.innerHTML=authHTML();a.scrollTop=0;
+ a.querySelectorAll(".pwt").forEach(b=>b.onclick=()=>{const i=$(b.dataset.for);const sh=i.type==="password";i.type=sh?"text":"password";b.textContent=sh?"Hide":"Show";b.setAttribute("aria-label",sh?"Hide password":"Show password");});
+ a.querySelectorAll(".aseg button").forEach(b=>b.onclick=()=>{window._authEmail=($("aEmail")||{}).value;authMode=b.dataset.m;renderAuth();});
+ const on=(id,f)=>{const e=$(id);if(e)e.onclick=f;};
+ on("aToSignin",()=>{authMode="signin";renderAuth();});on("aForgot",()=>{window._authEmail=$("aEmail").value;authMode="forgot";renderAuth();});
+ on("aSkip",()=>{try{localStorage.setItem(AUTH_KEY,"local");}catch(e){}closeAuth();});
+ const f=$("aForm");if(f)f.onsubmit=e=>{e.preventDefault();authSubmit();};}
+const authErr=t=>{const e=$("aErr");if(e)e.textContent=t||"";};
+function friendly(e){const m=(e&&e.message)||String(e);if(/Invalid login/i.test(m))return "Email or password is incorrect.";if(/not confirmed/i.test(m))return "Please confirm your email first — check your inbox.";if(/rate limit|too many/i.test(m))return "Too many emails sent. Please wait a bit and try again.";if(/already registered/i.test(m))return "That email already has an account — sign in instead.";if(/fetch|network/i.test(m))return "You're offline. Connect to sign in, or continue without an account.";return m;}
+async function authSubmit(){if(!sb){authErr("Accounts aren't available here.");return;}const btn=$("aGo");const em=($("aEmail")||{}).value&&$("aEmail").value.trim(),pw=($("aPw")||{}).value;window._authEmail=em;authErr("");
+ if(authMode!=="reset"&&!/^\S+@\S+\.\S+$/.test(em||"")){authErr("Enter a valid email.");return;}if((authMode==="signup"||authMode==="reset"||authMode==="signin")&&(!pw||pw.length<6)){authErr("Password must be at least 6 characters.");return;}
+ btn.disabled=true;const lbl=btn.textContent;btn.textContent="Please wait…";
+ try{const redir=location.origin+location.pathname;
+  if(authMode==="signin"){const {error}=await sb.auth.signInWithPassword({email:em,password:pw});if(error)throw error;localStorage.setItem(AUTH_KEY,"account");closeAuth();toast("Signed in");}
+  else if(authMode==="signup"){const {data,error}=await sb.auth.signUp({email:em,password:pw,options:{emailRedirectTo:redir}});if(error)throw error;if(data.session){localStorage.setItem(AUTH_KEY,"account");closeAuth();toast("Account created");}else{authMode="check";renderAuth();}}
+  else if(authMode==="forgot"){const {error}=await sb.auth.resetPasswordForEmail(em,{redirectTo:redir});if(error)throw error;authMode="sent";renderAuth();}
+  else if(authMode==="reset"){const {error}=await sb.auth.updateUser({password:pw});if(error)throw error;_recovery=false;history.replaceState(null,"",location.pathname);closeAuth();toast("Password updated");}}
+ catch(e){authErr(friendly(e));}finally{const b=$("aGo");if(b){b.disabled=false;b.textContent=lbl;}}}
+function maybeAuth(next){const qs=new URLSearchParams(location.search);let choice=null;try{choice=localStorage.getItem(AUTH_KEY);}catch(e){}
+ if(_recovery){window._afterAuth=next;return;}
+ if(!sb||sbUser||choice||(navigator.webdriver&&!qs.has("auth"))){next();return;}
+ sb.auth.getSession().then(({data})=>{if(data&&data.session){next();return;}window._afterAuth=next;openAuth(hasData()?"signin":"signup");}).catch(()=>next());}
+/* ---- Settings account card ---- */
+function renderAccount(){const el=$("acctCard");if(!el)return;const m=syncMeta();
+ if(!sb){el.innerHTML=`<p class="muted" style="margin:0">Accounts need the web version (https).</p>`;return;}
+ if(!sbUser){el.innerHTML=`<div class="arow"><span class="cav">👤</span><span class="rl"><b>Not signed in</b><small>Data is saved on this device only</small></span></div><button id="acIn" style="width:100%;margin-top:10px">Sign in or create account</button>`;$("acIn").onclick=()=>openAuth("signin");return;}
+ const st=syncing?"Syncing…":m.err==="offline"?"Offline — will sync when you're back online":m.err?"Sync issue: "+m.err:m.dirty?"Changes waiting to sync":m.syncedAt?"Synced "+new Date(m.syncedAt).toLocaleTimeString([], {hour:"numeric",minute:"2-digit"}):"Not synced yet";
+ el.innerHTML=`<div class="arow"><span class="cav">${esc((sbUser.email||"?")[0].toUpperCase())}</span><span class="rl"><b>${esc(sbUser.email||"")}</b><small id="acSt">☁️ ${esc(st)}</small></span></div><div class="row" style="margin-top:10px"><button class="ghost" id="acSync">Sync now</button><button class="ghost" id="acOut">Sign out</button></div>${localStorage.getItem(BK_KEY)?`<button class="link" id="acBk" style="margin-top:6px">Restore the backup copy from last merge</button>`:""}<p class="fine" style="text-align:left;margin:6px 0 0">Your log syncs to your account. PlateJack Pro stays on this device (demo, no billing).</p>`;
+ $("acSync").onclick=()=>syncNow();$("acOut").onclick=async()=>{if(!confirm("Sign out? Your data stays on this device."))return;try{await sb.auth.signOut();}catch(e){}sbUser=null;setMeta({uid:null});localStorage.setItem(AUTH_KEY,"local");renderAccount();toast("Signed out");};
+ const bk=$("acBk");if(bk)bk.onclick=()=>{const b=JSON.parse(localStorage.getItem(BK_KEY));if(!confirm(`Replace current data with the ${b.source} copy saved ${new Date(b.at).toLocaleString()}? (Current data becomes the new backup.)`))return;const cur=cloudCopy();applyCloud(b.data);backup(cur,"replaced");setMeta({localAt:new Date().toISOString(),dirty:true});queueSync(200);toast("Backup restored");};}
+
 /* ---------- Launch intro ---------- */
 (function(){const sp=$("splash");const qs=new URLSearchParams(location.search);const RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
  const n=S.introN||0,auto=navigator.webdriver&&!qs.has("intro");let mode=S.intro===false?"off":RM?"rm":(qs.get("intro")==="full"||(!auto&&n<3))?"full":"short";
@@ -1818,7 +1915,7 @@ applyTheme();renderAll();$("wtDate").textContent=cur;onScroll();
  S.introN=n+1;try{save();}catch(e){}
  {const POOL=["grill","salmon","steak","chicken"],L=sp.querySelectorAll(".ibg i");L.forEach((el,j)=>{el.style.backgroundImage=`url(img/intro/${POOL[(n+j)%POOL.length]}.webp)`;});}
  const D={full:2500,short:1000,rm:450,off:0}[mode];sp.className="i-"+mode;window._introMode=mode;
- let done=false,raf=0;const end=()=>{if(done)return;done=true;cancelAnimationFrame(raf);sp.classList.add("gone");setTimeout(()=>{sp.remove();maybeOnb();},mode==="off"?0:520);};
+ let done=false,raf=0;const end=()=>{if(done)return;done=true;cancelAnimationFrame(raf);sp.classList.add("gone");setTimeout(()=>{sp.remove();maybeAuth(maybeOnb);},mode==="off"?0:520);};
  if(mode==="off"){end();return;}
  setTimeout(end,D);
  if(mode==="full"||mode==="short"){const c=$("ember"),x=c.getContext("2d"),dpr=Math.min(2,devicePixelRatio||1);c.width=innerWidth*dpr;c.height=innerHeight*dpr;x.scale(dpr,dpr);
