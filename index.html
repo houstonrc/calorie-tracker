@@ -540,6 +540,14 @@ header.scrolled .brand{opacity:0;pointer-events:none}
 #splash small{font:700 11px -apple-system,Inter,sans-serif;letter-spacing:.2em;margin-top:8px}
 #splash img{box-shadow:0 0 50px rgba(233,184,98,.4),0 0 0 1px rgba(233,184,98,.25)!important}
 .pjpay{display:block;width:64px;height:64px;border-radius:16px;margin:0 auto 8px;box-shadow:0 8px 24px rgba(0,0,0,.35),0 0 0 1px rgba(233,184,98,.3)}
+
+/* ===== v22 plate report ===== */
+.rptprev{display:flex;justify-content:center;background:rgba(128,128,128,.12);border-radius:14px;padding:10px}
+.rptprev img{height:min(52vh,420px);aspect-ratio:9/16;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.35);object-fit:contain;background:#000}
+.rptprev.sq img{height:auto;width:min(100%,300px);aspect-ratio:1}
+.rptopts{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:6px}.rptopts label{display:flex;align-items:center;gap:6px;margin:0!important;font-size:12.5px!important;color:var(--text)}
+.rptopts input{width:20px;min-height:0!important;height:20px}
+.rptban{display:flex;align-items:center;gap:10px;padding:10px 12px!important;margin-top:10px}
 </style>
 </head>
 <body>
@@ -560,6 +568,7 @@ header.scrolled .brand{opacity:0;pointer-events:none}
   </div>
   <div class="card" id="noGoal" style="display:none"><div class="empty">Set your daily calorie goal to get started.<br><br><button id="goSetup">Set my goal</button></div></div>
   <div class="card mcard"><div id="macroBars" class="mrings"></div></div>
+  <div class="card rptban" id="rptBan" style="display:none"><span class="ri">📊</span><span class="rl"><b>Your Plate Report is ready</b><small>Share how you jacked your plate this week</small></span><button class="small" id="rptBanGo">Share</button><button class="ghost small" id="rptBanX" aria-label="Dismiss">✕</button></div>
   <div class="sect"><h3>Meals</h3><div><button class="link" id="quickBtn">Quick add</button><button class="link" id="addBtn">＋ Add food</button></div></div>
   <div id="meals"></div>
   <div class="card rowc"><span class="ri">💧</span><b class="rl">Water</b><button class="ghost rnd" id="wMinus" aria-label="Less water">−</button><b id="wVal">0</b><button class="ghost rnd" id="wPlus" aria-label="More water">＋</button></div>
@@ -585,7 +594,7 @@ header.scrolled .brand{opacity:0;pointer-events:none}
     <canvas id="histChart" height="230" style="margin-top:8px"></canvas>
     <p class="muted" style="margin:4px 0 0;font-size:.75rem">Tap a bar for details.</p>
     <div class="statgrid"><div><b id="hAvg">0</b><span>avg / logged day</span></div><div><b id="hDays">0</b><span>days logged</span></div><div><b id="hStreak">0</b><span>day streak 🔥</span></div>
-      </div><details class="more"><summary>See more</summary><div class="statgrid"><div><b id="hCons">0%</b><span>consistency</span></div><div><b id="hBest">–</b><span id="hBestL">best day</span></div><div><b id="hWorst">–</b><span id="hWorstL">toughest day</span></div></div></details>
+      </div><details class="more"><summary>See more</summary><div class="statgrid"><div><b id="hCons">0%</b><span>consistency</span></div><div><b id="hBest">–</b><span id="hBestL">best day</span></div><div><b id="hWorst">–</b><span id="hWorstL">toughest day</span></div></div></details><button id="rptBtn" style="width:100%;margin-top:10px">📤 Share my week</button>
   </div>
   <details class="card disc ins"><summary><span class="ri">🧪</span><span class="rl"><b>Nutrient averages</b><small>Fiber, sugar, sodium vs goals</small></span><i class="chev"></i></summary><div class="discb"><p class="muted" style="margin-top:-6px">Per logged day in this range. “~” means some foods had no data for it.</p><div id="nutAvg"></div></div></details>
   <details class="card disc ins"><summary><span class="ri">🍽️</span><span class="rl"><b>Calories by meal</b><small>Where your calories come from</small></span><i class="chev"></i></summary><div class="discb"><canvas id="mealChart" height="170"></canvas></div></details>
@@ -671,6 +680,7 @@ header.scrolled .brand{opacity:0;pointer-events:none}
  <div class="ben"><span class="bi">🎯</span><div><b>Goal weight projection</b><small>Progress bar and estimated date to reach your goal weight.</small></div></div>
  <div class="ben"><span class="bi">🗓️</span><div><b>Meal planner + grocery list</b><small>Plan the next 7 days, see projected calories and macros, log planned meals in one tap, and get an auto grocery list.</small></div></div>
  <div class="ben"><span class="bi">🥡</span><div><b>Full meal-prep library</b><small>30 prep recipes with ingredients, steps, storage tips and nutrition. Add to your plan and the grocery list fills itself.</small></div></div>
+ <div class="ben"><span class="bi">📸</span><div><b>Plate Report styles</b><small>Bold and Paper share cards, no watermark.</small></div></div>
  <div class="ben"><span class="bi">🎨</span><div><b>All app backgrounds</b><small>Espresso, Olive, Terracotta, Navy, Cream and Sage.</small></div></div>
  <div class="plans" id="plans"><div class="plan" data-p="m"><span>Monthly</span><b>$3.99</b><small class="muted">per month</small></div><div class="plan on" data-p="y"><span class="save">SAVE 37%</span><span>Yearly</span><b>$29.99</b><small class="muted">per year</small></div></div>
  <button id="payDemo" style="width:100%">Demo: unlock Pro (no charge)</button>
@@ -694,6 +704,13 @@ header.scrolled .brand{opacity:0;pointer-events:none}
  <div id="rcPlan" style="display:none"><label>Add 1 serving to these days</label><div class="chips" id="rcDays"></div><button type="button" id="rcPlanGo" style="width:100%;margin-top:6px">Add to plan</button></div>
  <div class="row" style="margin-top:8px"><button type="button" id="rcLog">Log a serving</button><button type="button" class="ghost" id="rcPlanBtn">🗓️ Add to plan</button></div>
  <div class="row" style="margin-top:6px"><button type="button" class="ghost" id="rcFav">☆ Save</button><button type="button" class="ghost" id="rcClose">Close</button></div></div></dialog>
+<dialog id="rpt" class="tall"><div class="shd" tabindex="-1" autofocus style="outline:none"><h2>Plate Report</h2><button type="button" class="ghost small" id="rptClose">Done</button></div>
+ <div class="seg" id="rptFmt" style="grid-template-columns:1fr 1fr;margin-bottom:8px"><button class="on" data-f="story">Story 9:16</button><button data-f="square">Square 1:1</button></div>
+ <div class="rptprev"><img id="rptImg" alt="Plate Report preview"></div>
+ <label>Card style</label><div class="chips" id="rptStyle"></div>
+ <div class="rptopts"><label><input type="checkbox" id="rptHideCal"> Hide calories</label><label><input type="checkbox" id="rptHideWt"> Hide weight</label><button type="button" class="ghost small" id="rptCap">🎲 New caption</button></div>
+ <div class="row" style="margin-top:8px"><button type="button" id="rptShare">📤 Share</button><button type="button" class="ghost" id="rptDl">⬇️ Save PNG</button></div>
+ <p class="fine" id="rptNote"></p></dialog>
 <div class="toast" id="toast"></div><div id="tip"></div>
 
 <script>
@@ -1091,7 +1108,7 @@ function drawRingFrame(eaten,goal,prog){const c=$("ring"),x=c.getContext("2d"),W
   const a=-Math.PI/2+Math.PI*2*p;x.fillStyle="#fff";x.beginPath();x.arc(100+80*Math.cos(a),100+80*Math.sin(a),4,0,Math.PI*2);x.fill();}
  x.fillStyle="#fff";x.textAlign="center";x.font="800 40px -apple-system,system-ui,sans-serif";x.fillText(goal?Math.round(pct*100*prog)+"%":Math.round(ringShown).toLocaleString(),100,108);x.font="600 13px -apple-system,system-ui,sans-serif";x.fillStyle="rgba(255,255,255,.72)";x.fillText(goal?"of daily goal":"kcal eaten",100,132);}
 function drawRing(eaten,goal){cancelAnimationFrame(ringAnim);const from=ringShown,t0=performance.now(),D=900,ease=t=>1-Math.pow(1-t,3);const step=now=>{const t=Math.min(1,(now-t0)/D),e=ease(t);ringShown=from+(eaten-from)*e;drawRingFrame(eaten,goal,from===0&&eaten>0?e:1);if(t<1)ringAnim=requestAnimationFrame(step);};ringAnim=requestAnimationFrame(step);}
-function renderToday(){
+function renderToday(){try{rptBanner();}catch(e){}
  $("datePick").value=cur;renderHero();const t=totals(),g=S.goal;
  $("noGoal").style.display=g?"none":"block";
  $("sGoal").textContent=g?g.toLocaleString():"not set";$("sEaten").textContent=Math.round(t.cal).toLocaleString();
@@ -1403,6 +1420,89 @@ $("rcPlanGo").onclick=()=>{const ks=Object.keys(rcSel).filter(k=>rcSel[k]);if(!k
  if($("tab-plan").classList.contains("on"))renderPlan();toast(`Added to ${ks.length} day${ks.length>1?"s":""} · grocery list updated`);};
 $("rcFav").onclick=()=>{const f=pfav(),r=rcCur,i=f.indexOf(r.id);if(i>=0)f.splice(i,1);else f.push(r.id);save();$("rcFav").textContent=i>=0?"☆ Save":"⭐ Saved";toast(i>=0?"Removed from saved":"Saved recipe");renderPrep();};
 $("rcClose").onclick=()=>$("recipe").close();
+
+/* ---------- Plate Report ---------- */
+const RPT_CAPS=["Plate hijacked. Goals secured.","Fork in hand, goals in sight.","Calories counted. Excuses deleted.","This plate answers to me now.","Meal-prepped and dangerous.","Macros on lock.","Took over my plate. Didn't ask permission.","Snack attacks: defeated.","Consistency is the secret sauce.","Small plates, big wins."];
+const RPT_STYLES=[["classic","Classic"],["bold","Bold"],["paper","Paper"]];
+let rptFmt="story",rptStyle="classic",rptCapI=null,rptBlob=null;const rptImgs={};
+function rptLoad(src){return rptImgs[src]||(rptImgs[src]=new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=src;}));}
+function calcStreak(){let st=0;const d=parse(ymd(new Date()));if(!day(ymd(d)).entries.length)d.setDate(d.getDate()-1);while(day(ymd(d)).entries.length){st++;d.setDate(d.getDate()-1);}return st;}
+function weekStats(){const keys=rangeKeys(7),g=S.goal;const logged=keys.filter(k=>day(k).entries.length),LT=logged.map(k=>totals(k));
+ const avg=logged.length?LT.reduce((a,t)=>a+t.cal,0)/logged.length:0,pav=logged.length?LT.reduce((a,t)=>a+t.p,0)/logged.length:0;
+ const onT=g?logged.filter(k=>{const c=totals(k).cal;return c>=g*.85&&c<=g*1.1;}).length:logged.length;
+ let best=null;if(logged.length){best=[...logged].sort((a,b)=>(g?Math.abs(totals(a).cal-g)-Math.abs(totals(b).cal-g):totals(b).p-totals(a).p))[0];}
+ const m={};keys.forEach(k=>day(k).entries.forEach(e=>{const nm=String(e.name).replace(/\s*\([^)]*\)\s*$/,"").trim()||"Food";m[nm]=(m[nm]||0)+(+e.qty||1);}));
+ const top=Object.entries(m).sort((a,b)=>b[1]-a[1]).slice(0,3).map(x=>x[0]);
+ const wk=Object.keys(S.weights||{}).sort();const inW=wk.filter(k=>k>=keys[0]&&k<=keys[6]);let wch=null;
+ if(inW.length){const prev=wk.filter(k=>k<keys[0]).pop();const a=prev?S.weights[prev]:S.weights[inW[0]],b=S.weights[inW[inW.length-1]];if(prev||inW.length>1)wch=Math.round((b-a)*10)/10;}
+ return {keys,g,logged:logged.length,avg,pav,onT,best,top,wch,streak:calcStreak(),hasGoal:!!g};}
+function rptDates(k){const a=parse(k[0]),b=parse(k[6]);const f=d=>d.toLocaleDateString([], {month:"short",day:"numeric"}).toUpperCase();return f(a)+" – "+f(b);}
+function rrect(x,X,Y,W,H,r){x.beginPath();x.moveTo(X+r,Y);x.arcTo(X+W,Y,X+W,Y+H,r);x.arcTo(X+W,Y+H,X,Y+H,r);x.arcTo(X,Y+H,X,Y,r);x.arcTo(X,Y,X+W,Y,r);x.closePath();}
+function fitFont(x,t,w,size,weight){let s=size;do{x.font=`${weight} ${s}px "Arial Black","Helvetica Neue",-apple-system,system-ui,sans-serif`;s-=2;}while(x.measureText(t).width>w&&s>10);}
+function rgbOf(c){const m=String(c).match(/[\d.]+/g);if(String(c).startsWith("#")){const h=c.slice(1);const n=h.length===3?h.split("").map(v=>v+v).join(""):h;return [0,2,4].map(i=>parseInt(n.substr(i,2),16));}return m?m.slice(0,3).map(Number):[18,11,6];}
+async function drawReport(opt){const W=1080,H=opt.fmt==="story"?1920:1080,sq=H===W;const c=document.createElement("canvas");c.width=W;c.height=H;const x=c.getContext("2d");
+ const st=weekStats(),a1=css("--a1")||"#e9b862",a2=css("--a2")||"#c87b2c",tb=rgbOf(THEMES[curTheme()]&&THEMES[curTheme()].dark?THEMES[curTheme()].bg:"#120b06");
+ const [logo,photo]=await Promise.all([rptLoad("icon-512.png"),rptLoad(opt.style==="paper"?"img/r/crb-d.webp":"img/hero.webp")]);
+ const paper=opt.style==="paper",bold=opt.style==="bold";const ink=paper?"#2a1c10":"#fff8ea",mute=paper?"rgba(42,28,16,.62)":"rgba(255,248,234,.72)";
+ // background
+ if(paper){x.fillStyle="#f6eddc";x.fillRect(0,0,W,H);const g=x.createRadialGradient(W*.8,H*.1,10,W*.8,H*.1,W);g.addColorStop(0,a1+"55");g.addColorStop(1,"rgba(246,237,220,0)");x.fillStyle=g;x.fillRect(0,0,W,H);}
+ else if(bold){const g=x.createLinearGradient(0,0,W,H);g.addColorStop(0,a2);g.addColorStop(.55,`rgb(${tb.map(v=>Math.round(v*1.4)).join(",")})`);g.addColorStop(1,`rgb(${tb.join(",")})`);x.fillStyle=g;x.fillRect(0,0,W,H);
+  x.globalAlpha=.08;x.strokeStyle="#fff";x.lineWidth=60;for(let i=-H;i<W+H;i+=180){x.beginPath();x.moveTo(i,0);x.lineTo(i+H,H);x.stroke();}x.globalAlpha=1;}
+ else{if(photo){const r=Math.max(W/photo.width,H/photo.height);const pw=photo.width*r,ph=photo.height*r;x.drawImage(photo,(W-pw)/2,(H-ph)/2,pw,ph);}else{x.fillStyle="#1a0f07";x.fillRect(0,0,W,H);}
+  const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,`rgba(${tb},.55)`);g.addColorStop(.35,`rgba(${tb},.78)`);g.addColorStop(1,`rgba(${tb},.96)`);x.fillStyle=g;x.fillRect(0,0,W,H);
+  const rg=x.createRadialGradient(W*.15,H*.08,10,W*.15,H*.08,W*.9);rg.addColorStop(0,a2+"66");rg.addColorStop(1,"rgba(0,0,0,0)");x.fillStyle=rg;x.fillRect(0,0,W,H);}
+ if(paper&&photo){const cx=W-200,cy=sq?190:260,r=sq?130:170;x.save();x.beginPath();x.arc(cx,cy,r,0,7);x.clip();const s=Math.max(2*r/photo.width,2*r/photo.height);x.drawImage(photo,cx-photo.width*s/2,cy-photo.height*s/2,photo.width*s,photo.height*s);x.restore();x.lineWidth=10;x.strokeStyle=a2;x.beginPath();x.arc(cx,cy,r,0,7);x.stroke();}
+ const P=80;let y=sq?70:110;
+ // header lockup
+ if(logo){x.save();rrect(x,P,y,sq?96:120,sq?96:120,sq?22:28);x.clip();x.drawImage(logo,P,y,sq?96:120,sq?96:120);x.restore();}
+ const lx=P+(sq?120:150);x.textBaseline="alphabetic";x.font=`900 ${sq?50:60}px "Arial Black","Helvetica Neue",sans-serif`;x.fillStyle=ink;x.fillText("PLATE",lx,y+(sq?58:72));const pw=x.measureText("PLATE").width;
+ const jg=x.createLinearGradient(lx+pw,0,lx+pw+260,0);jg.addColorStop(0,"#ffe2a0");jg.addColorStop(.4,a1);jg.addColorStop(1,"#d0603f");x.fillStyle=paper?a2:jg;x.fillText("JACK",lx+pw,y+(sq?58:72));
+ x.font=`700 ${sq?20:24}px -apple-system,system-ui,sans-serif`;x.fillStyle=mute;x.letterSpacing="6px";x.fillText("TAKE OVER YOUR PLATE",lx,y+(sq?90:110));x.letterSpacing="0px";
+ y+=sq?150:210;
+ x.font=`800 ${sq?26:34}px -apple-system,system-ui,sans-serif`;x.letterSpacing="5px";x.fillStyle=paper?a2:a1;x.fillText("PLATE REPORT · "+rptDates(st.keys),P,y);x.letterSpacing="0px";
+ // headline
+ y+=sq?70:110;fitFont(x,"JACKED MY PLATE",W-2*P-(paper?380:0),sq?64:96,900);x.fillStyle=ink;x.fillText(st.hasGoal?"JACKED MY PLATE":"LOGGED MY PLATE",P,y);
+ y+=sq?150:250;const big=`${st.onT}/7`;x.font=`900 ${sq?170:280}px "Arial Black","Helvetica Neue",sans-serif`;const hg=x.createLinearGradient(0,y-250,0,y);hg.addColorStop(0,paper?a1:"#ffe2a0");hg.addColorStop(.5,a1);hg.addColorStop(1,paper?a2:"#d0603f");x.fillStyle=hg;x.fillText(big,P-8,y);
+ const bw=x.measureText(big).width;x.font=`900 ${sq?52:80}px "Arial Black",sans-serif`;x.fillStyle=ink;x.fillText("DAYS",P+bw+20,y);
+ // 7-day pips
+ y+=sq?40:60;for(let i=0;i<7;i++){const k=st.keys[i],t=totals(k),ok=day(k).entries.length&&(!st.g||(t.cal>=st.g*.85&&t.cal<=st.g*1.1));const pw2=sq?56:96,gx=P+i*(pw2+(sq?14:18));rrect(x,gx,y,pw2,sq?14:18,9);x.fillStyle=ok?a1:(paper?"rgba(42,28,16,.12)":"rgba(255,255,255,.16)");x.fill();
+  x.font=`700 ${sq?16:22}px -apple-system,sans-serif`;x.fillStyle=mute;x.textAlign="center";x.fillText(DOW[parse(k).getDay()][0],gx+pw2/2,y+(sq?40:52));x.textAlign="left";}
+ y+=sq?80:120;const cap=RPT_CAPS[opt.cap%RPT_CAPS.length];x.font=`italic 600 ${sq?32:44}px Georgia,"Times New Roman",serif`;x.fillStyle=paper?a2:a1;x.fillText("“"+cap+"”",P,y);
+ // stats
+ const S2=[];if(!opt.hideCal)S2.push([Math.round(st.avg).toLocaleString(),st.g?`avg cal · goal ${st.g.toLocaleString()}`:"avg calories"]);
+ S2.push([String(st.onT),st.hasGoal?"days on target":"days logged"],[st.streak+"🔥","day streak"],[Math.round(st.pav)+"g","avg protein"]);
+ if(st.best)S2.push([DOW[parse(st.best).getDay()],opt.hideCal||!st.g?"best day":"best day · "+Math.round(totals(st.best).cal).toLocaleString()]);
+ if(!opt.hideWt&&st.wch!==null)S2.push([(st.wch>0?"+":"")+st.wch+" lb","weight change"]);
+ const cols=sq?3:2,gap=sq?16:24,cw=(W-2*P-gap*(cols-1))/cols,chh=sq?120:150;y+=sq?40:70;const shown=S2.slice(0,sq?6:6);
+ shown.forEach(([v,l],i)=>{const cx=P+(i%cols)*(cw+gap),cy=y+Math.floor(i/cols)*(chh+gap);rrect(x,cx,cy,cw,chh,sq?22:30);x.fillStyle=paper?"rgba(255,255,255,.75)":"rgba(255,255,255,.09)";x.fill();x.strokeStyle=paper?"rgba(42,28,16,.08)":"rgba(255,255,255,.12)";x.lineWidth=2;x.stroke();
+  fitFont(x,v,cw-40,sq?52:72,900);x.fillStyle=ink;x.fillText(v,cx+24,cy+(sq?66:94));x.font=`600 ${sq?20:26}px -apple-system,sans-serif`;x.fillStyle=mute;x.fillText(l,cx+24,cy+(sq?98:138));});
+ y+=Math.ceil(shown.length/cols)*(chh+gap)+(sq?10:30);
+ // top foods
+ if(st.top.length&&(!sq||y<H-170)){x.font=`800 ${sq?22:28}px -apple-system,sans-serif`;x.letterSpacing="4px";x.fillStyle=paper?a2:a1;x.fillText("TOP FOODS",P,y+(sq?20:30));x.letterSpacing="0px";
+  if(sq){fitFont(x,st.top.join(" · "),W-2*P,30,700);x.fillStyle=ink;x.fillText(st.top.join(" · "),P,y+62);}
+  else st.top.forEach((f,i)=>{fitFont(x,`${i+1}. ${f}`,W-2*P,44,700);x.fillStyle=ink;x.fillText(`${i+1}. ${f}`,P,y+84+i*58);});}
+ // footer
+ const fy=H-(sq?44:80);x.font=`900 ${sq?30:38}px "Arial Black",sans-serif`;x.fillStyle=ink;x.fillText("platejack",P,fy);const fw=x.measureText("platejack").width;x.fillStyle=a1;x.beginPath();x.arc(P+fw+12,fy-8,7,0,7);x.fill();
+ x.font=`600 ${sq?18:24}px -apple-system,sans-serif`;x.fillStyle=mute;x.textAlign="right";x.fillText(opt.wm?"Made with PlateJack Free":"Not medical advice",W-P,fy);x.textAlign="left";
+ if(opt.wm){const tw=x.measureText("Made with PlateJack Free").width,ls=sq?30:36;x.save();x.globalAlpha=.6;if(logo)x.drawImage(logo,W-P-tw-ls-10,fy-ls+6,ls,ls);x.restore();}
+ return c;}
+function rptOpts(){if(!isPro())rptStyle="classic";if(rptCapI===null){const w=Math.floor(Date.now()/6048e5);rptCapI=w%RPT_CAPS.length;}return {fmt:rptFmt,style:rptStyle,cap:rptCapI,hideCal:$("rptHideCal").checked,hideWt:$("rptHideWt").checked,wm:!isPro()};}
+async function renderRpt(){$("rptStyle").innerHTML=RPT_STYLES.map(([k,n])=>`<button data-s="${k}" class="${k===rptStyle?"on":""}">${n}${k!=="classic"&&!isPro()?" 🔒":""}</button>`).join("");
+ [...$("rptFmt").children].forEach(b=>b.classList.toggle("on",b.dataset.f===rptFmt));
+ const c=await drawReport(rptOpts());window._rptCanvas=c;rptBlob=await new Promise(r=>c.toBlob(r,"image/png"));const u=URL.createObjectURL(rptBlob);const im=$("rptImg");if(im._u)URL.revokeObjectURL(im._u);im._u=u;im.src=u;im.parentNode.classList.toggle("sq",rptFmt==="square");
+ $("rptNote").textContent=isPro()?"Pro: no watermark, all card styles.":"Free card includes a small PlateJack watermark. Pro removes it and unlocks Bold & Paper styles.";}
+function openRpt(){S.rptSeen=ymd(new Date());save();$("rptBan").style.display="none";if(!$("rpt").open)$("rpt").showModal();renderRpt();}
+$("rptBtn").onclick=openRpt;$("rptBanGo").onclick=openRpt;$("rptBanX").onclick=()=>{S.rptSeen=ymd(new Date());save();$("rptBan").style.display="none";};
+$("rptClose").onclick=()=>$("rpt").close();
+$("rptFmt").onclick=e=>{const b=e.target.closest("button");if(b){rptFmt=b.dataset.f;renderRpt();}};
+$("rptStyle").onclick=e=>{const b=e.target.closest("button");if(!b)return;if(b.dataset.s!=="classic"&&!isPro()){openPay("report");return;}rptStyle=b.dataset.s;renderRpt();};
+$("rptHideCal").onchange=renderRpt;$("rptHideWt").onchange=renderRpt;$("rptCap").onclick=()=>{rptCapI=(rptCapI+1)%RPT_CAPS.length;renderRpt();};
+function rptName(){return `platejack-report-${ymd(new Date())}-${rptFmt}.png`;}
+function rptDownload(){const a=document.createElement("a");a.href=URL.createObjectURL(rptBlob);a.download=rptName();document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1000);toast("Saved image");}
+$("rptDl").onclick=()=>{if(rptBlob)rptDownload();};
+$("rptShare").onclick=async()=>{if(!rptBlob)return;const f=new File([rptBlob],rptName(),{type:"image/png"});
+ if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:"My PlateJack Plate Report",text:"Took over my plate this week 🍽️⚡ #PlateJack"});}catch(e){if(e&&e.name!=="AbortError")rptDownload();}}else rptDownload();};
+function rptBanner(){const sun=window._forceSunday||new Date().getDay()===0;const show=sun&&S.rptSeen!==ymd(new Date())&&rangeKeys(7).some(k=>day(k).entries.length);$("rptBan").style.display=show?"":"none";}
 function planKeys(){const a=[];for(let i=0;i<7;i++){const d=parse(ymd(new Date()));d.setDate(d.getDate()+i);a.push(ymd(d));}return a;}
 function planList(k){return (S.plan&&S.plan[k])||[];}
 function planAdd(en){const L=PL()[planDay]||(PL()[planDay]=[]);L.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),...en,meal:en.meal||planMeal});save();renderPlan();toast(`Added to ${shortDate(planDay)} · ${en.meal||planMeal}`);}
