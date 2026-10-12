@@ -13,7 +13,7 @@
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <title>Calorie Tracker</title>
 <style>
-:root{--bg:#f7f1e8;--bg2:#efe4d3;--card:rgba(255,255,255,.72);--text:#2a1c10;--muted:#7a6450;--line:rgba(42,28,16,.10);--accent:#c87b2c;--accent2:#b8692a;--grad:linear-gradient(135deg,#c47a2c,#8f4517);--glow:rgba(120,62,20,.28);--warn:#d9432f;--p:#d0603f;--c:#e8b65a;--f:#b3b062;--p2:#9c3a22;--c2:#c68a2e;--f2:#6f7a35;--input:rgba(255,255,255,.8)}
+:root{--bg:#ffffff;--bg2:#faf7f2;--card:rgba(255,255,255,.80);--text:#2a1c10;--muted:#7a6450;--line:rgba(42,28,16,.10);--accent:#c87b2c;--accent2:#b8692a;--grad:linear-gradient(135deg,#c47a2c,#8f4517);--glow:rgba(120,62,20,.28);--warn:#d9432f;--p:#d0603f;--c:#e8b65a;--f:#b3b062;--p2:#9c3a22;--c2:#c68a2e;--f2:#6f7a35;--input:#fffdf9}
 [data-theme=dark]{--bg:#0d0a07;--bg2:#1a120b;--card:rgba(32,23,15,.55);--text:#f6efe4;--muted:#b8a690;--line:rgba(214,190,160,.14);--glow:rgba(120,62,20,.35);--input:rgba(20,14,9,.6)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{min-height:100%;background:radial-gradient(900px 500px at 10% -10%,rgba(200,123,44,.18),transparent 60%),radial-gradient(800px 500px at 110% 10%,rgba(184,105,42,.16),transparent 60%),radial-gradient(700px 600px at 50% 120%,rgba(132,30,6,.14),transparent 60%),linear-gradient(180deg,var(--bg),var(--bg2));background-color:var(--bg)}
@@ -101,8 +101,26 @@ main{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env
 #bg i.on{opacity:1}
 #bg i[data-k=history]{filter:blur(3px) saturate(1.3) brightness(1.35) contrast(1.1)}
 #bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,10,7,.35),rgba(13,10,7,.15) 35%,rgba(13,10,7,.7))}
-[data-theme=light] #bg i{filter:blur(18px) saturate(1.1) brightness(1.05);opacity:0}[data-theme=light] #bg i.on{opacity:.45}
-[data-theme=light] #bg::after{background:linear-gradient(180deg,rgba(247,241,232,.55),rgba(247,241,232,.75))}
+[data-theme=light] #bg i{filter:blur(18px) saturate(1.1) brightness(1.05);opacity:0}[data-theme=light] #bg i.on{opacity:.55}
+[data-theme=light] .card{background:rgba(255,255,255,.80);border-color:rgba(120,80,40,.12);box-shadow:0 10px 30px rgba(90,55,20,.12),inset 0 1px 0 #fff}
+[data-theme=light] header.scrolled{background:rgba(255,255,255,.85)}
+[data-theme=light] nav{background:rgba(255,255,255,.88);box-shadow:0 10px 30px rgba(90,55,20,.18)}
+[data-theme=light] nav button.on{background:linear-gradient(135deg,rgba(200,123,44,.16),rgba(184,105,42,.12));box-shadow:inset 0 0 0 1px rgba(200,123,44,.35)}
+[data-theme=light] dialog{background:#faf7f2}
+[data-theme=light] button.ghost,[data-theme=light] .chips button:not(.on){background:#fff;border-color:rgba(120,80,40,.18)}
+[data-theme=light] .entry,[data-theme=light] .stat3>div,[data-theme=light] .statgrid>div{background:#fffdf9}
+[data-theme=light] header h1{color:var(--text);-webkit-text-fill-color:currentColor;background:none}
+[data-theme=light] .ringstats b{color:#2a1c10}
+[data-theme=light] #tip{background:#fffdf9;color:#2a1c10;border-color:rgba(200,123,44,.5);box-shadow:0 8px 24px rgba(90,55,20,.2)}
+[data-theme=light] #splash{background:#faf7f2;color:#2a1c10}
+.swatches{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.sw{display:flex;flex-direction:column;align-items:center;gap:8px;padding:10px 6px;border-radius:18px;background:rgba(190,165,130,.08);border:2px solid transparent;color:var(--text);box-shadow:none;font-weight:700;min-height:0}
+.sw.on{border-color:#c87b2c;background:rgba(200,123,44,.12)}
+.sw i{width:100%;height:64px;border-radius:12px;display:block;box-shadow:inset 0 0 0 1px rgba(120,80,40,.2)}
+.sw i.brown{background:linear-gradient(135deg,#0d0a07,#2a1c10 60%,#c87b2c)}
+.sw i.white{background:linear-gradient(135deg,#ffffff,#faf7f2 60%,#e9b862)}
+.sw i.sys{background:linear-gradient(135deg,#0d0a07 0 50%,#faf7f2 50% 100%)}
+[data-theme=light] #bg::after{background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(250,247,242,.72) 40%,rgba(250,247,242,.88))}
 header{background:transparent;border-bottom-color:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;transition:background .25s,border-color .25s,backdrop-filter .25s;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
 header.scrolled{background:var(--card);border-bottom-color:var(--line);backdrop-filter:blur(20px) saturate(170%);-webkit-backdrop-filter:blur(20px) saturate(170%)}
 header h1{font-size:1.05rem;opacity:0;transform:translateY(6px);transition:.25s;text-align:center;padding-left:46px}
@@ -205,6 +223,7 @@ dialog[open]{animation:sheet .38s cubic-bezier(.2,.9,.25,1)}
 <!-- SETTINGS -->
 <section class="tab" id="tab-settings">
   <h1 class="lt">Settings</h1>
+  <div class="card"><h2>🎨 App background</h2><div class="swatches" id="bgPick"><button class="sw" data-bg="brown"><i class="brown"></i>Brown</button><button class="sw" data-bg="white"><i class="white"></i>White</button><button class="sw" data-bg="system"><i class="sys"></i>Match phone</button></div><p class="muted" style="font-size:.8rem;margin:10px 0 0">The ☀️/🌙 button at the top switches between Brown and White.</p></div>
   <div class="card"><h2>👋 Profile</h2><label for="uName">Your name (for the greeting)</label><input id="uName" placeholder="Your name" autocomplete="given-name"></div>
   <div class="card"><h2>🎯 Daily goal</h2>
     <label for="goal">Calories per day</label><input type="number" id="goal" inputmode="numeric" placeholder="e.g. 2000">
@@ -614,8 +633,13 @@ function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");cle
 function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
 
 /* ---------- Theme ---------- */
-function applyTheme(){const dark=S.theme?S.theme==="dark":true;document.documentElement.dataset.theme=dark?"dark":"light";$("themeBtn").textContent=dark?"☀️":"🌙";}
-$("themeBtn").onclick=()=>{S.theme=document.documentElement.dataset.theme==="dark"?"light":"dark";save();applyTheme();renderAll();};
+function bgMode(){return S.bg||(S.theme==="light"?"white":"brown");}
+function applyTheme(){const m=bgMode(),dark=m==="system"?matchMedia("(prefers-color-scheme: dark)").matches:m!=="white";document.documentElement.dataset.theme=dark?"dark":"light";$("themeBtn").textContent=dark?"☀️":"🌙";$("themeBtn").setAttribute("aria-label",dark?"Switch to White background":"Switch to Brown background");
+ const tc=document.querySelector('meta[name="theme-color"]');if(tc)tc.content=dark?"#0d0a07":"#faf7f2";document.querySelectorAll("#bgPick .sw").forEach(b=>b.classList.toggle("on",b.dataset.bg===m));}
+function setBg(m){S.bg=m;S.theme=m==="system"?null:(m==="white"?"light":"dark");save();applyTheme();renderAll();}
+matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change",()=>{if(bgMode()==="system"){applyTheme();renderAll();}});
+$("themeBtn").onclick=()=>setBg(document.documentElement.dataset.theme==="dark"?"white":"brown");
+$("bgPick").onclick=e=>{const b=e.target.closest(".sw");if(b){setBg(b.dataset.bg);toast(b.textContent.trim()+" background");}};
 
 /* ---------- Tabs ---------- */
 function showTab(t){document.querySelectorAll(".tab").forEach(s=>s.classList.toggle("on",s.id==="tab-"+t));document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===t));window.scrollTo(0,0);if(t==="history")renderHistory();if(t==="add")renderFoods();}
@@ -740,7 +764,7 @@ $("dlgForm").onsubmit=ev=>{ev.preventDefault();const name=$("fName").value.trim(
 function addEntry(en){const _id=Date.now().toString(36)+Math.random().toString(36).slice(2,6);window._newId=_id;dayW().entries.push({id:_id,t:Date.now(),...en});save();renderToday();}
 
 /* ---------- Charts ---------- */
-function prepCanvas(c){const dpr=window.devicePixelRatio||1,w=c.clientWidth||600,h=+c.getAttribute("height");c.width=w*dpr;c.height=h*dpr;c.style.height=h+"px";const x=c.getContext("2d");x.setTransform(dpr,0,0,dpr,0,0);x.clearRect(0,0,w,h);return[x,w,h];}
+function prepCanvas(c){const dpr=window.devicePixelRatio||1,w=c.clientWidth||600,h=+(c.dataset.h||(c.dataset.h=c.getAttribute("height")));c.width=w*dpr;c.height=h*dpr;c.style.height=h+"px";const x=c.getContext("2d");x.setTransform(dpr,0,0,dpr,0,0);x.clearRect(0,0,w,h);return[x,w,h];}
 let range=7;
 $("rangeChips").onclick=e=>{const b=e.target.closest("button");if(!b)return;range=+b.dataset.r;[...$("rangeChips").children].forEach(x=>x.classList.toggle("on",x===b));renderHistory();};
 /* ---------- Tooltips for canvas charts ---------- */
