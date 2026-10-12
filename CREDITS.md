@@ -52,3 +52,15 @@ Real photos, resized and converted to WebP (thumbnail `-t`, detail `-d`). Each i
 
 Closest-match photos (not the exact recipe): Veggie Egg Muffins (mini quiches), Banana Baked Oatmeal Cups (oatmeal muffins), Chicken Rice & Broccoli Bowls (chicken, rice & broccoli plate with peanut sauce), Lean Turkey Chili (turkey chili mac), Greek Chicken Quinoa Bowls (quinoa veggie bowl).
 
+
+## Launch intro & onboarding photos
+
+Cropped to 1080×1920 portrait and converted to WebP (darkened by an overlay in the app).
+
+| Photo | File | Author | License | Source |
+|---|---|---|---|---|
+| Grilling steaks over flames | img/intro/grill.webp | _BuBBy_ from USA | CC BY 2.0 | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Grilling_Steaks.jpg) |
+| Sesame soy glazed salmon | img/intro/salmon.webp | HarshLight | CC BY 2.0 | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Sesame_Soy_Glazed_Skuna_Bay_Salmon_-_2.jpg) |
+| T-bone steak on a dark plate | img/intro/steak.webp | Shixart1985 | CC BY 2.0 | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Steak_served_with_sauce_greens_and_garnishes_on_a_dark_plate.jpg) |
+| Grilled chicken with lemon & herbs | img/intro/chicken.webp | Shixart1985 | CC BY 2.0 | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Grilled_chicken_with_lemon_and_herbs_served_on_a_dark_platter.jpg) |
+| Meal prep glass containers | img/intro/prep.webp | Ella Olsson | CC BY 2.0 | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Meal_prep_glass_container_(45165270525).jpg) |
