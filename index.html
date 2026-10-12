@@ -309,6 +309,76 @@ html[data-bg=sage] #bg i{filter:blur(18px) grayscale(.6) brightness(1.05)}
 html[data-bg=sage] #bg::after{background:linear-gradient(180deg,rgba(176,204,160,.72),rgba(176,204,160,.82) 40%,rgba(176,204,160,.92))}
 html[data-bg=sage] .hero{background:linear-gradient(180deg,rgba(46,74,40,.55),rgba(46,74,40,.72) 55%,rgba(46,74,40,.97)),url(img/hero.webp) center/cover!important}
 html[data-bg=sage] .hero .hd{color:#93bd7c!important}
+
+/* ===== v12 clean design pass ===== */
+:root{--s1:8px;--s2:16px;--s3:24px;--r:20px}
+main{padding-top:var(--s2)}
+.card{border:0!important;border-radius:var(--r);padding:var(--s2) 18px;margin-bottom:12px;box-shadow:0 1px 2px rgba(0,0,0,.08),0 8px 24px rgba(0,0,0,.14)!important}
+[data-theme=light] .card{box-shadow:0 1px 2px rgba(60,40,20,.06),0 6px 18px rgba(60,40,20,.08)!important}
+.card h2{font-size:1.06rem;font-weight:750;margin:0 0 var(--s2)}
+.lt{font-size:2.1rem;margin:var(--s1) 4px var(--s3)}
+.grp{font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:var(--s3) 18px var(--s1)}
+#tab-settings .lt+.grp{margin-top:0}
+/* hero */
+.hero{padding:calc(68px + env(safe-area-inset-top)) 20px var(--s3)!important;text-align:center;border-radius:0 0 32px 32px}
+.hero .hi{font-size:.9rem;opacity:.8}.hero .hn{font-size:1.6rem;margin:0}.hero .hd{font-size:.82rem;margin-top:2px}
+.hero .datebar{margin:var(--s2) auto 0;max-width:260px}.hero .datebar button{flex:0 0 40px;min-height:36px;padding:0;border-radius:12px;font-size:1.3rem;line-height:1}
+.hero .datebar input{min-height:36px;padding:4px 8px;background:rgba(255,255,255,.12)!important;color:#fff!important;border:0!important;font-size:.9rem;color-scheme:dark}
+.hring{display:flex;justify-content:center;margin:var(--s2) 0 var(--s1)}
+.hstats{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s1);max-width:340px;margin:0 auto}
+.hstats div{display:flex;flex-direction:column;align-items:center;gap:2px}
+.hstats b{font-size:1.45rem;font-weight:800;color:#fff;font-variant-numeric:tabular-nums;letter-spacing:-.02em;line-height:1.1}
+.hstats span{font-size:.72rem;font-weight:600;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.05em}
+.hstats div+div{border-left:1px solid rgba(255,255,255,.14)}
+/* macro rings */
+.mcard{margin-top:var(--s2)}
+.mrings{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s1)}
+.mr{display:flex;flex-direction:column;align-items:center;gap:var(--s1);text-align:center;min-width:0}
+.mr i{--v:0;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--mc) calc(var(--v)*1%),rgba(128,128,128,.18) 0);position:relative}
+.mr i::before{content:"";position:absolute;inset:7px;border-radius:50%;background:var(--bg2)}
+.mr em{position:relative;font-style:normal;font-weight:800;font-size:1.02rem;font-variant-numeric:tabular-nums}
+.mr b{display:block;font-size:.85rem;font-weight:700}.mr span{font-size:.72rem;color:var(--muted)}
+/* section header */
+.sect{display:flex;align-items:center;justify-content:space-between;margin:var(--s3) 6px var(--s1)}
+.sect h3{margin:0;font-size:1.25rem;font-weight:800;letter-spacing:-.02em}
+[data-theme=dark] .sect h3{color:#fff;text-shadow:0 1px 10px rgba(0,0,0,.5)}
+button.link{background:none!important;box-shadow:none!important;color:var(--a1,var(--accent));padding:6px 8px;min-height:36px;font-weight:700;font-size:.9rem}
+[data-theme=light] button.link{color:var(--a2,var(--accent2))}
+/* disclosure rows / meals */
+details.card{padding:0}
+details>summary{list-style:none;cursor:pointer}details>summary::-webkit-details-marker{display:none}
+details.card>summary{display:flex;align-items:center;gap:12px;padding:14px 16px;min-height:64px}
+.rl{flex:1;min-width:0;display:flex;flex-direction:column}.rl b{font-size:1rem;font-weight:700}.rl small{font-size:.78rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ri{width:36px;height:36px;flex:0 0 36px;border-radius:11px;display:grid;place-items:center;background:rgba(128,128,128,.14);font-size:1.05rem}
+.mth{width:44px;height:44px;flex:0 0 44px;border-radius:13px;background-size:cover;background-position:center}
+.mk{font-size:1.05rem;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}.mk small{font-size:.72rem;color:var(--muted);font-weight:600}
+.chev{width:9px;height:9px;flex:0 0 9px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(-45deg);transition:transform .2s;margin:0 4px}
+details[open]>summary .chev{transform:rotate(45deg)}
+.discb{padding:0 16px 14px}
+#meals .entry,#planMeals .pitem{border:0;border-top:1px solid var(--line);border-radius:0;background:none!important;margin:0;padding:10px 0}
+#meals .entry .n b{font-weight:650;font-size:.95rem}#meals .entry .n .muted{font-size:.76rem}
+#meals .entry button{min-height:34px;padding:4px 8px;border:0;background:none!important;color:var(--muted);font-size:.95rem}
+button.addm{width:100%;text-align:left;border-top:1px solid var(--line)!important;border-radius:0}
+/* water row */
+.rowc{display:flex;align-items:center;gap:12px;padding:12px 16px}
+.rowc #wVal{font-size:.95rem;font-weight:700;min-width:84px;text-align:center;font-variant-numeric:tabular-nums}
+button.rnd{width:38px;height:38px;min-height:0;padding:0;border-radius:50%;border:0!important;font-size:1.15rem}
+/* see more */
+details.more{margin-top:var(--s1)}details.more>summary{color:var(--a1,var(--accent));font-weight:700;font-size:.88rem;padding:10px 0 2px}
+[data-theme=light] details.more>summary{color:var(--a2,var(--accent2))}
+.statgrid>div{background:rgba(128,128,128,.10)!important;border:0!important}
+.morenut summary{padding:10px 0}
+/* plan */
+#planMeals{padding:4px 16px}#planMeals details.pm{border-top:1px solid var(--line)}#planMeals details.pm:first-child{border-top:0}
+#planMeals details.pm>summary{display:flex;align-items:center;gap:12px;padding:12px 0;min-height:64px}#planMeals .discb{padding:0 0 12px}
+#planMeals .prow{margin-top:8px}
+/* nav */
+nav{border:0!important;border-radius:26px!important;padding:6px!important}
+nav button{min-height:52px!important;font-size:.68rem!important;font-weight:650!important;gap:2px}
+nav button.on{box-shadow:none!important}
+.fab{width:56px;height:56px;border-radius:18px}
+footer{font-size:.75rem;padding:var(--s3) var(--s2)}
+body[data-tab]:not([data-tab=today]) .fab{display:none}
 </style>
 </head>
 <body>
@@ -318,31 +388,30 @@ html[data-bg=sage] .hero .hd{color:#93bd7c!important}
 <main>
 <!-- TODAY -->
 <section class="tab on" id="tab-today">
-  <div class="hero"><div class="hi" id="hGreet">Good morning</div><div class="hn" id="hName">Corneilus</div><div class="hd" id="hDate"></div>
+  <div class="hero"><div class="htop"><div><div class="hi" id="hGreet">Good morning</div><div class="hn" id="hName">Corneilus</div></div></div><div class="hd" id="hDate"></div>
   <div class="datebar">
-    <button class="ghost" id="prevDay" aria-label="Previous day">◀</button>
+    <button class="ghost" id="prevDay" aria-label="Previous day">‹</button>
     <input type="date" id="datePick" aria-label="Pick date">
-    <button class="ghost" id="nextDay" aria-label="Next day">▶</button>
-  </div></div>
-  <div class="card" id="noGoal" style="display:none"><div class="empty">👋 Welcome! Set your daily calorie goal to get started.<br><br><button id="goSetup">Set my goal</button></div></div>
-  <div class="card ringcard">
-    <div class="ringwrap"><canvas id="ring" width="200" height="200" style="width:170px;height:170px"></canvas>
-      <div class="ringstats"><div><span>Goal</span><b id="sGoal">–</b></div><div><span>Eaten</span><b id="sEaten">0</b></div><div><span id="sRemL">Remaining</span><b id="sRem">–</b></div></div></div>
-    <div id="macroBars"></div>
+    <button class="ghost" id="nextDay" aria-label="Next day">›</button>
   </div>
-  <div class="card"><h2>🥧 Macro split <span class="muted" style="font-weight:500">· % of calories</span></h2><div class="split"><canvas id="donut" width="300" height="300" style="width:150px;height:150px"></canvas><div class="leg" id="splitLeg"></div></div></div>
-  <div class="card"><h2>🔬 Nutrients</h2><div id="nutPanel"></div></div>
-  <div class="card"><div class="row"><button id="addBtn">＋ Add food</button><button class="ghost" id="quickBtn">⚡ Quick add</button></div></div>
-  <div class="card" id="meals"></div>
-  <div class="card"><h2>💧 Water</h2><div class="water"><button class="ghost" id="wMinus" aria-label="Less water">−</button><b id="wVal">0</b><button class="ghost" id="wPlus" aria-label="More water">＋</button><select id="wUnit" style="max-width:130px"><option value="glass">glasses (8 oz)</option><option value="oz">ounces</option></select></div></div>
+  <div class="hring"><canvas id="ring" width="200" height="200" style="width:184px;height:184px"></canvas></div>
+  <div class="hstats"><div><b id="sEaten">0</b><span>Eaten</span></div><div><b id="sRem">–</b><span id="sRemL">Remaining</span></div><div><b id="sGoal">–</b><span>Goal</span></div></div>
+  </div>
+  <div class="card" id="noGoal" style="display:none"><div class="empty">Set your daily calorie goal to get started.<br><br><button id="goSetup">Set my goal</button></div></div>
+  <div class="card mcard"><div id="macroBars" class="mrings"></div></div>
+  <div class="sect"><h3>Meals</h3><div><button class="link" id="quickBtn">Quick add</button><button class="link" id="addBtn">＋ Add food</button></div></div>
+  <div id="meals"></div>
+  <div class="card rowc"><span class="ri">💧</span><b class="rl">Water</b><button class="ghost rnd" id="wMinus" aria-label="Less water">−</button><b id="wVal">0</b><button class="ghost rnd" id="wPlus" aria-label="More water">＋</button></div>
+  <details class="card disc" id="nutDisc"><summary><span class="ri">🔬</span><span class="rl"><b>Nutrition details</b><small>Macro split, fiber, sugar, sodium…</small></span><i class="chev"></i></summary>
+    <div class="discb"><div class="split"><canvas id="donut" width="300" height="300" style="width:140px;height:140px"></canvas><div class="leg" id="splitLeg"></div></div><div id="nutPanel" style="margin-top:16px"></div></div></details>
 </section>
 <!-- ADD -->
 <section class="tab" id="tab-add">
   <h1 class="lt">Add food</h1>
-  <div class="card"><h2>Add food</h2>
+  <div class="card">
     <label>Meal</label><div class="chips" id="mealChips"></div>
     <label for="search">Search foods</label><input id="search" placeholder="Try: chicken, pizza, biscuit…" autocomplete="off">
-    <p class="muted">Values are approximate for a typical serving. You can edit them before adding.</p>
+    
     <div class="chips" id="srcChips"><button class="on" data-s="all">All foods</button><button data-s="fav">⭐ Favorites</button></div>
     <div class="foodlist" id="foodList"></div>
   </div>
@@ -351,24 +420,25 @@ html[data-bg=sage] .hero .hd{color:#93bd7c!important}
 <!-- HISTORY / INSIGHTS -->
 <section class="tab" id="tab-history">
   <h1 class="lt">Insights</h1>
-  <div class="card"><h2>📊 Calories</h2><div class="chips" id="rangeChips"><button class="on" data-r="7">7 days</button><button data-r="30">30 days</button><button data-r="90">90 days</button></div>
+  <div class="card"><h2>Calories</h2><div class="chips" id="rangeChips"><button class="on" data-r="7">7 days</button><button data-r="30">30 days</button><button data-r="90">90 days</button></div>
     <canvas id="histChart" height="230" style="margin-top:8px"></canvas>
     <p class="muted" style="margin:4px 0 0;font-size:.75rem">Tap a bar for details.</p>
     <div class="statgrid"><div><b id="hAvg">0</b><span>avg / logged day</span></div><div><b id="hDays">0</b><span>days logged</span></div><div><b id="hStreak">0</b><span>day streak 🔥</span></div>
-      <div><b id="hCons">0%</b><span>consistency</span></div><div><b id="hBest">–</b><span id="hBestL">best day</span></div><div><b id="hWorst">–</b><span id="hWorstL">toughest day</span></div></div>
+      </div><details class="more"><summary>See more</summary><div class="statgrid"><div><b id="hCons">0%</b><span>consistency</span></div><div><b id="hBest">–</b><span id="hBestL">best day</span></div><div><b id="hWorst">–</b><span id="hWorstL">toughest day</span></div></div></details>
   </div>
-  <div class="card"><h2>🧪 Nutrient averages</h2><p class="muted" style="margin-top:-6px">Per logged day in this range. “~” means some foods had no data for it.</p><div id="nutAvg"></div></div>
-  <div class="card"><h2>🍽️ Calories by meal</h2><canvas id="mealChart" height="170"></canvas></div>
-  <div class="card"><h2>🕐 When you eat</h2><canvas id="timeChart" height="170"></canvas><p class="muted" id="timeNote" style="font-size:.75rem;margin:6px 0 0"></p></div>
-  <div class="card"><h2>🏆 Top foods</h2><div id="topFoods"></div></div>
-  <div class="card"><h2>⚖️ Weight</h2><div class="row"><input type="number" id="wtIn" placeholder="Weight (lb)" inputmode="decimal" step="0.1"><button id="wtAdd" style="flex:0 0 100px">Log</button></div>
-    <p class="muted">Logs for the selected day (<span id="wtDate"></span>).</p>
-    <div class="row"><input type="number" id="wtGoal" placeholder="Goal weight (lb, optional)" inputmode="decimal" step="0.1"><button class="ghost" id="wtGoalSave" style="flex:0 0 100px">Set goal</button></div>
+  <details class="card disc ins"><summary><span class="ri">🧪</span><span class="rl"><b>Nutrient averages</b><small>Fiber, sugar, sodium vs goals</small></span><i class="chev"></i></summary><div class="discb"><p class="muted" style="margin-top:-6px">Per logged day in this range. “~” means some foods had no data for it.</p><div id="nutAvg"></div></div></details>
+  <details class="card disc ins"><summary><span class="ri">🍽️</span><span class="rl"><b>Calories by meal</b><small>Where your calories come from</small></span><i class="chev"></i></summary><div class="discb"><canvas id="mealChart" height="170"></canvas></div></details>
+  <details class="card disc ins"><summary><span class="ri">🕐</span><span class="rl"><b>When you eat</b><small>Calories by time of day</small></span><i class="chev"></i></summary><div class="discb"><canvas id="timeChart" height="170"></canvas><p class="muted" id="timeNote" style="font-size:.75rem;margin:6px 0 0"></p></div></details>
+  <details class="card disc ins"><summary><span class="ri">🏆</span><span class="rl"><b>Top foods</b><small>Your most-logged foods</small></span><i class="chev"></i></summary><div class="discb"><div id="topFoods"></div></div></details>
+  <div class="card"><h2>Weight</h2><div class="row"><input type="number" id="wtIn" placeholder="Weight (lb)" inputmode="decimal" step="0.1"><button id="wtAdd" style="flex:0 0 100px">Log</button></div>
+    
     <div class="statgrid" id="wtStats"></div>
     <div id="wtProg" style="margin-top:12px"></div>
     <canvas id="wtChart" height="210" style="margin-top:10px"></canvas>
     <p class="muted" style="font-size:.75rem;margin:4px 0 8px"><span style="color:#e9b862">●</span> weigh-ins &nbsp;<span style="color:#d0603f">━</span> 7-day average &nbsp;<span style="color:#c87b2c">┅</span> goal</p>
-    <div id="wtList"></div></div>
+    <p class="muted" style="font-size:.75rem">Logs for <span id="wtDate"></span></p>
+    <details class="more"><summary>Goal &amp; history</summary><div class="row"><input type="number" id="wtGoal" placeholder="Goal weight (lb, optional)" inputmode="decimal" step="0.1"><button class="ghost" id="wtGoalSave" style="flex:0 0 100px">Set goal</button></div>
+    <div id="wtList"></div></details></div>
 </section>
 <!-- SETTINGS -->
 <section class="tab" id="tab-plan">
@@ -388,17 +458,17 @@ html[data-bg=sage] .hero .hd{color:#93bd7c!important}
 </section>
 <section class="tab" id="tab-settings">
   <h1 class="lt">Settings</h1>
-  <div class="card" id="proCard"></div>
-  <div class="card"><h2>🎨 App background</h2><div class="swatches" id="bgPick"></div><p class="muted" style="font-size:.8rem;margin:10px 0 0">The ☀️/🌙 button at the top switches between your last dark and light backgrounds.</p></div>
-  <div class="card"><h2>👋 Profile</h2><label for="uName">Your name (for the greeting)</label><input id="uName" placeholder="Your name" autocomplete="given-name"></div>
-  <div class="card"><h2>🎯 Daily goal</h2>
+  <div class="grp">Membership</div><div class="card" id="proCard"></div>
+  <div class="grp">Appearance</div><div class="card"><h2>Background</h2><div class="swatches" id="bgPick"></div><p class="muted" style="font-size:.8rem;margin:10px 0 0">The ☀️/🌙 button at the top switches between your last dark and light backgrounds.</p></div>
+  <div class="grp">Profile</div><div class="card"><label for="uName">Your name</label><input id="uName" placeholder="Your name" autocomplete="given-name"><label for="wUnit">Water unit</label><select id="wUnit"><option value="glass">glasses (8 oz)</option><option value="oz">ounces</option></select></div>
+  <div class="grp">Goals</div><div class="card"><h2>Daily goal</h2>
     <label for="goal">Calories per day</label><input type="number" id="goal" inputmode="numeric" placeholder="e.g. 2000">
     <div class="grid2"><div><label>Protein goal (g)</label><input type="number" id="gP" placeholder="optional"></div><div><label>Carbs goal (g)</label><input type="number" id="gC" placeholder="optional"></div><div><label>Fat goal (g)</label><input type="number" id="gF" placeholder="optional"></div><div><label>Goal weight (lb)</label><input type="number" id="gW" placeholder="optional" step="0.1"></div></div>
-    <h2 style="margin-top:16px">🔬 Nutrient goals</h2><p class="muted" style="margin-top:-6px">Common general guidelines are filled in. Change them if your doctor or dietitian gave you different numbers.</p>
+    <details class="morenut"><summary>Nutrient goals</summary><p class="muted" style="margin-top:-6px">Common general guidelines are filled in. Change them if your doctor or dietitian gave you different numbers.</p>
     <div class="grid2"><div><label>Fiber at least (g)</label><input type="number" id="nG_fib"></div><div><label>Sugar under (g)</label><input type="number" id="nG_sug"></div><div><label>Sodium under (mg)</label><input type="number" id="nG_na"></div><div><label>Saturated fat under (g)</label><input type="number" id="nG_sat"></div><div><label>Cholesterol under (mg)</label><input type="number" id="nG_chol"></div></div>
-    <br><button id="saveGoal" style="width:100%">Save goal</button>
+    </details><br><button id="saveGoal" style="width:100%">Save goal</button>
   </div>
-  <div class="card"><h2>🧮 Estimate helper (optional)</h2>
+  <div class="grp">Tools</div><details class="card disc"><summary><span class="ri">🧮</span><span class="rl"><b>Estimate my calories</b><small>Rough estimate from age, height, activity</small></span><i class="chev"></i></summary><div class="discb">
     <p class="note">This is a rough <b>estimate</b> using the Mifflin-St Jeor equation. It is not medical advice. Talk to a doctor before big diet changes.</p>
     <div class="grid2">
       <div><label>Sex</label><select id="eSex"><option value="m">Male</option><option value="f">Female</option></select></div>
@@ -410,12 +480,12 @@ html[data-bg=sage] .hero .hd{color:#93bd7c!important}
       <div style="grid-column:span 2"><label>Goal</label><select id="eGoal"><option value="-500">Lose (~1 lb/week)</option><option value="0" selected>Maintain</option><option value="300">Gain (slowly)</option></select></div>
     </div><br><button class="ghost" id="estBtn" style="width:100%">Estimate</button>
     <div id="estOut" style="margin-top:10px"></div>
-  </div>
-  <div class="card"><h2>💾 Your data</h2>
+  </div></details>
+  <div class="grp">Data</div><details class="card disc"><summary><span class="ri">💾</span><span class="rl"><b>Backup &amp; data</b><small>Export, import or erase</small></span><i class="chev"></i></summary><div class="discb">
     <p class="note">Your data stays on <b>this device and this browser only</b>. Nothing is uploaded. Clearing your browser data (or using another browser/phone) will not have it, so <b>export a backup</b> now and then.</p>
     <div class="grid2" style="margin-top:10px"><button class="ghost" id="expJson">Export backup (JSON)</button><button class="ghost" id="expCsv">Export food log (CSV)</button><button class="ghost" id="impBtn">Import backup (JSON)</button><button class="danger" id="wipe">Erase all data</button></div>
     <input type="file" id="impFile" accept=".json,application/json" hidden>
-  </div>
+  </div></details>
 </section>
 <footer>Calorie values are approximate. <b>Not medical advice.</b></footer>
 </main>
@@ -833,7 +903,7 @@ $("themeBtn").onclick=()=>{const ok=k=>k&&THEMES[k]&&(isPro()||FREE_THEMES.inclu
 $("bgPick").onclick=e=>{const b=e.target.closest(".sw");if(b&&!isPro()&&!FREE_THEMES.includes(b.dataset.bg)&&b.dataset.bg!==bgMode()){openPay("theme");return;}if(b){setBg(b.dataset.bg);toast(b.textContent.trim()+" background");}};
 
 /* ---------- Tabs ---------- */
-function showTab(t){document.querySelectorAll(".tab").forEach(s=>s.classList.toggle("on",s.id==="tab-"+t));document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===t));window.scrollTo(0,0);if(t==="history")renderHistory();if(t==="add")renderFoods();}
+function showTab(t){document.querySelectorAll(".tab").forEach(s=>s.classList.toggle("on",s.id==="tab-"+t));document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===t));window.scrollTo(0,0);document.body.dataset.tab=t;if(t==="history")renderHistory();if(t==="add")renderFoods();}
 const TITLES={today:"Today",add:"Add food",history:"Insights",settings:"Settings",plan:"Plan"};
 const _showTab=showTab;showTab=function(t){if(t==="plan"&&!isPro()){openPay("plan");return;}if(t==="plan")setTimeout(renderPlan,0);_showTab(t);document.querySelectorAll("#bg i").forEach(i=>i.classList.toggle("on",i.dataset.k===t));$("barTitle").textContent=TITLES[t]||"";$("fab").classList.toggle("hide",t==="add");onScroll();};
 document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>showTab(b.dataset.t));
@@ -844,12 +914,12 @@ $("uName").onchange=e=>{S.name=e.target.value.trim().slice(0,40);save();renderHe
 /* ---------- Today ---------- */
 let ringAnim=null,ringShown=0;
 function drawRingFrame(eaten,goal,prog){const c=$("ring"),x=c.getContext("2d"),W=200;x.clearRect(0,0,W,W);const pct=goal?eaten/goal:0;
- x.lineWidth=16;x.lineCap="round";x.strokeStyle=document.documentElement.dataset.theme==="dark"?"rgba(214,190,160,.12)":"rgba(42,28,16,.08)";x.beginPath();x.arc(100,100,80,0,Math.PI*2);x.stroke();
+ x.lineWidth=14;x.lineCap="round";x.strokeStyle="rgba(255,255,255,.16)";x.beginPath();x.arc(100,100,80,0,Math.PI*2);x.stroke();
  const p=Math.min(pct,1)*prog;
  if(p>0.001){const g=x.createLinearGradient(20,20,180,180);if(pct>1){g.addColorStop(0,"#e0604a");g.addColorStop(1,"#a8261a");}else{g.addColorStop(0,css("--a2")||"#c87b2c");g.addColorStop(1,css("--a1")||"#e9b862");}
   x.save();x.shadowColor=pct>1?"rgba(217,67,47,.8)":"rgba(233,184,98,.8)";x.shadowBlur=9;x.strokeStyle=g;x.beginPath();x.arc(100,100,80,-Math.PI/2,-Math.PI/2+Math.PI*2*p);x.stroke();x.restore();
   const a=-Math.PI/2+Math.PI*2*p;x.fillStyle="#fff";x.beginPath();x.arc(100+80*Math.cos(a),100+80*Math.sin(a),4,0,Math.PI*2);x.fill();}
- x.fillStyle=css("--text");x.textAlign="center";x.font="800 38px -apple-system,system-ui,sans-serif";x.fillText(Math.round(ringShown).toLocaleString(),100,106);x.font="600 13px -apple-system,system-ui,sans-serif";x.fillStyle=css("--muted");x.fillText(goal?Math.round(pct*100*prog)+"% of goal":"kcal eaten",100,130);}
+ x.fillStyle="#fff";x.textAlign="center";x.font="800 40px -apple-system,system-ui,sans-serif";x.fillText(goal?Math.round(pct*100*prog)+"%":Math.round(ringShown).toLocaleString(),100,108);x.font="600 13px -apple-system,system-ui,sans-serif";x.fillStyle="rgba(255,255,255,.72)";x.fillText(goal?"of daily goal":"kcal eaten",100,132);}
 function drawRing(eaten,goal){cancelAnimationFrame(ringAnim);const from=ringShown,t0=performance.now(),D=900,ease=t=>1-Math.pow(1-t,3);const step=now=>{const t=Math.min(1,(now-t0)/D),e=ease(t);ringShown=from+(eaten-from)*e;drawRingFrame(eaten,goal,from===0&&eaten>0?e:1);if(t<1)ringAnim=requestAnimationFrame(step);};ringAnim=requestAnimationFrame(step);}
 function renderToday(){
  $("datePick").value=cur;renderHero();const t=totals(),g=S.goal;
@@ -859,17 +929,19 @@ function renderToday(){
  drawRing(t.cal,g);
  const M=[["Protein","p","--p","--p2"],["Carbs","c","--c","--c2"],["Fat","f","--f","--f2"]];
  $("macroBars").innerHTML=M.map(([n,k,col,col2])=>{const goal=S.macros[k]||0,v=t[k];const pct=goal?Math.min(100,v/goal*100):(v?100:0);
-  return `<div class="muted" style="display:flex;justify-content:space-between"><span>${n}</span><span>${Math.round(v)}${goal?" / "+goal:""} g</span></div><div class="bar"><i data-w="${pct}" style="width:0;color:var(${col});background:linear-gradient(90deg,var(${col}),var(${col2}));opacity:${goal?1:.4}"></i></div>`;}).join("");
+  return `<div class="mr"><i style="--v:${pct};--mc:var(${col})"><em>${Math.round(v)}</em></i><div><b>${n}</b><span>${goal?"of "+goal+" g":"g"}</span></div></div>`;}).join("");
  requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll("#macroBars .bar>i").forEach(i=>i.style.width=i.dataset.w+"%")));
  const d=day();
  if(!d.entries.length){$("meals").innerHTML=`<div class="empty">🥗 Nothing logged for this day yet.<br>Tap <b>＋ Add food</b> to log your first meal.</div>`;}
- else $("meals").innerHTML=MEALS.map(m=>{const es=d.entries.filter(e=>e.meal===m);const sum=es.reduce((a,e)=>a+e.cal*e.qty,0);
-  const mt=totals(cur,es);
-  return `<div class="meal"><div class="mbanner" style="background-image:url(img/${m.toLowerCase()}.webp)"><span class="mt"><span class="micon">${ICON[m]}</span>${m}</span><span class="ms"><b>${Math.round(sum)} kcal</b>${es.length?`P ${Math.round(mt.p)} · C ${Math.round(mt.c)} · F ${Math.round(mt.f)}`:"nothing yet"}</span></div>${es.length?es.map(e=>`<div class="entry${e.id===window._newId?" new":""}" data-id="${e.id}"><div class="n"><b>${esc(e.name)}</b><span class="muted">${e.qty!=1?r1(e.qty)+" × ":""}${Math.round(e.cal)} kcal${e.p||e.c||e.f?` · P ${Math.round(e.p*e.qty)} C ${Math.round(e.c*e.qty)} F ${Math.round(e.f*e.qty)}`:""}</span></div><b>${Math.round(e.cal*e.qty)}</b><button class="ghost edit" aria-label="Edit">✏️</button><button class="ghost del" aria-label="Delete">🗑️</button></div>`).join(""):`<div class="muted" style="padding:4px 2px 8px">No ${m.toLowerCase()} logged</div>`}</div>`;}).join("");
+ else{const hr=new Date().getHours(),curM=window._openMeal||(hr<11?"Breakfast":hr<15?"Lunch":hr<21?"Dinner":"Snacks");const nm=window._newId&&d.entries.find(e=>e.id===window._newId);window._mOpen=window._mOpen||{};
+  $("meals").innerHTML=MEALS.map(m=>{const es=d.entries.filter(e=>e.meal===m);const sum=es.reduce((a,e)=>a+e.cal*e.qty,0);
+  const op=m in window._mOpen?window._mOpen[m]:(m===curM||(nm&&nm.meal===m));
+  return `<details class="card meal" data-m="${m}"${op?" open":""}><summary><span class="mth" style="background-image:url(img/${m.toLowerCase()}.webp)"></span><span class="rl"><b>${m}</b><small>${es.length?es.length+" item"+(es.length>1?"s":""):"Nothing yet"}</small></span><b class="mk">${Math.round(sum).toLocaleString()}<small> kcal</small></b><i class="chev"></i></summary><div class="discb">${es.length?es.map(e=>`<div class="entry${e.id===window._newId?" new":""}" data-id="${e.id}"><div class="n"><b>${esc(e.name)}</b><span class="muted">${e.qty!=1?r1(e.qty)+" × ":""}${e.p||e.c||e.f?`P ${Math.round(e.p*e.qty)} · C ${Math.round(e.c*e.qty)} · F ${Math.round(e.f*e.qty)}`:Math.round(e.cal)+" kcal each"}</span></div><b>${Math.round(e.cal*e.qty)}</b><button class="ghost small edit" aria-label="Edit">✎</button><button class="ghost small del" aria-label="Delete">✕</button></div>`).join(""):`<button class="link addm" data-m="${m}">＋ Add to ${m.toLowerCase()}</button>`}</div></details>`;}).join("");}
  drawDonut(t);renderNutPanel(t);
- const w=d.water||0;$("wUnit").value=S.waterUnit;$("wVal").textContent=w+(S.waterUnit==="oz"?" oz":(w==1?" glass":" glasses"));
+ const w=d.water||0;$("wUnit").value=S.waterUnit;$("wVal").textContent=w+(S.waterUnit==="oz"?" oz":(w==1?" glass":" glasses"));if(window._newId){const ne=document.querySelector("#meals .entry.new");if(ne)ne.closest("details").open=true;}
 }
-$("meals").onclick=e=>{const row=e.target.closest(".entry");if(!row)return;const id=row.dataset.id;const d=dayW();const en=d.entries.find(x=>x.id===id);if(!en)return;
+$("meals").addEventListener("toggle",e=>{const m=e.target.dataset&&e.target.dataset.m;if(m){window._mOpen=window._mOpen||{};window._mOpen[m]=e.target.open;}},true);
+$("meals").onclick=e=>{const am=e.target.closest(".addm");if(am){$("addBtn").onclick();selMeal=am.dataset.m;renderMealChips();return;}const row=e.target.closest(".entry");if(!row)return;const id=row.dataset.id;const d=dayW();const en=d.entries.find(x=>x.id===id);if(!en)return;
  if(e.target.closest(".del")){if(confirm(`Delete "${en.name}"?`)){d.entries=d.entries.filter(x=>x.id!==id);save();window._newId=null;row.classList.add("out");setTimeout(()=>{renderToday();toast("Deleted");},280);}}
  else if(e.target.closest(".edit"))openDlg("edit",en);
  else openLabel(en);};
@@ -972,6 +1044,7 @@ function gridY(x,w,pl,pt,ch,max,steps,fmt){x.font="11px -apple-system,system-ui,
 function rbar(x,bx,by,bw,bh,fill,glow){if(bh<=0)return;x.save();x.fillStyle=fill;if(glow){x.shadowColor=glow;x.shadowBlur=5;}const r=Math.min(6,bw/2,bh);x.beginPath();if(x.roundRect)x.roundRect(bx,by,bw,bh,[r,r,0,0]);else x.rect(bx,by,bw,bh);x.fill();x.restore();}
 const kfmt=v=>v>=1000?(v/1000).toFixed(v>=10000?0:1)+"k":Math.round(v);
 function rangeKeys(n){const end=parse(ymd(new Date())),keys=[];for(let i=n-1;i>=0;i--){const d=new Date(end);d.setDate(d.getDate()-i);keys.push(ymd(d));}return keys;}
+document.addEventListener("toggle",e=>{if(e.target.open&&e.target.closest&&e.target.closest("#tab-history"))renderHistory();},true);
 function renderHistory(){if(!isPro()&&range>7)range=7;$("wtDate").textContent=cur;
  const keys=rangeKeys(range),T=keys.map(k=>totals(k)),vals=T.map(t=>t.cal);const logged=keys.filter(k=>day(k).entries.length),LT=logged.map(k=>totals(k));
  $("hAvg").textContent=logged.length?Math.round(LT.reduce((a,t)=>a+t.cal,0)/logged.length).toLocaleString():"0";
@@ -1139,9 +1212,10 @@ function renderPlan(){if(!isPro())return;const keys=planKeys();if(!keys.includes
   <div class="bar" style="height:12px;margin-top:10px"><i style="width:${pct}%;background:${g&&t.cal>g?"linear-gradient(90deg,#e0604a,#a8261a)":"var(--grad)"}"></i></div>`+
   M.map(([n,k,c1,c2])=>{const gl=S.macros[k]||0,v=t[k],pc=gl?Math.min(100,v/gl*100):(v?100:0),ov=gl&&v>gl*1.1;return `<div class="muted" style="display:flex;justify-content:space-between;font-size:.85rem"><span>${n}</span><span>${Math.round(v)}${gl?" / "+gl:""} g ${ov?"▲":gl&&v<gl*.8&&t.n?"▼":""}</span></div><div class="bar" style="height:8px;margin:3px 0 8px"><i style="width:${pc}%;background:linear-gradient(90deg,var(${c1}),var(${c2}))"></i></div>`;}).join("");
  $("planMeals").innerHTML=MEALS.map(m=>{const its=planList(planDay).filter(x=>x.meal===m);const mt=totals(planDay,its);const left=its.filter(x=>!x.logged).length;
-  return `<div class="meal"><div class="mbanner" style="background-image:url(img/${m.toLowerCase()}.webp)"><span class="mt"><span class="micon">${ICON[m]}</span>${m}</span><span class="ms"><b>${Math.round(mt.cal)} kcal</b>${its.length?`P ${Math.round(mt.p)} · C ${Math.round(mt.c)} · F ${Math.round(mt.f)}`:"nothing planned"}</span></div>
+  window._pOpen=window._pOpen||{};return `<details class="meal pm" data-m="${m}"${window._pOpen[m]?" open":""}><summary><span class="mth" style="background-image:url(img/${m.toLowerCase()}.webp)"></span><span class="rl"><b>${m}</b><small>${its.length?its.length+" planned"+(left&&left<its.length?" · "+left+" to log":""):"Nothing planned"}</small></span><b class="mk">${Math.round(mt.cal).toLocaleString()}<small> kcal</small></b><i class="chev"></i></summary><div class="discb">
   ${its.map(x=>`<div class="pitem${x.logged?" logged":""}" data-id="${x.id}"><span class="thumb" style="width:36px;height:36px;flex-basis:36px;font-size:1.1rem">${catEmoji(x.name)}</span><div class="n"><b>${esc(x.name)}</b><span class="muted" style="font-size:.8rem">${x.qty!=1?r1(x.qty)+" × ":""}${Math.round(x.cal)} kcal · ${Math.round(x.cal*x.qty)} total</span></div>${x.logged?`<span class="tag under">✓ Logged</span>`:`<button class="small" data-log="1">Log it</button>`}<button class="ghost small" data-rm="1" aria-label="Remove from plan">✕</button></div>`).join("")}
-  <div class="prow"><button class="ghost" data-add="${m}">＋ Add to ${m.toLowerCase()}</button>${left?`<button data-logmeal="${m}">✓ Log ${m.toLowerCase()} (${left})</button>`:""}</div></div>`;}).join("");}
+  <div class="prow"><button class="ghost" data-add="${m}">＋ Add to ${m.toLowerCase()}</button>${left?`<button data-logmeal="${m}">✓ Log ${m.toLowerCase()} (${left})</button>`:""}</div></div></details>`;}).join("");}
+$("planMeals").addEventListener("toggle",e=>{const m=e.target.dataset&&e.target.dataset.m;if(m){window._pOpen=window._pOpen||{};window._pOpen[m]=e.target.open;}},true);
 $("planSeg").onclick=e=>{const b=e.target.closest("button");if(b){planView=b.dataset.v;renderPlan();}};
 $("planDays").onclick=e=>{const b=e.target.closest(".dchip");if(b){planDay=b.dataset.k;renderPlan();}};
 $("planMeals").onclick=e=>{const L=planList(planDay);const a=e.target.closest("[data-add]");if(a){openPlanPick(a.dataset.add);return;}
