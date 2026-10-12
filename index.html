@@ -162,6 +162,24 @@ html[data-bg] .hero .datebar button{background:rgba(255,255,255,.14)!important;c
 .scanbox .laser{position:absolute;left:14%;right:14%;top:50%;height:2px;background:#e0604a;box-shadow:0 0 8px #e0604a;animation:laser 1.6s ease-in-out infinite alternate}
 @keyframes laser{from{top:33%}to{top:67%}}
 .scanph{aspect-ratio:4/3;border-radius:18px;display:grid;place-items:center;text-align:center;padding:16px;background:linear-gradient(180deg,rgba(13,10,7,.35),rgba(13,10,7,.85)),url(img/add.webp) center/cover;color:#fff}
+nav button{font-size:.7rem}
+.navlk{position:absolute;top:6px;right:calc(50% - 22px);font-size:.6rem}
+nav button{position:relative}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:5px;border-radius:16px;background:rgba(190,165,130,.12);margin-bottom:14px}.seg button{min-height:40px;box-shadow:none;background:transparent;color:var(--text)}.seg button.on{background:var(--grad);color:#fff}
+.days{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}.days::-webkit-scrollbar{display:none}
+.dchip{flex:0 0 auto;min-width:64px;min-height:0;padding:8px 6px;border-radius:16px;display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--input);color:var(--text);border:1px solid var(--line);box-shadow:none}
+.dchip small{font-size:.68rem;color:var(--muted);font-weight:600}.dchip b{font-size:1.05rem}.dchip i{font-style:normal;font-size:.66rem;font-weight:800;padding:1px 6px;border-radius:99px;background:rgba(190,165,130,.18)}
+.dchip.on{background:var(--grad);color:#fff;border-color:transparent}.dchip.on small,.dchip.on i{color:#fff}.dchip i.over{background:#a8261a;color:#fff}.dchip i.ok{background:#6f7a35;color:#fff}
+.pstat{display:flex;justify-content:space-between;align-items:baseline;gap:8px}.pstat .big{font-size:2rem;font-weight:850;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.tag{display:inline-block;font-size:.75rem;font-weight:800;padding:3px 10px;border-radius:99px}.tag.over{background:rgba(217,67,47,.16);color:#e0604a}.tag.under{background:rgba(111,122,53,.2);color:#b3b062}.tag.on{background:rgba(200,123,44,.18);color:#e9b862}
+[data-theme=light] .tag.over{color:#a8261a}[data-theme=light] .tag.under{color:#4d5e25}[data-theme=light] .tag.on{color:#8d4a15}
+.pitem{display:flex;align-items:center;gap:8px;padding:9px 10px;border:1px solid var(--line);border-radius:14px;margin-bottom:6px;background:rgba(190,165,130,.06)}.pitem .n{flex:1;min-width:0}.pitem .n b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pitem button{min-height:36px;padding:6px 10px;font-size:.82rem}
+.pitem.logged{opacity:.6}.pitem.logged .n b{text-decoration:line-through}
+.prow{display:flex;gap:8px;margin:4px 0 6px}.prow button{flex:1;min-height:40px;font-size:.85rem;padding:6px 8px}
+.gcat{font-size:.78rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px;display:flex;align-items:center;gap:6px}
+.gitem{display:flex;align-items:center;gap:12px;padding:10px 4px;border-bottom:1px solid var(--line);cursor:pointer}.gitem input{width:22px;height:22px;min-height:0;flex:0 0 22px;accent-color:#c87b2c}.gitem .n{flex:1;min-width:0}.gitem .q{font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
+.gitem.done .n{text-decoration:line-through;color:var(--muted)}
+.cpdays label{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid var(--line);font-size:1rem;color:var(--text);margin:0}.cpdays input{width:22px;height:22px;min-height:0;flex:0 0 22px;accent-color:#c87b2c}
 .sw i.sys{background:linear-gradient(135deg,#0d0a07 0 50%,#faf7f2 50% 100%)}
 [data-theme=light] #bg::after{background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(250,247,242,.72) 40%,rgba(250,247,242,.88))}
 header{background:transparent;border-bottom-color:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;transition:background .25s,border-color .25s,backdrop-filter .25s;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
@@ -206,7 +224,7 @@ dialog[open]{animation:sheet .38s cubic-bezier(.2,.9,.25,1)}
 </head>
 <body>
 <div id="splash" aria-hidden="true"><div><img src="icon-192.png" alt=""><b>Calorie Tracker</b></div></div>
-<div id="bg" aria-hidden="true"><i data-k="today" style="background-image:url(img/hero.webp)" class="on"></i><i data-k="add" style="background-image:url(img/add.webp)"></i><i data-k="history" style="background-image:url(img/insights.webp)"></i><i data-k="settings" style="background-image:url(img/settings.webp)"></i></div>
+<div id="bg" aria-hidden="true"><i data-k="today" style="background-image:url(img/hero.webp)" class="on"></i><i data-k="add" style="background-image:url(img/add.webp)"></i><i data-k="history" style="background-image:url(img/insights.webp)"></i><i data-k="settings" style="background-image:url(img/settings.webp)"></i><i data-k="plan" style="background-image:url(img/lunch.webp)"></i></div>
 <header id="appbar"><h1 id="barTitle">Today</h1><button class="ghost small" id="themeBtn" aria-label="Toggle dark mode">🌙</button></header>
 <main>
 <!-- TODAY -->
@@ -264,6 +282,21 @@ dialog[open]{animation:sheet .38s cubic-bezier(.2,.9,.25,1)}
     <div id="wtList"></div></div>
 </section>
 <!-- SETTINGS -->
+<section class="tab" id="tab-plan">
+  <h1 class="lt">Plan</h1>
+  <div class="seg" id="planSeg"><button class="on" data-v="plan">🗓️ Meal plan</button><button data-v="grocery">🛒 Grocery list</button></div>
+  <div id="planView">
+    <div class="card"><div class="days" id="planDays"></div></div>
+    <div class="card" id="planSum"></div>
+    <div class="card" id="planMeals"></div>
+    <div class="card"><div class="row"><button class="ghost" id="planCopy">📋 Copy day to…</button><button class="ghost" id="planClear">🧹 Clear day</button></div></div>
+  </div>
+  <div id="groceryView" style="display:none">
+    <div class="card"><div class="pstat"><div><h2 style="margin:0">🛒 Grocery list</h2><span class="muted" id="gSub"></span></div></div>
+      <div class="row" style="margin-top:12px"><button id="gShare">📤 Share / copy</button><button class="ghost" id="gClear">Clear checked</button></div>
+      <div id="gList"></div><p class="fine" id="gNote"></p></div>
+  </div>
+</section>
 <section class="tab" id="tab-settings">
   <h1 class="lt">Settings</h1>
   <div class="card" id="proCard"></div>
@@ -298,7 +331,7 @@ dialog[open]{animation:sheet .38s cubic-bezier(.2,.9,.25,1)}
 <footer>Calorie values are approximate. <b>Not medical advice.</b></footer>
 </main>
 <button class="fab" id="fab" aria-label="Add food">＋</button>
-<nav aria-label="Tabs"><button class="on" data-t="today"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Today</button><button data-t="add"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h7"/><circle cx="18" cy="17" r="3.2"/><path d="M18 15.6v2.8M16.6 17h2.8"/></svg>Add</button><button data-t="history"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Insights</button><button data-t="settings"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Settings</button></nav>
+<nav aria-label="Tabs"><button class="on" data-t="today"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Today</button><button data-t="add"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h7"/><circle cx="18" cy="17" r="3.2"/><path d="M18 15.6v2.8M16.6 17h2.8"/></svg>Add</button><button data-t="history"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Insights</button><button data-t="plan"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18M8 14h3M8 17h6"/></svg>Plan<span class="navlk" id="planLk"></span></button><button data-t="settings"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Settings</button></nav>
 
 <dialog id="dlg"><form method="dialog" id="dlgForm">
   <h2 id="dlgTitle" style="margin-top:0">Add food</h2>
@@ -316,6 +349,7 @@ dialog[open]{animation:sheet .38s cubic-bezier(.2,.9,.25,1)}
  <div class="ben"><span class="bi">📷</span><div><b>Barcode scanner</b><small>Scan packaged food with your camera and fill in nutrition automatically.</small></div></div>
  <div class="ben"><span class="bi">📊</span><div><b>Full Insights</b><small>30- and 90-day charts, nutrient averages table, best and worst days over time.</small></div></div>
  <div class="ben"><span class="bi">🎯</span><div><b>Goal weight projection</b><small>Progress bar and estimated date to reach your goal weight.</small></div></div>
+ <div class="ben"><span class="bi">🗓️</span><div><b>Meal planner + grocery list</b><small>Plan the next 7 days, see projected calories and macros, log planned meals in one tap, and get an auto grocery list.</small></div></div>
  <div class="ben"><span class="bi">🎨</span><div><b>All app backgrounds</b><small>Espresso, Olive, Terracotta, Navy, Cream and Sage.</small></div></div>
  <div class="plans" id="plans"><div class="plan" data-p="m"><span>Monthly</span><b>$3.99</b><small class="muted">per month</small></div><div class="plan on" data-p="y"><span class="save">SAVE 37%</span><span>Yearly</span><b>$29.99</b><small class="muted">per year</small></div></div>
  <button id="payDemo" style="width:100%">Demo: unlock Pro (no charge)</button>
@@ -326,6 +360,11 @@ dialog[open]{animation:sheet .38s cubic-bezier(.2,.9,.25,1)}
  <label for="scanCode">Or type the barcode number</label><div class="row"><input id="scanCode" inputmode="numeric" placeholder="e.g. 049000028911" autocomplete="off"><button id="scanLookup" style="flex:0 0 110px">Look up</button></div>
  <p class="fine">Product info comes from <b>Open Food Facts</b>, a free public database. Values may be missing or approximate; you can edit them before adding.</p>
  <div class="row" style="margin-top:10px"><button type="button" class="ghost" id="scanManual">✏️ Enter manually</button><button type="button" class="ghost" id="scanClose">Close</button></div></dialog>
+<dialog id="planPick"><h2 style="margin:0 0 6px" id="ppTitle">Add to plan</h2><label>Meal</label><div class="chips" id="ppMeals"></div><label for="ppSearch">Search foods & favorites</label><input id="ppSearch" placeholder="Try: oatmeal, salmon, Chick-fil-A…" autocomplete="off"><div class="foodlist" id="ppList" style="margin-top:8px;max-height:44vh"></div>
+ <div class="row" style="margin-top:10px"><button type="button" class="ghost" id="ppCustom">✏️ Custom food</button><button type="button" class="ghost" id="ppClose">Done</button></div></dialog>
+<dialog id="copyDlg"><h2 style="margin:0 0 6px">Copy day</h2><p class="muted" id="cpFrom" style="margin:0 0 6px"></p><div class="cpdays" id="cpDays"></div>
+ <label style="display:flex;gap:10px;align-items:center;margin-top:12px;color:var(--text)"><input type="checkbox" id="cpReplace" style="width:22px;height:22px;min-height:0"> Replace what's already planned</label>
+ <div class="row" style="margin-top:12px"><button type="button" class="ghost" id="cpCancel">Cancel</button><button type="button" id="cpGo">Copy</button></div></dialog>
 <div class="toast" id="toast"></div><div id="tip"></div>
 
 <script>
@@ -706,8 +745,8 @@ $("bgPick").onclick=e=>{const b=e.target.closest(".sw");if(b&&!isPro()&&!FREE_TH
 
 /* ---------- Tabs ---------- */
 function showTab(t){document.querySelectorAll(".tab").forEach(s=>s.classList.toggle("on",s.id==="tab-"+t));document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===t));window.scrollTo(0,0);if(t==="history")renderHistory();if(t==="add")renderFoods();}
-const TITLES={today:"Today",add:"Add food",history:"Insights",settings:"Settings"};
-const _showTab=showTab;showTab=function(t){_showTab(t);document.querySelectorAll("#bg i").forEach(i=>i.classList.toggle("on",i.dataset.k===t));$("barTitle").textContent=TITLES[t]||"";$("fab").classList.toggle("hide",t==="add");onScroll();};
+const TITLES={today:"Today",add:"Add food",history:"Insights",settings:"Settings",plan:"Plan"};
+const _showTab=showTab;showTab=function(t){if(t==="plan"&&!isPro()){openPay("plan");return;}if(t==="plan")setTimeout(renderPlan,0);_showTab(t);document.querySelectorAll("#bg i").forEach(i=>i.classList.toggle("on",i.dataset.k===t));$("barTitle").textContent=TITLES[t]||"";$("fab").classList.toggle("hide",t==="add");onScroll();};
 document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>showTab(b.dataset.t));
 function onScroll(){$("appbar").classList.toggle("scrolled",scrollY>24);}addEventListener("scroll",onScroll,{passive:true});
 $("fab").onclick=()=>$("addBtn").onclick();
@@ -821,6 +860,7 @@ $("dlgForm").onsubmit=ev=>{ev.preventDefault();const name=$("fName").value.trim(
  const en={name,cal,p:+$("fP").value||0,c:+$("fC").value||0,f:+$("fF").value||0,qty:Math.max(0.25,+$("fQty").value||1),meal:$("fMeal").value};
  const unknown=[];[["fib","fFib"],["sug","fSug"],["na","fNa"],["sat","fSat"],["chol","fChol"]].forEach(([k,id])=>{const s=$(id).value;if(s!==""&&isNum(+s)&&+s>=0)en[k]=+s;else unknown.push(k);});
  if($("fFav").checked&&!S.favs.some(x=>x.name===name)){S.favs.push({name,serving:"1 serving",cal,p:en.p,c:en.c,f:en.f,...nutOf(en)});}
+ if(dlgMode==="plan"){planAdd(en);$("dlg").close();if($("planPick").open)$("planSearch")?.focus?.();return;}
  if(dlgMode==="edit"){const d=dayW();const i=d.entries.findIndex(x=>x.id===editId);if(i>=0){const o={...d.entries[i],...en};unknown.forEach(k=>delete o[k]);d.entries[i]=o;}save();toast("Saved");}
  else{addEntry(en);toast(`Added to ${en.meal}`);}
  $("dlg").close();renderToday();if($("tab-add").classList.contains("on"))renderFoods();};
@@ -958,7 +998,7 @@ $("payDemo").onclick=()=>{S.pro=true;save();$("pay").close();renderAll();renderP
 function renderPro(){$("proCard").innerHTML=isPro()?`<h2><span class="probadge">PRO</span> Pro is on <span class="muted" style="font-weight:500">(demo)</span></h2><p class="muted" style="margin:0 0 10px">All backgrounds, full Insights and the barcode scanner are unlocked. No charge.</p><button class="ghost" id="proOff" style="width:100%">Turn off demo Pro</button>`
  :`<h2><span class="probadge">PRO</span> Calorie Tracker Pro</h2><p class="muted" style="margin:0 0 10px">Barcode scanner, 30/90-day Insights, nutrient table, goal weight projection and 6 more backgrounds.</p><button id="proSee" style="width:100%">See Pro</button>`;
  const o=$("proOff");if(o)o.onclick=()=>{S.pro=false;save();if(range>7)range=7;renderAll();renderPro();toast("Back to Free");};const s=$("proSee");if(s)s.onclick=()=>openPay("settings");
- $("scanLock").innerHTML=isPro()?"":"🔒";
+ $("scanLock").innerHTML=isPro()?"":"🔒";$("planLk").textContent=isPro()?"":"🔒";if(!isPro()&&$("tab-plan").classList.contains("on"))showTab("today");
  [...$("rangeChips").children].forEach(b=>{const r=+b.dataset.r;b.innerHTML=r+" days"+(r>7&&!isPro()?LOCK:"");b.classList.toggle("on",r===range);});
  document.querySelectorAll("#bgPick .sw").forEach(b=>{const lk=!isPro()&&!FREE_THEMES.includes(b.dataset.bg);let x=b.querySelector(".lockb");if(lk&&!x)b.insertAdjacentHTML("afterbegin",'<span class="lockb">🔒 PRO</span>');if(!lk&&x)x.remove();});}
 function lockBox(title,msg,why){return `<div class="lockov"><b>🔒 ${title}</b><span class="muted">${msg}</span><button class="small" data-pay="${why}">Unlock with Pro</button></div>`;}
@@ -990,7 +1030,69 @@ $("scanBtn").onclick=()=>openScan();
 $("scanLookup").onclick=()=>lookupCode($("scanCode").value);$("scanCode").onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();lookupCode(e.target.value);}};
 $("scanClose").onclick=()=>{stopScan();$("scan").close();};$("scan").addEventListener("close",stopScan);
 $("scanManual").onclick=()=>{stopScan();$("scan").close();openDlg("add",{name:"",meal:selMeal,qty:1});};
-function renderAll(){renderPro();renderToday();renderSettings();renderMealChips();renderFoods();if($("tab-history").classList.contains("on"))renderHistory();}
+/* ---------- Meal planner + grocery list (Pro) ---------- */
+let planDay=ymd(new Date()),planMeal=defaultMeal(),planView="plan";
+const PL=()=>S.plan||(S.plan={});
+function planKeys(){const a=[];for(let i=0;i<7;i++){const d=parse(ymd(new Date()));d.setDate(d.getDate()+i);a.push(ymd(d));}return a;}
+function planList(k){return (S.plan&&S.plan[k])||[];}
+function planAdd(en){const L=PL()[planDay]||(PL()[planDay]=[]);L.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),...en,meal:en.meal||planMeal});save();renderPlan();toast(`Added to ${shortDate(planDay)} · ${en.meal||planMeal}`);}
+function planToEntry(it,k){const {id,logged,...e}=it;const nid=Date.now().toString(36)+Math.random().toString(36).slice(2,6);dayW(k).entries.push({...e,id:nid,t:Date.now(),fromPlan:1});it.logged=nid;}
+function renderPlan(){if(!isPro())return;const keys=planKeys();if(!keys.includes(planDay))planDay=keys[0];
+ Object.keys(S.plan||{}).forEach(k=>{if(k<keys[0])delete S.plan[k];});
+ [...$("planSeg").children].forEach(b=>b.classList.toggle("on",b.dataset.v===planView));$("planView").style.display=planView==="plan"?"":"none";$("groceryView").style.display=planView==="grocery"?"":"none";
+ if(planView==="grocery"){renderGrocery();return;}
+ const g=S.goal;$("planDays").innerHTML=keys.map((k,i)=>{const t=totals(k,planList(k)),d=parse(k);const st=!t.n?"":g?(t.cal>g?"over":t.cal>=g*.9?"ok":""):"";
+  return `<button class="dchip${k===planDay?" on":""}" data-k="${k}"><small>${i===0?"Today":i===1?"Tmrw":DOW[d.getDay()]}</small><b>${d.getDate()}</b><i class="${st}">${t.n?Math.round(t.cal).toLocaleString():"—"}</i></button>`;}).join("");
+ const t=totals(planDay,planList(planDay));const rem=g?g-t.cal:0;const pct=g?Math.min(100,t.cal/g*100):0;
+ const tag=!t.n?`<span class="tag on">Nothing planned</span>`:!g?`<span class="tag on">No goal set</span>`:t.cal>g?`<span class="tag over">▲ ${Math.round(-rem).toLocaleString()} over</span>`:t.cal>=g*.9?`<span class="tag under">✓ On target · ${Math.round(rem).toLocaleString()} left</span>`:`<span class="tag on">▼ ${Math.round(rem).toLocaleString()} under</span>`;
+ const M=[["Protein","p","--p","--p2"],["Carbs","c","--c","--c2"],["Fat","f","--f","--f2"]];
+ $("planSum").innerHTML=`<div class="pstat"><div><span class="muted" style="font-weight:700">${parse(planDay).toLocaleDateString([],{weekday:"long",month:"short",day:"numeric"})} · projected</span><div class="big">${Math.round(t.cal).toLocaleString()} <span class="muted" style="font-size:1rem;font-weight:600">${g?"/ "+g.toLocaleString()+" kcal":"kcal"}</span></div></div></div>${tag}
+  <div class="bar" style="height:12px;margin-top:10px"><i style="width:${pct}%;background:${g&&t.cal>g?"linear-gradient(90deg,#e0604a,#a8261a)":"var(--grad)"}"></i></div>`+
+  M.map(([n,k,c1,c2])=>{const gl=S.macros[k]||0,v=t[k],pc=gl?Math.min(100,v/gl*100):(v?100:0),ov=gl&&v>gl*1.1;return `<div class="muted" style="display:flex;justify-content:space-between;font-size:.85rem"><span>${n}</span><span>${Math.round(v)}${gl?" / "+gl:""} g ${ov?"▲":gl&&v<gl*.8&&t.n?"▼":""}</span></div><div class="bar" style="height:8px;margin:3px 0 8px"><i style="width:${pc}%;background:linear-gradient(90deg,var(${c1}),var(${c2}))"></i></div>`;}).join("");
+ $("planMeals").innerHTML=MEALS.map(m=>{const its=planList(planDay).filter(x=>x.meal===m);const mt=totals(planDay,its);const left=its.filter(x=>!x.logged).length;
+  return `<div class="meal"><div class="mbanner" style="background-image:url(img/${m.toLowerCase()}.webp)"><span class="mt"><span class="micon">${ICON[m]}</span>${m}</span><span class="ms"><b>${Math.round(mt.cal)} kcal</b>${its.length?`P ${Math.round(mt.p)} · C ${Math.round(mt.c)} · F ${Math.round(mt.f)}`:"nothing planned"}</span></div>
+  ${its.map(x=>`<div class="pitem${x.logged?" logged":""}" data-id="${x.id}"><span class="thumb" style="width:36px;height:36px;flex-basis:36px;font-size:1.1rem">${catEmoji(x.name)}</span><div class="n"><b>${esc(x.name)}</b><span class="muted" style="font-size:.8rem">${x.qty!=1?r1(x.qty)+" × ":""}${Math.round(x.cal)} kcal · ${Math.round(x.cal*x.qty)} total</span></div>${x.logged?`<span class="tag under">✓ Logged</span>`:`<button class="small" data-log="1">Log it</button>`}<button class="ghost small" data-rm="1" aria-label="Remove from plan">✕</button></div>`).join("")}
+  <div class="prow"><button class="ghost" data-add="${m}">＋ Add to ${m.toLowerCase()}</button>${left?`<button data-logmeal="${m}">✓ Log ${m.toLowerCase()} (${left})</button>`:""}</div></div>`;}).join("");}
+$("planSeg").onclick=e=>{const b=e.target.closest("button");if(b){planView=b.dataset.v;renderPlan();}};
+$("planDays").onclick=e=>{const b=e.target.closest(".dchip");if(b){planDay=b.dataset.k;renderPlan();}};
+$("planMeals").onclick=e=>{const L=planList(planDay);const a=e.target.closest("[data-add]");if(a){openPlanPick(a.dataset.add);return;}
+ const lm=e.target.closest("[data-logmeal]");if(lm){const its=L.filter(x=>x.meal===lm.dataset.logmeal&&!x.logged);its.forEach(x=>planToEntry(x,planDay));save();renderPlan();renderToday();toast(`Logged ${its.length} item${its.length==1?"":"s"} to ${shortDate(planDay)}`);return;}
+ const row=e.target.closest(".pitem");if(!row)return;const it=L.find(x=>x.id===row.dataset.id);if(!it)return;
+ if(e.target.closest("[data-log]")){planToEntry(it,planDay);save();renderPlan();renderToday();toast(`Logged ${it.name} to ${planDay===ymd(new Date())?"today":shortDate(planDay)}`);}
+ else if(e.target.closest("[data-rm]")){S.plan[planDay]=L.filter(x=>x!==it);save();renderPlan();}};
+function openPlanPick(m){planMeal=m||planMeal;$("ppTitle").textContent="Add to "+shortDate(planDay);$("ppSearch").value="";renderPP();$("planPick").showModal();}
+function renderPP(){$("ppMeals").innerHTML=MEALS.map(m=>`<button data-m="${m}" class="${m===planMeal?"on":""}">${m}</button>`).join("");
+ const q=$("ppSearch").value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+ const items=[...S.favs.map(f=>({...f,fav:1})),...FOODS.map(f=>({name:f[0],serving:f[1],cal:f[2],p:f[3],c:f[4],f:f[5],fib:f[6],sug:f[7],na:f[8],sat:f[9],chol:f[10]}))].filter(f=>q.every(t=>f.name.toLowerCase().includes(t))).slice(0,60);
+ $("ppList").innerHTML=items.length?items.map((f,i)=>`<div class="food" data-i="${i}"><span class="thumb">${f.fav?"⭐":catEmoji(f.name)}</span><div class="n"><b>${esc(f.name)}</b><div class="muted">${esc(f.serving||"1 serving")} · P ${r1(f.p)} C ${r1(f.c)} F ${r1(f.f)}</div></div><b>${f.cal}</b><button class="small" data-q="1" aria-label="Add to plan">＋</button></div>`).join(""):`<div class="empty">No match. Use <b>Custom food</b>.</div>`;$("ppList")._items=items;}
+$("ppMeals").onclick=e=>{const b=e.target.closest("button");if(b){planMeal=b.dataset.m;renderPP();}};
+$("ppSearch").oninput=renderPP;
+$("ppList").onclick=e=>{const row=e.target.closest(".food");if(!row)return;const f=$("ppList")._items[row.dataset.i];const en={name:f.name+(f.serving&&!f.fav?" ("+f.serving+")":""),cal:f.cal,p:f.p,c:f.c,f:f.f,...nutOf(f),qty:1,meal:planMeal};
+ if(e.target.closest("[data-q]")){planAdd(en);return;}openDlg("plan",en,true);$("dlgTitle").textContent="Add to plan · "+shortDate(planDay);$("dlgSave").textContent="Add to plan";};
+$("ppCustom").onclick=()=>{openDlg("plan",{name:$("ppSearch").value,meal:planMeal,qty:1},true);$("dlgTitle").textContent="Custom food · "+shortDate(planDay);$("dlgSave").textContent="Add to plan";};
+$("ppClose").onclick=()=>$("planPick").close();
+$("planClear").onclick=()=>{if(!planList(planDay).length){toast("Nothing planned");return;}if(confirm("Remove everything planned for "+shortDate(planDay)+"?")){delete S.plan[planDay];save();renderPlan();toast("Day cleared");}};
+$("planCopy").onclick=()=>{if(!planList(planDay).length){toast("Plan something first");return;}$("cpFrom").textContent=`From ${shortDate(planDay)} (${planList(planDay).length} items) to:`;
+ $("cpDays").innerHTML=planKeys().filter(k=>k!==planDay).map(k=>`<label><input type="checkbox" value="${k}"> ${parse(k).toLocaleDateString([],{weekday:"long",month:"short",day:"numeric"})} <span class="muted" style="margin-left:auto;font-size:.8rem">${planList(k).length?planList(k).length+" planned":""}</span></label>`).join("");$("cpReplace").checked=false;$("copyDlg").showModal();};
+$("cpCancel").onclick=()=>$("copyDlg").close();
+$("cpGo").onclick=()=>{const ks=[...$("cpDays").querySelectorAll("input:checked")].map(i=>i.value);if(!ks.length){toast("Pick at least one day");return;}const src=planList(planDay);
+ ks.forEach(k=>{const base=$("cpReplace").checked?[]:planList(k);PL()[k]=base.concat(src.map(({id,logged,...x})=>({...x,id:Date.now().toString(36)+Math.random().toString(36).slice(2,8)})));});save();$("copyDlg").close();renderPlan();toast(`Copied to ${ks.length} day${ks.length==1?"":"s"}`);};
+const GCAT=[["🥬 Produce","🥗🍎🥔"],["🥩 Meat & seafood","🍗🥓🥩🐟"],["🧀 Dairy & eggs","🧀🍳"],["🍞 Bakery & grains","🍞🥞🥣🍚🍝"],["🥫 Pantry & snacks","🥜🥨🍫🧂🍲💪"],["🥤 Drinks","🥤☕🍺🍷"],["🍦 Frozen & treats","🍦🍰"],["🍔 Takeout & ready-made","🍔🍕🍟🌭🌮🥪"],["🛍️ Other",""]];
+function gcat(n){const e=catEmoji(n);if(/mcdonald|chick-fil-a|popeyes|kfc|wendy|taco bell|chipotle|subway|zaxby|cane|sonic|arby|panda|wingstop|domino|dunkin|starbucks|burger king/i.test(n))return GCAT[7][0];const c=GCAT.find(([,s])=>s&&s.includes(e));return c?c[0]:GCAT[8][0];}
+function groceryItems(){const m={};planKeys().forEach(k=>planList(k).forEach(x=>{const mm=String(x.name).match(/^(.*?)\s*\(([^)]*)\)\s*$/);const nm=(mm?mm[1]:x.name).trim()||"Food",sv=mm?mm[2]:"serving";const key=(nm+"|"+sv).toLowerCase();
+ const o=m[key]||(m[key]={key,name:nm,serving:sv,qty:0,days:new Set(),cat:gcat(x.name)});o.qty+=+x.qty||1;o.days.add(k);}));return Object.values(m);}
+function renderGrocery(){const G=S.grocery||(S.grocery={checked:{},hidden:{}});G.checked=G.checked||{};G.hidden=G.hidden||{};const all=groceryItems(),its=all.filter(x=>!G.hidden[x.key]);
+ $("gSub").textContent=all.length?`${its.length} item${its.length==1?"":"s"} from your next 7 days`+(all.length>its.length?` · ${all.length-its.length} cleared`:""):"";
+ if(!all.length){$("gList").innerHTML=`<div class="empty" style="margin-top:12px">🛒 Your list builds itself from the meal plan.<br>Plan some meals to fill it.</div>`;$("gNote").textContent="";return;}
+ $("gList").innerHTML=GCAT.map(([c])=>{const L=its.filter(x=>x.cat===c).sort((a,b)=>a.name.localeCompare(b.name));if(!L.length)return"";return `<div class="gcat">${c}<span style="margin-left:auto">${L.length}</span></div>`+L.map(x=>`<label class="gitem${G.checked[x.key]?" done":""}"><input type="checkbox" data-k="${esc(x.key)}" ${G.checked[x.key]?"checked":""}><span class="n"><b>${esc(x.name)}</b><br><span class="muted" style="font-size:.8rem">${esc(x.serving)} · ${x.days.size} day${x.days.size==1?"":"s"}</span></span><span class="q">× ${r1(x.qty)}</span></label>`).join("");}).join("")+(all.length>its.length?`<button class="ghost small" id="gShow" style="width:100%;margin-top:12px">Show cleared items</button>`:"");
+ $("gNote").textContent="Quantities are planned servings. Adjust for what you already have at home.";const sh=$("gShow");if(sh)sh.onclick=()=>{G.hidden={};save();renderGrocery();};}
+$("gList").onchange=e=>{const k=e.target.dataset.k;if(!k)return;const G=S.grocery;if(e.target.checked)G.checked[k]=1;else delete G.checked[k];save();e.target.closest(".gitem").classList.toggle("done",e.target.checked);};
+$("gClear").onclick=()=>{const G=S.grocery||{};const ks=Object.keys(G.checked||{});if(!ks.length){toast("Nothing checked");return;}ks.forEach(k=>{G.hidden[k]=1;delete G.checked[k];});save();renderGrocery();toast(`Cleared ${ks.length}`);};
+$("gShare").onclick=async()=>{const G=S.grocery||{checked:{},hidden:{}};const its=groceryItems().filter(x=>!(G.hidden||{})[x.key]);if(!its.length){toast("List is empty");return;}
+ const txt="🛒 Grocery list\n"+GCAT.map(([c])=>{const L=its.filter(x=>x.cat===c);return L.length?"\n"+c+"\n"+L.map(x=>`${(G.checked||{})[x.key]?"☑":"☐"} ${x.name} — ${r1(x.qty)} × ${x.serving}`).join("\n"):"";}).join("")+"\n\nFrom Calorie Tracker";
+ try{if(navigator.share){await navigator.share({title:"Grocery list",text:txt});return;}}catch(e){if(e&&e.name==="AbortError")return;}
+ try{await navigator.clipboard.writeText(txt);toast("Grocery list copied");}catch(e){window.prompt("Copy your grocery list:",txt);}};
+function renderAll(){renderPro();if($("tab-plan").classList.contains("on"))renderPlan();renderToday();renderSettings();renderMealChips();renderFoods();if($("tab-history").classList.contains("on"))renderHistory();}
 window.addEventListener("resize",()=>{if($("tab-history").classList.contains("on"))renderHistory();});
 applyTheme();renderAll();$("wtDate").textContent=cur;onScroll();
 setTimeout(()=>{$("splash").classList.add("gone");setTimeout(()=>$("splash").remove(),600);},650);
