@@ -708,6 +708,36 @@ html[data-bg] body nav[aria-label="Tabs"] button:not(.link):not(.ghost):not(.fst
 html[data-bg] body .swatches button:not(.link):not(.ghost):not(.fstar):not(.pwt),html[data-bg] body button.sw:not(.link):not(.ghost):not(.fstar):not(.pwt){background:transparent!important;color:var(--text)!important;border:1px solid var(--line)!important}
 html[data-bg] body .swatches button:not(.link):not(.ghost):not(.fstar):not(.pwt).on,html[data-bg] body button.sw:not(.link):not(.ghost):not(.fstar):not(.pwt).on{border:2px solid var(--a1)!important}
 html[data-bg] body .snaplist button:not(.link):not(.ghost):not(.fstar):not(.pwt),html[data-bg] body .crc:not(.link):not(.ghost):not(.fstar):not(.pwt),html[data-bg] body #snapList button:not(.link):not(.ghost):not(.fstar):not(.pwt){background:transparent!important;color:var(--text)!important;border:1px solid var(--line)!important}
+
+/* ===== v31 spacing ===== */
+html[data-bg] body main>section.tab>*:not(.card):not(.hero):not(#meals):not(.mcard):not(.coach):not(.rptban):not(details){padding-left:max(20px,env(safe-area-inset-left))!important;padding-right:max(20px,env(safe-area-inset-left))!important}
+html[data-bg] body .card,html[data-bg] body details.card,html[data-bg] body .mcard,html[data-bg] body .coach,html[data-bg] body .rptban{padding:22px max(20px,env(safe-area-inset-left))!important;line-height:1.5}
+html[data-bg] body .card+.card,html[data-bg] body .card+details.card,html[data-bg] body details.card+.card,html[data-bg] body .mcard,html[data-bg] body .coach,html[data-bg] body .rptban{margin-top:12px!important;border-top:1px solid var(--line)!important}
+html[data-bg] body #meals details.card.meal{margin-top:0!important;border-top:0!important;padding-top:16px!important;padding-bottom:16px!important}
+html[data-bg] body #meals details.card.meal .discb{margin-top:12px;padding-top:6px}
+html[data-bg] body .grp{padding:28px max(20px,env(safe-area-inset-left)) 10px!important}
+html[data-bg] body .sect{padding:24px max(20px,env(safe-area-inset-left)) 12px!important}
+html[data-bg] body h1.lt{padding-top:12px!important;padding-bottom:16px!important}
+html[data-bg] body .hero{padding-top:calc(88px + env(safe-area-inset-top))!important;padding-bottom:36px!important}
+html[data-bg] body .hero .hstats{margin-top:22px!important}
+html[data-bg] body .food,html[data-bg] body .entry,html[data-bg] body .gitem,html[data-bg] body .rcard{padding-top:14px!important;padding-bottom:14px!important;line-height:1.45}
+html[data-bg] body .food .n .muted,html[data-bg] body .entry .n .muted{display:block;margin-top:3px}
+html[data-bg] body .food{gap:10px!important}
+html[data-bg] body .food .thumb{flex:none}
+html[data-bg] body .chips{gap:8px!important;row-gap:8px!important}
+html[data-bg] body label{margin-top:16px!important;margin-bottom:6px!important;display:block}
+html[data-bg] body .row{gap:12px!important}
+html[data-bg] body .row+.row,html[data-bg] body .card .row{margin-top:14px}
+html[data-bg] body button:not(.link):not(.small){min-height:46px}
+html[data-bg] body .coach .cl{margin-top:10px!important}.coach .cl+.cl{padding-top:10px!important}
+html[data-bg] body .mrings{padding:6px 0;gap:16px}
+html[data-bg] body .statgrid{gap:14px!important}
+html[data-bg] body .rowc{padding-top:18px!important;padding-bottom:18px!important}
+html[data-bg] body .swatches{gap:12px!important}
+html[data-bg] body .fine,html[data-bg] body p.fine{margin-top:12px!important;line-height:1.5}
+html[data-bg] body main{padding-bottom:calc(96px + env(safe-area-inset-bottom))!important}
+html[data-bg] body #foodList .food>b{display:none}html[data-bg] body .food .kc{color:var(--text);font-weight:700}
+html[data-bg] body .food .n b{display:block;line-height:1.35}
 </style>
 </head>
 <body>
@@ -1397,8 +1427,8 @@ function renderFoods(){const q=$("search").value.trim().toLowerCase();const term
  const meals=src==="fav"?(S.favMeals||[]).filter(m=>terms.every(t=>m.name.toLowerCase().includes(t))):[];
  if(!items.length&&!meals.length){L.innerHTML=`<div class="empty">${src==="fav"?"⭐ No favorites yet.<br>Tap ☆ on any food, or “⭐ Save meal” on Today.":src==="recent"&&!q?"🕘 Foods you log show up here for one-tap re-logging.":"No match for “"+esc(q)+"”.<br>Use <b>Custom food</b> below."}</div>`;L._items=[];return;}
  const quick=src!=="all";
- L.innerHTML=meals.map((m,i)=>`<div class="food fmeal" data-mi="${i}"><span class="thumb">🍽️</span><div class="n"><b>${esc(m.name)}</b><div class="muted">${m.items.length} item${m.items.length>1?"s":""} · ${esc(m.items.slice(0,3).map(x=>x.name.replace(/\s*\(.*\)$/,"")).join(", "))}</div></div><b>${mealTot(m)}</b><button class="small qadd" data-qm="1" aria-label="Log meal">＋</button><button class="ghost small fstar on" data-rmm="1" aria-label="Remove favorite meal">★</button></div>`).join("")+
- items.map((f,i)=>{const n=fullName(f),k=pq[n]||1;return `<div class="food" data-i="${i}"><span class="thumb">${catEmoji(f.name)}</span><div class="n"><b>${esc(f.name)}</b><div class="muted">${quick?"":esc(f.serving||"1 serving")+" · "}P ${r1(f.p)} C ${r1(f.c)} F ${r1(f.f)}${!quick&&isNum(f.na)?` · Na ${Math.round(f.na)}mg`:""}</div></div><b>${Math.round(f.cal*k)}</b>${quick?`<button class="ghost small pq" data-pq="1" aria-label="Portion">×${k}</button><button class="small qadd" data-q="1" aria-label="Log now">＋</button>`:""}<button class="ghost small fstar${isFav(n)?" on":""}" data-star="1" aria-label="${isFav(n)?"Remove favorite":"Save favorite"}">${isFav(n)?"★":"☆"}</button></div>`;}).join("");
+ L.innerHTML=meals.map((m,i)=>`<div class="food fmeal" data-mi="${i}"><span class="thumb">🍽️</span><div class="n"><b>${esc(m.name)}</b><div class="muted"><span class="kc">${mealTot(m)} kcal</span> · ${m.items.length} item${m.items.length>1?"s":""} · ${esc(m.items.slice(0,3).map(x=>x.name.replace(/\s*\(.*\)$/,"")).join(", "))}</div></div><b>${mealTot(m)}</b><button class="small qadd" data-qm="1" aria-label="Log meal">＋</button><button class="ghost small fstar on" data-rmm="1" aria-label="Remove favorite meal">★</button></div>`).join("")+
+ items.map((f,i)=>{const n=fullName(f),k=pq[n]||1;return `<div class="food" data-i="${i}"><span class="thumb">${catEmoji(f.name)}</span><div class="n"><b>${esc(f.name)}</b><div class="muted"><span class="kc">${Math.round(f.cal*k)} kcal</span> · ${quick?"":esc(f.serving||"1 serving")+" · "}P ${r1(f.p)} C ${r1(f.c)} F ${r1(f.f)}${!quick&&isNum(f.na)?` · Na ${Math.round(f.na)}mg`:""}</div></div><b>${Math.round(f.cal*k)}</b>${quick?`<button class="ghost small pq" data-pq="1" aria-label="Portion">×${k}</button><button class="small qadd" data-q="1" aria-label="Log now">＋</button>`:""}<button class="ghost small fstar${isFav(n)?" on":""}" data-star="1" aria-label="${isFav(n)?"Remove favorite":"Save favorite"}">${isFav(n)?"★":"☆"}</button></div>`;}).join("");
  L._items=items;L._meals=meals;}
 const nutOf=f=>{const o={};NKEYS.forEach(n=>{if(isNum(f[n]))o[n]=f[n];});return o;};
 function logMeal(m,meal){const add=m.items.map(x=>({...x,id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),t:Date.now(),meal}));const d=dayW();add.forEach(x=>{delete x.thumb;d.entries.push(x);});window._newId=add[add.length-1].id;save();renderToday();}
