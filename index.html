@@ -14,7 +14,7 @@
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-<title>PlateJack — Take over your plate</title>
+<title>PlateJack — Eat well. Spend less.</title>
 <style>
 :root{--bg:#ffffff;--bg2:#faf7f2;--card:rgba(255,255,255,.80);--text:#2a1c10;--muted:#7a6450;--line:rgba(42,28,16,.10);--accent:#c87b2c;--accent2:#b8692a;--grad:linear-gradient(135deg,#c47a2c,#8f4517);--glow:rgba(120,62,20,.28);--warn:#d9432f;--p:#d0603f;--c:#e8b65a;--f:#b3b062;--p2:#9c3a22;--c2:#c68a2e;--f2:#6f7a35;--input:#fffdf9}
 [data-theme=dark]{--bg:#0d0a07;--bg2:#1a120b;--card:rgba(32,23,15,.55);--text:#f6efe4;--muted:#b8a690;--line:rgba(214,190,160,.14);--glow:rgba(120,62,20,.35);--input:rgba(20,14,9,.6)}
@@ -683,23 +683,30 @@ html[data-bg] body #foodList .food>b{display:none}html[data-bg] body .food .kc{c
 html[data-bg] body .food .n b{display:block;line-height:1.35}
 html[data-bg] body #foodList .food .n{min-width:0}html[data-bg] body #foodList .food .n .muted{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #pay .trial{text-align:center;font-size:12.5px;color:var(--a1);font-weight:600;margin:10px 0 8px}
+
+/* ===== v35 budget positioning ===== */
+html[data-bg] body .budstrip{display:flex;align-items:center;gap:12px;cursor:pointer;padding-top:14px!important;padding-bottom:14px!important}
+.budstrip .bsi{font-size:20px}.budstrip .bsl{flex:1;display:grid;gap:4px;min-width:0}.budstrip .bsl b{font-size:15px}.budstrip .bsl small{font-size:12px;color:var(--muted)}.budstrip .bbar{display:block;height:7px;margin:0}
+.rcst{display:block;color:var(--a1)!important;font-weight:700;margin-top:2px;white-space:nowrap}
+html[data-bg] body label.gitem{display:flex!important;margin:0!important;align-items:center}html[data-bg] body label.tog{display:flex!important;margin:8px 0!important}html[data-bg] body .rptopts label{display:flex!important;margin:0!important}
 </style>
 </head>
 <body>
 <div id="splash" aria-hidden="true"><div class="ibg"><i></i><i></i><i></i></div><div class="ivig"></div><canvas id="ember"></canvas><div class="iflash"></div>
 <div class="istage"><div class="ilogo"><img src="platejack.svg" alt="" width="150" height="150"><svg viewBox="0 0 512 512" class="iov"><defs><linearGradient id="irim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff1c4"/><stop offset=".4" stop-color="#e9b862"/><stop offset="1" stop-color="#c87b2c"/></linearGradient></defs><circle class="iring" cx="256" cy="256" r="184" fill="none" stroke="url(#irim)" stroke-width="22" stroke-linecap="round" pathLength="100" transform="rotate(-90 256 256)"/><path class="ibolt" d="M352 106l-30 50h18l-10 42l36-56h-20l14-36z" fill="#fffbe9" stroke="#2a1508" stroke-width="6" stroke-linejoin="round"/></svg></div>
-<b class="pjw iword"><i>PLATE</i><span>JACK</span></b><small class="itag">TAKE OVER YOUR PLATE</small></div></div>
+<b class="pjw iword"><i>PLATE</i><span>JACK</span></b><small class="itag">EAT WELL. SPEND LESS.</small></div></div>
 <div id="auth" style="display:none" role="dialog" aria-label="Sign in"><div id="aBox"></div></div>
 <div id="onb" style="display:none" role="dialog" aria-label="Welcome to PlateJack"><div class="oslides" id="oSlides">
- <section class="os" style="--img:url(img/intro/salmon.webp)"><div class="ot"><span class="oe">📊</span><h2>Track it</h2><p>Log meals in seconds and watch calories, protein and macros fill up through the day.</p></div></section>
+ <section class="os" style="--img:url(img/intro/salmon.webp)"><div class="ot"><span class="oe">📊</span><h2>Eat well. Spend less.</h2><p>Healthy meal prep that fits your grocery budget. See est. cost per serving, plan cheap weeks and track calories in one place.</p></div></section>
  <section class="os" style="--img:url(img/intro/chicken.webp)"><div class="ot"><span class="oe">📷</span><h2>Snap &amp; scan</h2><p>Snap your plate, scan a barcode, pick a portion. Logging that keeps up with you.</p></div></section>
- <section class="os" style="--img:url(img/intro/prep.webp)"><div class="ot"><span class="oe">🥡</span><h2>Plan &amp; prep</h2><p>Plan the week, prep in batches and let the grocery list build itself.</p></div></section>
+ <section class="os" style="--img:url(img/intro/prep.webp)"><div class="ot"><span class="oe">🥡</span><h2>Plan &amp; prep</h2><p>Plan the week, prep in batches and get a grocery list with an estimated total before you shop.</p></div></section>
  <section class="os" style="--img:url(img/intro/steak.webp)"><div class="ot"><span class="oe">📤</span><h2>Share your week</h2><p>Turn your week into a Plate Report card for your story. Jacked my plate 6/7 days.</p></div></section>
  <section class="os oset"><div class="ot"><h2>Quick setup</h2><p class="muted">You can change any of this later in Settings.</p>
   <label for="oName">Your name</label><input id="oName" placeholder="Your name" autocomplete="given-name">
   <label for="oGoal">Daily calorie goal</label><div class="row"><input id="oGoal" type="number" inputmode="numeric" placeholder="2000"><button type="button" class="ghost" id="oEstT" style="flex:none">🧮 Estimate</button></div>
   <div id="oEst" style="display:none"><div class="row"><select id="oSex"><option value="m">Male</option><option value="f">Female</option></select><input id="oAge" type="number" placeholder="Age"></div><div class="row"><input id="oFt" type="number" placeholder="ft"><input id="oIn" type="number" placeholder="in"><input id="oLb" type="number" placeholder="lb"></div>
    <select id="oAct"><option value="1.2">Mostly sitting</option><option value="1.375" selected>Lightly active</option><option value="1.55">Active</option><option value="1.725">Very active</option></select><button type="button" class="ghost small" id="oEstGo" style="width:100%;margin-top:6px">Calculate</button></div>
+  <label for="oBud">Weekly food budget ($)</label><input id="oBud" type="number" inputmode="decimal" min="0" step="5" placeholder="60"><p class="fine" style="text-align:left;margin:4px 0 0">Used for est. costs and cheap meal ideas. Optional.</p>
   <label>Theme</label><div class="chips" id="oTheme"></div>
   <button type="button" id="oGo" style="width:100%;margin-top:12px">Get started</button><p class="fine">Estimates are approximate. Not medical advice.</p></div></section></div>
  <div class="onav"><button type="button" class="link" id="oSkip">Skip</button><div class="odots" id="oDots"></div><button type="button" id="oNext">Next</button></div></div>
@@ -718,6 +725,7 @@ html[data-bg] body #foodList .food .n{min-width:0}html[data-bg] body #foodList .
   <div class="hstats"><div><b id="sEaten">0</b><span>Eaten</span></div><div><b id="sRem">–</b><span id="sRemL">Remaining</span></div><div><b id="sGoal">–</b><span>Goal</span></div></div>
   </div>
   <div class="card" id="noGoal" style="display:none"><div class="empty">Set your daily calorie goal to get started.<br><br><button id="goSetup">Set my goal</button></div></div>
+  <div class="card budstrip" id="budStrip"></div>
   <div class="card mcard"><div id="macroBars" class="mrings"></div></div>
   <div class="card rptban" id="rptBan" style="display:none"><span class="ri">📊</span><span class="rl"><b>Your Plate Report is ready</b><small>Share how you jacked your plate this week</small></span><button class="small" id="rptBanGo">Share</button><button class="ghost small" id="rptBanX" aria-label="Dismiss">✕</button></div>
   <div class="card coach" id="coach" style="display:none"></div>
@@ -830,15 +838,15 @@ html[data-bg] body #foodList .food .n{min-width:0}html[data-bg] body #foodList .
   <div class="row" style="margin-top:8px"><button type="button" class="ghost" id="dlgCancel">Cancel</button><button type="submit" id="dlgSave" value="ok">Add</button></div>
 </form></dialog>
 <dialog id="lbl"><div id="lblBody"></div><div class="row" style="margin-top:12px"><button type="button" class="ghost" id="lblEdit">✏️ Edit</button><button type="button" id="lblClose">Close</button></div></dialog>
-<dialog id="pay"><div class="phero"><img class="pjpay" src="icon-192.png" alt="PlateJack" width="64" height="64"><span class="probadge">PRO</span><h2>PlateJack Pro</h2><div style="opacity:.9;font-size:.9rem">Go deeper on every meal.</div></div>
- <div class="ben"><span class="bi">📷</span><div><b>Barcode scanner</b><small>Scan packaged food with your camera and fill in nutrition automatically.</small></div></div>
- <div class="ben"><span class="bi">📊</span><div><b>Full Insights</b><small>30- and 90-day charts, nutrient averages table, best and worst days over time.</small></div></div>
- <div class="ben"><span class="bi">🎯</span><div><b>Goal weight projection</b><small>Progress bar and estimated date to reach your goal weight.</small></div></div>
- <div class="ben"><span class="bi">🗓️</span><div><b>Meal planner + grocery list</b><small>Plan the next 7 days, see projected calories and macros, log planned meals in one tap, and get an auto grocery list.</small></div></div>
- <div class="ben"><span class="bi">🥡</span><div><b>Full meal-prep library</b><small>30 prep recipes with ingredients, steps, storage tips and nutrition. Add to your plan and the grocery list fills itself.</small></div></div>
- <div class="ben"><span class="bi">💵</span><div><b>Budget Mode</b><small>Recipe costs, weekly budget, “week under $X” auto-plan.</small></div></div>
- <div class="ben"><span class="bi">🧠</span><div><b>Full Jack Coach</b><small>More nudges and tips every day.</small></div></div>
+<dialog id="pay"><div class="phero"><img class="pjpay" src="icon-192.png" alt="PlateJack" width="64" height="64"><span class="probadge">PRO</span><h2>Eat well. Spend less.</h2><div style="opacity:.9;font-size:.9rem">PlateJack Pro helps you plan healthy meal prep that fits your grocery budget.</div></div>
+ <div class="ben"><span class="bi">🗓️</span><div><b>Meal planner + grocery list with costs</b><small>Plan 7 days, see est. cost per meal and an est. grocery total before you shop.</small></div></div>
+ <div class="ben"><span class="bi">💵</span><div><b>Budget Mode insights</b><small>Weekly budget tracking, editable ingredient prices and “build a week under $X” auto-plan.</small></div></div>
+ <div class="ben"><span class="bi">🧠</span><div><b>Full Jack Coach</b><small>More money-saving and nutrition nudges every day.</small></div></div>
+ <div class="ben"><span class="bi">📷</span><div><b>Barcode scanner</b><small>Scan packaged food and fill in nutrition automatically.</small></div></div>
+ <div class="ben"><span class="bi">🥡</span><div><b>Full meal-prep library</b><small>30 budget-friendly prep recipes with est. cost per serving.</small></div></div>
+ <div class="ben"><span class="bi">📊</span><div><b>Full Insights</b><small>30/90-day charts, nutrient table and goal weight projection.</small></div></div>
  <div class="ben"><span class="bi">📸</span><div><b>Plate Report styles</b><small>Bold and Paper share cards, no watermark.</small></div></div>
+ <p class="fine" style="margin:6px 0 10px">Costs are estimates from typical US grocery prices.</p>
  <div class="plans" id="plans"><div class="plan" data-p="m"><span>Monthly</span><b>$4.99</b><small class="muted">per month</small></div><div class="plan on" data-p="y"><span class="save">SAVE 42%</span><span>Yearly</span><b>$34.99</b><small class="muted">per year</small></div></div>
  <p class="trial">✨ 7-day free trial, then $34.99/year · cancel anytime</p>
  <button id="payDemo" style="width:100%">Demo: unlock Pro (no charge)</button>
@@ -1285,7 +1293,7 @@ function drawRingFrame(eaten,goal,prog){const c=$("ring"),x=c.getContext("2d"),W
   const a=-Math.PI/2+Math.PI*2*p;x.fillStyle="#fff";x.beginPath();x.arc(100+80*Math.cos(a),100+80*Math.sin(a),4,0,Math.PI*2);x.fill();}
  x.fillStyle="#fff";x.textAlign="center";x.font="800 40px -apple-system,system-ui,sans-serif";x.fillText(goal?Math.round(pct*100*prog)+"%":Math.round(ringShown).toLocaleString(),100,108);x.font="600 13px -apple-system,system-ui,sans-serif";x.fillStyle="rgba(255,255,255,.72)";x.fillText(goal?"of daily goal":"kcal eaten",100,132);}
 function drawRing(eaten,goal){cancelAnimationFrame(ringAnim);const from=ringShown,t0=performance.now(),D=900,ease=t=>1-Math.pow(1-t,3);const step=now=>{const t=Math.min(1,(now-t0)/D),e=ease(t);ringShown=from+(eaten-from)*e;drawRingFrame(eaten,goal,from===0&&eaten>0?e:1);if(t<1)ringAnim=requestAnimationFrame(step);};ringAnim=requestAnimationFrame(step);}
-function renderToday(){try{rptBanner();renderCoach();}catch(e){console.warn(e)}
+function renderToday(){try{rptBanner();renderCoach();renderBudStrip();}catch(e){console.warn(e)}
  $("datePick").value=cur;renderHero();const t=totals(),g=S.goal;
  $("noGoal").style.display=g?"none":"block";
  $("sGoal").textContent=g?g.toLocaleString():"not set";$("sEaten").textContent=Math.round(t.cal).toLocaleString();
@@ -1587,11 +1595,11 @@ function fq(q){return q==0.25?"¼":q==0.5?"½":q==0.33?"⅓":q==0.75?"¾":q==1.5
 function ingTxt([n,q,u]){if(u==="tbsp"&&q>=4&&[4,8,12,16].includes(q)){q=q/16;u="cup";}if(u==="link"){u="";n=n.replace(" links"," link"+(q>1?"s":""));}if(!u&&q<=1)n=n.replace(/s(\s*\([^)]*\))?$/,"$1");return `${fq(q)} ${u?u+(q>1&&!/^(oz|tbsp|tsp|lb)$/.test(u)?"s":"")+" ":""}${n}`;}
 function openPrep(m){prepMeal=m&&MEALS.includes(m)?m:"All";renderPrep();if(!$("prep").open)$("prep").showModal();}
 function renderPrep(){renderCreators();$("prepMeals").innerHTML=["All",...MEALS,"Saved"].map(m=>`<button data-m="${m}" class="${m===prepMeal?"on":""}">${m==="Saved"?"⭐ Saved":m}</button>`).join("");
- $("prepTags").innerHTML=PTAGS.map(t=>`<button data-t="${t}" class="${t===prepTag?"on":""}">${t}</button>`).join("");
- const L=RECIPES.filter(r=>(prepMeal==="All"||(prepMeal==="Saved"?pfav().includes(r.id):r.meal===prepMeal))&&(!prepTag||r.tags.includes(prepTag))).sort((a,b)=>(canRecipe(b)-canRecipe(a)));
- $("prepList").innerHTML=L.length?L.map(r=>{const lk=!canRecipe(r);return `<div class="rcard${lk?" lk":""}" data-r="${r.id}"><img class="rth" src="img/r/${r.id}-t.webp" alt="" loading="lazy" decoding="async" width="360" height="270"><div class="n"><b>${esc(r.name)}</b><span class="muted">${r.meal} · ${r.serv} servings · ${r.prep+r.cook} min</span></div><div class="rk">${lk?`<span class="lockb">🔒 PRO</span>`:`<b>${r.cal}</b><small>${r.p}g protein</small>`}</div></div>`;}).join(""):`<div class="empty">${prepMeal==="Saved"?"No saved recipes yet. Tap ☆ Save on a recipe.":"No recipes match."}</div>`;}
+ $("prepTags").innerHTML=`<button data-sort="1" class="${window._prepCheap?"on":""}">💲 Cheapest first</button><button data-u3="1" class="${window._prepU3?"on":""}">Under $3/serving</button>`+PTAGS.map(t=>`<button data-t="${t}" class="${t===prepTag?"on":""}">${t}</button>`).join("");
+ const L=RECIPES.filter(r=>(prepMeal==="All"||(prepMeal==="Saved"?pfav().includes(r.id):r.meal===prepMeal))&&(!prepTag||r.tags.includes(prepTag))&&(!window._prepU3||recipeCost(r).per<3)).sort((a,b)=>window._prepCheap?recipeCost(a).per-recipeCost(b).per:(canRecipe(b)-canRecipe(a)));
+ $("prepList").innerHTML=L.length?L.map(r=>{const lk=!canRecipe(r);return `<div class="rcard${lk?" lk":""}" data-r="${r.id}"><img class="rth" src="img/r/${r.id}-t.webp" alt="" loading="lazy" decoding="async" width="360" height="270"><div class="n"><b>${esc(r.name)}</b><span class="muted">${r.meal} · ${r.serv} servings · ${r.prep+r.cook} min</span></div><div class="rk">${lk?`<span class="lockb">🔒 PRO</span>`:`<b>${r.cal}</b><small>${r.p}g protein</small>`}<small class="rcst">$${recipeCost(r).per.toFixed(2)}/serv est.</small></div></div>`;}).join(""):`<div class="empty">${prepMeal==="Saved"?"No saved recipes yet. Tap ☆ Save on a recipe.":"No recipes match."}</div>`;}
 $("prepMeals").onclick=e=>{const b=e.target.closest("button");if(b){prepMeal=b.dataset.m;renderPrep();}};
-$("prepTags").onclick=e=>{const b=e.target.closest("button");if(b){prepTag=prepTag===b.dataset.t?null:b.dataset.t;renderPrep();}};
+$("prepTags").onclick=e=>{const b=e.target.closest("button");if(b&&b.dataset.sort){window._prepCheap=!window._prepCheap;renderPrep();return;}if(b&&b.dataset.u3){window._prepU3=!window._prepU3;renderPrep();return;}if(b){prepTag=prepTag===b.dataset.t?null:b.dataset.t;renderPrep();}};
 $("prepClose").onclick=()=>$("prep").close();
 $("prepList").onclick=e=>{const c=e.target.closest(".rcard");if(!c)return;const r=ALLR().find(x=>x.id===c.dataset.r);if(!canRecipe(r)){openPay("prep");return;}openRecipe(r);};
 function openRecipe(r){rcCur=r;rcMeal=r.meal;rcSel={};$("rcPlan").style.display="none";
@@ -1652,7 +1660,7 @@ async function drawReport(opt){const W=1080,H=opt.fmt==="story"?1920:1080,sq=H==
  if(logo){x.save();rrect(x,P,y,sq?96:120,sq?96:120,sq?22:28);x.clip();x.drawImage(logo,P,y,sq?96:120,sq?96:120);x.restore();}
  const lx=P+(sq?120:150);x.textBaseline="alphabetic";x.font=`900 ${sq?50:60}px "Arial Black","Helvetica Neue",sans-serif`;x.fillStyle=ink;x.fillText("PLATE",lx,y+(sq?58:72));const pw=x.measureText("PLATE").width;
  const jg=x.createLinearGradient(lx+pw,0,lx+pw+260,0);jg.addColorStop(0,"#ffe2a0");jg.addColorStop(.4,a1);jg.addColorStop(1,"#d0603f");x.fillStyle=paper?a2:jg;x.fillText("JACK",lx+pw,y+(sq?58:72));
- x.font=`700 ${sq?20:24}px -apple-system,system-ui,sans-serif`;x.fillStyle=mute;x.letterSpacing="6px";x.fillText("TAKE OVER YOUR PLATE",lx,y+(sq?90:110));x.letterSpacing="0px";
+ x.font=`700 ${sq?20:24}px -apple-system,system-ui,sans-serif`;x.fillStyle=mute;x.letterSpacing="6px";x.fillText("EAT WELL. SPEND LESS.",lx,y+(sq?90:110));x.letterSpacing="0px";
  y+=sq?150:210;
  x.font=`800 ${sq?26:34}px -apple-system,system-ui,sans-serif`;x.letterSpacing="5px";x.fillStyle=paper?a2:a1;x.fillText("PLATE REPORT · "+rptDates(st.keys),P,y);x.letterSpacing="0px";
  // headline
@@ -1716,10 +1724,10 @@ function budBar(t,b){const pc=b?Math.min(100,t/b*100):0,over=b&&t>b;return `<div
 function renderPlanBud(){const el=$("planBud");const c=planCost(),b=+S.budget||0;
  el.innerHTML=`<div class="bhd"><b>💵 Budget Mode</b><button class="link" id="bEdit">${b?"Edit budget":"Set budget"}</button></div>${budBar(c.t,b)}${c.unk?`<p class="fine" style="text-align:left;margin:4px 0 0">${c.unk} non-recipe item${c.unk>1?"s":""} not priced.</p>`:""}<button id="bAuto" style="width:100%;margin-top:8px">✨ Build a week under ${$$m(b||60).replace(".00","")}</button><p class="fine" style="text-align:left;margin:4px 0 0">Cost is approx., pro-rated per serving eaten.</p>`;
  $("bEdit").onclick=openBudget;$("bAuto").onclick=()=>{if(!S.budget){openBudget();return;}runAuto();};}
-function renderGBud(all){const el=$("gBud");if(!el)return;if(!isPro()){el.innerHTML="";return;}const t=all.reduce((a,x)=>a+(x.cost||0),0),unk=all.filter(x=>x.cost==null).length;
- el.innerHTML=`<div class="gbud"><span>Est. grocery cost <small class="muted">approx.${unk?` · ${unk} unpriced`:""}</small></span>${budBar(t,+S.budget||0)}</div>`;}
+function renderGBud(all){const el=$("gBud");if(!el)return;const t=all.reduce((a,x)=>a+(x.cost||0),0),unk=all.filter(x=>x.cost==null).length;
+ el.innerHTML=`<div class="gbud"><span><b>Est. grocery total: $${t.toFixed(2)}</b> <small class="muted">approx.${unk?` · ${unk} unpriced`:""}</small></span>${budBar(t,+S.budget||0)}</div>`;}
 function openBudget(){$("bAmt").value=S.budget||"";$("bset").showModal();}
-$("bSave").onclick=()=>{const v=+$("bAmt").value;if(v>0)S.budget=Math.round(v*100)/100;else delete S.budget;save();$("bset").close();renderPlan();toast(S.budget?"Budget "+$$m(S.budget)+"/week":"Budget cleared");};
+$("bSave").onclick=()=>{const v=+$("bAmt").value;if(v>0)S.budget=Math.round(v*100)/100;else delete S.budget;save();$("bset").close();renderPlan();renderToday();toast(S.budget?"Budget "+$$m(S.budget)+"/week":"Budget cleared");};
 $("bCancel").onclick=()=>$("bset").close();
 function autoWeek(budget){const g=S.goal||2000,pool=m=>ALLR().filter(r=>r.meal===m&&canRecipe(r));const P={};["Breakfast","Lunch","Dinner","Snacks"].forEach(m=>P[m]=pool(m));
  const pc=r=>recipeCost(r).per;let best=null;const rnd=a=>a[Math.floor(Math.random()*a.length)];
@@ -1813,7 +1821,7 @@ const CRECIPES=[
 const ALLR=()=>RECIPES.concat(CRECIPES);let crOpen=null;
 function renderCreators(){const el=$("creators");if(prepMeal!=="All"||prepTag){el.innerHTML="";return;}
  el.innerHTML=`<div class="crhd"><b>⭐ Featured Creators</b><button class="link" id="crSubmit">＋ Submit your recipe</button></div><div class="crrow">${CREATORS.map(c=>`<button type="button" class="crc${crOpen===c.id?" on":""}" data-c="${c.id}"><span class="cav">${c.e}</span><b>${esc(c.name)}</b><small>${esc(c.h)}</small><span class="samp">SAMPLE CREATOR</span></button>`).join("")}</div>`+
- (crOpen?(()=>{const c=CREATORS.find(x=>x.id===crOpen);return `<div class="crbio"><b>${esc(c.name)}</b> · ${esc(c.bio)} <span class="muted">Fictional sample profile for demo.</span></div>`+CRECIPES.filter(r=>r.cr===crOpen).map(r=>`<div class="rcard" data-r="${r.id}"><img class="rth" src="img/r/${r.img}-t.webp" alt="" loading="lazy" width="360" height="270"><div class="n"><b>${esc(r.name)}</b><span class="muted">by ${esc(r.by)} · ${r.serv} servings · ${r.prep+r.cook} min</span></div><div class="rk"><b>${r.cal}</b><small>${r.p}g protein</small></div></div>`).join("");})():"");
+ (crOpen?(()=>{const c=CREATORS.find(x=>x.id===crOpen);return `<div class="crbio"><b>${esc(c.name)}</b> · ${esc(c.bio)} <span class="muted">Fictional sample profile for demo.</span></div>`+CRECIPES.filter(r=>r.cr===crOpen).map(r=>`<div class="rcard" data-r="${r.id}"><img class="rth" src="img/r/${r.img}-t.webp" alt="" loading="lazy" width="360" height="270"><div class="n"><b>${esc(r.name)}</b><span class="muted">by ${esc(r.by)} · ${r.serv} servings · ${r.prep+r.cook} min</span></div><div class="rk"><b>${r.cal}</b><small>${r.p}g protein</small><small class="rcst">$${recipeCost(r).per.toFixed(2)}/serv est.</small></div></div>`).join("");})():"");
  el.onclick=e=>{if(e.target.closest("#crSubmit")){openCsub();return;}const b=e.target.closest(".crc");if(b){crOpen=crOpen===b.dataset.c?null:b.dataset.c;renderCreators();return;}const rc=e.target.closest(".rcard");if(rc)openRecipe(CRECIPES.find(x=>x.id===rc.dataset.r));};}
 function openCsub(){$("csub").showModal();}
 function csText(){return `Recipe submission for PlateJack Featured Creators\n\nCreator: ${$("csName").value}\nRecipe: ${$("csTitle").value}\nServings: ${$("csServ").value}\nCalories/serving: ${$("csCal").value}\n\nIngredients:\n${$("csIng").value}\n\nSteps:\n${$("csSteps").value}\n\nI confirm this is my own recipe${$("csOk").checked?" ✅":" (not confirmed)"}.\n(Attach a photo you own if you'd like.)`;}
@@ -1822,6 +1830,15 @@ $("csClose").onclick=()=>$("csub").close();
 $("csMail").onclick=()=>{if(!csValid())return;location.href="mailto:?subject="+encodeURIComponent("PlateJack recipe: "+$("csTitle").value)+"&body="+encodeURIComponent(csText());};
 $("csShare").onclick=async()=>{if(!csValid())return;const t=csText();try{if(navigator.share){await navigator.share({title:"PlateJack recipe",text:t});return;}}catch(e){if(e&&e.name==="AbortError")return;}try{await navigator.clipboard.writeText(t);toast("Recipe copied");}catch(e){window.prompt("Copy your recipe:",t);}};
 
+
+/* ---------- Budget strip / entry cost (est.) ---------- */
+const KCAL_PRICE=0.0032; // est. US grocery cost per kcal for non-recipe foods (~$0.32 per 100 kcal)
+function entryCost(e){const rc=e.rid&&ALLR().find(r=>r.id===e.rid);const base=rc?recipeCost(rc).per:(+e.cal||0)*KCAL_PRICE;return base*(+e.qty||1);}
+function weekSpend(){const ks=rangeKeys(7);let t=0,n=0;ks.forEach(k=>{const es=day(k).entries;if(es.length){n++;es.forEach(e=>t+=entryCost(e));}});return {t,n,per:n?t/n:0};}
+function renderBudStrip(){const el=$("budStrip");if(!el)return;const b=+S.budget||0,w=weekSpend();
+ if(!b){el.innerHTML=`<span class="bsi">💵</span><span class="bsl"><b>Eat well on a budget</b><small>Set a weekly food budget to see est. spend</small></span><button class="small" id="bsSet">Set budget</button>`;$("bsSet").onclick=openBudget;return;}
+ const pc=Math.min(100,w.t/b*100),over=w.t>b;
+ el.innerHTML=`<span class="bsi">💵</span><span class="bsl"><b>$${w.t.toFixed(0)} <small class="muted">of $${b.toFixed(0)} this week · est.</small></b><span class="bbar${over?" over":""}"><i style="width:${pc}%"></i></span><small>~$${w.per.toFixed(2)}/day · ${over?"$"+(w.t-b).toFixed(0)+" over":"$"+(b-w.t).toFixed(0)+" left"}</small></span>`;el.onclick=openBudget;}
 function planKeys(){const a=[];for(let i=0;i<7;i++){const d=parse(ymd(new Date()));d.setDate(d.getDate()+i);a.push(ymd(d));}return a;}
 function planList(k){return (S.plan&&S.plan[k])||[];}
 function planAdd(en){const L=PL()[planDay]||(PL()[planDay]=[]);L.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),...en,meal:en.meal||planMeal});save();renderPlan();toast(`Added to ${shortDate(planDay)} · ${en.meal||planMeal}`);}
@@ -1874,7 +1891,7 @@ function groceryItems(){const m={};planKeys().forEach(k=>planList(k).forEach(x=>
 function renderGrocery(){const G=S.grocery||(S.grocery={checked:{},hidden:{}});G.checked=G.checked||{};G.hidden=G.hidden||{};const all=groceryItems(),its=all.filter(x=>!G.hidden[x.key]);
  $("gSub").textContent=all.length?`${its.length} item${its.length==1?"":"s"} from your next 7 days`+(all.length>its.length?` · ${all.length-its.length} cleared`:""):"";
  if(!all.length){$("gList").innerHTML=`<div class="empty" style="margin-top:12px">🛒 Your list builds itself from the meal plan.<br>Plan some meals to fill it.</div>`;$("gNote").textContent="";return;}
- $("gList").innerHTML=GCAT.map(([c])=>{const L=its.filter(x=>x.cat===c).sort((a,b)=>a.name.localeCompare(b.name));if(!L.length)return"";return `<div class="gcat">${c}<span style="margin-left:auto">${L.length}</span></div>`+L.map(x=>`<label class="gitem${G.checked[x.key]?" done":""}"><input type="checkbox" data-k="${esc(x.key)}" ${G.checked[x.key]?"checked":""}><span class="n"><b>${esc(x.name)}</b><br><span class="muted" style="font-size:.8rem">${esc(x.serving)} · ${x.days.size} day${x.days.size==1?"":"s"}</span></span><span class="q">× ${r1(x.qty)}${isPro()&&x.cost!=null?`<small class="gc">~$${x.cost.toFixed(2)}</small>`:""}</span></label>`).join("");}).join("")+(all.length>its.length?`<button class="ghost small" id="gShow" style="width:100%;margin-top:12px">Show cleared items</button>`:"");
+ $("gList").innerHTML=GCAT.map(([c])=>{const L=its.filter(x=>x.cat===c).sort((a,b)=>a.name.localeCompare(b.name));if(!L.length)return"";return `<div class="gcat">${c}<span style="margin-left:auto">${L.length}</span></div>`+L.map(x=>`<label class="gitem${G.checked[x.key]?" done":""}"><input type="checkbox" data-k="${esc(x.key)}" ${G.checked[x.key]?"checked":""}><span class="n"><b>${esc(x.name)}</b><br><span class="muted" style="font-size:.8rem">${esc(x.serving)} · ${x.days.size} day${x.days.size==1?"":"s"}</span></span><span class="q">× ${r1(x.qty)}${x.cost!=null?`<small class="gc">~$${x.cost.toFixed(2)}</small>`:""}</span></label>`).join("");}).join("")+(all.length>its.length?`<button class="ghost small" id="gShow" style="width:100%;margin-top:12px">Show cleared items</button>`:"");
  renderGBud(all);$("gNote").textContent="Quantities are planned servings. Adjust for what you already have at home.";const sh=$("gShow");if(sh)sh.onclick=()=>{G.hidden={};save();renderGrocery();};}
 $("gList").onchange=e=>{const k=e.target.dataset.k;if(!k)return;const G=S.grocery;if(e.target.checked)G.checked[k]=1;else delete G.checked[k];save();e.target.closest(".gitem").classList.toggle("done",e.target.checked);};
 $("gClear").onclick=()=>{const G=S.grocery||{};const ks=Object.keys(G.checked||{});if(!ks.length){toast("Nothing checked");return;}ks.forEach(k=>{G.hidden[k]=1;delete G.checked[k];});save();renderGrocery();toast(`Cleared ${ks.length}`);};
@@ -1920,7 +1937,7 @@ if(sb)sb.auth.onAuthStateChange((ev,ses)=>{const prev=sbUser;sbUser=ses&&ses.use
 /* ---- auth screens ---- */
 let authMode="signin";
 function authHTML(){const M=authMode;const pw=(id,ph,ac)=>`<div class="pwf"><input id="${id}" type="password" placeholder="${ph}" autocomplete="${ac}" minlength="6"><button type="button" class="pwt" data-for="${id}" aria-label="Show password">Show</button></div>`;
- const head=`<div class="ahd"><img src="platejack.svg" alt="" width="64" height="64"><b class="pjw">PLATE<span>JACK</span></b><small>TAKE OVER YOUR PLATE</small></div>`;
+ const head=`<div class="ahd"><img src="platejack.svg" alt="" width="64" height="64"><b class="pjw">PLATE<span>JACK</span></b><small>EAT WELL. SPEND LESS.</small></div>`;
  if(M==="check")return head+`<div class="acard"><div class="abig">📬</div><h2>Check your email</h2><p>We sent a confirmation link to <b>${esc(window._authEmail||"your inbox")}</b>. Tap it to activate your account, then sign in here.</p><p class="fine" style="text-align:left">Didn't get it? Check spam, or wait a few minutes before trying again.</p><button type="button" id="aToSignin" style="width:100%">Back to sign in</button></div>`;
  if(M==="sent")return head+`<div class="acard"><div class="abig">🔑</div><h2>Reset link sent</h2><p>If an account exists for <b>${esc(window._authEmail||"")}</b>, a password reset link is on its way.</p><button type="button" id="aToSignin" style="width:100%">Back to sign in</button></div>`;
  if(M==="reset")return head+`<form class="acard" id="aForm"><h2>Set a new password</h2><label for="aPw">New password</label>${pw("aPw","At least 6 characters","new-password")}<p class="aerr" id="aErr"></p><button id="aGo" style="width:100%">Save password</button></form>`;
@@ -1997,7 +2014,7 @@ function openOnb(){const o=$("onb"),sl=$("oSlides"),N=sl.children.length;o.style
   const bmr=10*lb*.4536+6.25*inch*2.54-5*age+($("oSex").value==="m"?5:-161);$("oGoal").value=Math.round(bmr*+$("oAct").value/10)*10;toast("Estimated "+$("oGoal").value+" cal/day (approx.)");};
  $("oTheme").onclick=e=>{const b=e.target.closest("button");if(!b)return;if(!isPro()&&!FREE_THEMES.includes(b.dataset.bg)){openPay("theme");return;}setBg(b.dataset.bg);[...$("oTheme").children].forEach(x=>x.classList.toggle("on",x===b));};
  $("oGo").onclick=()=>{const nm=$("oName").value.trim(),g=Math.round(+$("oGoal").value);if(nm)S.name=nm;if(g>=800&&g<=6000){S.goal=g;if(!S.macros.p){S.macros={p:Math.round(g*.3/4),c:Math.round(g*.4/4),f:Math.round(g*.3/9)};}}else if($("oGoal").value){toast("Goal looks off — set 800–6000");return;}
-  S.onb=1;save();o.classList.add("gone");document.body.classList.remove("onbing");setTimeout(()=>{o.style.display="none";o.classList.remove("gone");},450);renderAll();toast(nm?`Let's go, ${nm}! 🍽️`:"Let's jack that plate! 🍽️");};}
+  {const bv=+$("oBud").value;if(bv>0)S.budget=Math.round(bv*100)/100;}S.onb=1;save();o.classList.add("gone");document.body.classList.remove("onbing");setTimeout(()=>{o.style.display="none";o.classList.remove("gone");},450);renderAll();toast(nm?`Let's go, ${nm}! 🍽️`:"Let's jack that plate! 🍽️");};}
 $("introOn").onchange=()=>{S.intro=$("introOn").checked;save();toast(S.intro?"Intro on":"Intro off");};
 if(hasData()&&!S.onb){S.onb=1;try{save();}catch(e){}}
 
