@@ -671,6 +671,43 @@ dialog{border-radius:12px 12px 0 0!important;box-shadow:0 -2px 16px rgba(0,0,0,.
 .card+.card{margin-top:8px}
 .discb{border-top:1px solid var(--line)}
 .sect{border-bottom:1px solid var(--line);padding-bottom:6px}
+
+/* ===== v30 bold flat ===== */
+html,html[data-bg] body{background:var(--bg)!important}
+html[data-bg] body::before,html[data-bg] body::after,html body #bg,html[data-bg] body #bg,html[data-bg] body .orb,html[data-bg] body .grain{display:none!important}
+html[data-bg] body main{padding-left:0!important;padding-right:0!important}
+html[data-bg] body main>section.tab>*:not(.card):not(.hero):not(#meals):not(.mcard):not(.coach):not(.rptban):not(details){padding-left:max(14px,env(safe-area-inset-left))!important;padding-right:max(14px,env(safe-area-inset-right))!important;box-sizing:border-box}
+html[data-bg] body .hero{margin-left:0!important;margin-right:0!important;border-radius:0!important;box-shadow:none!important;border-bottom:1px solid var(--line)!important}
+html[data-bg] body .card,html[data-bg] body details.card,html[data-bg] body .mcard,html[data-bg] body .coach,html[data-bg] body .rptban{margin:0!important;border-radius:0!important;border:0!important;border-bottom:1px solid var(--line)!important;background:var(--bg)!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;padding-left:max(14px,env(safe-area-inset-left))!important;padding-right:max(14px,env(safe-area-inset-right))!important}
+html[data-bg] body .card+.card,html[data-bg] body details.card+details.card{margin-top:0!important}
+html[data-bg] body .coach{border-left:0!important;box-shadow:inset 3px 0 0 var(--a1)!important}
+html[data-bg] body #meals details.card.meal{border-top:0!important}
+html[data-bg] body .card h2,html[data-bg] body .grp,html[data-bg] body .sect h3,html[data-bg] body .bhd b,html[data-bg] body .crhd b{font-variant:small-caps;text-transform:lowercase;letter-spacing:.06em;font-weight:800!important;font-size:15px!important;color:var(--text)!important}
+html[data-bg] body .grp{margin:0!important;padding:16px max(14px,env(safe-area-inset-left)) 6px!important;border-bottom:1px solid var(--line);color:var(--a1)!important;font-size:14px!important}
+html[data-bg] body .sect{margin:0!important;padding-top:14px!important;padding-bottom:8px!important;border-bottom:1px solid var(--line)!important}
+html[data-bg] body h1.lt{padding-top:6px!important;padding-bottom:10px!important;margin:0!important;border-bottom:1px solid var(--line)}
+html[data-bg] body button,html[data-bg] body input,html[data-bg] body select,html[data-bg] body textarea,html[data-bg] body .seg,html[data-bg] body .seg button,html[data-bg] body .chips button,html[data-bg] body .tag,html[data-bg] body .pq,html[data-bg] body .qadd,html[data-bg] body .ri,html[data-bg] body .food .thumb,html[data-bg] body .mth,html[data-bg] body .rth,html[data-bg] body .cav,html[data-bg] body .sw,html[data-bg] body .crc{border-radius:3px!important;box-shadow:none!important;backdrop-filter:none!important}
+html[data-bg] body button:not(.link):not(.ghost):not(.fstar):not(.pwt){background:var(--a2)!important;color:#fff!important;border:0!important;background-image:none!important}
+html[data-bg] body button.ghost{background:transparent!important;border:1px solid var(--line)!important;background-image:none!important}
+html[data-bg] body .chips button.on,html[data-bg] body .seg button.on{background:var(--a2)!important;color:#fff!important}
+html[data-bg] body .chips button:not(.on),html[data-bg] body .seg button:not(.on){background:transparent!important;border:1px solid var(--line)!important;color:var(--text)!important}
+html[data-bg] body .seg{background:transparent!important;border:0!important;padding:0!important;gap:6px}
+html[data-bg] body input,html[data-bg] body select,html[data-bg] body textarea{background:color-mix(in srgb,var(--bg) 92%,var(--text) 8%)!important;border:1px solid var(--line)!important}
+html[data-bg] body .food,html[data-bg] body .entry,html[data-bg] body .gitem,html[data-bg] body .rcard{border-radius:0!important;background:transparent!important;border:0!important;border-bottom:1px solid var(--line)!important;box-shadow:none!important}
+html[data-bg] body .fab,html[data-bg] body #fab{border-radius:4px!important;box-shadow:none!important;background:var(--a2)!important}
+html[data-bg] body nav[aria-label="Tabs"]{background:var(--bg)!important;border-top:1px solid var(--line)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:none!important}
+html[data-bg] body nav[aria-label="Tabs"] button,html[data-bg] body nav[aria-label="Tabs"] button.on{background:transparent!important;color:var(--muted)!important;border:0!important}
+html[data-bg] body nav[aria-label="Tabs"] button.on{color:var(--a1)!important}
+html[data-bg] body header,html[data-bg] body header.scrolled{background:var(--bg)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;border-bottom:1px solid var(--line)!important;box-shadow:none!important}
+html[data-bg] body dialog{border-radius:0!important;background:var(--bg)!important;backdrop-filter:none!important;border-top:1px solid var(--line)!important}
+html[data-bg] body .mrings .mr{}
+
+html[data-bg] body .chips button:not(.link):not(.ghost):not(.fstar):not(.pwt):not(.on),html[data-bg] body .seg button:not(.link):not(.ghost):not(.fstar):not(.pwt):not(.on),html[data-bg] body #rptStyle button:not(.link):not(.ghost):not(.fstar):not(.pwt):not(.on){background:transparent!important;border:1px solid var(--line)!important;color:var(--text)!important}
+html[data-bg] body nav[aria-label="Tabs"] button:not(.link):not(.ghost):not(.fstar):not(.pwt){background:transparent!important;color:var(--muted)!important;border:0!important}
+html[data-bg] body nav[aria-label="Tabs"] button:not(.link):not(.ghost):not(.fstar):not(.pwt).on{color:var(--a1)!important}
+html[data-bg] body .swatches button:not(.link):not(.ghost):not(.fstar):not(.pwt),html[data-bg] body button.sw:not(.link):not(.ghost):not(.fstar):not(.pwt){background:transparent!important;color:var(--text)!important;border:1px solid var(--line)!important}
+html[data-bg] body .swatches button:not(.link):not(.ghost):not(.fstar):not(.pwt).on,html[data-bg] body button.sw:not(.link):not(.ghost):not(.fstar):not(.pwt).on{border:2px solid var(--a1)!important}
+html[data-bg] body .snaplist button:not(.link):not(.ghost):not(.fstar):not(.pwt),html[data-bg] body .crc:not(.link):not(.ghost):not(.fstar):not(.pwt),html[data-bg] body #snapList button:not(.link):not(.ghost):not(.fstar):not(.pwt){background:transparent!important;color:var(--text)!important;border:1px solid var(--line)!important}
 </style>
 </head>
 <body>
@@ -1993,7 +2030,7 @@ if(hasData()&&!S.onb){S.onb=1;try{save();}catch(e){}}
 /* ---------- PWA (only when served over http/https; double-click file:// just works without it) ---------- */
 (function(){
  if(!/^https?:$/.test(location.protocol))return;
- if("serviceWorker" in navigator)navigator.serviceWorker.register("./calorie-sw.js").catch(()=>{});})();
+ if("serviceWorker" in navigator){const had=!!navigator.serviceWorker.controller;let reloaded=false;navigator.serviceWorker.addEventListener("controllerchange",()=>{if(!had||reloaded)return;reloaded=true;location.reload();});navigator.serviceWorker.register("./calorie-sw.js",{updateViaCache:"none"}).then(r=>{r.update().catch(()=>{});document.addEventListener("visibilitychange",()=>{if(!document.hidden)r.update().catch(()=>{});});}).catch(()=>{});}})();
 </script>
 </body>
 </html>
