@@ -220,6 +220,95 @@ dialog[open]{animation:sheet .38s cubic-bezier(.2,.9,.25,1)}
 .tab.on>.card:nth-child(2){animation-delay:.04s}.tab.on>.card:nth-child(3){animation-delay:.08s}.tab.on>.card:nth-child(4){animation-delay:.12s}
 .muted{color:var(--muted)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* ===== v11 strong per-theme identity ===== */
+html[data-bg=brown]{--accent:#c87b2c;--accent2:#c87b2c;--a1:#e9b862;--a2:#c87b2c;--grad:linear-gradient(135deg,#c47a2c,#8f4517);--glow:rgba(196,122,44,.38);--card:rgba(42,28,16,.62)}
+html[data-bg=brown] .card,html[data-bg=brown] header{background:rgba(42,28,16,.62)!important;border-color:rgba(200,123,44,.28)!important}
+html[data-bg=brown] header.scrolled,html[data-bg=brown] nav{background:rgba(36,24,14,.82)!important;border-color:rgba(200,123,44,.35)!important}
+html[data-bg=brown] dialog{background:#1f150c!important;border-color:rgba(200,123,44,.4)!important}
+html[data-bg=brown] nav button.on{color:#e9b862!important;background:rgba(200,123,44,.22)!important;box-shadow:inset 0 0 0 1.5px rgba(233,184,98,.6)!important}
+html[data-bg=brown] .sw.on,html[data-bg=brown] .plan.on{border-color:#c87b2c;background:rgba(200,123,44,.16)}
+html[data-bg=brown] header h1{background:linear-gradient(135deg,#e9b862,#c87b2c)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;-webkit-text-fill-color:transparent!important}
+html[data-bg=brown] #bg i{filter:blur(6px) grayscale(.55) brightness(.6)}
+html[data-bg=brown] #bg::after{background:linear-gradient(180deg,rgba(40,22,10,.62),rgba(40,22,10,.48) 35%,rgba(40,22,10,.9))}
+html[data-bg=brown] .hero{background:linear-gradient(180deg,rgba(30,16,6,.55),rgba(30,16,6,.72) 55%,rgba(30,16,6,.97)),url(img/hero.webp) center/cover!important}
+html[data-bg=brown] .hero .hd{color:#e9b862!important}
+html[data-bg=espresso]{--accent:#c9a23a;--accent2:#c9a23a;--a1:#f3d27a;--a2:#c9a23a;--grad:linear-gradient(135deg,#d8b04a,#8a6a1c);--glow:rgba(216,176,74,.38);--card:rgba(18,15,12,.78)}
+html[data-bg=espresso] .card,html[data-bg=espresso] header{background:rgba(18,15,12,.78)!important;border-color:rgba(201,162,58,.28)!important}
+html[data-bg=espresso] header.scrolled,html[data-bg=espresso] nav{background:rgba(12,10,8,.9)!important;border-color:rgba(201,162,58,.35)!important}
+html[data-bg=espresso] dialog{background:#100d0a!important;border-color:rgba(201,162,58,.4)!important}
+html[data-bg=espresso] nav button.on{color:#f3d27a!important;background:rgba(201,162,58,.22)!important;box-shadow:inset 0 0 0 1.5px rgba(243,210,122,.6)!important}
+html[data-bg=espresso] .sw.on,html[data-bg=espresso] .plan.on{border-color:#c9a23a;background:rgba(201,162,58,.16)}
+html[data-bg=espresso] header h1{background:linear-gradient(135deg,#f3d27a,#c9a23a)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;-webkit-text-fill-color:transparent!important}
+html[data-bg=espresso] #bg i{filter:blur(6px) grayscale(.55) brightness(.6)}
+html[data-bg=espresso] #bg::after{background:linear-gradient(180deg,rgba(6,5,4,.62),rgba(6,5,4,.48) 35%,rgba(6,5,4,.9))}
+html[data-bg=espresso] .hero{background:linear-gradient(180deg,rgba(8,6,4,.55),rgba(8,6,4,.72) 55%,rgba(8,6,4,.97)),url(img/hero.webp) center/cover!important}
+html[data-bg=espresso] .hero .hd{color:#f3d27a!important}
+html[data-bg=olive]{--accent:#6f9a2e;--accent2:#6f9a2e;--a1:#b8d470;--a2:#6f9a2e;--grad:linear-gradient(135deg,#7ea83a,#45651a);--glow:rgba(126,168,58,.38);--card:rgba(34,50,18,.70)}
+html[data-bg=olive] .card,html[data-bg=olive] header{background:rgba(34,50,18,.70)!important;border-color:rgba(111,154,46,.28)!important}
+html[data-bg=olive] header.scrolled,html[data-bg=olive] nav{background:rgba(28,42,14,.86)!important;border-color:rgba(111,154,46,.35)!important}
+html[data-bg=olive] dialog{background:#18240c!important;border-color:rgba(111,154,46,.4)!important}
+html[data-bg=olive] nav button.on{color:#b8d470!important;background:rgba(111,154,46,.22)!important;box-shadow:inset 0 0 0 1.5px rgba(184,212,112,.6)!important}
+html[data-bg=olive] .sw.on,html[data-bg=olive] .plan.on{border-color:#6f9a2e;background:rgba(111,154,46,.16)}
+html[data-bg=olive] header h1{background:linear-gradient(135deg,#b8d470,#6f9a2e)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;-webkit-text-fill-color:transparent!important}
+html[data-bg=olive] #bg i{filter:blur(6px) grayscale(.55) brightness(.6)}
+html[data-bg=olive] #bg::after{background:linear-gradient(180deg,rgba(38,58,16,.62),rgba(38,58,16,.48) 35%,rgba(38,58,16,.9))}
+html[data-bg=olive] .hero{background:linear-gradient(180deg,rgba(28,44,12,.55),rgba(28,44,12,.72) 55%,rgba(28,44,12,.97)),url(img/hero.webp) center/cover!important}
+html[data-bg=olive] .hero .hd{color:#b8d470!important}
+html[data-bg=terracotta]{--accent:#c4532a;--accent2:#c4532a;--a1:#f39a6b;--a2:#c4532a;--grad:linear-gradient(135deg,#d0643a,#8e2f12);--glow:rgba(208,100,58,.38);--card:rgba(78,30,16,.68)}
+html[data-bg=terracotta] .card,html[data-bg=terracotta] header{background:rgba(78,30,16,.68)!important;border-color:rgba(196,83,42,.28)!important}
+html[data-bg=terracotta] header.scrolled,html[data-bg=terracotta] nav{background:rgba(70,26,14,.86)!important;border-color:rgba(196,83,42,.35)!important}
+html[data-bg=terracotta] dialog{background:#3a160b!important;border-color:rgba(196,83,42,.4)!important}
+html[data-bg=terracotta] nav button.on{color:#f39a6b!important;background:rgba(196,83,42,.22)!important;box-shadow:inset 0 0 0 1.5px rgba(243,154,107,.6)!important}
+html[data-bg=terracotta] .sw.on,html[data-bg=terracotta] .plan.on{border-color:#c4532a;background:rgba(196,83,42,.16)}
+html[data-bg=terracotta] header h1{background:linear-gradient(135deg,#f39a6b,#c4532a)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;-webkit-text-fill-color:transparent!important}
+html[data-bg=terracotta] #bg i{filter:blur(6px) grayscale(.55) brightness(.6)}
+html[data-bg=terracotta] #bg::after{background:linear-gradient(180deg,rgba(120,40,18,.62),rgba(120,40,18,.48) 35%,rgba(120,40,18,.9))}
+html[data-bg=terracotta] .hero{background:linear-gradient(180deg,rgba(96,30,12,.55),rgba(96,30,12,.72) 55%,rgba(96,30,12,.97)),url(img/hero.webp) center/cover!important}
+html[data-bg=terracotta] .hero .hd{color:#f39a6b!important}
+html[data-bg=navy]{--accent:#dc9a22;--accent2:#dc9a22;--a1:#f5c35a;--a2:#dc9a22;--grad:linear-gradient(135deg,#3b6fd0,#1d3c86);--glow:rgba(59,111,208,.38);--card:rgba(20,36,74,.70)}
+html[data-bg=navy] .card,html[data-bg=navy] header{background:rgba(20,36,74,.70)!important;border-color:rgba(220,154,34,.28)!important}
+html[data-bg=navy] header.scrolled,html[data-bg=navy] nav{background:rgba(16,30,64,.88)!important;border-color:rgba(220,154,34,.35)!important}
+html[data-bg=navy] dialog{background:#0f1d3d!important;border-color:rgba(220,154,34,.4)!important}
+html[data-bg=navy] nav button.on{color:#f5c35a!important;background:rgba(220,154,34,.22)!important;box-shadow:inset 0 0 0 1.5px rgba(245,195,90,.6)!important}
+html[data-bg=navy] .sw.on,html[data-bg=navy] .plan.on{border-color:#dc9a22;background:rgba(220,154,34,.16)}
+html[data-bg=navy] header h1{background:linear-gradient(135deg,#f5c35a,#dc9a22)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;-webkit-text-fill-color:transparent!important}
+html[data-bg=navy] #bg i{filter:blur(6px) grayscale(.55) brightness(.6)}
+html[data-bg=navy] #bg::after{background:linear-gradient(180deg,rgba(14,34,84,.62),rgba(14,34,84,.48) 35%,rgba(14,34,84,.9))}
+html[data-bg=navy] .hero{background:linear-gradient(180deg,rgba(10,26,66,.55),rgba(10,26,66,.72) 55%,rgba(10,26,66,.97)),url(img/hero.webp) center/cover!important}
+html[data-bg=navy] .hero .hd{color:#f5c35a!important}
+html[data-bg=white]{--accent:#b8692a;--accent2:#b8692a;--a1:#e7ad66;--a2:#b8692a;--grad:linear-gradient(135deg,#c47a2c,#8f4517);--glow:rgba(196,122,44,.38);--card:rgba(255,255,255,.94)}
+html[data-bg=white] .card,html[data-bg=white] header{background:rgba(255,255,255,.94)!important;border-color:rgba(184,105,42,.28)!important}
+html[data-bg=white] header.scrolled,html[data-bg=white] nav{background:rgba(255,255,255,.96)!important;border-color:rgba(184,105,42,.35)!important}
+html[data-bg=white] dialog{background:#ffffff!important;border-color:rgba(184,105,42,.4)!important}
+html[data-bg=white] nav button.on{color:#b8692a!important;background:rgba(184,105,42,.22)!important;box-shadow:inset 0 0 0 1.5px rgba(231,173,102,.6)!important}
+html[data-bg=white] .sw.on,html[data-bg=white] .plan.on{border-color:#b8692a;background:rgba(184,105,42,.16)}
+html[data-bg=white] header h1{color:#8f4517!important;-webkit-text-fill-color:currentColor!important;background:none!important}
+html[data-bg=white] #bg i{filter:blur(18px) grayscale(.6) brightness(1.05)}
+html[data-bg=white] #bg::after{background:linear-gradient(180deg,rgba(255,255,255,.72),rgba(255,255,255,.82) 40%,rgba(255,255,255,.92))}
+html[data-bg=white] .hero{background:linear-gradient(180deg,rgba(70,40,18,.55),rgba(70,40,18,.72) 55%,rgba(70,40,18,.97)),url(img/hero.webp) center/cover!important}
+html[data-bg=white] .hero .hd{color:#e7ad66!important}
+html[data-bg=cream]{--accent:#a8692c;--accent2:#a8692c;--a1:#d9a766;--a2:#a8692c;--grad:linear-gradient(135deg,#b8783a,#7a4818);--glow:rgba(184,120,58,.38);--card:rgba(250,238,214,.90)}
+html[data-bg=cream] .card,html[data-bg=cream] header{background:rgba(250,238,214,.90)!important;border-color:rgba(168,105,44,.28)!important}
+html[data-bg=cream] header.scrolled,html[data-bg=cream] nav{background:rgba(240,224,194,.95)!important;border-color:rgba(168,105,44,.35)!important}
+html[data-bg=cream] dialog{background:#f1e2c6!important;border-color:rgba(168,105,44,.4)!important}
+html[data-bg=cream] nav button.on{color:#a8692c!important;background:rgba(168,105,44,.22)!important;box-shadow:inset 0 0 0 1.5px rgba(217,167,102,.6)!important}
+html[data-bg=cream] .sw.on,html[data-bg=cream] .plan.on{border-color:#a8692c;background:rgba(168,105,44,.16)}
+html[data-bg=cream] header h1{color:#7a4818!important;-webkit-text-fill-color:currentColor!important;background:none!important}
+html[data-bg=cream] #bg i{filter:blur(18px) grayscale(.6) brightness(1.05)}
+html[data-bg=cream] #bg::after{background:linear-gradient(180deg,rgba(226,200,156,.72),rgba(226,200,156,.82) 40%,rgba(226,200,156,.92))}
+html[data-bg=cream] .hero{background:linear-gradient(180deg,rgba(110,72,34,.55),rgba(110,72,34,.72) 55%,rgba(110,72,34,.97)),url(img/hero.webp) center/cover!important}
+html[data-bg=cream] .hero .hd{color:#d9a766!important}
+html[data-bg=sage]{--accent:#4f8442;--accent2:#4f8442;--a1:#93bd7c;--a2:#4f8442;--grad:linear-gradient(135deg,#5f9650,#2f5e2a);--glow:rgba(95,150,80,.38);--card:rgba(236,244,228,.88)}
+html[data-bg=sage] .card,html[data-bg=sage] header{background:rgba(236,244,228,.88)!important;border-color:rgba(79,132,66,.28)!important}
+html[data-bg=sage] header.scrolled,html[data-bg=sage] nav{background:rgba(220,234,208,.95)!important;border-color:rgba(79,132,66,.35)!important}
+html[data-bg=sage] dialog{background:#dde9d1!important;border-color:rgba(79,132,66,.4)!important}
+html[data-bg=sage] nav button.on{color:#4f8442!important;background:rgba(79,132,66,.22)!important;box-shadow:inset 0 0 0 1.5px rgba(147,189,124,.6)!important}
+html[data-bg=sage] .sw.on,html[data-bg=sage] .plan.on{border-color:#4f8442;background:rgba(79,132,66,.16)}
+html[data-bg=sage] header h1{color:#2f5e2a!important;-webkit-text-fill-color:currentColor!important;background:none!important}
+html[data-bg=sage] #bg i{filter:blur(18px) grayscale(.6) brightness(1.05)}
+html[data-bg=sage] #bg::after{background:linear-gradient(180deg,rgba(176,204,160,.72),rgba(176,204,160,.82) 40%,rgba(176,204,160,.92))}
+html[data-bg=sage] .hero{background:linear-gradient(180deg,rgba(46,74,40,.55),rgba(46,74,40,.72) 55%,rgba(46,74,40,.97)),url(img/hero.webp) center/cover!important}
+html[data-bg=sage] .hero .hd{color:#93bd7c!important}
 </style>
 </head>
 <body>
@@ -730,10 +819,10 @@ function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");cle
 function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
 
 /* ---------- Theme ---------- */
-const THEMES={"brown": {"name": "Brown", "dark": true, "bg": "#0d0a07", "card": "#2a1c10"}, "espresso": {"name": "Espresso", "dark": true, "bg": "#0b0908", "card": "#17120f"}, "olive": {"name": "Olive", "dark": true, "bg": "#0c110a", "card": "#19210f"}, "terracotta": {"name": "Terracotta", "dark": true, "bg": "#1a0b07", "card": "#2c140c"}, "navy": {"name": "Navy", "dark": true, "bg": "#0a0f1a", "card": "#121b2d"}, "white": {"name": "White", "dark": false, "bg": "#faf7f2", "card": "#ffffff"}, "cream": {"name": "Cream", "dark": false, "bg": "#f6eddc", "card": "#efe2c9"}, "sage": {"name": "Sage", "dark": false, "bg": "#eef2e6", "card": "#e1e8d2"}};
+const THEMES={"brown": {"name": "Brown", "dark": true, "bg": "#0d0a07", "card": "#2a1c10", "a1": "#e9b862", "a2": "#c87b2c"}, "espresso": {"name": "Espresso", "dark": true, "bg": "#0b0908", "card": "#17120f", "a1": "#f3d27a", "a2": "#c9a23a"}, "olive": {"name": "Olive", "dark": true, "bg": "#0c110a", "card": "#19210f", "a1": "#b8d470", "a2": "#6f9a2e"}, "terracotta": {"name": "Terracotta", "dark": true, "bg": "#1a0b07", "card": "#2c140c", "a1": "#f39a6b", "a2": "#c4532a"}, "navy": {"name": "Navy", "dark": true, "bg": "#0a0f1a", "card": "#121b2d", "a1": "#f5c35a", "a2": "#dc9a22"}, "white": {"name": "White", "dark": false, "bg": "#faf7f2", "card": "#ffffff", "a1": "#e7ad66", "a2": "#b8692a"}, "cream": {"name": "Cream", "dark": false, "bg": "#f6eddc", "card": "#efe2c9", "a1": "#d9a766", "a2": "#a8692c"}, "sage": {"name": "Sage", "dark": false, "bg": "#eef2e6", "card": "#e1e8d2", "a1": "#93bd7c", "a2": "#4f8442"}};
 function bgMode(){const m=S.bg||(S.theme==="light"?"white":"brown");return m==="system"||THEMES[m]?m:"brown";}
 function curTheme(){const m=bgMode();return m==="system"?(matchMedia("(prefers-color-scheme: dark)").matches?"brown":"white"):m;}
-function renderPicker(){$("bgPick").innerHTML=Object.entries(THEMES).map(([k,t])=>`<button class="sw" data-bg="${k}"><i style="background:${t.bg}"><b style="background:${t.card};box-shadow:0 2px 6px rgba(0,0,0,.25)"></b><u style="background:linear-gradient(135deg,#e9b862,#c87b2c)"></u></i>${t.name}</button>`).join("")+`<button class="sw" data-bg="system"><i class="sys"></i>Match phone</button>`;}
+function renderPicker(){$("bgPick").innerHTML=Object.entries(THEMES).map(([k,t])=>`<button class="sw" data-bg="${k}"><i style="background:${t.bg}"><b style="background:${t.card};box-shadow:0 2px 6px rgba(0,0,0,.25)"></b><u style="background:linear-gradient(135deg,${t.a1},${t.a2})"></u></i>${t.name}</button>`).join("")+`<button class="sw" data-bg="system"><i class="sys"></i>Match phone</button>`;}
 function applyTheme(){const m=bgMode(),id=curTheme(),t=THEMES[id];const html=document.documentElement;html.dataset.theme=t.dark?"dark":"light";html.dataset.bg=id;
  $("themeBtn").textContent=t.dark?"☀️":"🌙";$("themeBtn").setAttribute("aria-label",t.dark?"Switch to a light background":"Switch to a dark background");
  const tc=document.querySelector('meta[name="theme-color"]');if(tc)tc.content=t.dark?t.bg:THEMES[id].card==="#ffffff"?"#faf7f2":t.bg;
@@ -757,7 +846,7 @@ let ringAnim=null,ringShown=0;
 function drawRingFrame(eaten,goal,prog){const c=$("ring"),x=c.getContext("2d"),W=200;x.clearRect(0,0,W,W);const pct=goal?eaten/goal:0;
  x.lineWidth=16;x.lineCap="round";x.strokeStyle=document.documentElement.dataset.theme==="dark"?"rgba(214,190,160,.12)":"rgba(42,28,16,.08)";x.beginPath();x.arc(100,100,80,0,Math.PI*2);x.stroke();
  const p=Math.min(pct,1)*prog;
- if(p>0.001){const g=x.createLinearGradient(20,20,180,180);if(pct>1){g.addColorStop(0,"#e0604a");g.addColorStop(1,"#a8261a");}else{g.addColorStop(0,"#c87b2c");g.addColorStop(1,"#e9b862");}
+ if(p>0.001){const g=x.createLinearGradient(20,20,180,180);if(pct>1){g.addColorStop(0,"#e0604a");g.addColorStop(1,"#a8261a");}else{g.addColorStop(0,css("--a2")||"#c87b2c");g.addColorStop(1,css("--a1")||"#e9b862");}
   x.save();x.shadowColor=pct>1?"rgba(217,67,47,.8)":"rgba(233,184,98,.8)";x.shadowBlur=9;x.strokeStyle=g;x.beginPath();x.arc(100,100,80,-Math.PI/2,-Math.PI/2+Math.PI*2*p);x.stroke();x.restore();
   const a=-Math.PI/2+Math.PI*2*p;x.fillStyle="#fff";x.beginPath();x.arc(100+80*Math.cos(a),100+80*Math.sin(a),4,0,Math.PI*2);x.fill();}
  x.fillStyle=css("--text");x.textAlign="center";x.font="800 38px -apple-system,system-ui,sans-serif";x.fillText(Math.round(ringShown).toLocaleString(),100,106);x.font="600 13px -apple-system,system-ui,sans-serif";x.fillStyle=css("--muted");x.fillText(goal?Math.round(pct*100*prog)+"% of goal":"kcal eaten",100,130);}
