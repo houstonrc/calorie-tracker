@@ -530,12 +530,22 @@ header.scrolled .brand{opacity:0;pointer-events:none}
 #splash img{width:104px!important;height:104px!important;border-radius:26px!important}
 #splash b.pjw{font-size:30px!important;margin-top:16px!important;color:#f6eddc}
 #splash small{display:block;margin-top:6px;font-size:13px;letter-spacing:.02em;color:rgba(246,237,220,.7)}
+
+/* ===== v21 PJ Plate brand ===== */
+.pjw{font-family:"Arial Black","Helvetica Neue",-apple-system,Inter,"Segoe UI",sans-serif;font-weight:900;letter-spacing:-.03em}
+.pjw span{background:linear-gradient(135deg,#ffe2a0,#e9b862 40%,#d0603f)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important}
+[data-theme=light] .pjw span{background:linear-gradient(135deg,#e9b862,#c87b2c 50%,#d0603f)!important;-webkit-background-clip:text!important;background-clip:text!important}
+.brand .pjw{font-size:14px!important}.brand img{width:24px;height:24px;border-radius:6px;box-shadow:0 0 0 1px rgba(233,184,98,.25)}
+#splash b.pjw{font-size:30px!important;color:#f6eddc!important}
+#splash small{font:700 11px -apple-system,Inter,sans-serif;letter-spacing:.2em;margin-top:8px}
+#splash img{box-shadow:0 0 50px rgba(233,184,98,.4),0 0 0 1px rgba(233,184,98,.25)!important}
+.pjpay{display:block;width:64px;height:64px;border-radius:16px;margin:0 auto 8px;box-shadow:0 8px 24px rgba(0,0,0,.35),0 0 0 1px rgba(233,184,98,.3)}
 </style>
 </head>
 <body>
-<div id="splash" aria-hidden="true"><div><img src="icon-192.png" alt=""><b class="pjw">Plate<span>Jack</span></b><small>Take over your plate.</small></div></div>
+<div id="splash" aria-hidden="true"><div><img src="icon-192.png" alt=""><b class="pjw">PLATE<span>JACK</span></b><small>TAKE OVER YOUR PLATE</small></div></div>
 <div id="bg" aria-hidden="true"><i data-k="today" style="background-image:url(img/hero.webp)" class="on"></i><i data-k="add" style="background-image:url(img/add.webp)"></i><i data-k="history" style="background-image:url(img/insights.webp)"></i><i data-k="settings" style="background-image:url(img/settings.webp)"></i><i data-k="plan" style="background-image:url(img/lunch.webp)"></i></div>
-<header id="appbar"><span class="brand" aria-label="PlateJack"><img src="icon-192.png" alt="" width="26" height="26"><b class="pjw">Plate<span>Jack</span></b></span><h1 id="barTitle">Today</h1><button class="ghost small" id="themeBtn" aria-label="Toggle dark mode">🌙</button></header>
+<header id="appbar"><span class="brand" aria-label="PlateJack"><img src="icon-192.png" alt="" width="26" height="26"><b class="pjw">PLATE<span>JACK</span></b></span><h1 id="barTitle">Today</h1><button class="ghost small" id="themeBtn" aria-label="Toggle dark mode">🌙</button></header>
 <main>
 <!-- TODAY -->
 <section class="tab on" id="tab-today">
@@ -655,7 +665,7 @@ header.scrolled .brand{opacity:0;pointer-events:none}
   <div class="row" style="margin-top:8px"><button type="button" class="ghost" id="dlgCancel">Cancel</button><button type="submit" id="dlgSave" value="ok">Add</button></div>
 </form></dialog>
 <dialog id="lbl"><div id="lblBody"></div><div class="row" style="margin-top:12px"><button type="button" class="ghost" id="lblEdit">✏️ Edit</button><button type="button" id="lblClose">Close</button></div></dialog>
-<dialog id="pay"><div class="phero"><span class="probadge">PRO</span><h2>PlateJack Pro</h2><div style="opacity:.9;font-size:.9rem">Go deeper on every meal.</div></div>
+<dialog id="pay"><div class="phero"><img class="pjpay" src="icon-192.png" alt="PlateJack" width="64" height="64"><span class="probadge">PRO</span><h2>PlateJack Pro</h2><div style="opacity:.9;font-size:.9rem">Go deeper on every meal.</div></div>
  <div class="ben"><span class="bi">📷</span><div><b>Barcode scanner</b><small>Scan packaged food with your camera and fill in nutrition automatically.</small></div></div>
  <div class="ben"><span class="bi">📊</span><div><b>Full Insights</b><small>30- and 90-day charts, nutrient averages table, best and worst days over time.</small></div></div>
  <div class="ben"><span class="bi">🎯</span><div><b>Goal weight projection</b><small>Progress bar and estimated date to reach your goal weight.</small></div></div>
