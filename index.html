@@ -696,6 +696,28 @@ html[data-bg] body .hcbox .hct{font-weight:800;margin-bottom:6px}
 html[data-bg] body .hcbox ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;font-size:13px}
 html[data-bg] body .hcbox li{min-width:0;overflow-wrap:anywhere}html[data-bg] body .hcbox li.n{opacity:.6}
 /* v37 healthy60 */
+/* v38 fridge */
+html[data-bg] body .frcard{padding:16px!important}
+html[data-bg] body .frh{display:flex;align-items:center;gap:12px}html[data-bg] body .fri{font-size:1.6rem}
+html[data-bg] body .frl{flex:1;min-width:0;display:flex;flex-direction:column}html[data-bg] body .frl small,html[data-bg] body .frsv small{font-size:.75rem;opacity:.75}
+html[data-bg] body .frsv{text-align:right;display:flex;flex-direction:column}html[data-bg] body .frsv b{color:var(--a1);font-size:1.15rem}
+html[data-bg] body .frsoon{color:#f0a24a;font-weight:700}
+html[data-bg] body .frsub{margin:12px 0 6px;font-weight:700;font-size:.9rem}
+html[data-bg] body .frs{display:flex;align-items:center;gap:12px;padding:10px;border-radius:18px;background:rgba(255,255,255,.06);margin-top:8px}
+html[data-bg] body .frth{width:48px;height:48px;border-radius:14px;object-fit:cover;flex:0 0 48px}
+html[data-bg] body .frs .n,html[data-bg] body .fritem .n{flex:1;min-width:0;display:flex;flex-direction:column}html[data-bg] body .frs .n small{opacity:.75;font-size:.78rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+html[data-bg] body .frbtns{display:flex;gap:8px;margin-top:10px}html[data-bg] body .frmore{width:100%;margin-top:8px}
+html[data-bg] body .fradd{display:grid;gap:8px;margin-top:6px}
+html[data-bg] body .fritem{display:flex;align-items:center;gap:10px;padding:12px 4px;border-bottom:1px solid rgba(255,255,255,.08)}html[data-bg] body .fre{font-size:1.4rem}
+html[data-bg] body .fritem .n b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+html[data-bg] body .frb{font-size:.72rem;font-weight:800;padding:4px 9px;border-radius:999px;white-space:nowrap;background:rgba(255,255,255,.1)}
+html[data-bg] body .frb.soon{background:rgba(240,162,74,.22);color:#f0b060}html[data-bg] body .frb.hot{background:rgba(224,96,74,.25);color:#ff8a70}html[data-bg] body .frb.ex{background:rgba(160,160,160,.2);opacity:.8}html[data-bg] body .frb.ok{opacity:.7}
+html[data-bg] body .frsvbox{margin-top:16px;padding:14px;border-radius:18px;background:rgba(127,190,120,.12);border:1px solid rgba(127,190,120,.35)}html[data-bg] body .frsvbox b{font-size:1.3rem;color:#9fd88f}
+html[data-bg] body .frhist{margin-top:12px;padding:14px;border-radius:18px;background:rgba(255,255,255,.05)}html[data-bg] body .frht{font-weight:800;margin-bottom:8px}
+html[data-bg] body .frbars{display:flex;gap:6px;height:120px;align-items:flex-end;margin-bottom:6px}
+html[data-bg] body .frbar{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;font-size:.65rem}
+html[data-bg] body .frbar i{display:block;width:100%;border-radius:8px 8px 4px 4px;background:var(--grad,linear-gradient(#e9b862,#c87b2c));max-height:70%}html[data-bg] body .frbar span{opacity:.6}
+/* v38 fridge60 */
 </style>
 </head>
 <body>
@@ -733,6 +755,7 @@ html[data-bg] body .hcbox li{min-width:0;overflow-wrap:anywhere}html[data-bg] bo
   </div>
   <div class="card" id="noGoal" style="display:none"><div class="empty">Set your daily calorie goal to get started.<br><br><button id="goSetup">Set my goal</button></div></div>
   <div class="card budstrip" id="budStrip"></div>
+  <div class="card frcard" id="frCard" style="display:none"></div>
   <div class="card mcard"><div id="macroBars" class="mrings"></div></div>
   <div class="card rptban" id="rptBan" style="display:none"><span class="ri">📊</span><span class="rl"><b>Your Plate Report is ready</b><small>Share how you jacked your plate this week</small></span><button class="small" id="rptBanGo">Share</button><button class="ghost small" id="rptBanX" aria-label="Dismiss">✕</button></div>
   <div class="card coach" id="coach" style="display:none"></div>
@@ -790,7 +813,7 @@ html[data-bg] body .hcbox li{min-width:0;overflow-wrap:anywhere}html[data-bg] bo
   </div>
   <div id="groceryView" style="display:none">
     <div class="card"><div class="pstat"><div><h2 style="margin:0">🛒 Grocery list</h2><span class="muted" id="gSub"></span></div></div>
-      <div class="row" style="margin-top:12px"><button id="gShare">📤 Share / copy</button><button class="ghost" id="gClear">Clear checked</button></div>
+      <div class="row" style="margin-top:12px"><button id="gShare">📤 Share / copy</button><button class="ghost" id="gClear">Clear checked</button></div><button class="ghost small" id="gFridge" style="width:100%;margin-top:10px">🧊 Add bought items to Fridge</button>
       <div id="gBud"></div><div id="gList"></div><p class="fine" id="gNote"></p></div>
   </div>
 </section>
@@ -893,6 +916,10 @@ html[data-bg] body .hcbox li{min-width:0;overflow-wrap:anywhere}html[data-bg] bo
  <label>Meal</label><div class="chips" id="snapMeal"></div>
  <div class="snapsum" id="snapSum"></div>
  <button type="button" id="snapLog" style="width:100%;margin-top:8px">Log it</button></dialog>
+<dialog id="fridge" class="tall"><div class="shd" tabindex="-1" autofocus style="outline:none"><h2>🧊 My fridge</h2><button type="button" class="ghost small" id="frClose">Done</button></div>
+<div class="fradd"><input id="frName" placeholder="Item, e.g. spinach" aria-label="Item"><input id="frAmt" placeholder="Amount (rough)" aria-label="Amount"><label for="frUse" style="margin:6px 0 2px">Use by (optional)</label><input type="date" id="frUse"><button type="button" id="frAdd">＋ Add to fridge</button></div>
+<button type="button" class="ghost small" id="frGro" style="width:100%;margin:10px 0 4px">🛒 Add bought grocery items</button>
+<div id="frList"></div><div id="frSaved"></div><p class="fine">Savings are rough estimates from typical US grocery prices. Expiry badges are reminders only; check food before eating. Not medical advice.</p></dialog>
 <dialog id="bset"><h2 style="margin:0 0 4px">💵 Weekly grocery budget</h2><p class="fine" style="text-align:left;margin:0">Prices are approx. typical US grocery prices. Edit any ingredient price in a recipe.</p><label for="bAmt">Budget per week ($)</label><input id="bAmt" type="number" inputmode="decimal" min="0" step="1" placeholder="60">
  <div class="row" style="margin-top:12px"><button type="button" id="bSave">Save</button><button type="button" class="ghost" id="bCancel">Cancel</button></div></dialog>
 <dialog id="csub" class="tall"><div class="shd" tabindex="-1" autofocus style="outline:none"><h2>Submit your recipe</h2><button type="button" class="ghost small" id="csClose">Cancel</button></div>
@@ -1681,7 +1708,7 @@ async function drawReport(opt){const W=1080,H=opt.fmt==="story"?1920:1080,sq=H==
  // stats
  const S2=[];if(!opt.hideCal)S2.push([Math.round(st.avg).toLocaleString(),st.g?`avg cal · goal ${st.g.toLocaleString()}`:"avg calories"]);
  S2.push([String(st.onT),st.hasGoal?"days on target":"days logged"],[st.streak+"🔥","day streak"],[Math.round(st.pav)+"g","avg protein"]);
- if(st.best)S2.push([DOW[parse(st.best).getDay()],opt.hideCal||!st.g?"best day":"best day · "+Math.round(totals(st.best).cal).toLocaleString()]);
+ {const fs=weekSaved();if(fs>0)S2.splice(opt.hideCal?2:3,0,["$"+fs.toFixed(2),"saved · fridge rescue"]);}if(st.best)S2.push([DOW[parse(st.best).getDay()],opt.hideCal||!st.g?"best day":"best day · "+Math.round(totals(st.best).cal).toLocaleString()]);
  if(!opt.hideWt&&st.wch!==null)S2.push([(st.wch>0?"+":"")+st.wch+" lb","weight change"]);
  const cols=sq?3:2,gap=sq?16:24,cw=(W-2*P-gap*(cols-1))/cols,chh=sq?120:150;y+=sq?40:70;const shown=S2.slice(0,sq?6:6);
  shown.forEach(([v,l],i)=>{const cx=P+(i%cols)*(cw+gap),cy=y+Math.floor(i/cols)*(chh+gap);rrect(x,cx,cy,cw,chh,sq?22:30);x.fillStyle=paper?"rgba(255,255,255,.75)":"rgba(255,255,255,.09)";x.fill();x.strokeStyle=paper?"rgba(42,28,16,.08)":"rgba(255,255,255,.12)";x.lineWidth=2;x.stroke();
@@ -1910,6 +1937,64 @@ $("gShare").onclick=async()=>{const G=S.grocery||{checked:{},hidden:{}};const it
 function renderAll(){renderPro();if($("tab-plan").classList.contains("on"))renderPlan();renderToday();renderSettings();renderMealChips();renderFoods();if($("tab-history").classList.contains("on"))renderHistory();}
 window.addEventListener("resize",()=>{if($("tab-history").classList.contains("on"))renderHistory();});
 applyTheme();renderAll();$("wtDate").textContent=cur;onScroll();
+/* ---------- Fridge Rescue ---------- */
+function migFridge(o){if(!Array.isArray(o.fridge))o.fridge=[];o.fridge=o.fridge.filter(i=>i&&i.name).map(i=>({...i,id:i.id||Math.random().toString(36).slice(2,9)}));if(!Array.isArray(o.fsaved))o.fsaved=[];o.fsaved=o.fsaved.filter(s=>s&&s.d&&isFinite(+s.v));return o;}
+const _mig0=migrate;migrate=function(d){return migFridge(_mig0(d));};migFridge(S);
+const FR=()=>S.fridge||(S.fridge=[]);
+const frId=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const addDays=(n)=>{const d=parse(ymd(new Date()));d.setDate(d.getDate()+n);return ymd(d);};
+function daysLeft(i){if(!i.use)return null;return Math.round((parse(i.use)-parse(ymd(new Date())))/864e5);}
+function frBadge(i){const d=daysLeft(i);if(d==null)return"";if(d<0)return `<span class="frb ex">Expired</span>`;if(d===0)return `<span class="frb hot">Use today</span>`;if(d<=2)return `<span class="frb soon">Use in ${d}d</span>`;return `<span class="frb ok">${d}d left</span>`;}
+function frSort(a,b){const da=daysLeft(a),db=daysLeft(b);return (da==null?99:da)-(db==null?99:db)||(b.serv?1:0)-(a.serv?1:0);}
+function weekSaved(){const k0=rangeKeys(7)[0];return (S.fsaved||[]).filter(s=>s.d>=k0).reduce((a,s)=>a+(+s.v||0),0);}
+function frShelf(cat){return /Meat/.test(cat||"")?3:/Dairy/.test(cat||"")?7:/Produce/.test(cat||"")?5:/Frozen/.test(cat||"")?60:/Pantry|grains/i.test(cat||"")?30:5;}
+function frAdd(it){FR().push({id:frId(),added:ymd(new Date()),...it});}
+function addLeftover(r,left){if(!(left>0))return;const ex=FR().find(i=>i.rid===r.id&&i.serv>0);const per=recipeCost(r).per;
+ if(ex){ex.serv+=left;ex.amt=ex.serv+" serving"+(ex.serv==1?"":"s");ex.use=addDays(4);}else frAdd({name:r.name,rid:r.id,serv:left,amt:left+" serving"+(left==1?"":"s"),use:addDays(4),src:"leftover",cost:isFinite(per)?+(per).toFixed(2):null});}
+function frSaveVal(v,name){if(!(v>0))return;(S.fsaved||(S.fsaved=[])).push({d:ymd(new Date()),v:+v.toFixed(2),n:name});}
+const frTok=s=>String(s).toLowerCase().replace(/\([^)]*\)/g," ").replace(/[^a-z ]/g," ").split(/\s+/).filter(w=>w.length>2&&!/^(and|the|with|dry|lean|fresh|frozen|canned|low|sodium|salt|added|free|boneless|peeled|raw|large|small|whole|wheat|nonfat|part|skim|light|trimmed|baby|shredded|grated|unsweetened|old|fashioned|oz|lbs?)$/.test(w)).map(w=>w.replace(/(es|s)$/,""));
+function frMatch(item,ingName){const a=frTok(item.name),b=frTok(ingName);return a.length&&a.some(w=>b.includes(w));}
+function frSuggest(){const L=FR(),g=S.goal,rem=g?g-totals(ymd(new Date())).cal:null;const fits=c=>rem==null||c<=rem+75;const out=[];
+ L.filter(i=>i.rid&&i.serv>0).forEach(i=>{const r=ALLR().find(x=>x.id===i.rid);if(!r||!fits(r.cal))return;const d=daysLeft(i);out.push({kind:"left",r,items:[i],score:3+(d==null?0:3/(1+Math.max(0,d))),why:"Leftover · "+i.serv+" left"});});
+ const raw=L.filter(i=>!i.rid);ALLR().filter(r=>canRecipe(r)&&fits(r.cal)&&!out.some(o=>o.r.id===r.id)).forEach(r=>{const used=raw.filter(i=>r.ing.some(([n])=>frMatch(i,n)));if(!used.length)return;
+  const urg=used.reduce((a,i)=>{const d=daysLeft(i);return a+(d==null?.4:d<0?.2:2/(1+d))},0);if(used.length<2&&urg<.6)return;out.push({kind:"cook",r,items:used,score:urg+used.length*.5,why:"Uses "+used.map(i=>i.name.toLowerCase()).slice(0,3).join(", ")});});
+ return out.sort((a,b)=>b.score-a.score);}
+function frItemVal(i,r){if(i.cost!=null)return +i.cost;if(r){const ing=r.ing.find(([n])=>frMatch(i,n));if(ing){const p=ingPrice(ing[0],ing[2]);if(p!=null)return p*ing[1];}}return 1.5;}
+function frUse(s){const today=ymd(new Date());const meal=new Date().getHours()>=16?"Dinner":new Date().getHours()>=11?"Lunch":"Breakfast";
+ const prevCur=cur;cur=today;const r=s.r;addEntry({name:r.name,serving:"1 serving",cal:r.cal,p:r.p,c:r.c,f:r.f,fib:r.fib,na:r.na,qty:1,meal:r.meal==="Snacks"?"Snacks":meal,rid:r.id,fridge:1});cur=prevCur;let v=0;
+ if(s.kind==="left"){const i=s.items[0];const fresh=daysLeft(i)==null||daysLeft(i)>=0;if(fresh)v+=i.cost!=null?+i.cost:recipeCost(r).per;i.serv--;i.amt=i.serv+" serving"+(i.serv==1?"":"s");if(i.serv<=0)S.fridge=FR().filter(x=>x!==i);}
+ else{s.items.forEach(i=>{if(daysLeft(i)==null||daysLeft(i)>=0)v+=frItemVal(i,r);});const ids=new Set(s.items.map(i=>i.id));S.fridge=FR().filter(x=>!ids.has(x.id));addLeftover(r,r.serv-1);}
+ frSaveVal(v,r.name);save();renderToday();if($("fridge").open)renderFridge();toast(`Logged ${r.name}${v>0?` · ~$${v.toFixed(2)} saved`:""}`);}
+function frEvening(){return window._forceEvening!=null?!!window._forceEvening:new Date().getHours()>=16;}
+function renderFridgeCard(){const el=$("frCard");if(!el)return;const L=FR();const today=cur===ymd(new Date());if(!L.length||!today){el.style.display="none";return;}el.style.display="";
+ const soon=L.filter(i=>{const d=daysLeft(i);return d!=null&&d<=2;}).length,sv=weekSaved();
+ const head=`<div class="frh"><span class="fri">🧊</span><span class="frl"><b>Fridge Rescue</b><small>${L.length} item${L.length==1?"":"s"}${soon?` · <span class="frsoon">${soon} expiring soon</span>`:""}</small></span><span class="frsv"><b>$${sv.toFixed(2)}</b><small>saved this week · est.</small></span></div>`;
+ if(!frEvening()){el.innerHTML=head+`<div class="frsub muted">Dinner ideas from your fridge show up here after 4 pm.</div><div class="frbtns"><button class="ghost small" data-fo="1">Open fridge</button></div>`;return;}
+ const all=frSuggest(),n=isPro()?3:1,sh=all.slice(0,n);
+ el.innerHTML=head+(sh.length?`<div class="frsub">Tonight, use it up:</div>`+sh.map((s,i)=>`<div class="frs" data-i="${i}"><img class="frth" src="${s.r.img||"img/r/"+s.r.id+"-t.webp"}" alt="" loading="lazy" onerror="this.style.visibility='hidden'"><span class="n"><b>${esc(s.r.name)}</b><small>${esc(s.why)} · ${s.r.cal} cal</small></span><button class="small" data-use="${i}">Log it</button></div>`).join("")
+  +(!isPro()&&all.length>1?`<button class="ghost small frmore" data-pro="1">🔒 ${Math.min(all.length,3)-1} more idea${Math.min(all.length,3)-1==1?"":"s"} with Pro</button>`:""):`<div class="frsub muted">No recipe fits your fridge and remaining calories right now.</div>`)+`<div class="frbtns"><button class="ghost small" data-fo="1">Open fridge</button></div>`;
+ el._s=sh;}
+$("frCard")&&($("frCard").onclick=e=>{const u=e.target.closest("[data-use]");if(u){frUse($("frCard")._s[+u.dataset.use]);return;}if(e.target.closest("[data-pro]")){openPay("fridge");return;}if(e.target.closest("[data-fo]")){openFridge();}});
+function openFridge(){$("frUse").value="";$("frName").value="";$("frAmt").value="";renderFridge();if(!$("fridge").open)$("fridge").showModal();}
+function boughtItems(){const G=S.grocery||{};const ch=G.checked||{};const have=new Set(FR().map(i=>i.gk).filter(Boolean));return groceryItems().filter(x=>ch[x.key]&&!have.has(x.key));}
+function addBought(){const b=boughtItems();b.forEach(x=>frAdd({name:x.name,amt:r1(x.qty)+" "+String(x.serving).replace(" · for prep",""),use:addDays(frShelf(x.cat)),src:"grocery",gk:x.key,cost:x.cost!=null?+x.cost.toFixed(2):null}));save();return b.length;}
+function renderFridge(){const L=[...FR()].sort(frSort);const nb=boughtItems().length;
+ $("frGro").textContent=nb?`🛒 Add ${nb} bought grocery item${nb==1?"":"s"}`:"🛒 No bought grocery items";$("frGro").disabled=!nb;
+ $("frList").innerHTML=L.length?L.map(i=>`<div class="fritem" data-id="${i.id}"><span class="fre">${i.rid?"🍱":catEmoji(i.name)}</span><span class="n"><b>${esc(i.name)}</b><small class="muted">${esc(i.amt||"")}${i.src==="leftover"?" · leftover":i.src==="grocery"?" · from grocery":""}</small></span>${frBadge(i)}<button class="ghost small" data-rm="1" aria-label="Remove ${esc(i.name)}">✕</button></div>`).join(""):`<div class="empty">Your fridge is empty.<br>Add what you have, or tick bought items on the grocery list.</div>`;
+ const sv=weekSaved();let h=`<div class="frsvbox"><b>$${sv.toFixed(2)}</b> saved this week <small class="muted">· est. value of food used before it expired</small></div>`;
+ if(isPro()){const wk=[];for(let w=7;w>=0;w--){const e=parse(ymd(new Date()));e.setDate(e.getDate()-w*7);const s=new Date(e);s.setDate(s.getDate()-6);const a=ymd(s),b=ymd(e);wk.push([s,(S.fsaved||[]).filter(x=>x.d>=a&&x.d<=b).reduce((t,x)=>t+x.v,0)]);}
+  const mx=Math.max(1,...wk.map(w=>w[1]));h+=`<div class="frhist"><div class="frht">Savings history · 8 weeks</div><div class="frbars">${wk.map(([d,v])=>`<div class="frbar"><i style="height:${Math.max(4,v/mx*100)}%"></i><small>${v?"$"+v.toFixed(0):"–"}</small><span>${d.getMonth()+1}/${d.getDate()}</span></div>`).join("")}</div><div class="muted" style="font-size:.8rem">Total: $${wk.reduce((a,w)=>a+w[1],0).toFixed(2)} · est.</div></div>`;}
+ else h+=`<button class="ghost small" id="frHistPro" style="width:100%;margin-top:8px">🔒 Savings history with Pro</button>`;
+ $("frSaved").innerHTML=h;const hp=$("frHistPro");if(hp)hp.onclick=()=>openPay("fridge");}
+$("frAdd").onclick=()=>{const n=$("frName").value.trim();if(!n){toast("Name the item");$("frName").focus();return;}frAdd({name:n[0].toUpperCase()+n.slice(1),amt:$("frAmt").value.trim(),use:$("frUse").value||null,src:"manual"});save();$("frName").value="";$("frAmt").value="";$("frUse").value="";renderFridge();renderToday();toast("Added to fridge");};
+$("frGro").onclick=()=>{const n=addBought();renderFridge();renderToday();toast(n?`Added ${n} to fridge`:"Nothing new");};
+$("frList").onclick=e=>{const row=e.target.closest(".fritem");if(row&&e.target.closest("[data-rm]")){S.fridge=FR().filter(i=>i.id!==row.dataset.id);save();renderFridge();renderToday();}};
+$("frClose").onclick=()=>$("fridge").close();
+$("gFridge").onclick=()=>{const n=addBought();toast(n?`🧊 Added ${n} bought item${n==1?"":"s"} to Fridge`:"Tick bought items first");};
+{const rl=$("rcLog").onclick;$("rcLog").onclick=()=>{const r=rcCur;if(r&&!r.by){const ex=FR().find(i=>i.rid===r.id&&i.serv>0);if(ex){rl();const fresh=daysLeft(ex)==null||daysLeft(ex)>=0;frSaveVal(fresh?(ex.cost!=null?+ex.cost:recipeCost(r).per):0,r.name);ex.serv--;ex.amt=ex.serv+" serving"+(ex.serv==1?"":"s");if(ex.serv<=0)S.fridge=FR().filter(x=>x!==ex);save();renderToday();toast("Logged a leftover serving from your fridge");return;}
+ rl();if(r.serv>1){addLeftover(r,r.serv-1);save();renderToday();toast(`Logged 1 serving · ${r.serv-1} leftovers saved to Fridge`);}return;}rl();};}
+{const rt=renderToday;renderToday=function(){rt();try{renderFridgeCard();}catch(e){console.warn(e)}};}
+renderToday();
 /* ---------- Accounts & cloud sync (Supabase) ---------- */
 const SB_URL="https://gxlxdpsnvgdbgfzeyusd.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd4bHhkcHNudmdkYmdmemV5dXNkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE4MzYxNzMsImV4cCI6MjEwNzQxMjE3M30.164cIzZ3baF8Jc3oJV3LjN9vDACIGnQaU7Ai4jkSfLI";
 const SYNC_KEY="pj_sync_v1",AUTH_KEY="pj_auth_choice",BK_KEY="ct_data_v1_backup";
