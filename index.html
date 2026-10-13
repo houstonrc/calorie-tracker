@@ -2156,7 +2156,7 @@ async function authSubmit(){if(!sb){authErr("Accounts aren't available here.");r
  btn.disabled=true;const lbl=btn.textContent;btn.textContent="Please wait…";
  try{const redir=location.origin+location.pathname;
   if(authMode==="signin"){const {error}=await sb.auth.signInWithPassword({email:em,password:pw});if(error)throw error;localStorage.setItem(AUTH_KEY,"account");closeAuth();toast("Signed in");}
-  else if(authMode==="signup"){const {data,error}=await sb.auth.signUp({email:em,password:pw,options:{emailRedirectTo:redir}});if(error)throw error;if(data.session){localStorage.setItem(AUTH_KEY,"account");closeAuth();toast("Account created");}else{authMode="check";renderAuth();}}
+  else if(authMode==="signup"){const {data,error}=await sb.auth.signUp({email:em,password:pw,options:{emailRedirectTo:redir}});if(error)throw error;if(data.session){localStorage.setItem(AUTH_KEY,"account");sbUser=data.session.user||sbUser;closeAuth();toast("Account created · you're in");setTimeout(()=>{try{syncNow(true);}catch(e){}try{renderAccount();}catch(e){}},400);}else{authMode="check";renderAuth();}}
   else if(authMode==="forgot"){const {error}=await sb.auth.resetPasswordForEmail(em,{redirectTo:redir});if(error)throw error;authMode="sent";renderAuth();}
   else if(authMode==="reset"){const {error}=await sb.auth.updateUser({password:pw});if(error)throw error;_recovery=false;history.replaceState(null,"",location.pathname);closeAuth();toast("Password updated");}}
  catch(e){authErr(friendly(e));}finally{const b=$("aGo");if(b){b.disabled=false;b.textContent=lbl;}}}
@@ -2329,6 +2329,7 @@ html[data-bg] body .mxq .frs~.frs,html[data-bg] body .mxq .frsub:not(.muted),htm
 html[data-bg] body .mxq .frs{margin-top:14px}html[data-bg] body .mxq .frbtns{margin-top:auto;padding-top:10px}
 html[data-bg] body .mxq.coach{border-left:0!important}
 html[data-bg] body .mxtop{justify-content:center}
+/* v42 autoconfirm */
 </style>
 </body>
 </html>
