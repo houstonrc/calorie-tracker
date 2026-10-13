@@ -753,6 +753,11 @@ html[data-bg] body .nttimes{display:flex;flex-wrap:wrap;gap:8px}html[data-bg] bo
 .pddays{display:flex;gap:6px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none}.pddays button{flex:none;border-radius:999px;padding:7px 13px;font-size:.82rem;margin:0}.pddays button:not(.on){background:rgba(127,127,127,.14);color:inherit;box-shadow:none}
 .pdrow{display:flex;gap:12px;align-items:center;padding:10px 4px;cursor:pointer}.pdrow+.pdrow{border-top:1px solid rgba(127,127,127,.13)}.pdrow img{width:58px;height:44px;border-radius:12px;object-fit:cover;flex:none}.pdrow .rl{flex:1;min-width:0;display:flex;flex-direction:column}.pdrow .rl b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pdrow small{opacity:.7}
 .pdday{display:flex;justify-content:space-between;font-size:.85rem;opacity:.8;margin:8px 4px 0}
+.hctiles{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:4px 0 6px}.hctiles button{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:16px;border-radius:22px;background:rgba(127,127,127,.13);color:inherit;box-shadow:none;margin:0;text-align:left;font-weight:700}.hctiles span{font-size:1.5rem}
+.hcart h2{margin:10px 0 4px}.hcsteps{padding-left:22px;margin:12px 0 16px;display:grid;gap:10px;line-height:1.45}.hcsteps li::marker{font-weight:800}
+.hq{width:24px;height:24px;min-width:24px;border-radius:50%;padding:0;margin:0 0 0 6px;font-size:.8rem;font-weight:800;line-height:24px;display:inline-grid;place-items:center;background:rgba(127,127,127,.2);color:inherit;box-shadow:none;vertical-align:middle}
+#frCard>.hq{position:absolute;top:10px;right:10px;z-index:2}#frCard{position:relative}
+@keyframes hlp{0%,100%{box-shadow:0 0 0 0 rgba(255,190,80,0)}30%{box-shadow:0 0 0 6px rgba(255,190,80,.85)}65%{box-shadow:0 0 0 12px rgba(255,190,80,.25)}}.hlpulse{animation:hlp 1.2s ease 2;border-radius:20px;position:relative;z-index:3}
 </style>
 </head>
 <body>
@@ -846,9 +851,9 @@ html[data-bg] body .nttimes{display:flex;flex-wrap:wrap;gap:8px}html[data-bg] bo
     <div class="card" id="planMeals"></div>
     <div class="card"><div class="row"><button class="ghost" id="planCopy">📋 Copy day to…</button><button class="ghost" id="planClear">🧹 Clear day</button></div></div>
   </div>
-  <div id="plansView" style="display:none"><div class="card plhead"><h2 style="margin:0">📚 Ready-made weekly plans</h2><p class="muted" style="margin:6px 0 0;font-size:.88rem">7 days of breakfast, lunch, dinner and snacks from our healthy prep recipes. One tap fills your planner and grocery list.</p></div><div id="plansList" class="plgrid"></div><p class="fine">Costs are estimates from typical US grocery prices. Calories are approximate. Not medical advice.</p></div>
+  <div id="plansView" style="display:none"><div class="card plhead"><h2 style="margin:0">📚 Ready-made weekly plans <button class="hq" data-help="plans" aria-label="Help">?</button></h2><p class="muted" style="margin:6px 0 0;font-size:.88rem">7 days of breakfast, lunch, dinner and snacks from our healthy prep recipes. One tap fills your planner and grocery list.</p></div><div id="plansList" class="plgrid"></div><p class="fine">Costs are estimates from typical US grocery prices. Calories are approximate. Not medical advice.</p></div>
   <div id="groceryView" style="display:none">
-    <div class="card"><div class="pstat"><div><h2 style="margin:0">🛒 Grocery list</h2><span class="muted" id="gSub"></span></div></div>
+    <div class="card"><div class="pstat"><div><h2 style="margin:0">🛒 Grocery list <button class="hq" data-help="grocery" aria-label="Help">?</button></h2><span class="muted" id="gSub"></span></div></div>
       <div class="row" style="margin-top:12px"><button id="gShare">📤 Share / copy</button><button class="ghost" id="gClear">Clear checked</button></div><button class="ghost small" id="gFridge" style="width:100%;margin-top:10px">🧊 Add bought items to Fridge</button>
       <div id="gBud"></div><div id="gList"></div><p class="fine" id="gNote"></p></div>
   </div>
@@ -857,7 +862,7 @@ html[data-bg] body .nttimes{display:flex;flex-wrap:wrap;gap:8px}html[data-bg] bo
   <h1 class="lt">Settings</h1>
   <div class="sroot"><div class="card stop" data-go="acct" role="button" tabindex="0"><div class="sav" id="stAv">👤</div><div class="sinfo"><b id="stEm">Not signed in</b><small id="stSy">Saved on this device</small></div><span class="spro" id="stPro">Free</span><span class="sch">›</span></div>
   <div class="ssearch"><span>🔍</span><input id="setQ" type="search" placeholder="Search settings" autocomplete="off" aria-label="Search settings"></div>
-  <div class="card slist" id="sList"><button class="srow" data-go="goals"><span class="sic" style="background:#d9f7e6">🎯</span><span class="rl"><b>Goals &amp; Budget</b><small>Calories, macros, budget, profile</small></span><span class="sch">›</span></button><button class="srow" data-go="look"><span class="sic" style="background:#ffe6f1">🎨</span><span class="rl"><b>Appearance</b><small>Background, launch intro</small></span><span class="sch">›</span></button><button class="srow" data-go="notif"><span class="sic" style="background:#fff2cf">🔔</span><span class="rl"><b>Notifications</b><small>Reminders, coach nudges</small></span><span class="sch">›</span></button><button class="srow" data-go="food"><span class="sic" style="background:#e3efff">🥫</span><span class="rl"><b>Food database</b><small>USDA key, sources</small></span><span class="sch">›</span></button><button class="srow" data-go="data"><span class="sic" style="background:#ece6ff">💾</span><span class="rl"><b>Data &amp; Backup</b><small>Export, import, erase</small></span><span class="sch">›</span></button><button class="srow" data-go="help"><span class="sic" style="background:#dff6f6">💬</span><span class="rl"><b>Help &amp; Feedback</b><small>FAQ, send feedback</small></span><span class="sch">›</span></button></div><p class="fine" id="setNone" style="display:none">No settings match.</p><p class="fine">Not medical advice · PlateJack</p></div>
+  <div class="card slist" id="sList"><button class="srow" data-go="goals"><span class="sic" style="background:#d9f7e6">🎯</span><span class="rl"><b>Goals &amp; Budget</b><small>Calories, macros, budget, profile</small></span><span class="sch">›</span></button><button class="srow" data-go="look"><span class="sic" style="background:#ffe6f1">🎨</span><span class="rl"><b>Appearance</b><small>Background, launch intro</small></span><span class="sch">›</span></button><button class="srow" data-go="notif"><span class="sic" style="background:#fff2cf">🔔</span><span class="rl"><b>Notifications</b><small>Reminders, coach nudges</small></span><span class="sch">›</span></button><button class="srow" data-go="food"><span class="sic" style="background:#e3efff">🥫</span><span class="rl"><b>Food database</b><small>USDA key, sources</small></span><span class="sch">›</span></button><button class="srow" data-go="data"><span class="sic" style="background:#ece6ff">💾</span><span class="rl"><b>Data &amp; Backup</b><small>Export, import, erase</small></span><span class="sch">›</span></button><button class="srow" data-go="help"><span class="sic" style="background:#dff6f6">💬</span><span class="rl"><b>Help Center</b><small>Guides, glossary, FAQ, contact</small></span><span class="sch">›</span></button></div><p class="fine" id="setNone" style="display:none">No settings match.</p><p class="fine">Not medical advice · PlateJack</p></div>
   <div class="sp" data-p="acct"><div class="sphead"><button class="ghost spback" aria-label="Back">‹</button><h1>Account &amp; Pro</h1></div>
   <div class="grp">Account</div><div class="card" id="acctCard"></div>
   <div class="grp">Membership</div><div class="card" id="proCard"></div>
@@ -891,7 +896,7 @@ html[data-bg] body .nttimes{display:flex;flex-wrap:wrap;gap:8px}html[data-bg] bo
   <div class="grp">Launch</div><div class="card"><label class="tog"><input type="checkbox" id="introOn"> Play launch intro</label><p class="fine" style="text-align:left;margin:2px 0 0">Full intro the first few opens, then a quick 1-second version.</p></div>
   </div>
   <div class="sp" data-p="notif"><div class="sphead"><button class="ghost spback" aria-label="Back">‹</button><h1>Notifications</h1></div>
-  <div class="grp">Notifications</div><div class="card" id="ntCard"><button id="ntMaster" style="width:100%">🔔 Turn on notifications</button><p class="fine" style="text-align:left" id="ntStatus"></p><div class="note" id="ntIOS" style="display:none">📱 On iPhone, notifications need PlateJack installed: tap Share › <b>Add to Home Screen</b>, open it from there (iOS 16.4 or later), then turn notifications on.</div><div id="ntTypes"></div><button class="ghost small" id="ntTest" style="width:100%;margin-top:12px">Send a test notification</button><p class="fine" style="text-align:left">Missed reminders show up in the 🔔 inbox when you open the app. Reminders are general nudges, not medical advice.</p></div>
+  <div class="grp">Notifications</div><div class="card" id="ntCard"><button class="hq" data-help="notif" aria-label="Help" style="float:right">?</button><button id="ntMaster" style="width:100%">🔔 Turn on notifications</button><p class="fine" style="text-align:left" id="ntStatus"></p><div class="note" id="ntIOS" style="display:none">📱 On iPhone, notifications need PlateJack installed: tap Share › <b>Add to Home Screen</b>, open it from there (iOS 16.4 or later), then turn notifications on.</div><div id="ntTypes"></div><button class="ghost small" id="ntTest" style="width:100%;margin-top:12px">Send a test notification</button><p class="fine" style="text-align:left">Missed reminders show up in the 🔔 inbox when you open the app. Reminders are general nudges, not medical advice.</p></div>
   <div class="grp">Jack Coach</div><div class="card"><label class="tog"><input type="checkbox" id="coachOn"> Show coach nudges on Today</label><label class="tog"><input type="checkbox" id="coachNotif"> Daily reminder notification</label><label for="coachTime">Reminder time</label><input type="time" id="coachTime" value="19:00"><p class="fine" style="text-align:left" id="coachNote">Reminders are local and only fire when your browser allows it. On iPhone, add PlateJack to your Home Screen first (iOS 16.4+), and reminders may only show after you open the app.</p></div>
   </div>
   <div class="sp" data-p="food"><div class="sphead"><button class="ghost spback" aria-label="Back">‹</button><h1>Food database</h1></div>
@@ -905,9 +910,9 @@ html[data-bg] body .nttimes{display:flex;flex-wrap:wrap;gap:8px}html[data-bg] bo
   </div></details>
 
   </div>
-  <div class="sp" data-p="help"><div class="sphead"><button class="ghost spback" aria-label="Back">‹</button><h1>Help &amp; Feedback</h1></div>
-  <div class="grp">Help</div><div class="card"><details class="faq"><summary>How do I log a meal?</summary><p class="muted">Tap ＋ Add, search a food, pick a serving and tap Log.</p></details><details class="faq"><summary>Where is my data stored?</summary><p class="muted">On this device. Sign in to sync it to your account.</p></details><details class="faq"><summary>Why does a food say “unknown”?</summary><p class="muted">Its source had no data for that nutrient. We never guess 0.</p></details><details class="faq"><summary>Is PlateJack medical advice?</summary><p class="muted">No. Numbers are estimates for general wellness tracking.</p></details></div>
-  <div class="grp">Feedback</div><div class="card"><p class="muted" style="font-size:.9rem;margin:0 0 10px">Ideas, bugs or a food we're missing? We read every note.</p><textarea id="fbMsg" placeholder="Tell us what you think…" rows="4" maxlength="4000" style="width:100%"></textarea><label class="tog"><input type="checkbox" id="fbEmail" checked> Include my email so you can reply</label><button id="fbSend" style="width:100%;margin-top:10px">💌 Send feedback</button><p class="fine" id="fbSt" style="text-align:left"></p></div>
+  <div class="sp" data-p="help"><div class="sphead"><button class="ghost spback" aria-label="Back">‹</button><h1>Help Center</h1></div>
+  <div class="ssearch"><span>🔍</span><input id="hcQ" type="search" placeholder="Search help: sync, fiber, iPhone…" autocomplete="off" aria-label="Search help"></div><div id="hcBody"></div>
+  <div class="grp" id="hcC">Contact &amp; feedback</div><div class="card"><p class="muted" style="font-size:.9rem;margin:0 0 10px">Ideas, bugs or a food we're missing? We read every note.</p><textarea id="fbMsg" placeholder="Tell us what you think…" rows="4" maxlength="4000" style="width:100%"></textarea><label class="tog"><input type="checkbox" id="fbEmail" checked> Include my email so you can reply</label><button id="fbSend" style="width:100%;margin-top:10px">💌 Send feedback</button><p class="fine" id="fbSt" style="text-align:left"></p></div>
   </div>
 </section>
 <footer>Calorie values are approximate. <b>Not medical advice.</b></footer>
@@ -952,7 +957,7 @@ html[data-bg] body .nttimes{display:flex;flex-wrap:wrap;gap:8px}html[data-bg] bo
  <label style="display:flex;gap:10px;align-items:center;margin-top:12px;color:var(--text)"><input type="checkbox" id="cpReplace" style="width:22px;height:22px;min-height:0"> Replace what's already planned</label>
  <div class="row" style="margin-top:12px"><button type="button" class="ghost" id="cpCancel">Cancel</button><button type="button" id="cpGo">Copy</button></div></dialog>
 <dialog id="pldet" class="tall"><div class="shd"><h2 id="pdTitle">Plan</h2><button type="button" class="ghost small" id="pdClose">Done</button></div><div id="pdBody"></div></dialog>
-<dialog id="prep" class="tall"><div class="shd" tabindex="-1" autofocus style="outline:none"><h2>Meal prep ideas</h2><button type="button" class="ghost small" id="prepClose">Done</button></div>
+<dialog id="prep" class="tall"><div class="shd" tabindex="-1" autofocus style="outline:none"><h2>Meal prep ideas <button class="hq" data-help="prep" aria-label="Help">?</button></h2><button type="button" class="ghost small" id="prepClose">Done</button></div>
  <div id="creators"></div><div class="chips" id="prepMeals"></div><div class="chips" id="prepTags"></div><div id="prepList"></div>
  <p class="fine">Nutrition is approx. per serving, estimated from the ingredients. Not medical advice.</p></dialog>
 <dialog id="recipe" class="tall"><div id="rcBody" tabindex="-1" autofocus style="outline:none"></div>
@@ -2234,7 +2239,7 @@ function syncText(){if(!sb)return"Saved on this device";if(!sbUser)return"Saved 
 function relT(t){t=new Date(t).getTime();const d=(Date.now()-t)/6e4;return d<1?"just now":d<60?Math.round(d)+" min ago":d<1440?"at "+new Date(t).toLocaleTimeString([],{hour:"numeric",minute:"2-digit"}):new Date(t).toLocaleDateString([],{month:"short",day:"numeric"});}
 function renderSetTop(){if(!$("stEm"))return;const e=sbUser&&sbUser.email;$("stAv").textContent=e?e[0].toUpperCase():"👤";$("stEm").textContent=e||"Not signed in";$("stSy").textContent=(sbUser?"☁️ ":"📱 ")+syncText();const p=!!S.pro;$("stPro").textContent=p?"⭐ Pro":"Free";$("stPro").classList.toggle("on",p);}
 function setSearch(){const q=$("setQ").value.trim().toLowerCase();let n=0;document.querySelectorAll("#sList .srow").forEach(r=>{const pg=document.querySelector(`#tab-settings .sp[data-p="${r.dataset.go}"]`);const v=!q||(r.textContent+" "+pg.textContent).toLowerCase().includes(q);r.style.display=v?"":"none";n+=v;});$("sList").style.display=n?"":"none";$("setNone").style.display=n?"none":"";}
-const FB_TO="";const C_VER="v44";
+const FB_TO="";const C_VER="v45";
 async function sendFeedback(){const msg=$("fbMsg").value.trim();if(msg.length<3){$("fbSt").textContent="Write a few words first.";return;}
  const email=$("fbEmail").checked&&sbUser?sbUser.email:null;const row={message:msg.slice(0,4000),email,user_id:sbUser?sbUser.id:null,app_version:(typeof C_VER!=="undefined"?C_VER:"web")};
  $("fbSend").disabled=true;$("fbSt").textContent="Sending…";let ok=false;
@@ -2242,6 +2247,74 @@ async function sendFeedback(){const msg=$("fbMsg").value.trim();if(msg.length<3)
  $("fbSend").disabled=false;
  if(ok){$("fbMsg").value="";$("fbSt").textContent="Thanks! Your feedback was sent. 💚";toast("Feedback sent");}
  else{const u="mailto:"+FB_TO+"?subject="+encodeURIComponent("PlateJack feedback")+"&body="+encodeURIComponent(msg+"\n\n— app "+row.app_version);$("fbSt").innerHTML=`Couldn't send in-app. <a href="${u}" id="fbMail">Email it instead</a>.`;}}
+// ---- Help Center
+const HELP={guides:[
+ {id:"today",e:"🏠",t:"Today",tab:"today",sel:"#ring",d:"Your day at a glance.",s:["The big ring shows calories eaten vs. your daily goal. Eaten, Remaining and Goal sit next to it.","The small rings are protein, carbs and fat for today.","Swipe the “For you” row for Fridge Rescue, a Coach tip, your Plate Report and water.","Scroll down to see each meal. Tap a meal to open it, edit or delete foods.","Use ‹ › at the top to look at other days."]},
+ {id:"add",e:"➕",t:"Add food",tab:"add",sel:"#search",d:"Log what you eat in seconds.",s:["Pick the meal (Breakfast, Lunch, Dinner, Snacks) at the top.","Type a food in the search box. Your foods show first, then the USDA and Open Food Facts databases.","Tap a result, choose the serving or grams, then tap Log.","Use ⭐ to save favorites and Recent to re-log fast.","Can't find it? Tap Custom food and type the numbers from the label."]},
+ {id:"plans",e:"📚",t:"Ready-made plans",tab:"plans",sel:"#plansList",d:"Whole weeks planned for you.",s:["Open Plan › Plans.","Tap a plan to see each day, calories, protein and the estimated weekly cost.","Tap a recipe to see ingredients and steps.","Tap “Use this plan” to fill the next 7 days and build your grocery list (Pro)."]},
+ {id:"prep",e:"🥡",t:"Prep ideas (recipes)",tab:"prep",sel:"#prepList",d:"150 healthy, budget meal-prep recipes.",s:["Open Plan › Prep ideas (or 🥡 on a meal).","Filter by meal or tags like High protein, Budget or Quick.","Open a recipe for ingredients, steps, cost per serving and the healthy check.","Log a serving, add it to your plan, or save leftovers to the fridge."]},
+ {id:"fridge",e:"🧊",t:"Fridge Rescue",tab:"today",sel:"#frCard",d:"Use food before it goes bad.",s:["Open the Fridge Rescue card on Today and add what's in your fridge (a rough amount and a use-by date is enough).","Bought groceries and prep leftovers can be added in one tap.","In the evening it suggests meals that use soon-to-expire food and fit your remaining calories.","Tap Log it: the meal is logged and the fridge items are used up. Money saved is counted for the week."]},
+ {id:"grocery",e:"🛒",t:"Grocery list",tab:"grocery",sel:"#gList",d:"Built from your plan automatically.",s:["Plan your week (or use a ready-made plan).","Open Plan › Grocery: ingredients are combined and grouped by store aisle.","Check items off as you shop. Share/copy sends the list to a text or notes app.","“Add bought items to fridge” puts them in Fridge Rescue."]},
+ {id:"budget",e:"💵",t:"Budget",tab:"today",sel:"#budStrip",d:"Track your weekly food spending.",s:["Set a weekly grocery budget in Settings › Goals & Budget.","The slim bar on Today shows this week's estimated food cost vs. your budget.","Change any ingredient price to match your store.","Turn on the 80% budget alert in Notifications."]},
+ {id:"coach",e:"🧢",t:"Jack Coach",tab:"today",sel:"#coach",d:"Friendly daily tips.",s:["Find the Coach tip in the “For you” row on Today.","Tap “more” to read the whole tip.","Tips react to your day: protein, water, fiber, planning.","Turn coach nudges on or off in Settings › Notifications."]},
+ {id:"report",e:"📊",t:"Plate Report",tab:"history",sel:"#rptBtn",d:"Your week as a shareable card.",s:["Open Insights and tap Plate Report (it's also ready on Sundays on Today).","See days on track, averages and money saved.","Share it as a square or story image. Only what's on the card is shared."]},
+ {id:"notif",e:"🔔",t:"Notifications",tab:"settings:notif",sel:"#ntCard",d:"Reminders that fit your day.",s:["Open Settings › Notifications and tap Turn on notifications.","Pick which reminders you want and their times.","Missed reminders wait in the 🔔 inbox at the top.","On iPhone, add PlateJack to your Home Screen first (iOS 16.4+)."]},
+ {id:"settings",e:"⚙️",t:"Settings",tab:"settings",sel:"#sList",d:"Make PlateJack yours.",s:["The top card shows your account, sync status and Pro.","Use the search bar to find any setting.","Goals & Budget: calories, macros, budget, profile and the calorie estimator.","Data & Backup: export, import or erase your data."]},
+ {id:"pro",e:"⭐",t:"PlateJack Pro",tab:"settings:acct",sel:"#proCard",d:"What Pro adds.",s:["Pro unlocks the planner, grocery list, all recipes and plans, full Insights, the barcode scanner and Fridge Rescue history.","Open Settings › Account & Pro to see your status.","In this version Pro is a free demo (no charge, no billing)."]}],
+gloss:[["Calories / kcal","The energy in food. Food labels say “Calories” but mean kilocalories (kcal), so 1 Calorie = 1 kcal. PlateJack uses both words for the same thing."],
+ ["Macros","Short for macronutrients: protein, carbs and fat. They're where calories come from."],
+ ["Protein","Helps build and repair muscle and keeps you full. 4 kcal per gram. Found in meat, fish, eggs, dairy, beans, tofu."],
+ ["Carbs","Carbohydrates: your body's main fuel. 4 kcal per gram. Found in grains, fruit, starchy veggies, sugar."],
+ ["Fat","Needed for hormones and absorbing vitamins. 9 kcal per gram, so small amounts add up. Found in oils, nuts, cheese, meat."],
+ ["Fiber","The part of plants you don't digest. Good for digestion and fullness. Aim for about 25–30 g a day."],
+ ["BMR","Basal Metabolic Rate: calories your body burns at complete rest, just to keep you alive."],
+ ["TDEE","Total Daily Energy Expenditure: BMR plus everything you do in a day. Eating about your TDEE keeps weight steady. The calorie estimator in Settings gives a rough number."],
+ ["Deficit / surplus","Eating fewer calories than your TDEE is a deficit (weight tends to go down). Eating more is a surplus (weight tends to go up)."],
+ ["Serving size","The amount the nutrition numbers are for, like “1 cup” or “100 g”. Logging 2 servings doubles everything."],
+ ["Est. cost per serving","A rough price for one portion, from typical US grocery prices divided by servings. Your store may be cheaper or pricier."],
+ ["Use-by date","The date to eat food by for best quality and safety. Fridge Rescue uses it to warn you before food goes bad."],
+ ["Leftovers","Extra portions from meal prep. Save them to the fridge list so PlateJack can suggest them later."],
+ ["Sync","Copying your data to your account so it's backed up and shows up on your other devices."],
+ ["Pro","The upgraded version of PlateJack with planning, grocery and extra tools (free demo in this version)."],
+ ["Unknown (nutrients)","When a food's source has no number for a nutrient, PlateJack says “unknown” instead of guessing 0."]],
+faq:[["How do I sign up?","Open Settings, tap the top card, then Sign in or create account. Enter your email and a password. You're in right away and your data starts syncing. You can also use PlateJack without an account; data then stays on this device."],
+ ["How does sync work across devices?","Sign in with the same account on each device. Changes sync automatically when you're online (the top card shows “Synced …”). If two devices changed things, PlateJack merges them and keeps a backup copy."],
+ ["How do I add PlateJack to my iPhone Home Screen?","Open PlateJack in Safari, tap the Share button (square with an arrow), then “Add to Home Screen”. Open it from the new icon."],
+ ["How do I install it on Android?","Open PlateJack in Chrome, tap the ⋮ menu, then “Install app” or “Add to Home screen”."],
+ ["Why don't notifications work on my iPhone?","iPhone only allows web app notifications when PlateJack is installed on the Home Screen and you're on iOS 16.4 or newer. Install it, open it from the icon, then turn on notifications in Settings › Notifications."],
+ ["Does it work offline?","Yes. Logging, your foods, recipes, plans and the bundled 2,000-food database work offline. Live food search and sync wait until you're back online."],
+ ["What happens to my data? Is it private?","Your log is stored on your device. If you sign in, it's also stored in your private account, protected so only you can read it. We don't sell your data. You can export or erase everything in Settings › Data & Backup."],
+ ["How do I cancel Pro?","In this version Pro is a free demo with no charge, so there's nothing to cancel. Turn it off any time in Settings › Account & Pro."],
+ ["Why are costs only estimates?","Prices change by store, city and week. PlateJack uses typical US grocery prices and divides by servings. You can edit any ingredient price to match your store."],
+ ["Is PlateJack medical advice?","No. Numbers are estimates for general wellness tracking. Talk to a doctor or dietitian for medical or diet advice."]]};
+let hcCur=null;
+function hcNorm(s){return (s||"").toLowerCase();}
+function renderHelp(){const el=$("hcBody");if(!el)return;const q=hcNorm($("hcQ").value.trim());
+ if(hcCur&&!q){const g=HELP.guides.find(x=>x.id===hcCur);el.innerHTML=`<div class="card hcart"><button class="link" id="hcBack">‹ All help</button><h2>${g.e} ${esc(g.t)}</h2><p class="muted">${esc(g.d)}</p><ol class="hcsteps">${g.s.map(x=>`<li>${esc(x)}</li>`).join("")}</ol><button id="hcShow" data-g="${g.id}" style="width:100%">👀 Show me</button></div>`;return;}
+ const m=x=>!q||hcNorm(x).includes(q);
+ const G=HELP.guides.filter(g=>m(g.t+" "+g.d+" "+g.s.join(" "))),L=HELP.gloss.filter(([a,b])=>m(a+" "+b)),F=HELP.faq.filter(([a,b])=>m(a+" "+b));
+ el.innerHTML=(q?"":`<div class="hctiles"><button data-j="hcG"><span>📖</span>How-to guides</button><button data-j="hcL"><span>🔤</span>Glossary</button><button data-j="hcF"><span>❓</span>FAQ</button><button data-j="hcC"><span>💌</span>Contact us</button></div>`)
+ +(G.length?`<div class="grp" id="hcG">How to use PlateJack</div><div class="card slist">${G.map(g=>`<button class="srow" data-g="${g.id}"><span class="sic" style="background:rgba(127,127,127,.14)">${g.e}</span><span class="rl"><b>${esc(g.t)}</b><small>${esc(g.d)}</small></span><span class="sch">›</span></button>`).join("")}</div>`:"")
+ +(L.length?`<div class="grp" id="hcL">Glossary</div><div class="card">${L.map(([a,b])=>`<details class="faq gl"${q?" open":""}><summary>${esc(a)}</summary><p class="muted">${esc(b)}</p></details>`).join("")}</div>`:"")
+ +(F.length?`<div class="grp" id="hcF">FAQ</div><div class="card">${F.map(([a,b])=>`<details class="faq"${q?" open":""}><summary>${esc(a)}</summary><p class="muted">${esc(b)}</p></details>`).join("")}</div>`:"")
+ +(q&&!G.length&&!L.length&&!F.length?`<p class="fine">No help matches “${esc(q)}”. Try other words or send us a note below.</p>`:"");}
+function openHelp(id){showTab("settings");setGo("help");hcCur=id||null;$("hcQ").value="";renderHelp();window.scrollTo(0,0);}
+function hlPulse(sel){const e=document.querySelector(sel);if(!e)return false;e.scrollIntoView({block:"center",behavior:"smooth"});e.classList.remove("hlpulse");void e.offsetWidth;e.classList.add("hlpulse");setTimeout(()=>e.classList.remove("hlpulse"),2600);return true;}
+function helpShow(id){const g=HELP.guides.find(x=>x.id===id);if(!g)return;const t=g.tab;
+ if(t==="plans"||t==="grocery"){if(t==="grocery"&&!isPro()){openPay("plan");return;}showTab("plan");planView=t;renderPlan();}
+ else if(t==="prep"){showTab("plan");openPrep();}
+ else if(t.startsWith("settings")){showTab("settings");setGo(t.split(":")[1]||null);}
+ else showTab(t);
+ setTimeout(()=>{if(!hlPulse(g.sel))toast("Open "+g.t+" to see it");},350);}
+$("hcQ").oninput=()=>{renderHelp();};
+$("hcBody").onclick=e=>{const j=e.target.closest("[data-j]");if(j){if(j.dataset.j==="hcC"){$("fbMsg").scrollIntoView({block:"center",behavior:"smooth"});$("fbMsg").focus({preventScroll:true});}else $(j.dataset.j)?.scrollIntoView({behavior:"smooth"});return;}
+ if(e.target.closest("#hcBack")){hcCur=null;renderHelp();return;}const s=e.target.closest("#hcShow");if(s){helpShow(s.dataset.g);return;}
+ const g=e.target.closest("[data-g]");if(g){hcCur=g.dataset.g;$("hcQ").value="";renderHelp();window.scrollTo(0,0);}};
+document.addEventListener("click",e=>{const h=e.target.closest("[data-help]");if(!h)return;e.preventDefault();e.stopPropagation();document.querySelectorAll("dialog[open]").forEach(d=>d.close());openHelp(h.dataset.help);},true);
+const HQ=k=>`<button class="hq" data-help="${k}" aria-label="Help">?</button>`;
+const _rfc=renderFridgeCard;renderFridgeCard=function(){_rfc.apply(this,arguments);const c=$("frCard");if(c&&!c.querySelector(".hq"))c.insertAdjacentHTML("afterbegin",HQ("fridge"));};
+renderHelp();
+
 function initSettingsNav(){const T=$("tab-settings");T.addEventListener("click",e=>{const r=e.target.closest("[data-go]");if(r)setGo(r.dataset.go);if(e.target.closest(".spback"))history.state?.sp?history.back():setGo(null);});
  $("setQ").oninput=setSearch;$("setBud").onclick=()=>openBudget();$("fbSend").onclick=sendFeedback;renderSetTop();setInterval(renderSetTop,30000);}
 setTimeout(initSettingsNav,0);
