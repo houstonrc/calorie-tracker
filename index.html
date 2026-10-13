@@ -718,6 +718,22 @@ html[data-bg] body .frbars{display:flex;gap:6px;height:120px;align-items:flex-en
 html[data-bg] body .frbar{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;font-size:.65rem}
 html[data-bg] body .frbar i{display:block;width:100%;border-radius:8px 8px 4px 4px;background:var(--grad,linear-gradient(#e9b862,#c87b2c));max-height:70%}html[data-bg] body .frbar span{opacity:.6}
 /* v38 fridge60 */
+/* v39 fooddb */
+html[data-bg] body .xsec{display:flex;flex-direction:column;margin:16px 4px 4px;font-weight:800;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--a1)}
+html[data-bg] body .xsec small{text-transform:none;letter-spacing:0;font-weight:600;opacity:.75;color:var(--mute,inherit);margin-top:2px}
+html[data-bg] body .xfood{display:flex;align-items:center;gap:10px;padding:10px 6px;border-bottom:1px solid var(--line);cursor:pointer;border-radius:10px}
+html[data-bg] body .xfood .n{flex:1;min-width:0}html[data-bg] body .xfood .n b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}html[data-bg] body .xfood .muted{font-size:.8rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+html[data-bg] body .xbr{font-weight:700;color:var(--a1)}
+html[data-bg] body .fdnut{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}html[data-bg] body .fdnut div{background:rgba(255,255,255,.07);border-radius:16px;padding:10px;text-align:center;display:flex;flex-direction:column;min-width:0}html[data-bg] body .fdnut b{font-size:1.1rem}html[data-bg] body .fdnut span{font-size:.75rem;opacity:.7}
+html[data-bg] body #fdet select{width:100%}
+/* v39 fooddb60 */
+/* v39 notif */
+html[data-bg] body .bell{position:relative;margin-left:auto;margin-right:6px}html[data-bg] body .bell i{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;border-radius:9px;background:#e0604a;color:#fff;font-size:.68rem;font-style:normal;font-weight:800;display:none;align-items:center;justify-content:center;padding:0 4px}html[data-bg] body .bell.has i{display:flex}
+html[data-bg] body .nbi{display:flex;gap:12px;padding:14px 8px;border-bottom:1px solid var(--line);cursor:pointer;border-radius:14px}html[data-bg] body .nbi.un{background:rgba(233,184,98,.08)}html[data-bg] body .nbi .n{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}html[data-bg] body .nbi small{font-size:.82rem}html[data-bg] body .nbe{font-size:1.4rem}
+html[data-bg] body .nbi.un b::after{content:"";display:inline-block;width:8px;height:8px;border-radius:4px;background:var(--a1);margin-left:8px;vertical-align:middle}
+html[data-bg] body .ntrow{padding:14px 0 10px;border-bottom:1px solid var(--line)}html[data-bg] body .ntrow.off .nttimes{opacity:.45}
+html[data-bg] body .nttimes{display:flex;flex-wrap:wrap;gap:8px}html[data-bg] body .nttimes label{display:flex;flex-direction:column;font-size:.78rem;margin:0;flex:1 1 140px;min-width:0}html[data-bg] body .nttimes input,html[data-bg] body .nttimes select{width:100%;min-width:0}
+/* v39 notif60 */
 </style>
 </head>
 <body>
@@ -740,7 +756,7 @@ html[data-bg] body .frbar i{display:block;width:100%;border-radius:8px 8px 4px 4
   <button type="button" id="oGo" style="width:100%;margin-top:12px">Get started</button><p class="fine">Estimates are approximate. Not medical advice.</p></div></section></div>
  <div class="onav"><button type="button" class="link" id="oSkip">Skip</button><div class="odots" id="oDots"></div><button type="button" id="oNext">Next</button></div></div>
 <div id="bg" aria-hidden="true"><i data-k="today" style="background-image:url(img/hero.webp)" class="on"></i><i data-k="add" style="background-image:url(img/add.webp)"></i><i data-k="history" style="background-image:url(img/insights.webp)"></i><i data-k="settings" style="background-image:url(img/settings.webp)"></i><i data-k="plan" style="background-image:url(img/lunch.webp)"></i></div>
-<header id="appbar"><span class="brand" aria-label="PlateJack"><img src="icon-192.png" alt="" width="26" height="26"><b class="pjw">PLATE<span>JACK</span></b></span><h1 id="barTitle">Today</h1><button class="ghost small" id="themeBtn" aria-label="Toggle dark mode">🌙</button></header>
+<header id="appbar"><span class="brand" aria-label="PlateJack"><img src="icon-192.png" alt="" width="26" height="26"><b class="pjw">PLATE<span>JACK</span></b></span><h1 id="barTitle">Today</h1><button class="ghost small bell" id="bellBtn" aria-label="Notifications">🔔<i></i></button><button class="ghost small" id="themeBtn" aria-label="Toggle dark mode">🌙</button></header>
 <main>
 <!-- TODAY -->
 <section class="tab on" id="tab-today">
@@ -822,6 +838,8 @@ html[data-bg] body .frbar i{display:block;width:100%;border-radius:8px 8px 4px 4
   <div class="grp">Account</div><div class="card" id="acctCard"></div>
   <div class="grp">Membership</div><div class="card" id="proCard"></div>
   <div class="grp">Appearance</div><div class="card"><h2>Background</h2><div class="swatches" id="bgPick"></div><p class="muted" style="font-size:.8rem;margin:10px 0 0">The ☀️/🌙 button at the top switches between your last dark and light backgrounds.</p></div>
+  <div class="grp">Notifications</div><div class="card" id="ntCard"><button id="ntMaster" style="width:100%">🔔 Turn on notifications</button><p class="fine" style="text-align:left" id="ntStatus"></p><div class="note" id="ntIOS" style="display:none">📱 On iPhone, notifications need PlateJack installed: tap Share › <b>Add to Home Screen</b>, open it from there (iOS 16.4 or later), then turn notifications on.</div><div id="ntTypes"></div><button class="ghost small" id="ntTest" style="width:100%;margin-top:12px">Send a test notification</button><p class="fine" style="text-align:left">Missed reminders show up in the 🔔 inbox when you open the app. Reminders are general nudges, not medical advice.</p></div>
+  <div class="grp">Food database</div><div class="card"><h2>USDA API key</h2><p class="muted" style="font-size:.85rem;margin:0 0 8px">Live USDA search uses the shared <b>DEMO_KEY</b>, which is limited to about 30 searches an hour. Get a free key at <a href="https://fdc.nal.usda.gov/api-key-signup" target="_blank" rel="noopener">api.data.gov</a> and paste it here (kept on this device only).</p><label for="usdaKey">api.data.gov key</label><input id="usdaKey" placeholder="Optional · uses DEMO_KEY when empty" autocomplete="off" spellcheck="false"><button class="ghost" id="usdaKeySave" style="width:100%;margin-top:10px">Save key</button><p class="fine" style="text-align:left">Sources: USDA FoodData Central (public domain) and Open Food Facts (ODbL). A bundled set of 2,000 USDA foods works offline.</p></div>
   <div class="grp">Profile</div><div class="card"><label for="uName">Your name</label><input id="uName" placeholder="Your name" autocomplete="given-name"><label for="wUnit">Water unit</label><select id="wUnit"><option value="glass">glasses (8 oz)</option><option value="oz">ounces</option></select></div>
   <div class="grp">Goals</div><div class="card"><h2>Daily goal</h2>
     <label for="goal">Calories per day</label><input type="number" id="goal" inputmode="numeric" placeholder="e.g. 2000">
@@ -920,6 +938,13 @@ html[data-bg] body .frbar i{display:block;width:100%;border-radius:8px 8px 4px 4
 <div class="fradd"><input id="frName" placeholder="Item, e.g. spinach" aria-label="Item"><input id="frAmt" placeholder="Amount (rough)" aria-label="Amount"><label for="frUse" style="margin:6px 0 2px">Use by (optional)</label><input type="date" id="frUse"><button type="button" id="frAdd">＋ Add to fridge</button></div>
 <button type="button" class="ghost small" id="frGro" style="width:100%;margin:10px 0 4px">🛒 Add bought grocery items</button>
 <div id="frList"></div><div id="frSaved"></div><p class="fine">Savings are rough estimates from typical US grocery prices. Expiry badges are reminders only; check food before eating. Not medical advice.</p></dialog>
+<dialog id="fdet"><h2 style="margin:0 0 2px" id="fdName"></h2><p class="muted" id="fdBrand" style="margin:0 0 10px;font-size:.85rem"></p>
+<label for="fdSv">Serving</label><select id="fdSv"></select>
+<div class="grid2"><div id="fdQW"><label for="fdQty">Servings</label><input type="number" id="fdQty" inputmode="decimal" min="0" step="0.25" value="1"></div><div id="fdGW" style="display:none"><label for="fdG">Grams</label><input type="number" id="fdG" inputmode="decimal" min="0"></div><div><label for="fdMeal">Meal</label><select id="fdMeal"></select></div></div>
+<div class="fdnut" id="fdNut"></div><p class="fine" id="fdTot" style="text-align:left"></p><p class="fine" style="text-align:left;margin-top:0">Database values are estimates; check the label when you have it. Not medical advice.</p>
+<div class="row" style="margin-top:10px"><button type="button" class="ghost" id="fdFav">☆ Favorite</button><button type="button" id="fdLog">Log it</button></div><button type="button" class="ghost small" id="fdClose" style="width:100%;margin-top:8px">Cancel</button></dialog>
+<dialog id="inbox" class="tall"><div class="shd" tabindex="-1" autofocus style="outline:none"><h2>🔔 Notifications</h2><button type="button" class="ghost small" id="nbClose">Done</button></div><div id="nbList"></div><button type="button" class="ghost small" id="nbRead" style="width:100%;margin-top:12px">Mark all read</button></dialog>
+<dialog id="ntPre"><div style="text-align:center;font-size:2.4rem">🔔</div><h2 style="text-align:center;margin:4px 0 8px">Gentle reminders?</h2><p class="muted" style="text-align:center;margin:0 0 12px">PlateJack can nudge you to log meals, drink water, rescue fridge food before it expires, prep on Sunday, and stay on budget. You choose which ones and when, and you can turn them off any time.</p><p class="fine" id="ntPreIOS">Next, your browser will ask for permission.</p><div class="row"><button type="button" class="ghost" id="ntPreNo">Not now</button><button type="button" id="ntPreYes">Sounds good</button></div></dialog>
 <dialog id="bset"><h2 style="margin:0 0 4px">💵 Weekly grocery budget</h2><p class="fine" style="text-align:left;margin:0">Prices are approx. typical US grocery prices. Edit any ingredient price in a recipe.</p><label for="bAmt">Budget per week ($)</label><input id="bAmt" type="number" inputmode="decimal" min="0" step="1" placeholder="60">
  <div class="row" style="margin-top:12px"><button type="button" id="bSave">Save</button><button type="button" class="ghost" id="bCancel">Cancel</button></div></dialog>
 <dialog id="csub" class="tall"><div class="shd" tabindex="-1" autofocus style="outline:none"><h2>Submit your recipe</h2><button type="button" class="ghost small" id="csClose">Cancel</button></div>
@@ -1769,7 +1794,7 @@ function autoWeek(budget){const g=S.goal||2000,pool=m=>ALLR().filter(r=>r.meal==
  for(let it=0;it<1500;it++){const pick={};["Breakfast","Lunch","Dinner"].forEach(m=>{const a=rnd(P[m]),b=rnd(P[m]);pick[m]=[a,b];});const sn=P.Snacks.length?rnd(P.Snacks):null;
   let cost=0,dev=0;const days=[];for(let i=0;i<7;i++){const base=["Breakfast","Lunch","Dinner"].map(m=>pick[m][i<4?0:1]);let cal=base.reduce((a,r)=>a+r.cal,0);let sq=0;
    if(sn){let bd=Math.abs(g-cal);for(const q of [1,2,3]){const d=Math.abs(g-cal-sn.cal*q);if(d<bd){bd=d;sq=q;}}}cal+=sn?sn.cal*sq:0;cost+=base.reduce((a,r)=>a+pc(r),0)+(sn?pc(sn)*sq:0);dev+=Math.abs(g-cal)/g;days.push({base,sq,cal});}
-  const score=dev/7*3+(cost>budget?(cost-budget)/budget*5:0);if(!best||score<best.score)best={score,cost,days,sn,dev:dev/7};}
+  const score=dev/7*3+(cost>budget*.97?(cost-budget*.97)/budget*60:0);if(!best||score<best.score)best={score,cost,days,sn,dev:dev/7};}
  return best;}
 function runAuto(){const b=+S.budget;const w=autoWeek(b);if(!w){toast("Not enough recipes");return;}const keys=planKeys();
  if(keys.some(k=>planList(k).length)&&!confirm("Replace your plan for the next 7 days with a "+$$m(w.cost)+" week?"))return;
@@ -1995,6 +2020,77 @@ $("gFridge").onclick=()=>{const n=addBought();toast(n?`🧊 Added ${n} bought it
  rl();if(r.serv>1){addLeftover(r,r.serv-1);save();renderToday();toast(`Logged 1 serving · ${r.serv-1} leftovers saved to Fridge`);}return;}rl();};}
 {const rt=renderToday;renderToday=function(){rt();try{renderFridgeCard();}catch(e){console.warn(e)}};}
 renderToday();
+/* ---------- Food database: bundled USDA + live USDA FDC + Open Food Facts ---------- */
+const FDB={sr:null,loading:null,cache:new Map(),live:{q:"",usda:null,off:null,st:{}},t:0,ctl:null};
+function migFoods(o){if(!Array.isArray(o.foodCache))delete o.foodCache;else o.foodCache=o.foodCache.filter(f=>f&&f.name&&isFinite(+f.cal)).slice(0,200);return o;}
+{const m0=migrate;migrate=function(d){return migFoods(m0(d));};migFoods(S);}
+function loadSR(){if(FDB.sr)return Promise.resolve(FDB.sr);if(FDB.loading)return FDB.loading;
+ FDB.loading=fetch("data/usda-foods.json").then(r=>{if(!r.ok)throw new Error(r.status);return r.json();}).then(d=>{FDB.sr=d.f.map(x=>({src:"sr",id:"sr"+x[0],name:x[1],cat:d.cats[x[2]],lc:x[1].toLowerCase(),per:{cal:x[3],p:x[4],c:x[5],f:x[6],fib:x[7],sug:x[8],na:x[9],sat:x[10],chol:x[11]},sv:x[12]||[]}));return FDB.sr;}).catch(e=>{FDB.loading=null;throw e;});return FDB.loading;}
+function srSearch(terms){if(!FDB.sr)return[];const out=[];for(const f of FDB.sr){if(terms.every(t=>f.lc.includes(t))){const sc=(f.lc.startsWith(terms[0])?0:2)+(f.lc.split(",")[0].includes(terms[0])?0:1)+f.lc.length/80;out.push([sc,f]);}}return out.sort((a,b)=>a[0]-b[0]).slice(0,25).map(x=>x[1]);}
+const usdaKey=()=>{try{return (localStorage.getItem("pj_usda_key")||"").trim()||"DEMO_KEY";}catch(e){return "DEMO_KEY";}};
+function rl(name,max,win){const k="pj_rl_"+name;let a=[];try{a=JSON.parse(localStorage.getItem(k))||[];}catch(e){}const now=Date.now();a=a.filter(t=>now-t<win);if(a.length>=max)return false;a.push(now);try{localStorage.setItem(k,JSON.stringify(a));}catch(e){}return true;}
+function paused(name){try{return (+localStorage.getItem("pj_pause_"+name)||0)>Date.now();}catch(e){return false;}}
+function pause(name,ms){try{localStorage.setItem("pj_pause_"+name,String(Date.now()+ms));}catch(e){}}
+const NMAP={1008:"cal",2047:"cal",2048:"cal",1003:"p",1005:"c",1004:"f",1079:"fib",2000:"sug",1093:"na",1258:"sat",1253:"chol"};
+function normUSDA(f){const per={};(f.foodNutrients||[]).forEach(n=>{const k=NMAP[n.nutrientId];if(!k||n.value==null)return;if(k==="cal"&&n.unitName&&n.unitName!=="KCAL")return;if(k==="cal"&&per.cal!=null&&n.nutrientId!==1008)return;per[k]=+n.value;});if(per.cal==null)return null;
+ const sv=[];const g=f.servingSize&&/^(g|grm|ml|mlt)$/i.test(f.servingSizeUnit||"")?+f.servingSize:null;if(g)sv.push([(f.householdServingFullText?f.householdServingFullText.toLowerCase()+" · ":"")+Math.round(g)+(/ml|mlt/i.test(f.servingSizeUnit)?" ml":" g"),g]);
+ const brand=f.brandName||f.brandOwner||"";return {src:"usda",id:"fdc"+f.fdcId,name:tc(f.description),brand:brand?tc(brand):"",per,sv,kind:f.dataType};}
+function tc(s){s=String(s||"").trim();return s===s.toUpperCase()?s.toLowerCase().replace(/(^|[\s(\-\/&,])([a-z])/g,(m,a,b)=>a+b.toUpperCase()):s;}
+function normOFF(p){const n=p.nutriments||{};const kc=n["energy-kcal_100g"]!=null?+n["energy-kcal_100g"]:n["energy_100g"]!=null?+n["energy_100g"]/4.184:null;if(kc==null||!p.product_name)return null;
+ const per={cal:kc,p:n.proteins_100g,c:n.carbohydrates_100g,f:n.fat_100g,fib:n.fiber_100g,sug:n.sugars_100g,na:n.sodium_100g!=null?n.sodium_100g*1000:undefined,sat:n["saturated-fat_100g"]};Object.keys(per).forEach(k=>{if(per[k]==null||!isFinite(+per[k]))delete per[k];else per[k]=+per[k];});
+ const sv=[];const g=+p.serving_quantity;if(g>0)sv.push([(p.serving_size||Math.round(g)+" g").slice(0,40),g]);const b=Array.isArray(p.brands)?p.brands[0]:String(p.brands||"").split(",")[0];
+ return {src:"off",id:"off"+p.code,name:String(p.product_name).trim(),brand:(b||"").trim(),per,sv};}
+async function liveUSDA(q,sig){if(paused("usda"))return {err:"paused"};const demo=usdaKey()==="DEMO_KEY";if(!rl("usda",demo?25:900,36e5))return {err:"limit"};
+ const r=await fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${encodeURIComponent(usdaKey())}&query=${encodeURIComponent(q)}&pageSize=20&dataType=${"Branded,Foundation,SR%20Legacy"}`,{signal:sig});
+ if(r.status===429||r.status===403){pause("usda",36e5);return {err:"limit"};}if(!r.ok)return {err:"http"};const d=await r.json();return {res:(d.foods||[]).map(normUSDA).filter(Boolean)};}
+async function liveOFF(q,sig){if(paused("off"))return {err:"paused"};if(!rl("off",8,6e4))return {err:"limit"};const F="code,product_name,brands,serving_size,serving_quantity,nutriments";
+ let r;r=await fetch(`https://world.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURIComponent(q)}&search_simple=1&action=process&json=1&page_size=20&tagtype_0=countries&tag_contains_0=contains&tag_0=united-states&fields=${F}`,{signal:sig});
+ if(r.status===429){pause("off",6e4);return {err:"limit"};}if(!r.ok)return {err:"http"};const d=await r.json();return {res:(d.products||[]).map(normOFF).filter(Boolean)};}
+function liveSearch(q){const key=q.toLowerCase();const c=FDB.cache.get(key);FDB.live.q=key;
+ if(c&&Date.now()-c.t<6e5){FDB.live.usda=c.usda;FDB.live.off=c.off;FDB.live.st=c.st;return;}
+ FDB.live.usda=FDB.live.off=null;FDB.live.st={busy:1};if(!navigator.onLine){FDB.live.st={offline:1};return;}
+ clearTimeout(FDB.t);FDB.t=setTimeout(async()=>{if(FDB.ctl)FDB.ctl.abort();const ctl=FDB.ctl=new AbortController();const st=FDB.live.st;
+  const run=async(fn,k)=>{try{const o=await fn(q,ctl.signal);if(FDB.live.q!==key)return;if(o.res)FDB.live[k]=o.res;else st[k]=o.err;}catch(e){if(e.name==="AbortError")return;st[k]=navigator.onLine?"http":"offline";}};
+  await Promise.all([run(liveUSDA,"usda"),run(liveOFF,"off")]);if(FDB.live.q!==key)return;delete st.busy;FDB.cache.set(key,{t:Date.now(),usda:FDB.live.usda,off:FDB.live.off,st});rerenderFoods();},window._fdbDebounce!=null?window._fdbDebounce:600);}
+function rerenderFoods(){if(src==="all"&&$("tab-add").classList.contains("on"))renderFoods(true);}
+function defSv(f){return f.sv&&f.sv.length?f.sv[0]:["100 g",100];}
+function perServ(f,g){const o={};Object.entries(f.per).forEach(([k,v])=>{if(isFinite(+v))o[k]=Math.round(v*g/100*(k==="cal"||k==="na"||k==="chol"?1:10))/(k==="cal"||k==="na"||k==="chol"?1:10);});return o;}
+const SRCL={sr:"USDA · bundled",usda:"USDA FoodData Central",off:"Open Food Facts"};
+function xRow(f,i){const [lab,g]=defSv(f),v=perServ(f,g);return `<div class="xfood" data-x="${i}"><span class="thumb">${catEmoji(f.name)}</span><div class="n"><b>${esc(f.name)}</b><div class="muted">${f.brand?`<span class="xbr">${esc(f.brand)}</span> · `:""}${esc(lab)} · P ${r1(v.p)} C ${r1(v.c)} F ${r1(v.f)}</div></div><b>${Math.round(v.cal)}</b></div>`;}
+{const rf0=renderFoods;renderFoods=function(keep){rf0();const L=$("foodList");if(src!=="all")return;const q=$("search").value.trim();const terms=q.toLowerCase().split(/\s+/).filter(Boolean);
+ if(q.length<2){L._x=[];return;}
+ if(!FDB.sr){loadSR().then(()=>rerenderFoods()).catch(()=>{});}
+ if(!keep||FDB.live.q!==q.toLowerCase())q.length>=3?liveSearch(q):(FDB.live={q:"",usda:null,off:null,st:{}});
+ const seen=new Set();const uniq=a=>(a||[]).filter(f=>{const k=(f.name+"|"+(f.brand||"")).toLowerCase();if(seen.has(k))return false;seen.add(k);return true;});
+ const sr=uniq(srSearch(terms)),us=uniq(FDB.live.usda),of=uniq(FDB.live.off);const X=[...sr,...us,...of];L._x=X;let i=0;const st=FDB.live.st||{};
+ const sec=(t,a,note)=>a.length||note?`<div class="xsec">${t}${note?`<small>${note}</small>`:""}</div>`+a.map(f=>xRow(f,i++)).join(""):"";
+ const msg=k=>st[k]==="limit"?(k==="usda"&&usdaKey()==="DEMO_KEY"?"USDA demo key limit reached. Add a free api.data.gov key in Settings.":"Rate limit reached, try again in a minute"):st[k]==="paused"?"Paused briefly (rate limit)":st[k]==="offline"?"Offline":st[k]==="http"?"Couldn't reach it":"";
+ let h=sec("USDA foods · works offline",sr,"");
+ if(q.length>=3){if(st.offline||!navigator.onLine)h+=`<div class="xsec">Online databases<small>You're offline. Bundled USDA foods still work.</small></div>`;
+  else{h+=sec("USDA FoodData Central",us,st.busy&&!us.length?"Searching…":us.length?"":msg("usda")||"No results");h+=sec("Open Food Facts · packaged (US)",of,st.busy&&!of.length?"Searching…":of.length?"":msg("off")||"No results");}}
+ if(!h)return;const em=L.querySelector(":scope > .empty");if(em)em.remove();L.insertAdjacentHTML("beforeend",h);};}
+$("search").oninput=()=>renderFoods();
+$("foodList").addEventListener("click",e=>{const r=e.target.closest(".xfood");if(!r)return;e.stopPropagation();openFDet($("foodList")._x[+r.dataset.x]);},true);
+let fdCur=null;
+function openFDet(f){if(!f)return;fdCur=f;const sv=[...(f.sv||[]),["100 g",100]].filter((x,i,a)=>a.findIndex(y=>y[0]===x[0])===i);fdCur._sv=sv;
+ $("fdName").textContent=f.name;$("fdBrand").textContent=(f.brand?f.brand+" · ":"")+SRCL[f.src]+(f.kind?" ("+f.kind+")":"");
+ $("fdSv").innerHTML=sv.map((x,i)=>`<option value="${i}">${esc(x[0])} (${r1(x[1])} g)</option>`).join("")+`<option value="g">Custom grams</option>`;$("fdSv").value="0";$("fdQty").value="1";$("fdG").value=String(r1(sv[0][1]));$("fdGW").style.display="none";
+ $("fdMeal").innerHTML=MEALS.map(m=>`<option${m===selMeal?" selected":""}>${m}</option>`).join("");fdCalc();$("fdet").showModal();}
+function fdGrams(){const v=$("fdSv").value;return v==="g"?Math.max(0,+$("fdG").value||0):fdCur._sv[+v][1]*Math.max(0,+$("fdQty").value||0);}
+function fdCalc(){const g=fdGrams(),v=perServ(fdCur,g);const row=(l,k,u)=>v[k]!=null?`<div><b>${k==="cal"?Math.round(v[k]):r1(v[k])}${u}</b><span>${l}</span></div>`:`<div><b>—</b><span>${l}</span></div>`;
+ $("fdNut").innerHTML=row("Calories","cal","")+row("Protein","p"," g")+row("Carbs","c"," g")+row("Fat","f"," g")+row("Fiber","fib"," g")+row("Sodium","na"," mg");
+ $("fdTot").textContent=`${r1(g)} g total · values per 100 g from ${SRCL[fdCur.src]}`;$("fdFav").textContent=isFav(fdEntry().name)?"★ Favorite":"☆ Favorite";}
+function fdEntry(){const v=$("fdSv").value,g=fdGrams();const lab=v==="g"?Math.round(g)+" g":(+$("fdQty").value!==1?r1(+$("fdQty").value)+" × ":"")+fdCur._sv[+v][0];const val=perServ(fdCur,g);
+ const nm=(fdCur.brand&&!fdCur.name.toLowerCase().includes(fdCur.brand.toLowerCase())?fdCur.brand+" "+fdCur.name:fdCur.name)+" ("+lab+")";const o={name:nm,cal:Math.round(val.cal||0),p:val.p||0,c:val.c||0,f:val.f||0};["fib","sug","na","sat","chol"].forEach(k=>{if(val[k]!=null)o[k]=val[k];});return o;}
+function cacheFood(en){const c=S.foodCache||(S.foodCache=[]);const i=c.findIndex(x=>x.name===en.name);if(i>=0)c.splice(i,1);c.unshift({...en,serving:"1 serving",src:fdCur.src});if(c.length>200)c.length=200;}
+$("fdSv").onchange=()=>{const g=$("fdSv").value==="g";$("fdGW").style.display=g?"":"none";$("fdQW").style.display=g?"none":"";fdCalc();};
+$("fdQty").oninput=fdCalc;$("fdG").oninput=fdCalc;
+$("fdLog").onclick=()=>{const en=fdEntry();if(!(fdGrams()>0)){toast("Pick an amount");return;}const meal=$("fdMeal").value;cacheFood(en);addEntry({...en,qty:1,meal});$("fdet").close();toast(`Added ${en.name.replace(/\s*\(.*\)$/,"")} to ${meal}`);};
+$("fdFav").onclick=()=>{const en=fdEntry();cacheFood(en);toggleFav({...en,serving:"1 serving"});fdCalc();};
+$("fdClose").onclick=()=>$("fdet").close();
+{const fi0=foodItems;foodItems=function(){const a=fi0();if(src!=="all"||!(S.foodCache||[]).length)return a;const n=new Set(a.map(f=>f.name));return S.foodCache.filter(f=>!n.has(f.name)).map(f=>({...f,serving:"1 serving",cached:1})).concat(a);};}
+$("usdaKey").value=usdaKey()==="DEMO_KEY"?"":usdaKey();$("usdaKeySave").onclick=()=>{const v=$("usdaKey").value.trim();if(v&&!/^[A-Za-z0-9]{20,64}$/.test(v)){toast("That doesn't look like an api.data.gov key");return;}try{if(v)localStorage.setItem("pj_usda_key",v);else localStorage.removeItem("pj_usda_key");localStorage.removeItem("pj_pause_usda");}catch(e){}FDB.cache.clear();toast(v?"USDA key saved":"Using the USDA demo key");};
+window.addEventListener("online",rerenderFoods);window.addEventListener("offline",()=>{FDB.cache.clear();rerenderFoods();});
 /* ---------- Accounts & cloud sync (Supabase) ---------- */
 const SB_URL="https://gxlxdpsnvgdbgfzeyusd.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd4bHhkcHNudmdkYmdmemV5dXNkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE4MzYxNzMsImV4cCI6MjEwNzQxMjE3M30.164cIzZ3baF8Jc3oJV3LjN9vDACIGnQaU7Ai4jkSfLI";
 const SYNC_KEY="pj_sync_v1",AUTH_KEY="pj_auth_choice",BK_KEY="ct_data_v1_backup";
@@ -2116,6 +2212,71 @@ if(hasData()&&!S.onb){S.onb=1;try{save();}catch(e){}}
 (function(){
  if(!/^https?:$/.test(location.protocol))return;
  if("serviceWorker" in navigator){const had=!!navigator.serviceWorker.controller;let reloaded=false;navigator.serviceWorker.addEventListener("controllerchange",()=>{if(!had||reloaded)return;reloaded=true;location.reload();});navigator.serviceWorker.register("./calorie-sw.js",{updateViaCache:"none"}).then(r=>{r.update().catch(()=>{});document.addEventListener("visibilitychange",()=>{if(!document.hidden)r.update().catch(()=>{});});}).catch(()=>{});}})();
+/* ---------- Notifications (local engine + inbox + Web Push) ---------- */
+const VAPID_PUB="BOEufJX7LPXUpq-uSQVXsxW9CuJRj7Wmu-sNX4sLAeHjguhZ2h2Skp6eRALhSkUB3R4pHthUJ8NGUcw2-BtHueI";
+const NT=[["meal","🍽️ Meal log reminders","If a meal isn't logged by these times"],["water","💧 Water","Every few hours during the day"],["fridge","🧊 Fridge Rescue","Evening heads-up when items expire soon"],["prep","🥡 Sunday prep nudge","Plan and prep for the week"],["report","📊 Plate Report ready","Sunday evening weekly recap"],["budget","💵 Budget alert","When estimated spend reaches 80% of your weekly budget"]];
+function ndef(){return {on:false,types:{meal:{on:true,times:["09:30","13:30","19:30"]},water:{on:false,every:2,start:"09:00",end:"20:00"},fridge:{on:true,time:"18:00"},prep:{on:true,time:"10:00"},report:{on:true,time:"18:00"},budget:{on:true}},inbox:[],sent:{}};}
+function migNotif(o){if(o.notif==null)return o;if(typeof o.notif!=="object"){delete o.notif;return o;}const d=ndef(),n=o.notif;n.types=n.types&&typeof n.types==="object"?n.types:{};Object.keys(d.types).forEach(k=>{n.types[k]=Object.assign({},d.types[k],n.types[k]||{});});if(!Array.isArray(n.inbox))n.inbox=[];n.inbox=n.inbox.filter(i=>i&&i.title).slice(0,50);if(!n.sent||typeof n.sent!=="object")n.sent={};n.on=!!n.on;return o;}
+{const m0=migrate;migrate=function(d){return migNotif(m0(d));};migNotif(S);}
+const NS=()=>S.notif||(S.notif=ndef());
+const hm=s=>{const [h,m]=String(s||"0:0").split(":").map(Number);return (h||0)*60+(m||0);};
+function dueSlots(from,to){const out=[],T=NS().types;const d0=new Date(from);d0.setHours(0,0,0,0);
+ for(let d=new Date(d0);d<=to;d.setDate(d.getDate()+1)){const k=ymd(d),dow=d.getDay();const at=(min)=>{const x=new Date(d);x.setHours(0,min,0,0);return x;};const push=(type,slot,min,extra)=>{const t=at(min);if(t>from&&t<=to)out.push({type,key:type+":"+k+":"+slot,t,day:k,...extra});};
+  if(T.meal.on)["Breakfast","Lunch","Dinner"].forEach((m,i)=>T.meal.times[i]&&push("meal",m,hm(T.meal.times[i]),{meal:m}));
+  if(T.water.on){const ev=Math.max(1,+T.water.every||2)*60;for(let mm=hm(T.water.start)+ev;mm<=hm(T.water.end);mm+=ev)push("water",mm,mm);}
+  if(T.fridge.on)push("fridge","e",hm(T.fridge.time));
+  if(T.prep.on&&dow===0)push("prep","s",hm(T.prep.time));
+  if(T.report.on&&dow===0)push("report","s",hm(T.report.time));}
+ return out.sort((a,b)=>a.t-b.t);}
+function notifMsg(s){const dd=day(s.day);
+ if(s.type==="meal"){if(dd.entries.some(e=>e.meal===s.meal))return null;return {title:`Log your ${s.meal.toLowerCase()}?`,body:`Nothing logged for ${s.meal.toLowerCase()} yet. It takes 10 seconds.`,act:"add"};}
+ if(s.type==="water")return {title:"Water break 💧",body:"Time for a glass of water.",act:"today"};
+ if(s.type==="fridge"){const L=(S.fridge||[]).filter(i=>{const d=daysLeft(i);return (d!=null&&d<=1)||(i.serv>0);});if(!L.length)return null;return {title:"Fridge Rescue tonight 🧊",body:`Use ${L.slice(0,3).map(i=>i.name.toLowerCase()).join(", ")}${L.length>3?" and more":""} before it goes to waste.`,act:"fridge"};}
+ if(s.type==="prep")return {title:"Sunday prep time 🥡",body:"Pick 2–3 cheap meal-prep recipes and build your grocery list.",act:"prep"};
+ if(s.type==="report"){if(!rangeKeys(7).some(k=>day(k).entries.length))return null;return {title:"Your Plate Report is ready 📊",body:"See and share how your week went.",act:"report"};}
+ return null;}
+function budgetCheck(){const T=NS().types;if(!T.budget.on||!(+S.budget>0))return null;const w=weekSpend();if(w.t<S.budget*.8)return null;const wk="budget:"+rangeKeys(7)[0].slice(0,7)+":"+Math.floor(Date.now()/6048e5);if(NS().sent[wk])return null;
+ return {type:"budget",key:wk,t:new Date(),title:"Budget heads-up 💵",body:`About $${w.t.toFixed(0)} of your $${(+S.budget).toFixed(0)} weekly food budget is used (est.).`,act:"budget"};}
+async function osNotify(m){try{if(!("Notification" in window)||Notification.permission!=="granted")return false;const r=await navigator.serviceWorker.getRegistration();const o={body:m.body,tag:m.key,icon:"icon-192.png",badge:"icon-192.png",data:{act:m.act}};if(r)await r.showNotification(m.title,o);else new Notification(m.title,o);return true;}catch(e){return false;}}
+function inboxAdd(m,missed){const N=NS();N.inbox.unshift({id:frId(),key:m.key,type:m.type,t:+m.t,title:m.title,body:m.body,act:m.act,read:false,missed:!!missed});if(N.inbox.length>50)N.inbox.length=50;}
+function notifCheck(opening){const N=NS();if(!N.on)return 0;const now=new Date();const from=new Date(Math.max(N.last||0,now-864e5));let missed=0,fired=0;
+ dueSlots(from,now).forEach(s=>{if(N.sent[s.key])return;N.sent[s.key]=1;const m=notifMsg(s);if(!m)return;const mm={...s,...m};const late=now-s.t>15*6e4;inboxAdd(mm,late);if(late)missed++;else{fired++;osNotify(mm);}});
+ const b=budgetCheck();if(b){N.sent[b.key]=1;inboxAdd(b,false);osNotify(b);fired++;}
+ N.last=+now;const cut=ymd(new Date(now-14*864e5));Object.keys(N.sent).forEach(k=>{const d=k.split(":")[1];if(d&&/^\d{4}-\d\d-\d\d$/.test(d)&&d<cut)delete N.sent[k];});
+ if(missed||fired){save();renderBell();if(opening&&missed)toast(`🔔 ${missed} reminder${missed==1?"":"s"} while you were away`);}else save();return missed+fired;}
+function renderBell(){const b=$("bellBtn");if(!b)return;const u=(NS().inbox||[]).filter(i=>!i.read).length;b.querySelector("i").textContent=u?String(Math.min(u,9)):"";b.classList.toggle("has",!!u);b.setAttribute("aria-label",u?`Notifications, ${u} unread`:"Notifications");}
+const tAgo=t=>{const m=Math.round((Date.now()-t)/6e4);return m<1?"now":m<60?m+"m ago":m<1440?Math.round(m/60)+"h ago":Math.round(m/1440)+"d ago";};
+function openInbox(){const L=NS().inbox;$("nbList").innerHTML=L.length?L.map(i=>`<div class="nbi${i.read?"":" un"}" data-id="${i.id}"><span class="nbe">${(NT.find(t=>t[0]===i.type)||["","🔔"])[1].split(" ")[0]}</span><span class="n"><b>${esc(i.title)}</b><small>${esc(i.body)}</small><small class="muted">${tAgo(i.t)}${i.missed?" · missed":""}</small></span></div>`).join(""):`<div class="empty">🔔 No notifications yet.<br>Turn on reminders in Settings › Notifications.</div>`;$("inbox").showModal();}
+function notifAct(a){$("inbox").close();if(a==="add")showTab("add");else if(a==="fridge")openFridge();else if(a==="prep")openPrep();else if(a==="report")openRpt();else if(a==="budget")openBudget();else showTab("today");}
+$("bellBtn").onclick=openInbox;$("nbClose").onclick=()=>{NS().inbox.forEach(i=>i.read=true);save();renderBell();$("inbox").close();};
+$("nbRead").onclick=()=>{NS().inbox.forEach(i=>i.read=true);save();renderBell();openInbox();};
+$("nbList").onclick=e=>{const r=e.target.closest(".nbi");if(!r)return;const i=NS().inbox.find(x=>x.id===r.dataset.id);if(!i)return;i.read=true;save();renderBell();notifAct(i.act);};
+const isIOS=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);const standalone=matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
+function pushState(){try{return localStorage.getItem("pj_push")||"";}catch(e){return "";}}
+async function pushSubscribe(){try{if(!("PushManager" in window)||!sb||!sbUser)return sbUser?"unsupported":"signin";const r=await navigator.serviceWorker.ready;let s=await r.pushManager.getSubscription();
+ if(!s){const k=Uint8Array.from(atob(VAPID_PUB.replace(/-/g,"+").replace(/_/g,"/")+"=="),c=>c.charCodeAt(0));s=await r.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:k});}
+ const j=s.toJSON();const {error}=await sb.from("push_subscriptions").upsert({user_id:sbUser.id,endpoint:j.endpoint,p256dh:j.keys.p256dh,auth:j.keys.auth,tz:Intl.DateTimeFormat().resolvedOptions().timeZone,ua:navigator.userAgent.slice(0,160),updated_at:new Date().toISOString()},{onConflict:"endpoint"});
+ const st=error?"server":"on";localStorage.setItem("pj_push",st);return st;}catch(e){console.warn("push",e);return "error";}}
+async function pushUnsub(){try{const r=await navigator.serviceWorker.getRegistration();const s=r&&await r.pushManager.getSubscription();if(s){if(sb&&sbUser)await sb.from("push_subscriptions").delete().eq("endpoint",s.endpoint);await s.unsubscribe();}}catch(e){}try{localStorage.removeItem("pj_push");}catch(e){}}
+function renderNotif(){const N=NS(),T=N.types;const perm="Notification" in window?Notification.permission:"unsupported";
+ $("ntMaster").textContent=N.on?"🔕 Turn off notifications":"🔔 Turn on notifications";
+ const ps=pushState();$("ntStatus").innerHTML=!N.on?"Off. Reminders will also collect in the 🔔 inbox when on.":perm==="denied"?"Notifications are blocked for this site. Allow them in your browser or phone settings; reminders still collect in the 🔔 inbox.":perm!=="granted"?"In-app only (🔔 inbox). Allow notifications to get alerts.":ps==="on"?"✓ Phone alerts on, including when PlateJack is closed.":ps==="server"?"✓ Alerts while PlateJack is open or recently used. Background push is waiting for server setup.":!sbUser?"✓ Alerts while PlateJack is open. Sign in to also get them when it's closed.":"✓ Alerts while PlateJack is open.";
+ $("ntIOS").style.display=isIOS&&!standalone?"":"none";
+ $("ntTypes").innerHTML=NT.map(([k,l,d])=>{const t=T[k];let x="";if(k==="meal")x=`<div class="nttimes">${["Breakfast","Lunch","Dinner"].map((m,i)=>`<label>${m}<input type="time" data-k="meal" data-i="${i}" value="${t.times[i]||""}"></label>`).join("")}</div>`;
+  else if(k==="water")x=`<div class="nttimes"><label>Every<select data-k="water" data-f="every">${[1,2,3,4].map(h=>`<option value="${h}"${+t.every===h?" selected":""}>${h} h</option>`).join("")}</select></label><label>From<input type="time" data-k="water" data-f="start" value="${t.start}"></label><label>Until<input type="time" data-k="water" data-f="end" value="${t.end}"></label></div>`;
+  else if(k!=="budget")x=`<div class="nttimes"><label>${k==="fridge"?"Evening at":"Sunday at"}<input type="time" data-k="${k}" data-f="time" value="${t.time}"></label></div>`;
+  return `<div class="ntrow${t.on?"":" off"}"><label class="tog"><input type="checkbox" data-on="${k}"${t.on?" checked":""}> ${l}</label><p class="fine" style="text-align:left;margin:0 0 4px">${d}</p>${x}</div>`;}).join("");}
+$("ntTypes").onchange=e=>{const el=e.target,T=NS().types;if(el.dataset.on){T[el.dataset.on].on=el.checked;}else if(el.dataset.k){const t=T[el.dataset.k];if(el.dataset.i!=null)t.times[+el.dataset.i]=el.value;else t[el.dataset.f]=el.dataset.f==="every"?+el.value:el.value;}NS().last=Date.now();save();renderNotif();};
+$("ntMaster").onclick=async()=>{const N=NS();if(N.on){N.on=false;save();await pushUnsub();renderNotif();toast("Notifications off");return;}$("ntPre").showModal();};
+$("ntPreNo").onclick=()=>$("ntPre").close();
+$("ntPreYes").onclick=async()=>{$("ntPre").close();const N=NS();N.on=true;N.last=Date.now();save();let p="unsupported";try{if("Notification" in window)p=Notification.permission==="default"?await Notification.requestPermission():Notification.permission;}catch(e){}
+ if(p==="granted")await pushSubscribe();renderNotif();toast(p==="granted"?"🔔 Notifications on":"Reminders will show in the 🔔 inbox");};
+$("ntTest").onclick=async()=>{const m={type:"water",key:"test:"+Date.now(),t:new Date(),title:"PlateJack test 🔔",body:"Notifications are working.",act:"today"};inboxAdd(m,false);save();renderBell();const ok=await osNotify(m);toast(ok?"Test sent":"Added to 🔔 inbox (alerts not allowed)");};
+navigator.serviceWorker&&navigator.serviceWorker.addEventListener("message",e=>{if(e.data&&e.data.pjAct)notifAct(e.data.pjAct);});
+{const p=new URLSearchParams(location.search).get("nact");if(p)setTimeout(()=>notifAct(p),800);}
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)notifCheck(true);});setInterval(()=>notifCheck(false),6e4);
+{const rs0=renderSettings;renderSettings=function(){rs0();try{renderNotif();}catch(e){console.warn(e)}};}
+renderBell();renderNotif();setTimeout(()=>notifCheck(true),1500);
 </script>
 </body>
 </html>
