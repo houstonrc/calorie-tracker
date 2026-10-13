@@ -1765,7 +1765,7 @@ function rptDownload(){const a=document.createElement("a");a.href=URL.createObje
 $("rptDl").onclick=()=>{if(rptBlob)rptDownload();};
 $("rptShare").onclick=async()=>{if(!rptBlob)return;const f=new File([rptBlob],rptName(),{type:"image/png"});
  if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:"My PlateJack Plate Report",text:"Took over my plate this week 🍽️⚡ #PlateJack"});}catch(e){if(e&&e.name!=="AbortError")rptDownload();}}else rptDownload();};
-function rptBanner(){const sun=window._forceSunday||new Date().getDay()===0;const show=sun&&S.rptSeen!==ymd(new Date())&&rangeKeys(7).some(k=>day(k).entries.length);$("rptBan").style.display=show?"":"none";}
+function rptBanner(){const sun=window._forceSunday||new Date().getDay()===0;const ready=sun&&S.rptSeen!==ymd(new Date())&&rangeKeys(7).some(k=>day(k).entries.length);const b=$("rptBan");b.style.display="";b.classList.toggle("ready",ready);const t=b.querySelector(".rl");if(t)t.innerHTML=ready?"<b>Your Plate Report is ready</b><small>Share how you jacked your plate this week</small>":"<b>Plate Report</b><small>Your week so far · new card every Sunday</small>";const g=$("rptBanGo");if(g)g.textContent=ready?"Share":"View";const x=$("rptBanX");if(x)x.style.display=ready?"":"none";}
 /* ---------- Budget Mode (approx. typical US grocery prices, USD per unit) ---------- */
 const PRICE={"no-salt-added black beans (15 oz)|can":1.1,"no-salt-added kidney beans (15 oz)|can":1.1,"no-salt-added pinto beans (15 oz)|can":1.1,"no-salt-added chickpeas (15 oz)|can":1.2,"no-salt-added black-eyed peas (15 oz)|can":1.2,"no-salt-added diced tomatoes (14.5 oz)|can":1.1,"salt-free taco seasoning|tbsp":0.3,"smoked paprika|tsp":0.1,"corn tortillas (6\")|":0.08,"light sour cream|tbsp":.08,"part-skim mozzarella|cup":1.5,"93% lean ground beef|lb":5.5,"pork shoulder (trimmed)|lb":2.8,"chicken drumsticks|lb":1.6,"93% lean ground pork|lb":4.5,"firm tofu (14 oz)|block":2.2,"green cabbage|head":2.5,"pinto beans (15 oz)|can":1,"spaghetti (dry)|oz":0.1,"russet potatoes|lb":0.9,"carrots|lb":1.1,"peanuts|oz":0.25,"BBQ sauce|tbsp":0.1,"curry powder|tsp":0.12,"light coconut milk (13.5 oz)|can":2,"brown sugar|tbsp":0.05,"mushrooms|oz":0.25,"old-fashioned oats|cup":.35,"unsweetened almond milk|cup":.4,"nonfat Greek yogurt|cup":1.4,"chia seeds|tbsp":.25,"peanut butter|tbsp":.12,"bananas|":.28,"honey|tbsp":.25,"eggs|":.3,"liquid egg whites|cup":1.6,"baby spinach|oz":.6,"bell peppers|":1.1,"onion|":.7,"shredded cheddar|cup":1.5,"salt|tsp":.01,"mixed berries|cup":1.5,"granola|cup":1.3,"turkey breakfast sausage|oz":.4,"red potatoes|lb":1.3,"whole-wheat tortillas (8\")|":.4,"salsa|cup":1.6,"sweet potatoes|lb":1.3,"olive oil|tbsp":.2,"2% milk|cup":.25,"maple syrup|tbsp":.4,"baking powder|tsp":.05,"chocolate protein powder|scoop":1.2,"cocoa powder|tbsp":.15,"chicken breast|lb":3.5,"white rice (dry)|cup":.4,"broccoli florets|lb":2.5,"low-sodium soy sauce|tbsp":.1,"garlic|clove":.1,"93% lean ground turkey|lb":5,"taco seasoning|tbsp":.35,"brown rice (dry)|cup":.45,"black beans (15 oz)|can":1,"frozen corn|cup":.5,"romaine lettuce|head":2,"quinoa (dry)|cup":1.6,"cucumber|":.8,"cherry tomatoes|cup":1.6,"feta cheese|oz":.6,"kalamata olives|tbsp":.3,"lemon|":.6,"Greek seasoning|tsp":.15,"hummus|tbsp":.2,"chickpeas (15 oz)|can":1.1,"raw shrimp (peeled)|lb":8,"frozen riced cauliflower|lb":2.5,"frozen peas & carrots|cup":.5,"green onions|bunch":1,"sesame oil|tbsp":.3,"chicken sausage links|link":1.1,"kidney beans (15 oz)|can":1,"celery|stalk":.25,"low-sodium chicken broth|cup":.6,"Cajun seasoning|tsp":.12,"red lentils (dry)|cup":1,"diced tomatoes (14.5 oz)|can":1.1,"baby carrots|cup":.6,"salmon fillets|lb":9,"green beans|lb":2.5,"sirloin steak|lb":9,"frozen stir-fry vegetables|lb":2.2,"cornstarch|tbsp":.05,"whole-wheat penne (dry)|oz":.12,"grated parmesan|tbsp":.2,"catfish fillets|lb":7,"cornmeal|cup":.4,"Dijon mustard|tbsp":.15,"collard greens|lb":2,"smoked turkey wings|lb":4.5,"black-eyed peas (15 oz)|can":1.1,"hot sauce|tsp":.05,"zucchini|":1,"chicken thighs (boneless)|lb":3.5,"teriyaki sauce (low-sodium)|tbsp":.2,"marinara sauce|cup":1.3,"quick grits (dry)|cup":.5,"pork tenderloin|lb":4,"vanilla protein powder|scoop":1.2,"almonds|oz":.6,"apples|":.8,"2% cottage cheese|cup":1.5,"ground turkey|lb":5,"frozen spinach|cup":.8,"canned tuna (5 oz)|can":1.3,"whole-wheat pasta (dry)|oz":.12,"rolled oats|cup":.35,"frozen mango|cup":1.2,"tofu (14 oz)|block":2.2,"jasmine rice (dry)|cup":.5,"avocado|":1.2,"lime|":.4,"cabbage slaw mix|cup":.6,"plain Greek yogurt|cup":1.4,"pita bread|":.5,"cinnamon|tsp":.05,"ground cumin|tsp":.08,"egg noodles (dry)|oz":.15,"frozen broccoli|lb":1.8,"sriracha|tsp":.05};
 function hcBlock(r){if(!r.hc||r.sat==null)return"";const sn=r.meal==="Snacks";const L=[["cal",sn?"100–250 cal":"350–650 cal"]].concat(sn?[]:[["p","20 g+ protein"],["fib","5 g+ fiber"]]).concat([["sat",(sn?"≤4":"≤8")+" g sat fat ("+r.sat+" g est.)"],["na",(sn?"≤400":"≤800")+" mg sodium (est.)"],["sug",(sn?"≤8":"≤12")+" g added sugar ("+r.asug+" g est.)"]]);return `<div class="hcbox"><div class="hct">🥗 Balanced-recipe check</div><ul>${L.map(([k,t])=>`<li class="${r.hc.includes(k)?"y":"n"}">${r.hc.includes(k)?"✓":"–"} ${t}</li>`).join("")}</ul><p class="fine" style="text-align:left;margin:4px 0 0">Based on general guidelines, estimated per serving. Not medical advice.</p></div>`;}
@@ -1992,7 +1992,7 @@ function frUse(s){const today=ymd(new Date());const meal=new Date().getHours()>=
  else{s.items.forEach(i=>{if(daysLeft(i)==null||daysLeft(i)>=0)v+=frItemVal(i,r);});const ids=new Set(s.items.map(i=>i.id));S.fridge=FR().filter(x=>!ids.has(x.id));addLeftover(r,r.serv-1);}
  frSaveVal(v,r.name);save();renderToday();if($("fridge").open)renderFridge();toast(`Logged ${r.name}${v>0?` · ~$${v.toFixed(2)} saved`:""}`);}
 function frEvening(){return window._forceEvening!=null?!!window._forceEvening:new Date().getHours()>=16;}
-function renderFridgeCard(){const el=$("frCard");if(!el)return;const L=FR();const today=cur===ymd(new Date());if(!L.length||!today){el.style.display="none";return;}el.style.display="";
+function renderFridgeCard(){const el=$("frCard");if(!el)return;const L=FR();const today=cur===ymd(new Date());if(!today){el.style.display="none";return;}el.style.display="";if(!L.length){el.innerHTML=`<div class="frh"><span class="fri">🧊</span><span class="frl"><b>Fridge Rescue</b><small>Track what you have, waste less</small></span><span class="frsv"><b>$${weekSaved().toFixed(2)}</b><small>saved this week · est.</small></span></div><div class="frsub muted">Add fridge items or tick bought groceries to get dinner ideas.</div><div class="frbtns"><button class="ghost small" data-fo="1">Open fridge</button></div>`;return;}
  const soon=L.filter(i=>{const d=daysLeft(i);return d!=null&&d<=2;}).length,sv=weekSaved();
  const head=`<div class="frh"><span class="fri">🧊</span><span class="frl"><b>Fridge Rescue</b><small>${L.length} item${L.length==1?"":"s"}${soon?` · <span class="frsoon">${soon} expiring soon</span>`:""}</small></span><span class="frsv"><b>$${sv.toFixed(2)}</b><small>saved this week · est.</small></span></div>`;
  if(!frEvening()){el.innerHTML=head+`<div class="frsub muted">Dinner ideas from your fridge show up here after 4 pm.</div><div class="frbtns"><button class="ghost small" data-fo="1">Open fridge</button></div>`;return;}
@@ -2279,5 +2279,56 @@ document.addEventListener("visibilitychange",()=>{if(!document.hidden)notifCheck
 {const rs0=renderSettings;renderSettings=function(){rs0();try{renderNotif();}catch(e){console.warn(e)}};}
 renderBell();renderNotif();setTimeout(()=>notifCheck(true),1500);
 </script>
+<script>
+/* v41 Today layout: compact hero + For you row */
+(function(){const $=id=>document.getElementById(id);const T=$("tab-today"),hero=T.querySelector(".hero");
+ const ring=$("ring");ring.style.width="128px";ring.style.height="128px";
+ const top=document.createElement("div");top.className="mxtop";const left=document.createElement("div");left.className="mxl";
+ left.append(hero.querySelector(".hring"));const right=document.createElement("div");right.className="mxr";right.append(hero.querySelector(".hstats"));
+ top.append(left,right);hero.append(top);const mc=T.querySelector(".mcard");mc.classList.add("mxmac");hero.append(mc);$("budStrip").classList.add("mxbud");hero.append($("budStrip"));
+ const row=document.createElement("div");row.className="mxrow";row.setAttribute("aria-label","Quick cards");
+ const water=T.querySelector(".rowc");water.classList.add("mxwater");
+ [$("frCard"),$("coach"),$("rptBan"),water].forEach(c=>{c.classList.add("mxq");row.append(c);});
+ const lab=document.createElement("div");lab.className="sect mxsect";lab.innerHTML="<h3>For you</h3><small>Swipe ›</small>";
+ hero.after(lab);lab.after(row);
+ const co=$("coach");co.addEventListener("click",e=>{if(e.target.closest("button,a"))return;co.classList.toggle("open");});
+ const mo=document.createElement("button");mo.type="button";mo.className="link mxmore";mo.textContent="more";mo.onclick=e=>{e.stopPropagation();co.classList.toggle("open");mo.textContent=co.classList.contains("open")?"less":"more";};co.after(mo);co._mo=mo;
+ const fit=()=>{co.classList.add("mxfit");};fit();
+})();
+</script>
+<style>
+html[data-bg] body #tab-today .hero{padding-bottom:16px}
+html[data-bg] body #tab-today .hero .datebar{margin:8px 0 4px}
+html[data-bg] body .mxtop{display:flex;align-items:center;gap:18px;margin-top:6px}
+html[data-bg] body .mxl .hring{margin:0}html[data-bg] body .mxr{flex:1;min-width:0}
+html[data-bg] body .mxr .hstats{display:flex;flex-direction:column;gap:10px;margin:0;border:0}
+html[data-bg] body .mxr .hstats>div{display:flex;align-items:baseline;justify-content:space-between;border:0!important;padding:0!important;text-align:left}
+html[data-bg] body .mxr .hstats b{font-size:1.35rem}
+html[data-bg] body .mxmac{background:transparent!important;border:0!important;box-shadow:none!important;padding:6px 0 0!important;margin:10px 0 0!important}
+html[data-bg] body .mxmac canvas{max-width:60px;max-height:60px}
+html[data-bg] body .mxbud{margin:12px 0 0!important;background:rgba(255,255,255,.08)!important;border:0!important;box-shadow:none!important;border-radius:18px!important;padding:10px 14px!important}
+html[data-bg] body .mxsect{display:flex;align-items:baseline;justify-content:space-between;margin:22px 4px 8px}html[data-bg] body .mxsect small{opacity:.6}
+html[data-bg] body .mxrow{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 10px;margin:0 -16px;padding-left:16px;padding-right:16px;scrollbar-width:none}
+html[data-bg] body .mxrow::-webkit-scrollbar{display:none}
+html[data-bg] body .mxq{display:flex!important;flex-direction:column;flex:0 0 78%;max-width:300px;min-height:150px;scroll-snap-align:start;margin:0!important;box-sizing:border-box}
+html[data-bg] body .mxq.rptban{justify-content:center;gap:8px;flex-direction:column;align-items:flex-start}
+html[data-bg] body .mxwater{justify-content:center;align-items:center;flex-wrap:wrap;gap:10px;flex-direction:row}
+html[data-bg] body .mxwater .rl{flex:1 0 100%;text-align:center}
+html[data-bg] body #tab-today .sect:not(.mxsect){margin-top:24px}
+html[data-bg] body .mxq{height:auto;min-height:196px;max-height:none;overflow:visible}
+html[data-bg] body .mxq.coach{position:relative;max-height:196px;overflow:hidden;cursor:pointer}
+html[data-bg] body .mxq.coach.open{max-height:none}
+html[data-bg] body .mxq.coach>*{display:block;-webkit-line-clamp:unset}
+html[data-bg] body .mxq.coach:not(.open)::after{content:"more ›";position:absolute;right:0;bottom:0;left:0;padding:28px 16px 12px;text-align:right;font-weight:800;font-size:.85rem;color:var(--a1);background:linear-gradient(transparent,var(--card,rgba(30,20,12,.96)) 55%)}
+html[data-bg] body .mxmore{display:none}
+html[data-bg] body .mxq.rptban .rl{display:flex;flex-direction:column}
+html[data-bg] body .mxq.rptban{gap:12px}
+/* v41 today60 */
+html[data-bg] body .mxq{padding:16px!important}
+html[data-bg] body .mxq .frs~.frs,html[data-bg] body .mxq .frsub:not(.muted),html[data-bg] body .mxq .frmore{display:none!important}
+html[data-bg] body .mxq .frs{margin-top:14px}html[data-bg] body .mxq .frbtns{margin-top:auto;padding-top:10px}
+html[data-bg] body .mxq.coach{border-left:0!important}
+html[data-bg] body .mxtop{justify-content:center}
+</style>
 </body>
 </html>
