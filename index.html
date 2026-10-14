@@ -742,9 +742,9 @@ html[data-bg] body .nttimes{display:flex;flex-wrap:wrap;gap:8px}html[data-bg] bo
 <body>
 <div id="splash" aria-hidden="true"><div class="xs">
 <svg class="xart" viewBox="0 0 360 360" width="260" height="260">
-<g class="xtools" fill="none" stroke="#9aa1a8" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+<g class="xtools" transform="translate(180 180) scale(1.35) translate(-180 -180)" fill="none" stroke="#9aa1a8" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
  <g class="xfork"><path d="M180 336V116"/><path d="M164 26V78Q164 98 180 98Q196 98 196 78V26"/><path d="M180 26V96"/></g>
- <g class="xknife"><path d="M180 336V116"/><path d="M180 116V26Q198 40 198 84Q198 106 180 116Z" fill="#9aa1a8"/></g>
+ <g class="xknife"><path d="M180 336V116"/><path d="M180 116Q164 110 164 92V34Q164 26 172 26H182Q196 40 196 84Q196 106 180 116Z" fill="#9aa1a8"/></g>
 </g>
 <circle cx="180" cy="180" r="112" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="8"/>
 <circle class="xring" cx="180" cy="180" r="112" fill="none" stroke-width="8" stroke-linecap="round" pathLength="100" transform="rotate(-90 180 180)"/>
@@ -772,7 +772,7 @@ html[data-bg] body .nttimes{display:flex;flex-wrap:wrap;gap:8px}html[data-bg] bo
 <main>
 <!-- TODAY -->
 <section class="tab on" id="tab-today">
-  <div class="hero"><div class="htop"><div><div class="hi" id="hGreet">Good morning</div><div class="hn" id="hName">Corneilus</div></div></div><div class="hd" id="hDate"></div>
+  <div class="hero"><div class="htop"><div><div class="hi" id="hGreet">Good morning</div><div class="hn" id="hName">there</div></div></div><div class="hd" id="hDate"></div>
   <div class="datebar">
     <button class="ghost" id="prevDay" aria-label="Previous day">‹</button>
     <input type="date" id="datePick" aria-label="Pick date">
@@ -852,7 +852,7 @@ html[data-bg] body .nttimes{display:flex;flex-wrap:wrap;gap:8px}html[data-bg] bo
   <h1 class="lt">Settings</h1>
   <div class="sroot"><div class="card stop" data-go="acct" role="button" tabindex="0"><div class="sav" id="stAv">👤</div><div class="sinfo"><b id="stEm">Not signed in</b><small id="stSy">Saved on this device</small></div><span class="spro" id="stPro">Free</span><span class="sch">›</span></div>
   <div class="ssearch"><span>🔍</span><input id="setQ" type="search" placeholder="Search settings" autocomplete="off" aria-label="Search settings"></div>
-  <div class="card slist" id="sList"><button class="srow" data-go="goals"><span class="sic" style="background:#d9f7e6">🎯</span><span class="rl"><b>Goals &amp; Budget</b><small>Calories, macros, budget, profile</small></span><span class="sch">›</span></button><button class="srow" data-go="look"><span class="sic" style="background:#ffe6f1">🎨</span><span class="rl"><b>Appearance</b><small>Background, launch intro</small></span><span class="sch">›</span></button><button class="srow" data-go="notif"><span class="sic" style="background:#fff2cf">🔔</span><span class="rl"><b>Notifications</b><small>Reminders, coach nudges</small></span><span class="sch">›</span></button><button class="srow" data-go="food"><span class="sic" style="background:#e3efff">🥫</span><span class="rl"><b>Food database</b><small>USDA key, sources</small></span><span class="sch">›</span></button><button class="srow" data-go="data"><span class="sic" style="background:#ece6ff">💾</span><span class="rl"><b>Data &amp; Backup</b><small>Export, import, erase</small></span><span class="sch">›</span></button><button class="srow" data-go="help"><span class="sic" style="background:#dff6f6">💬</span><span class="rl"><b>Help Center</b><small>Guides, glossary, FAQ, contact</small></span><span class="sch">›</span></button></div><p class="fine" id="setNone" style="display:none">No settings match.</p><p class="fine">Not medical advice · PlateJack · <a href="privacy.html" id="lnkPriv">Privacy Policy</a> · <a href="terms.html" id="lnkTerms">Terms of Use</a></p></div>
+  <div class="card slist" id="sList"><button class="srow" data-go="goals"><span class="sic" style="background:#d9f7e6">🎯</span><span class="rl"><b>Goals &amp; Budget</b><small>Calories, macros, budget, profile</small></span><span class="sch">›</span></button><button class="srow" data-go="look"><span class="sic" style="background:#ffe6f1">🎨</span><span class="rl"><b>Appearance</b><small>Accent color, launch intro</small></span><span class="sch">›</span></button><button class="srow" data-go="notif"><span class="sic" style="background:#fff2cf">🔔</span><span class="rl"><b>Notifications</b><small>Reminders, coach nudges</small></span><span class="sch">›</span></button><button class="srow" data-go="food"><span class="sic" style="background:#e3efff">🥫</span><span class="rl"><b>Food database</b><small>USDA key, sources</small></span><span class="sch">›</span></button><button class="srow" data-go="acct"><span class="sic" style="background:#ece6ff">💾</span><span class="rl"><b>Account &amp; Data</b><small>Sign in, export, import, delete</small></span><span class="sch">›</span></button><button class="srow" data-go="help"><span class="sic" style="background:#dff6f6">💬</span><span class="rl"><b>Help Center</b><small>Guides, glossary, FAQ, contact</small></span><span class="sch">›</span></button></div><p class="fine" id="setNone" style="display:none">No settings match.</p><p class="fine">Not medical advice · PlateJack · <a href="privacy.html" id="lnkPriv">Privacy Policy</a> · <a href="terms.html" id="lnkTerms">Terms of Use</a></p></div>
   <div class="sp" data-p="acct"><div class="sphead"><button class="ghost spback" aria-label="Back">‹</button><h1>Account &amp; Pro</h1></div>
   <div class="grp">Account</div><div class="card" id="acctCard"></div>
   <div class="grp">Membership</div><div class="card" id="proCard"></div>
@@ -1347,7 +1347,7 @@ const NKEYS=NUT.map(n=>n[0]);
 const NDEF={fib:30,sug:50,na:2300,sat:20,chol:300};
 const ICON={Breakfast:"🌅",Lunch:"☀️",Dinner:"🌙",Snacks:"🍿"};
 const isNum=v=>typeof v==="number"&&isFinite(v);
-function blank(){return{goal:0,macros:{p:0,c:0,f:0},days:{},favs:[],weights:{},theme:null,waterUnit:"glass",ngoals:{...NDEF},goalWeight:0,schema:2,name:"Corneilus"};}
+function blank(){return{goal:0,macros:{p:0,c:0,f:0},days:{},favs:[],weights:{},theme:null,waterUnit:"glass",ngoals:{...NDEF},goalWeight:0,schema:2,name:""};}
 /* Upgrade older saved data in place. Same storage key. Missing nutrients stay missing (= unknown). */
 function migrate(d){const o=Object.assign(blank(),d);if(!Array.isArray(o.favs))o.favs=[];o.favs=o.favs.filter(f=>f&&f.name);if(o.favMeals!=null&&!Array.isArray(o.favMeals))delete o.favMeals;if(o.favMeals)o.favMeals=o.favMeals.filter(m=>m&&m.name&&Array.isArray(m.items));
  o.macros=Object.assign({p:0,c:0,f:0},o.macros||{});o.ngoals=Object.assign({...NDEF},(d&&d.ngoals)||{});
@@ -1355,7 +1355,7 @@ function migrate(d){const o=Object.assign(blank(),d);if(!Array.isArray(o.favs))o
  Object.keys(o.days).forEach(k=>{const dd=o.days[k]||{};if(!Array.isArray(dd.entries))dd.entries=[];dd.water=+dd.water||0;
   dd.entries=dd.entries.filter(e=>e&&typeof e==="object").map(e=>{e.cal=+e.cal||0;e.qty=+e.qty>0?+e.qty:1;["p","c","f"].forEach(m=>e[m]=+e[m]||0);
    if(!MEALS.includes(e.meal))e.meal="Snacks";if(!e.id)e.id=Math.random().toString(36).slice(2,10);NKEYS.forEach(n=>{if(e[n]===null||e[n]===""||!isNum(+e[n]))delete e[n];else e[n]=+e[n];});return e;});o.days[k]=dd;});
- if(!("name" in (d||{})))o.name="Corneilus";if(!["brown","espresso","olive","terracotta","navy"].includes(o.bg))o.bg="brown";o.theme="dark";delete o.lastLight;o.schema=2;return o;}
+ if(!("name" in (d||{})))o.name="";if(!["brown","espresso","olive","terracotta","navy"].includes(o.bg))o.bg="brown";o.theme="dark";delete o.lastLight;o.schema=2;return o;}
 function load(){try{const d=JSON.parse(localStorage.getItem(KEY));if(d&&typeof d==="object")return migrate(d);}catch(e){}return blank();}
 let S=load();
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){toast("Couldn't save — storage is full or blocked");}try{if(typeof pushPrefsSync==="function")pushPrefsSync();}catch(e){}}
@@ -1370,7 +1370,7 @@ function dayW(k=cur){if(!S.days[k])S.days[k]={entries:[],water:0};return S.days[
 function totals(k=cur,list){const es=list||day(k).entries;const t={cal:0,p:0,c:0,f:0,n:es.length,unk:{}};NKEYS.forEach(n=>{t[n]=0;t.unk[n]=0;});
  es.forEach(e=>{t.cal+=e.cal*e.qty;t.p+=(e.p||0)*e.qty;t.c+=(e.c||0)*e.qty;t.f+=(e.f||0)*e.qty;NKEYS.forEach(n=>{if(isNum(e[n]))t[n]+=e[n]*e.qty;else t.unk[n]++;});});return t;}
 const fmtN=(v,u)=>u==="mg"?Math.round(v).toLocaleString():r1(v);
-function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove("show"),1800);}
+function toast(m){const t=$("toast");m=String(m).replace(/(?:\p{Extended_Pictographic}\uFE0F?(?:\u200D\p{Extended_Pictographic}\uFE0F?)*)+/gu,"").replace(/\s{2,}/g," ").trim();t.textContent=m;t.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove("show"),1800);}
 function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
 
 /* ---------- Theme ---------- */
@@ -1462,7 +1462,7 @@ $("lblEdit").onclick=()=>{$("lbl").close();if(lblEntry)openDlg("edit",lblEntry);
 const CAT=[[/egg|omelet/i,"🍳"],[/bacon|sausage|ham\b|bologna/i,"🥓"],[/wing|chicken|nugget|tender|cane|zaxby|popeyes|kfc/i,"🍗"],[/burger|whopper|big mac|quarter pounder|dave|sonic/i,"🍔"],[/pizza/i,"🍕"],[/fries|tots|hash brown/i,"🍟"],[/hot dog|corn dog/i,"🌭"],[/taco|burrito|quesadilla|nacho|enchilada|chalupa|crunchwrap|chipotle/i,"🌮"],[/sandwich|sub |subway|blt|philly|gyro|mcmuffin|mcgriddle|biscuit/i,"🥪"],[/steak|beef|brisket|rib|meatloaf|meatball|pork|jerky/i,"🥩"],[/salmon|tilapia|tuna|catfish|fish|shrimp|crab|sushi/i,"🐟"],[/rice|jambalaya|gumbo|fried rice/i,"🍚"],[/pasta|spaghetti|alfredo|lasagna|mac and|noodle|ramen|chow mein/i,"🍝"],[/soup|stew|chili|dumpling|pot pie/i,"🍲"],[/bread|bagel|toast|tortilla|roll|croissant|muffin|cornbread|hushpupp|bun/i,"🍞"],[/pancake|waffle|syrup/i,"🥞"],[/oat|grits|cereal|granola|flakes/i,"🥣"],[/salad|greens|collard|cabbage|spinach|broccoli|bean|okra|peas|vegetable|carrot|tomato|cucumber|squash|corn/i,"🥗"],[/potato|yam/i,"🥔"],[/apple|banana|orange|grape|berr|melon|cantaloupe|pineapple|peach|pear|mango|raisin|fruit|avocado/i,"🍎"],[/milk|yogurt|cheese|cottage/i,"🧀"],[/coffee|latte|frappuccino|macchiato/i,"☕"],[/beer/i,"🍺"],[/wine|margarita|liquor|hennessy/i,"🍷"],[/soda|tea|juice|lemonade|punch|kool|gatorade|energy|water|shake|smoothie/i,"🥤"],[/cookie|oreo|brownie|cake|pie|cobbler|pudding|donut|funnel|honey bun|pop-tart|creme/i,"🍰"],[/ice cream|frosty|popsicle|milkshake/i,"🍦"],[/chocolate|snickers|reese|m&m|skittles|gumm/i,"🍫"],[/chip|dorito|cheeto|taki|pretzel|popcorn|cracker|pork rind/i,"🥨"],[/almond|peanut|nut|seed|trail/i,"🥜"],[/butter|mayo|ranch|ketchup|sauce|dressing|jelly|jam|honey|sugar|margarine/i,"🧂"],[/protein|bar/i,"💪"]];
 function catEmoji(n){for(const[r,e]of CAT)if(r.test(n))return e;return "🍽️";}
 function greet(){const hr=new Date().getHours();return hr<5?"Good night":hr<12?"Good morning":hr<17?"Good afternoon":"Good evening";}
-function renderHero(){$("hGreet").textContent=greet()+(S.name?",":"");$("hName").textContent=S.name||"Welcome";const d=parse(cur),today=cur===ymd(new Date());
+function renderHero(){$("hGreet").textContent=greet()+(S.name?",":", there");$("hName").textContent=S.name||"";$("hName").style.display=S.name?"":"none";const d=parse(cur),today=cur===ymd(new Date());
  $("hDate").textContent=(today?"Today · ":"Viewing · ")+d.toLocaleDateString([],{weekday:"long",month:"long",day:"numeric"});}
 function shift(n){const d=parse(cur);d.setDate(d.getDate()+n);cur=ymd(d);renderToday();$("wtDate").textContent=cur;}
 $("prevDay").onclick=()=>shift(-1);$("nextDay").onclick=()=>shift(1);
@@ -1665,7 +1665,7 @@ $("payDemo").onclick=()=>{S.pro=true;save();$("pay").close();renderAll();renderP
 function renderPro(){try{renderSetTop();}catch(e){}$("proCard").innerHTML=isPro()?`<h2><span class="probadge">PRO</span> Pro is on <span class="muted" style="font-weight:500">(demo)</span></h2><p class="muted" style="margin:0 0 10px">Full Insights, the barcode scanner and all Pro tools are unlocked. No charge.</p><button class="ghost" id="proOff" style="width:100%">Turn off demo Pro</button>`
  :`<h2><span class="probadge">PRO</span> PlateJack Pro</h2><p class="muted" style="margin:0 0 10px">Barcode scanner, 30/90-day Insights, nutrient table, goal weight projection, meal planner and more.</p><button id="proSee" style="width:100%">See Pro</button>`;
  const o=$("proOff");if(o)o.onclick=()=>{S.pro=false;save();if(range>7)range=7;renderAll();renderPro();toast("Back to Free");};const s=$("proSee");if(s)s.onclick=()=>openPay("settings");
- $("scanLock").innerHTML=isPro()?"":"🔒";$("planLk").textContent=isPro()?"":"🔒";if(!isPro()&&$("tab-plan").classList.contains("on")){planView="plans";renderPlan();}
+ $("scanLock").innerHTML=isPro()?"":'<em class="probadge">PRO</em>';$("planLk").textContent="";if(!isPro()&&$("tab-plan").classList.contains("on")){planView="plans";renderPlan();}
  [...$("rangeChips").children].forEach(b=>{const r=+b.dataset.r;b.innerHTML=r+" days"+(r>7&&!isPro()?LOCK:"");b.classList.toggle("on",r===range);});
  document.querySelectorAll("#bgPick .sw").forEach(b=>{const lk=!isPro()&&!FREE_THEMES.includes(b.dataset.bg);let x=b.querySelector(".lockb");if(lk&&!x)b.insertAdjacentHTML("afterbegin",'<span class="lockb">🔒 PRO</span>');if(!lk&&x)x.remove();});}
 function lockBox(title,msg,why){return `<div class="lockov"><b>🔒 ${title}</b><span class="muted">${msg}</span><button class="small" data-pay="${why}">Unlock with Pro</button></div>`;}
@@ -1722,7 +1722,7 @@ function openRecipe(r){rcCur=r;rcMeal=r.meal;rcSel={};$("rcPlan").style.display=
  $("rcBody").innerHTML=`<div class="rban"><img class="rhero" src="img/r/${r.img||r.id}-d.webp" alt="${esc(r.name)}" decoding="async" width="900" height="675"><div><b>${esc(r.name)}</b><small>${r.meal} · makes ${r.serv} servings · prep ${r.prep} min${r.cook?` · cook ${r.cook} min`:""}</small></div></div>
  <div class="rtags">${r.tags.map(t=>`<span class="tag on">${t}</span>`).join("")}</div>
  <div class="rnut">${[["Calories",r.cal,""],["Protein",r.p,"g"],["Carbs",r.c,"g"],["Fat",r.f,"g"],["Fiber",r.fib,"g"],["Sodium",r.na.toLocaleString(),"mg"]].map(([l,v,u])=>`<div><b>${v}<small>${u}</small></b><span>${l}</span></div>`).join("")}</div>
- <p class="fine" style="text-align:left;margin:4px 0 0">Approx. per serving, estimated from ingredients.</p>${hcBlock(r)}${r.by?`<div class="note csamp">👩‍🍳 <b>${esc(r.by)}</b> · Sample creator (fictional demo profile)</div>`:""}${PCRED[r.img||r.id]?`<p class="pcred">Photo: ${esc(PCRED[r.img||r.id][0])} · ${esc(PCRED[r.img||r.id][1])} · <a href="${PCRED[r.img||r.id][3]}" target="_blank" rel="noopener">${PCRED[r.img||r.id][2]}</a>${r.img||["eggmuf","ocups","crb","chili","gcq"].includes(r.id)?" · similar dish":""}</p>`:""}${costBlock(r)}
+ <p class="fine" style="text-align:left;margin:4px 0 0">Approx. per serving, estimated from ingredients.</p>${hcBlock(r)}${r.by?`<div class="note csamp">👩‍🍳 <b>${esc(r.by)}</b> · Sample creator (fictional demo profile)</div>`:""}${PCRED[r.img||r.id]?`<p class="pcred">Photo by <b>${esc(PCRED[r.img||r.id][0])}</b> · <a href="${licURL(PCRED[r.img||r.id][1])}" target="_blank" rel="noopener">${esc(PCRED[r.img||r.id][1])}</a> · <a href="${PCRED[r.img||r.id][3]}" target="_blank" rel="noopener">${PCRED[r.img||r.id][2]}</a> · cropped &amp; color-graded${r.img||["eggmuf","ocups","crb","chili","gcq"].includes(r.id)?" · similar dish":""}</p>`:""}${costBlock(r)}
  <h3 class="rh">Ingredients <small>for ${r.serv} servings</small></h3><ul class="ring2">${r.ing.map(i=>`<li>${esc(ingTxt(i))}</li>`).join("")}</ul>
  <h3 class="rh">Steps</h3><ol class="rsteps">${r.steps.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>
  <div class="note" style="margin-top:10px">🧊 <b>Storage:</b> ${esc(r.store)}</div>`;
@@ -1781,10 +1781,10 @@ async function drawReport(opt){const W=1080,H=opt.fmt==="story"?1920:1080,sq=H==
  x.font=`800 ${sq?26:34}px -apple-system,system-ui,sans-serif`;x.letterSpacing="5px";x.fillStyle=paper?a2:a1;x.fillText("PLATE REPORT · "+rptDates(st.keys),P,y);x.letterSpacing="0px";
  // headline
  y+=sq?70:110;fitFont(x,"JACKED MY PLATE",W-2*P-(paper?380:0),sq?64:96,900);x.fillStyle=ink;x.fillText(st.hasGoal?"JACKED MY PLATE":"LOGGED MY PLATE",P,y);
- y+=sq?150:250;const big=`${st.onT}/7`;x.font=`900 ${sq?170:280}px "PJ Cond","PJ Cond","Arial Black",sans-serif`;const hg=x.createLinearGradient(0,y-250,0,y);hg.addColorStop(0,paper?a1:"#ffe2a0");hg.addColorStop(.5,a1);hg.addColorStop(1,paper?a2:"#d0603f");x.fillStyle=hg;x.fillText(big,P-8,y);
+ y+=sq?150:250;const big=`${st.logged}/7`;x.font=`900 ${sq?170:280}px "PJ Cond","PJ Cond","Arial Black",sans-serif`;const hg=x.createLinearGradient(0,y-250,0,y);hg.addColorStop(0,paper?a1:"#ffe2a0");hg.addColorStop(.5,a1);hg.addColorStop(1,paper?a2:"#d0603f");x.fillStyle=hg;x.fillText(big,P-8,y);
  const bw=x.measureText(big).width;x.font=`900 ${sq?52:80}px "PJ Cond","Arial Black",sans-serif`;x.fillStyle=ink;x.fillText("DAYS",P+bw+20,y);
  // 7-day pips
- y+=sq?40:60;for(let i=0;i<7;i++){const k=st.keys[i],t=totals(k),ok=day(k).entries.length&&(!st.g||(t.cal>=st.g*.85&&t.cal<=st.g*1.1));const pw2=sq?56:96,gx=P+i*(pw2+(sq?14:18));rrect(x,gx,y,pw2,sq?14:18,9);x.fillStyle=ok?a1:(paper?"rgba(42,28,16,.12)":"rgba(255,255,255,.16)");x.fill();
+ y+=sq?40:60;for(let i=0;i<7;i++){const k=st.keys[i],t=totals(k),ok=day(k).entries.length>0;const pw2=sq?56:96,gx=P+i*(pw2+(sq?14:18));rrect(x,gx,y,pw2,sq?14:18,9);x.fillStyle=ok?a1:(paper?"rgba(42,28,16,.12)":"rgba(255,255,255,.16)");x.fill();
   x.font=`700 ${sq?16:22}px -apple-system,sans-serif`;x.fillStyle=mute;x.textAlign="center";x.fillText(DOW[parse(k).getDay()][0],gx+pw2/2,y+(sq?40:52));x.textAlign="left";}
  y+=sq?80:120;const cap=RPT_CAPS[opt.cap%RPT_CAPS.length].replace(ERX,"").trim();x.font=`italic 600 ${sq?32:44}px Georgia,"Times New Roman",serif`;x.fillStyle=paper?a2:a1;x.fillText("“"+cap+"”",P,y);
  // stats
@@ -1807,7 +1807,7 @@ async function drawReport(opt){const W=1080,H=opt.fmt==="story"?1920:1080,sq=H==
  if(opt.wm){const tw=x.measureText("Made with PlateJack Free").width,ls=sq?30:36;x.save();x.globalAlpha=.6;if(logo)x.drawImage(logo,W-P-tw-ls-10,fy-ls+6,ls,ls);x.restore();}
  return c;}
 function rptOpts(){if(!isPro())rptStyle="classic";if(rptCapI===null){const w=Math.floor(Date.now()/6048e5);rptCapI=w%RPT_CAPS.length;}return {fmt:rptFmt,style:rptStyle,cap:rptCapI,hideCal:$("rptHideCal").checked,hideWt:$("rptHideWt").checked,wm:!isPro()};}
-async function renderRpt(){$("rptStyle").innerHTML=RPT_STYLES.map(([k,n])=>`<button data-s="${k}" class="${k===rptStyle?"on":""}">${n}${k!=="classic"&&!isPro()?" 🔒":""}</button>`).join("");
+async function renderRpt(){$("rptStyle").innerHTML=RPT_STYLES.map(([k,n])=>`<button data-s="${k}" class="${k===rptStyle?"on":""}">${n}${k!=="classic"&&!isPro()?' <em class="probadge">PRO</em>':""}</button>`).join("");
  [...$("rptFmt").children].forEach(b=>b.classList.toggle("on",b.dataset.f===rptFmt));
  const c=await drawReport(rptOpts());window._rptCanvas=c;rptBlob=await new Promise(r=>c.toBlob(r,"image/png"));const u=URL.createObjectURL(rptBlob);const im=$("rptImg");if(im._u)URL.revokeObjectURL(im._u);im._u=u;im.src=u;im.parentNode.classList.toggle("sq",rptFmt==="square");
  $("rptNote").textContent=isPro()?"Pro: no watermark, all card styles.":"Free card includes a small PlateJack watermark. Pro removes it and unlocks Bold & Paper styles.";}
@@ -2113,13 +2113,13 @@ function frUse(s){const today=ymd(new Date());const meal=new Date().getHours()>=
  if(s.kind==="left"){const i=s.items[0];const fresh=daysLeft(i)==null||daysLeft(i)>=0;if(fresh)v+=i.cost!=null?+i.cost:recipeCost(r).per;i.serv--;i.amt=i.serv+" serving"+(i.serv==1?"":"s");if(i.serv<=0)S.fridge=FR().filter(x=>x!==i);}
  else{s.items.forEach(i=>{if(daysLeft(i)==null||daysLeft(i)>=0)v+=frItemVal(i,r);});const ids=new Set(s.items.map(i=>i.id));S.fridge=FR().filter(x=>!ids.has(x.id));addLeftover(r,r.serv-1);}
  frSaveVal(v,r.name);save();renderToday();if($("fridge").open)renderFridge();toast(`Logged ${r.name}${v>0?` · ~$${v.toFixed(2)} saved`:""}`);}
-function frEvening(){return window._forceEvening!=null?!!window._forceEvening:new Date().getHours()>=16;}
+function frEvening(){return window._forceEvening!=null?!!window._forceEvening:true;}
 function renderFridgeCard(){const el=$("frCard");if(!el)return;const L=FR();const today=cur===ymd(new Date());if(!today){el.style.display="none";return;}el.style.display="";if(!L.length){el.innerHTML=`<div class="frh"><span class="fri">🧊</span><span class="frl"><b>Fridge Rescue</b><small>Track what you have, waste less</small></span><span class="frsv"><b>$${weekSaved().toFixed(2)}</b><small>saved this week · est.</small></span></div><div class="frsub muted">Add fridge items or tick bought groceries to get dinner ideas.</div><div class="frbtns"><button class="ghost small" data-fo="1">Open fridge</button></div>`;return;}
  const soon=L.filter(i=>{const d=daysLeft(i);return d!=null&&d<=2;}).length,sv=weekSaved();
  const head=`<div class="frh"><span class="fri">🧊</span><span class="frl"><b>Fridge Rescue</b><small>${L.length} item${L.length==1?"":"s"}${soon?` · <span class="frsoon">${soon} expiring soon</span>`:""}</small></span><span class="frsv"><b>$${sv.toFixed(2)}</b><small>saved this week · est.</small></span></div>`;
  if(!frEvening()){el.innerHTML=head+`<div class="frsub muted">Dinner ideas from your fridge show up here after 4 pm.</div><div class="frbtns"><button class="ghost small" data-fo="1">Open fridge</button></div>`;return;}
  const all=frSuggest(),n=isPro()?3:1,sh=all.slice(0,n);
- el.innerHTML=head+(sh.length?`<div class="frsub">Tonight, use it up:</div>`+sh.map((s,i)=>`<div class="frs" data-i="${i}"><img class="frth" src="${s.r.img||"img/r/"+s.r.id+"-t.webp"}" alt="" loading="lazy" onerror="this.style.visibility='hidden'"><span class="n"><b>${esc(s.r.name)}</b><small>${esc(s.why)} · ${s.r.cal} cal</small></span><button class="small" data-use="${i}">Log it</button></div>`).join("")
+ el.innerHTML=head+(sh.length?`<div class="frsub">${new Date().getHours()>=16?"Tonight, use it up:":new Date().getHours()>=11?"Use it up at lunch or dinner:":"Use it up today:"}</div>`+sh.map((s,i)=>`<div class="frs" data-i="${i}"><img class="frth" src="${s.r.img||"img/r/"+s.r.id+"-t.webp"}" alt="" loading="lazy" onerror="this.style.visibility='hidden'"><span class="n"><b>${esc(s.r.name)}</b><small>${esc(s.why)} · ${s.r.cal} cal</small></span><button class="small" data-use="${i}">Log it</button></div>`).join("")
   +(!isPro()&&all.length>1?`<button class="ghost small frmore" data-pro="1">🔒 ${Math.min(all.length,3)-1} more idea${Math.min(all.length,3)-1==1?"":"s"} with Pro</button>`:""):`<div class="frsub muted">No recipe fits your fridge and remaining calories right now.</div>`)+`<div class="frbtns"><button class="ghost small" data-fo="1">Open fridge</button></div>`;
  el._s=sh;}
 $("frCard")&&($("frCard").onclick=e=>{const u=e.target.closest("[data-use]");if(u){frUse($("frCard")._s[+u.dataset.use]);return;}if(e.target.closest("[data-pro]")){openPay("fridge");return;}if(e.target.closest("[data-fo]")){openFridge();}});
@@ -2166,8 +2166,12 @@ function normOFF(p){const n=p.nutriments||{};const kc=n["energy-kcal_100g"]!=nul
 async function liveUSDA(q,sig){if(paused("usda"))return {err:"paused"};const demo=usdaKey()===USDA_APP_KEY;if(!rl("usda",demo?120:900,36e5))return {err:"limit"};
  const r=await fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${encodeURIComponent(usdaKey())}&query=${encodeURIComponent(q)}&pageSize=20&dataType=${"Branded,Foundation,SR%20Legacy"}`,{signal:sig});
  if(r.status===429||r.status===403){pause("usda",36e5);return {err:"limit"};}if(!r.ok)return {err:"http"};const d=await r.json();return {res:(d.foods||[]).map(normUSDA).filter(Boolean)};}
+function offProxyDown(){try{return Date.now()<+(sessionStorage.getItem("pj_offpx")||0);}catch(e){return false;}}
+function offProxyMark(){try{sessionStorage.setItem("pj_offpx",Date.now()+6e5);}catch(e){}}
+function licURL(l){const m=String(l).match(/CC (BY(?:-SA|-ND|-NC)*) (\d\.\d)/);return m?`https://creativecommons.org/licenses/${m[1].toLowerCase()}/${m[2]}/`:"https://creativecommons.org/licenses/";}
 async function liveOFF(q,sig){if(paused("off"))return {err:"paused"};if(!rl("off",8,6e4))return {err:"limit"};const F="code,product_name,brands,serving_size,serving_quantity,nutriments";
- let r;r=await fetch(`https://world.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURIComponent(q)}&search_simple=1&action=process&json=1&page_size=20&tagtype_0=countries&tag_contains_0=contains&tag_0=united-states&fields=${F}`,{signal:sig});
+ let r=null;if(!offProxyDown()){try{r=await fetch(`${SB_URL}/functions/v1/off-proxy?q=${encodeURIComponent(q)}&n=20`,{signal:sig});if(r.status===404||r.status>=500){offProxyMark();r=null;}}catch(e){if(e.name==="AbortError")throw e;offProxyMark();r=null;}}
+ if(!r)r=await fetch(`https://world.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURIComponent(q)}&search_simple=1&action=process&json=1&page_size=20&tagtype_0=countries&tag_contains_0=contains&tag_0=united-states&fields=${F}`,{signal:sig});
  if(r.status===429){pause("off",6e4);return {err:"limit"};}if(!r.ok)return {err:"http"};const d=await r.json();return {res:(d.products||[]).map(normOFF).filter(Boolean)};}
 function liveSearch(q){const key=q.toLowerCase();const c=FDB.cache.get(key);FDB.live.q=key;
  if(c&&Date.now()-c.t<6e5){FDB.live.usda=c.usda;FDB.live.off=c.off;FDB.live.st=c.st;return;}
@@ -2396,7 +2400,7 @@ function hasData(){return !!(S.goal||Object.keys(S.days||{}).some(k=>(S.days[k].
 function maybeOnb(){const qs=new URLSearchParams(location.search);if(S.onb||(hasData()&&!qs.has("onb"))||(navigator.webdriver&&!qs.has("onb")))return;openOnb();}
 function openOnb(){const o=$("onb"),sl=$("oSlides"),N=sl.children.length;o.style.display="";document.body.classList.add("onbing");
  $("oDots").innerHTML=Array.from({length:N},(_,i)=>`<i data-i="${i}"></i>`).join("");$("oName").value=S.name&&S.name!=="Corneilus"?S.name:"";if(S.goal)$("oGoal").value=S.goal;
- const th=Object.keys(THEMES);$("oTheme").innerHTML=th.map(k=>`<button type="button" data-bg="${k}" class="${k===curTheme()?"on":""}" style="--sw:${THEMES[k].a1}"><i class="osw" style="background:linear-gradient(135deg,${THEMES[k].a1},${THEMES[k].bg})"></i>${THEMES[k].name}${!isPro()&&!FREE_THEMES.includes(k)?" 🔒":""}</button>`).join("");
+ const th=Object.keys(THEMES);$("oTheme").innerHTML=th.map(k=>`<button type="button" data-bg="${k}" class="${k===curTheme()?"on":""}" style="--sw:${THEMES[k].a1}"><i class="osw" style="background:linear-gradient(135deg,${THEMES[k].a1},${THEMES[k].bg})"></i>${THEMES[k].name}${!isPro()&&!FREE_THEMES.includes(k)?' <em class="probadge">PRO</em>':""}</button>`).join("");
  const idx=()=>Math.round(sl.scrollLeft/sl.clientWidth);const upd=()=>{const i=idx();[...$("oDots").children].forEach((d,j)=>d.classList.toggle("on",j===i));$("oNext").style.visibility=i===N-1?"hidden":"";$("oSkip").style.visibility=i===N-1?"hidden":"";[...sl.children].forEach((c,j)=>c.classList.toggle("in",j===i));};
  sl.onscroll=()=>requestAnimationFrame(upd);upd();
  const go=i=>sl.scrollTo({left:i*sl.clientWidth,behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
@@ -2406,7 +2410,7 @@ function openOnb(){const o=$("onb"),sl=$("oSlides"),N=sl.children.length;o.style
   const bmr=10*lb*.4536+6.25*inch*2.54-5*age+($("oSex").value==="m"?5:-161);$("oGoal").value=Math.round(bmr*+$("oAct").value/10)*10;toast("Estimated "+$("oGoal").value+" cal/day (approx.)");};
  $("oTheme").onclick=e=>{const b=e.target.closest("button");if(!b)return;if(!isPro()&&!FREE_THEMES.includes(b.dataset.bg)){openPay("theme");return;}setBg(b.dataset.bg);[...$("oTheme").children].forEach(x=>x.classList.toggle("on",x===b));};
  $("oGo").onclick=()=>{const nm=$("oName").value.trim(),g=Math.round(+$("oGoal").value);if(nm)S.name=nm;if(g>=800&&g<=6000){S.goal=g;if(!S.macros.p){S.macros={p:Math.round(g*.3/4),c:Math.round(g*.4/4),f:Math.round(g*.3/9)};}}else if($("oGoal").value){toast("Goal looks off — set 800–6000");return;}
-  {const bv=+$("oBud").value;if(bv>0)S.budget=Math.round(bv*100)/100;}S.onb=1;save();o.classList.add("gone");document.body.classList.remove("onbing");setTimeout(()=>{o.style.display="none";o.classList.remove("gone");},450);renderAll();toast(nm?`Let's go, ${nm}! 🍽️`:"Let's jack that plate! 🍽️");};}
+  {const bv=+$("oBud").value;if(bv>0)S.budget=Math.round(bv*100)/100;}{const lb=+$("oLb").value;if(lb>50&&lb<700)S.wkKg=lb*0.4536;}S.onb=1;save();o.classList.add("gone");document.body.classList.remove("onbing");setTimeout(()=>{o.style.display="none";o.classList.remove("gone");},450);renderAll();toast(nm?`Let's go, ${nm}!`:"Let's jack that plate!");};}
 $("introOn").onchange=()=>{S.intro=$("introOn").checked;save();toast(S.intro?"Intro on":"Intro off");};
 if(hasData()&&!S.onb){S.onb=1;try{save();}catch(e){}}
 
@@ -2657,3 +2661,45 @@ html[data-bg] body .sic{background:rgba(var(--accrgb),.12)!important;border:1px 
 html[data-bg] body .sic .lic{width:20px;height:20px}
 nav .navlk{top:4px!important;right:calc(50% - 20px)!important;font-size:0!important;line-height:0}nav .navlk .lic{width:11px!important;height:11px!important;color:var(--muted)}
 </style>
+<style id="fixall">
+/* v63 mockup fixes */
+.probadge{display:inline-block;font:800 .58rem/1 -apple-system,system-ui,sans-serif;letter-spacing:.08em;font-style:normal;padding:3px 5px;border-radius:5px;background:var(--acc,#f47b20);color:#fff;vertical-align:middle;margin-left:4px}
+button.on .probadge,#scanBtn .probadge{background:rgba(0,0,0,.28)}
+#lmMenu [data-sc="bar"] .probadge{margin-left:2px}
+#whyDlg{max-width:360px;text-align:center;padding:22px 20px 18px;border-radius:20px}#whyDlg h2{margin:8px 0 6px;font-size:1.15rem}#whyDlg p{color:var(--muted);font-size:.9rem;line-height:1.45;margin:0 0 16px}
+#whyDlg .whyi{width:48px;height:48px;margin:0 auto;border-radius:50%;display:grid;place-items:center;background:rgba(var(--accrgb),.14);color:var(--acc);border:1px solid rgba(var(--accrgb),.35)}#whyDlg .whyi .lic{width:22px;height:22px}
+#whyDlg button{width:100%;margin-top:8px}
+/* 5 + general: segmented controls show which one is selected */
+html[data-bg] body .seg button:not(.on){background:rgba(255,255,255,.05)!important;color:#dbe1e7!important;box-shadow:none!important;border:1px solid rgba(170,185,200,.2)!important}
+/* 8: help buttons removed from screens (Help Center keeps the guides) */
+.hq,button.hq{display:none!important}
+/* 9: quick add meal row not cut off */
+#macroIns{grid-template-columns:repeat(3,1fr)!important}#macroIns>div:last-child{grid-column:1/-1}
+/* 12: toasts sit under the top bar, clear of buttons and the tab bar */
+html[data-bg] body .toast,.toast{top:calc(70px + env(safe-area-inset-top))!important;bottom:auto!important;max-width:calc(100% - 32px);text-align:center;z-index:1000!important;transform:translateX(-50%) translateY(-8px)!important}
+.toast.show{transform:translateX(-50%)!important}
+/* 13: top bar stays charcoal */
+html[data-bg] body header.scrolled,html[data-bg] body header{background:rgba(18,20,23,.94)!important;border-bottom-color:rgba(170,185,200,.16)!important}
+/* 14: help legal rows spacing; food db */
+#hcLegal .srow{display:flex;align-items:center;gap:12px;padding:12px 4px}#hcLegal .srow>span:nth-child(2){flex:1;display:flex;flex-direction:column;gap:2px}#hcLegal .srow small{display:block;color:var(--muted);font-size:.78rem}
+#ownKeyT{width:100%;margin-top:6px}#ownKey{margin-top:10px}#ownKey label{display:block;margin-bottom:4px}
+.sp[data-p="food"] a{color:var(--acc-hi)!important}
+/* 3: backup buttons */
+#bkCard .bkgrid{display:grid;gap:8px}#bkCard .bkgrid button{width:100%}
+/* 7: fridge ideas in sheet */
+#frIdeas{margin:12px 0}#frIdeas .frit{font-weight:800;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--acc-hi);margin:0 0 8px}
+#frIdeas .frs{display:flex;align-items:center;gap:10px;padding:8px;border:1px solid rgba(170,185,200,.14);border-radius:14px;margin-bottom:8px}#frIdeas .frth{width:46px;height:46px;border-radius:10px;object-fit:cover}#frIdeas .n{flex:1;display:flex;flex-direction:column;min-width:0}#frIdeas .n small{color:var(--muted);font-size:.75rem}
+#frIdeas .frmore{width:100%}
+/* 15: swipe rows */
+.mxrow.swfade,#meals.swfade{-webkit-mask-image:linear-gradient(90deg,#000 84%,rgba(0,0,0,.25));mask-image:linear-gradient(90deg,#000 84%,rgba(0,0,0,.25))}
+.swdots{display:flex;justify-content:center;gap:6px;margin:2px 0 10px}.swdots i{width:6px;height:6px;border-radius:9px;background:rgba(255,255,255,.22);transition:.2s}.swdots i.on{width:18px;background:var(--acc)}
+/* 17: lift history single session */
+.lh1{border:1px solid rgba(170,185,200,.16);border-radius:16px;padding:16px;background:rgba(255,255,255,.03);text-align:center}.lh1k{font-size:.72rem;letter-spacing:.12em;color:var(--acc-hi);font-weight:800}
+.lh1v{font-family:"PJ Cond",sans-serif;font-size:2.6rem;font-weight:650;margin:4px 0}.lh1v small{font-size:.9rem;color:var(--muted);font-family:-apple-system,system-ui,sans-serif}
+.lh1g{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0}.lh1g div{background:rgba(255,255,255,.04);border-radius:12px;padding:8px 4px;display:flex;flex-direction:column}.lh1g b{font-size:1.1rem}.lh1g span{font-size:.7rem;color:var(--muted)}
+.lh1n{font-size:.82rem;color:var(--muted);margin:6px 0 0}
+/* 18: credits */
+.pcred{font-size:.75rem;color:var(--muted);text-align:left}.pcred a{color:var(--acc-hi)}
+#pcList .pcg{font-weight:800;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--acc-hi);margin:14px 0 6px}#pcList .pcr{padding:8px 0;border-top:1px solid rgba(170,185,200,.12);display:flex;flex-direction:column}#pcList .pcr small{color:var(--muted);font-size:.76rem}#pcList a{color:var(--acc-hi)}
+</style>
+<script src="js/fixall.js"></script>

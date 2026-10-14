@@ -66,6 +66,8 @@ document.body.insertAdjacentHTML("beforeend",`<dialog id="liftHist" class="tall"
 $("lhClose").onclick=()=>$("liftHist").close();
 let HX=null;
 function chart(ex){const h=hist(ex);const pts=h.map(l=>({d:l.d,v:Math.max(...l.sets.map(s=>+s.w))}));if(!pts.length)return"";
+ if(pts.length===1){const ss=h[0].sets.filter(s=>+s.r>0||+s.w>0),reps=ss.reduce((a,s)=>a+(+s.r||0),0),vol=ss.reduce((a,s)=>a+(+s.r||0)*(+s.w||0),0);
+  return `<div class="lh1"><div class="lh1k">FIRST SESSION · ${fd(pts[0].d)}</div><div class="lh1v">${pts[0].v}<small> lb top set</small></div><div class="lh1g"><div><b>${ss.length}</b><span>sets</span></div><div><b>${reps}</b><span>reps</span></div><div><b>${vol.toLocaleString()}</b><span>lb volume</span></div></div><p class="lh1n">Nice start. Log ${esc(ex)} again and your progress chart shows up here.</p></div>`;}
  const W=330,H=170,pl=34,pr=10,pt=14,pb=24;const lo=Math.min(...pts.map(p=>p.v)),hi=Math.max(...pts.map(p=>p.v));const mn=Math.floor((lo-10)/10)*10,mx=Math.ceil((hi+10)/10)*10;
  const X=i=>pl+(pts.length<2?0:i*(W-pl-pr)/(pts.length-1)),Y=v=>pt+(H-pt-pb)*(1-(v-mn)/(mx-mn));
  let g="";for(let i=0;i<=3;i++){const v=mn+(mx-mn)*i/3;g+=`<line x1="${pl}" x2="${W-pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="#2c2c2c"/><text x="${pl-6}" y="${Y(v)+4}" fill="#888" font-size="10" text-anchor="end">${Math.round(v)}</text>`;}

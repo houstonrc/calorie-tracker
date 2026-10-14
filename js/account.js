@@ -26,7 +26,7 @@ const sl=q("#sList");if(sl)sl.parentElement.querySelector("p.fine:last-child").i
 // delete card
 q("#proCard")?.insertAdjacentHTML("afterend",`<div class="grp">Danger zone</div><div class="card" id="delCard"><b id="delT"></b><p id="delP"></p><button type="button" class="danger" id="delOpen">${TR}<span id="delB"></span></button></div>`);
 document.body.insertAdjacentHTML("beforeend",`<dialog id="delDlg" class="tall"><div class="shd"><h2 id="dlT"></h2><button type="button" class="ghost small" id="dlX">Cancel</button></div>
-<p id="dlIntro"></p><ul id="dlList"></ul><p class="warn">This can't be undone. Export a backup first in Data &amp; Backup if you want a copy.</p>
+<p id="dlIntro"></p><ul id="dlList"></ul><p class="warn">This can't be undone. Want a copy first? Use Export backup above.</p>
 <label for="delIn">Type DELETE to confirm</label><input id="delIn" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="DELETE">
 <button type="button" class="danger" id="delGo" disabled style="margin-top:14px">${TR}<span id="dlGoT"></span></button><p class="fine" id="dlErr" style="color:#ff8a8d"></p></dialog>`);
 const signed=()=>typeof sbUser!=="undefined"&&!!sbUser;
