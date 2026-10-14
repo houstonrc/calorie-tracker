@@ -824,8 +824,9 @@ html[data-bg] body .nttimes{display:flex;flex-wrap:wrap;gap:8px}html[data-bg] bo
     
     <div class="statgrid" id="wtStats"></div>
     <div id="wtProg" style="margin-top:12px"></div>
+    <div id="wtEmpty" class="emst" style="display:none"><span class="emi"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 7h14M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0zM8 21h8"/></svg></span><div class="emt"><b>No weigh-ins yet</b><small>Log your weight to see your trend, 7-day average and progress to goal.</small></div><button type="button" id="wtEmptyGo">Log weight</button></div>
     <canvas id="wtChart" height="210" style="margin-top:10px"></canvas>
-    <p class="muted" style="font-size:.75rem;margin:4px 0 8px"><span style="color:#e9b862">●</span> weigh-ins &nbsp;<span style="color:#d0603f">━</span> 7-day average &nbsp;<span style="color:#c87b2c">┅</span> goal</p>
+    <p class="muted" id="wtLegend" style="font-size:.75rem;margin:4px 0 8px"><span style="color:#e9b862">●</span> weigh-ins &nbsp;<span style="color:#d0603f">━</span> 7-day average &nbsp;<span style="color:#c87b2c">┅</span> goal</p>
     <p class="muted" style="font-size:.75rem">Logs for <span id="wtDate"></span></p>
     <details class="more"><summary>Goal &amp; history</summary><div class="row"><input type="number" id="wtGoal" placeholder="Goal weight (lb, optional)" inputmode="decimal" step="0.1"><button class="ghost" id="wtGoalSave" style="flex:0 0 100px">Set goal</button></div>
     <div id="wtList"></div></details></div>
@@ -1767,8 +1768,8 @@ async function drawReport(opt){const W=1080,H=opt.fmt==="story"?1920:1080,sq=H==
  if(paper){x.fillStyle="#f6eddc";x.fillRect(0,0,W,H);const g=x.createRadialGradient(W*.8,H*.1,10,W*.8,H*.1,W);g.addColorStop(0,a1+"55");g.addColorStop(1,"rgba(246,237,220,0)");x.fillStyle=g;x.fillRect(0,0,W,H);}
  else if(bold){const g=x.createLinearGradient(0,0,W,H);g.addColorStop(0,a2);g.addColorStop(.55,`rgb(${tb.map(v=>Math.round(v*1.4)).join(",")})`);g.addColorStop(1,`rgb(${tb.join(",")})`);x.fillStyle=g;x.fillRect(0,0,W,H);
   x.globalAlpha=.08;x.strokeStyle="#fff";x.lineWidth=60;for(let i=-H;i<W+H;i+=180){x.beginPath();x.moveTo(i,0);x.lineTo(i+H,H);x.stroke();}x.globalAlpha=1;}
- else{if(photo){const r=Math.max(W/photo.width,H/photo.height);const pw=photo.width*r,ph=photo.height*r;x.filter="grayscale(.8) brightness(.6)";x.drawImage(photo,(W-pw)/2,(H-ph)/2,pw,ph);x.filter="none";}else{x.fillStyle="#1a0f07";x.fillRect(0,0,W,H);}
-  const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,`rgba(${tb},.55)`);g.addColorStop(.35,`rgba(${tb},.78)`);g.addColorStop(1,`rgba(${tb},.96)`);x.fillStyle=g;x.fillRect(0,0,W,H);
+ else{if(photo){const r=Math.max(W/photo.width,H/photo.height);const pw=photo.width*r,ph=photo.height*r;x.filter="grayscale(.85) brightness(.5) blur(14px)";x.drawImage(photo,(W-pw)/2,(H-ph)/2,pw,ph);x.filter="none";}else{x.fillStyle="#1a0f07";x.fillRect(0,0,W,H);}
+  const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,`rgba(${tb},.6)`);g.addColorStop(.22,`rgba(${tb},.9)`);g.addColorStop(1,`rgba(${tb},.97)`);x.fillStyle=g;x.fillRect(0,0,W,H);
   const rg=x.createRadialGradient(W*.15,H*.08,10,W*.15,H*.08,W*.9);rg.addColorStop(0,a2+"66");rg.addColorStop(1,"rgba(0,0,0,0)");x.fillStyle=rg;x.fillRect(0,0,W,H);}
  if(paper&&photo){const cx=W-200,cy=sq?190:260,r=sq?130:170;x.save();x.beginPath();x.arc(cx,cy,r,0,7);x.clip();const s=Math.max(2*r/photo.width,2*r/photo.height);x.drawImage(photo,cx-photo.width*s/2,cy-photo.height*s/2,photo.width*s,photo.height*s);x.restore();x.lineWidth=10;x.strokeStyle=a2;x.beginPath();x.arc(cx,cy,r,0,7);x.stroke();}
  const P=80;let y=sq?70:110;
@@ -1795,7 +1796,7 @@ async function drawReport(opt){const W=1080,H=opt.fmt==="story"?1920:1080,sq=H==
  const cols=sq?3:2,gap=sq?16:24,cw=(W-2*P-gap*(cols-1))/cols,chh=sq?120:150;y+=sq?40:70;const shown=S2.slice(0,sq?6:6);
  const IC={flame:"M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z",target:"M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z",check:"M20 6L9 17l-5-5",dumbbell:"M6.5 6.5v11M17.5 6.5v11M3 9.5v5M21 9.5v5M6.5 12h11",dollar:"M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6",trophy:"M6 9H4a2 2 0 0 1 0-4h2M18 9h2a2 2 0 0 0 0-4h-2M6 3h12v7a6 6 0 0 1-12 0zM12 16v4M8 22h8",scale:"M12 3v18M5 7h14M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0zM8 21h8"};
  shown.forEach(([v,l,ic],i)=>{const cx=P+(i%cols)*(cw+gap),cy=y+Math.floor(i/cols)*(chh+gap);rrect(x,cx,cy,cw,chh,sq?22:30);x.fillStyle=paper?"rgba(255,255,255,.75)":"rgba(255,255,255,.09)";x.fill();x.strokeStyle=paper?"rgba(42,28,16,.08)":"rgba(255,255,255,.12)";x.lineWidth=2;x.stroke();
-  fitFont(x,v,cw-40,sq?52:72,900);x.fillStyle=ink;x.fillText(v,cx+24,cy+(sq?66:94));x.font=`600 ${sq?20:26}px -apple-system,sans-serif`;x.fillStyle=mute;x.fillText(l,cx+24,cy+(sq?98:138));if(ic&&IC[ic]){const sz=sq?34:44;x.save();x.translate(cx+cw-24-sz,cy+20);x.scale(sz/24,sz/24);x.strokeStyle=a1;x.lineWidth=2.2;x.lineCap="round";x.lineJoin="round";x.stroke(new Path2D(IC[ic]));x.restore();}});
+  fitFont(x,v,cw-40,sq?52:72,900);x.fillStyle=ink;x.fillText(v,cx+24,cy+(sq?66:94));x.font=`600 ${sq?20:26}px -apple-system,sans-serif`;x.fillStyle=mute;x.fillText(l,cx+24,cy+(sq?98:138));if(ic&&IC[ic]){const sz=sq?34:44;x.save();x.translate(cx+cw-(sq?28:36)-sz,cy+(sq?24:30));x.scale(sz/24,sz/24);x.strokeStyle=a1;x.lineWidth=2.2;x.lineCap="round";x.lineJoin="round";x.stroke(new Path2D(IC[ic]));x.restore();}});
  y+=Math.ceil(shown.length/cols)*(chh+gap)+(sq?10:30);
  // top foods
  if(st.top.length&&(!sq||y<H-170)){x.font=`800 ${sq?22:28}px -apple-system,sans-serif`;x.letterSpacing="4px";x.fillStyle=paper?a2:a1;x.fillText("TOP FOODS",P,y+(sq?20:30));x.letterSpacing="0px";
@@ -1954,7 +1955,7 @@ const CRECIPES=[
 {id:"c_kai1",by:"Kai Nguyen",cr:"kai",img:"teri",name:"15-Min Teriyaki Chicken Rice",meal:"Dinner",e:"🍱",serv:4,prep:5,cook:15,cal:480,p:36,c:55,f:10,fib:3,na:600,ing:[["chicken thighs (boneless)",1.5,"lb",1],["teriyaki sauce (low-sodium)",4,"tbsp",7],["white rice (dry)",1,"cup",3],["broccoli florets",1,"lb",4],["green onions",1,"bunch",0]],steps:["Cook rice and steam broccoli.","Sear diced chicken, add teriyaki and glaze 2 min.","Portion and top with green onions."],store:"Fridge 4 days.",tags:["Quick","High protein"]},
 {id:"c_kai2",by:"Kai Nguyen",cr:"kai",img:"sfr",name:"Shrimp Cauli Fried Rice",meal:"Lunch",e:"🍤",serv:4,prep:5,cook:12,cal:330,p:30,c:20,f:14,fib:5,na:640,ing:[["raw shrimp (peeled)",1,"lb",1],["frozen riced cauliflower",2,"lb",4],["eggs",3,"",2],["frozen peas & carrots",1,"cup",4],["low-sodium soy sauce",3,"tbsp",7],["sesame oil",1,"tbsp",7]],steps:["Scramble eggs; set aside.","Cook shrimp 3 min; add cauliflower and veggies.","Stir in eggs, soy sauce and sesame oil."],store:"Fridge 3 days.",tags:["Under 500 cal","Quick"]}];
 const ALLR=()=>RECIPES.concat(CRECIPES);let crOpen=null;
-function renderCreators(){const el=$("creators");if(prepMeal!=="All"||prepTag){el.innerHTML="";return;}
+function renderCreators(){const el=$("creators");el.innerHTML="";el.style.display="none";return;if(prepMeal!=="All"||prepTag){el.innerHTML="";return;}
  el.innerHTML=`<div class="crhd"><b>⭐ Featured Creators</b><button class="link" id="crSubmit">＋ Submit your recipe</button></div><div class="crrow">${CREATORS.map(c=>`<button type="button" class="crc${crOpen===c.id?" on":""}" data-c="${c.id}"><span class="cav">${c.e}</span><b>${esc(c.name)}</b><small>${esc(c.h)}</small><span class="samp">SAMPLE CREATOR</span></button>`).join("")}</div>`+
  (crOpen?(()=>{const c=CREATORS.find(x=>x.id===crOpen);return `<div class="crbio"><b>${esc(c.name)}</b> · ${esc(c.bio)} <span class="muted">Fictional sample profile for demo.</span></div>`+CRECIPES.filter(r=>r.cr===crOpen).map(r=>`<div class="rcard" data-r="${r.id}"><img class="rth" src="img/r/${r.img}-t.webp" alt="" loading="lazy" width="360" height="270"><div class="n"><b>${esc(r.name)}</b><span class="muted">by ${esc(r.by)} · ${r.serv} servings · ${r.prep+r.cook} min</span></div><div class="rk"><b>${r.cal}</b><small>${r.p}g protein</small><small class="rcst">$${recipeCost(r).per.toFixed(2)}/serv est.</small></div></div>`).join("");})():"");
  el.onclick=e=>{if(e.target.closest("#crSubmit")){openCsub();return;}const b=e.target.closest(".crc");if(b){crOpen=crOpen===b.dataset.c?null:b.dataset.c;renderCreators();return;}const rc=e.target.closest(".rcard");if(rc)openRecipe(CRECIPES.find(x=>x.id===rc.dataset.r));};}
@@ -2703,3 +2704,16 @@ html[data-bg] body header.scrolled,html[data-bg] body header{background:rgba(18,
 #pcList .pcg{font-weight:800;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--acc-hi);margin:14px 0 6px}#pcList .pcr{padding:8px 0;border-top:1px solid rgba(170,185,200,.12);display:flex;flex-direction:column}#pcList .pcr small{color:var(--muted);font-size:.76rem}#pcList a{color:var(--acc-hi)}
 </style>
 <script src="js/fixall.js"></script>
+<style id="fix6">
+/* fix6: compact toast pill just above the tab bar, never over the header or titles */
+html[data-bg] body .toast,.toast{top:auto!important;bottom:calc(84px + env(safe-area-inset-bottom))!important;max-width:min(86%,340px)!important;padding:7px 14px!important;font-size:.8rem!important;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-radius:99px!important;z-index:1000!important;transform:translateX(-50%) translateY(8px)!important}
+.toast.show{transform:translateX(-50%)!important}
+/* fix6: no big blank space under short tabs */
+html[data-bg] body .tab,.tab{padding-bottom:16px!important}
+/* fix6: empty states */
+.emst{display:flex;align-items:center;gap:12px;margin-top:12px;padding:12px;border:1px dashed rgba(170,185,200,.22);border-radius:14px;background:rgba(255,255,255,.03)}
+.emst .emi{flex:0 0 40px;height:40px;border-radius:50%;display:grid;place-items:center;color:var(--acc,#f47b20);background:rgba(var(--accrgb,244,123,32),.14);border:1px solid rgba(var(--accrgb,244,123,32),.35)}
+.emst .emt{flex:1;min-width:0}.emst .emt b{display:block;font-size:.92rem}.emst .emt small{display:block;color:var(--muted,#97a1ad);font-size:.76rem;line-height:1.35;margin-top:2px}
+.emst button{flex:0 0 auto;white-space:nowrap;padding:9px 14px;font-size:.82rem}
+</style>
+<script src="js/fix6.js"></script>
