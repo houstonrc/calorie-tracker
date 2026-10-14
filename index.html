@@ -72,7 +72,7 @@ canvas{width:100%;display:block}
 .stat3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}.stat3>div{padding:10px 4px;border-radius:14px;background:rgba(190,165,130,.08)}.stat3 b{font-size:1.4rem;display:block;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .water{display:flex;align-items:center;gap:10px}.water b{font-size:1.4rem;min-width:90px;text-align:center;font-weight:800}
 .note{background:rgba(184,105,42,.10);border-left:4px solid var(--accent2);padding:10px;border-radius:10px;font-size:.9rem}
-footer{text-align:center;color:var(--muted);font-size:.85rem;padding:16px}
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:16px}main:has(#tab-settings.on)>footer{display:none}
 dialog{border:1px solid var(--line);border-radius:22px;background:var(--bg2);color:var(--text);width:min(520px,94vw);padding:18px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
 dialog[open]{animation:pop .3s cubic-bezier(.2,.9,.3,1.2)}
 dialog::backdrop{background:rgba(10,6,3,.6);backdrop-filter:blur(4px)}
@@ -1036,7 +1036,7 @@ html[data-bg] body .nttimes{display:flex;flex-wrap:wrap;gap:8px}html[data-bg] bo
  <div class="row" style="margin-top:8px"><button type="button" id="csMail">✉️ Email it</button><button type="button" class="ghost" id="csShare">📤 Share</button></div></dialog>
 <div class="toast" id="toast"></div><div id="tip"></div>
 
-<script src="js/burn.js"></script><script src="js/workout.js" defer></script><script src="js/accent.js"></script><script src="js/plangen.js"></script><script src="js/tips.js"></script><script src="js/swipe.js"></script><script src="vendor/supabase.js"></script>
+<script src="js/burn.js"></script><script src="js/workout.js" defer></script><script src="js/account.js" defer></script><script src="js/accent.js"></script><script src="js/plangen.js"></script><script src="js/tips.js"></script><script src="js/swipe.js"></script><script src="vendor/supabase.js"></script>
 <script>
 'use strict';
 /* ---------- Built-in food list: [name, serving, kcal, protein g, carbs g, fat g, fiber g, sugar g, sodium mg, sat fat g, cholesterol mg] (approximate) ---------- */
@@ -2318,7 +2318,7 @@ function syncText(){if(!sb)return"Saved on this device";if(!sbUser)return"Saved 
 function relT(t){t=new Date(t).getTime();const d=(Date.now()-t)/6e4;return d<1?"just now":d<60?Math.round(d)+" min ago":d<1440?"at "+new Date(t).toLocaleTimeString([],{hour:"numeric",minute:"2-digit"}):new Date(t).toLocaleDateString([],{month:"short",day:"numeric"});}
 function renderSetTop(){if(!$("stEm"))return;const e=sbUser&&sbUser.email;$("stAv").textContent=e?e[0].toUpperCase():"👤";$("stEm").textContent=e||"Not signed in";$("stSy").textContent=(sbUser?"☁️ ":"📱 ")+syncText();const p=!!S.pro;$("stPro").textContent=p?"⭐ Pro":"Free";$("stPro").classList.toggle("on",p);}
 function setSearch(){const q=$("setQ").value.trim().toLowerCase();let n=0;document.querySelectorAll("#sList .srow").forEach(r=>{const pg=document.querySelector(`#tab-settings .sp[data-p="${r.dataset.go}"]`);const v=!q||(r.textContent+" "+pg.textContent).toLowerCase().includes(q);r.style.display=v?"":"none";n+=v;});$("sList").style.display=n?"":"none";$("setNone").style.display=n?"none":"";}
-const FB_TO="";const C_VER="v55";
+const FB_TO="";const C_VER="v56";
 async function sendFeedback(){const msg=$("fbMsg").value.trim();if(msg.length<3){$("fbSt").textContent="Write a few words first.";return;}
  const email=$("fbEmail").checked&&sbUser?sbUser.email:null;const row={message:msg.slice(0,4000),email,user_id:sbUser?sbUser.id:null,app_version:(typeof C_VER!=="undefined"?C_VER:"web")};
  $("fbSend").disabled=true;$("fbSt").textContent="Sending…";let ok=false;
