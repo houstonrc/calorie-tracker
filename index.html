@@ -883,7 +883,7 @@ html[data-bg] body .nttimes{display:flex;flex-wrap:wrap;gap:8px}html[data-bg] bo
   </div>
   <div class="sp" data-p="look"><div class="sphead"><button class="ghost spback" aria-label="Back">‹</button><h1>Appearance</h1></div>
   <div class="grp">Appearance</div><div class="card"><h2>Background</h2><div class="swatches" id="bgPick"></div><p class="muted" style="font-size:.8rem;margin:10px 0 0">Pick the accent tint for your dark background.</p></div>
-  <div class="grp">Launch</div><div class="card"><label class="tog"><input type="checkbox" id="introOn"> Play launch intro</label><p class="fine" style="text-align:left;margin:2px 0 0">Full intro the first few opens, then a quick 1-second version.</p></div>
+  <div class="grp">Launch</div><div class="card"><label class="tog"><input type="checkbox" id="introOn"> Play launch intro</label><p class="fine" style="text-align:left;margin:2px 0 0">Plays the full intro every time you open the app. Turn off to skip it.</p></div>
   </div>
   <div class="sp" data-p="notif"><div class="sphead"><button class="ghost spback" aria-label="Back">‹</button><h1>Notifications</h1></div>
   <div class="grp">Notifications</div><div class="card" id="ntCard"><button class="hq" data-help="notif" aria-label="Help" style="float:right">?</button><button id="ntMaster" style="width:100%">🔔 Turn on notifications</button><p class="fine" style="text-align:left" id="ntStatus"></p><div class="note" id="ntIOS" style="display:none">📱 On iPhone, notifications need PlateJack installed: tap Share › <b>Add to Home Screen</b>, open it from there (iOS 16.4 or later), then turn notifications on.</div><div id="ntTypes"></div><button class="ghost small" id="ntTest" style="width:100%;margin-top:12px">Send a test notification</button><p class="fine" style="text-align:left">Missed reminders show up in the 🔔 inbox when you open the app. Reminders are general nudges, not medical advice.</p></div>
@@ -2387,7 +2387,7 @@ function renderAccount(){try{renderSetTop();}catch(e){}const el=$("acctCard");if
 
 /* ---------- Launch intro ---------- */
 (function(){const sp=$("splash");const qs=new URLSearchParams(location.search);const RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
- const n=S.introN||0,auto=navigator.webdriver&&!qs.has("intro");let mode=S.intro===false?"off":RM?"rm":(qs.get("intro")==="full"||(!auto&&n<3))?"full":"short";
+ const n=S.introN||0,auto=navigator.webdriver&&!qs.has("intro");let mode=S.intro===false?"off":RM?"rm":(qs.get("intro")==="short"||(auto&&qs.get("intro")!=="full"))?"short":"full";
  if(qs.get("intro")==="short")mode="short";
  S.introN=n+1;try{save();}catch(e){}
  const D={full:2925,short:1500,rm:450,off:0}[mode];sp.className="i-"+mode;window._introMode=mode;
