@@ -773,11 +773,36 @@ html[data-bg] body .nttimes{display:flex;flex-wrap:wrap;gap:8px}html[data-bg] bo
 .bk{color:#7fc98a;font-weight:800}.hburn{text-align:center;margin:2px 0 6px;font-size:.85rem;font-weight:700;color:#9fe0a8;text-shadow:0 1px 8px rgba(0,0,0,.6)}
 #burn h3{font-size:.82rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:18px 0 8px}#burn .chips{gap:8px}
 #burn input[type=range]{width:100%;accent-color:#c87b2c}.bestv{text-align:center;padding:16px;border-radius:20px;background:rgba(190,165,130,.10);margin-top:16px}.bestv b{font-size:2.2rem;font-weight:850;display:block}.bestv small{color:var(--muted)}
-</style></head>
+</style><style id="introG">
+#splash{position:fixed!important;inset:0;z-index:200;display:flex!important;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 40%,#2a2a2a 0%,#161616 60%,#0e0e0e 100%)!important;color:#eee!important;--k:1;transition:opacity .5s,visibility .5s;overflow:hidden}
+#splash.i-short{--k:.42}#splash.gone{opacity:0;visibility:hidden}
+#splash .gstage{display:flex;flex-direction:column;align-items:center;text-align:center;animation:none}
+#splash .gwrap{position:relative;width:200px;height:200px;animation:none}
+#splash .gacc{stroke:var(--acc,#d9661f)}#splash .gfill,#splash .gor{fill:var(--acc,#d9661f);color:var(--acc,#d9661f)}
+#splash .gplate{position:absolute;inset:17px;overflow:visible;animation:gspin calc(1s*var(--k)) cubic-bezier(.2,.8,.2,1) both}
+#splash .gring{position:absolute;inset:0;transform:rotate(-90deg);overflow:visible}
+#splash .gtools{position:absolute;inset:-50px;overflow:visible}
+#splash .gfk{transform-origin:180px 180px;animation:gx1 calc(.45s*var(--k)) calc(.75s*var(--k)) cubic-bezier(.3,1.5,.5,1) both}
+#splash .gkn{transform-origin:180px 180px;animation:gx2 calc(.45s*var(--k)) calc(.75s*var(--k)) cubic-bezier(.3,1.5,.5,1) both}
+#splash .gf{stroke-dasharray:691;stroke-dashoffset:691;animation:gdraw calc(.6s*var(--k)) calc(1.1s*var(--k)) ease-out forwards;filter:drop-shadow(0 0 8px rgba(var(--accrgb,217,102,31),.65))}
+#splash .gh{margin-top:30px;font:700 40px "PJ Cond",Oswald,Impact,sans-serif;letter-spacing:.06em;animation:gdrop calc(.4s*var(--k)) calc(1.5s*var(--k)) cubic-bezier(.5,0,.75,0) both}
+#splash .gs{color:#b9bec4}
+#splash .gtag{margin-top:10px;font:600 13px "PJ Cond",Oswald,Impact,sans-serif;letter-spacing:.32em;color:#9a9a9a;animation:gup calc(.4s*var(--k)) calc(1.9s*var(--k)) both}
+#splash.i-rm *{animation:none!important}#splash.i-rm .gf{stroke-dashoffset:0}
+@keyframes gspin{from{transform:rotate(-540deg) scale(.2);opacity:0}70%{opacity:1}}
+@keyframes gx1{from{transform:rotate(-90deg);opacity:0}to{transform:rotate(-40deg)}}
+@keyframes gx2{from{transform:rotate(90deg);opacity:0}to{transform:rotate(40deg)}}
+@keyframes gdraw{to{stroke-dashoffset:0}}
+@keyframes gdrop{from{opacity:0;transform:translateY(-60px) scale(1.4)}}
+@keyframes gup{from{opacity:0;transform:translateY(14px)}}
+</style>
+</head>
 <body>
-<div id="splash" aria-hidden="true"><div class="ibg"><i></i><i></i><i></i></div><div class="ivig"></div><canvas id="ember"></canvas><div class="iflash"></div>
-<div class="istage"><div class="ilogo"><img src="platejack.svg" alt="" width="150" height="150"><svg viewBox="0 0 512 512" class="iov"><defs><linearGradient id="irim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff1c4"/><stop offset=".4" stop-color="#e9b862"/><stop offset="1" stop-color="#c87b2c"/></linearGradient></defs><circle class="iring" cx="256" cy="256" r="184" fill="none" stroke="url(#irim)" stroke-width="22" stroke-linecap="round" pathLength="100" transform="rotate(-90 256 256)"/><path class="ibolt" d="M352 106l-30 50h18l-10 42l36-56h-20l14-36z" fill="#fffbe9" stroke="#2a1508" stroke-width="6" stroke-linejoin="round"/></svg></div>
-<b class="pjw iword"><i>PLATE</i><span>JACK</span></b><small class="itag">EAT WELL. SPEND LESS.</small></div></div>
+<div id="splash" aria-hidden="true"><div class="gstage"><div class="gwrap">
+<svg class="gtools" viewBox="0 0 360 360" fill="none" stroke-linecap="round" stroke-linejoin="round"><g class="gfk"><path d="M180 20V340M164 20V72Q164 90 180 90Q196 90 196 72V20" stroke="#8a8f95" stroke-width="6"/></g><g class="gkn"><path d="M180 340V20Q206 50 206 120Q206 150 180 150Z" class="gacc" stroke-width="9" fill="none"/></g></svg>
+<svg class="gring" viewBox="0 0 240 240"><circle cx="120" cy="120" r="110" fill="none" stroke="#2c2c2c" stroke-width="10"/><circle class="gf gacc" cx="120" cy="120" r="110" fill="none" stroke-width="10" stroke-linecap="round"/></svg>
+<svg class="gplate" viewBox="0 0 200 200"><circle cx="100" cy="100" r="96" fill="#232323" stroke="#4a4a4a" stroke-width="3"/><circle cx="100" cy="100" r="74" fill="#1b1b1b" stroke="#3a3a3a" stroke-width="2"/><circle cx="100" cy="100" r="74" fill="none" class="gacc" stroke-width="1.5" stroke-dasharray="3 9" opacity=".6"/><text x="100" y="126" text-anchor="middle" font-family="PJ Cond,Oswald,Impact,sans-serif" font-weight="700" font-size="72" fill="#b9bec4">P<tspan class="gfill">J</tspan></text></svg></div>
+<h1 class="gh"><span class="gs">PLATE</span><span class="gor">JACK</span></h1><div class="gtag">EAT WELL. <span class="gor">SPEND LESS.</span></div></div></div>
 <div id="auth" style="display:none" role="dialog" aria-label="Sign in"><div id="aBox"></div></div>
 <div id="onb" style="display:none" role="dialog" aria-label="Welcome to PlateJack"><div class="oslides" id="oSlides">
  <section class="os" style="--img:url(img/intro/salmon.webp)"><div class="ot"><span class="oe">📊</span><h2>Eat well. Spend less.</h2><p>Healthy meal prep that fits your grocery budget. See est. cost per serving, plan cheap weeks and track calories in one place.</p></div></section>
@@ -2320,7 +2345,7 @@ function syncText(){if(!sb)return"Saved on this device";if(!sbUser)return"Saved 
 function relT(t){t=new Date(t).getTime();const d=(Date.now()-t)/6e4;return d<1?"just now":d<60?Math.round(d)+" min ago":d<1440?"at "+new Date(t).toLocaleTimeString([],{hour:"numeric",minute:"2-digit"}):new Date(t).toLocaleDateString([],{month:"short",day:"numeric"});}
 function renderSetTop(){if(!$("stEm"))return;const e=sbUser&&sbUser.email;$("stAv").textContent=e?e[0].toUpperCase():"👤";$("stEm").textContent=e||"Not signed in";$("stSy").textContent=(sbUser?"☁️ ":"📱 ")+syncText();const p=!!S.pro;$("stPro").textContent=p?"⭐ Pro":"Free";$("stPro").classList.toggle("on",p);}
 function setSearch(){const q=$("setQ").value.trim().toLowerCase();let n=0;document.querySelectorAll("#sList .srow").forEach(r=>{const pg=document.querySelector(`#tab-settings .sp[data-p="${r.dataset.go}"]`);const v=!q||(r.textContent+" "+pg.textContent).toLowerCase().includes(q);r.style.display=v?"":"none";n+=v;});$("sList").style.display=n?"":"none";$("setNone").style.display=n?"none":"";}
-const FB_TO="";const C_VER="v61";
+const FB_TO="";const C_VER="v62";
 async function sendFeedback(){const msg=$("fbMsg").value.trim();if(msg.length<3){$("fbSt").textContent="Write a few words first.";return;}
  const email=$("fbEmail").checked&&sbUser?sbUser.email:null;const row={message:msg.slice(0,4000),email,user_id:sbUser?sbUser.id:null,app_version:(typeof C_VER!=="undefined"?C_VER:"web")};
  $("fbSend").disabled=true;$("fbSt").textContent="Sending…";let ok=false;
@@ -2412,16 +2437,10 @@ function renderAccount(){try{renderSetTop();}catch(e){}const el=$("acctCard");if
  const n=S.introN||0,auto=navigator.webdriver&&!qs.has("intro");let mode=S.intro===false?"off":RM?"rm":(qs.get("intro")==="full"||(!auto&&n<3))?"full":"short";
  if(qs.get("intro")==="short")mode="short";
  S.introN=n+1;try{save();}catch(e){}
- {const POOL=["grill","salmon","steak","chicken"],L=sp.querySelectorAll(".ibg i");L.forEach((el,j)=>{el.style.backgroundImage=`url(img/intro/${POOL[(n+j)%POOL.length]}.webp)`;});}
  const D={full:2500,short:1000,rm:450,off:0}[mode];sp.className="i-"+mode;window._introMode=mode;
  let done=false,raf=0;const end=()=>{if(done)return;done=true;cancelAnimationFrame(raf);sp.classList.add("gone");setTimeout(()=>{sp.remove();maybeAuth(maybeOnb);},mode==="off"?0:520);};
  if(mode==="off"){end();return;}
  setTimeout(end,D);
- if(mode==="full"||mode==="short"){const c=$("ember"),x=c.getContext("2d"),dpr=Math.min(2,devicePixelRatio||1);c.width=innerWidth*dpr;c.height=innerHeight*dpr;x.scale(dpr,dpr);
-  const P=Array.from({length:mode==="full"?46:22},()=>({x:Math.random()*innerWidth,y:innerHeight*(.45+Math.random()*.6),r:.6+Math.random()*2.2,v:.25+Math.random()*.9,w:Math.random()*6.28,a:.3+Math.random()*.6}));
-  const t0=performance.now();const tick=t=>{const e=(t-t0)/1000;x.clearRect(0,0,innerWidth,innerHeight);x.globalCompositeOperation="lighter";
-   for(const p of P){p.y-=p.v;p.x+=Math.sin(e*1.6+p.w)*.35;if(p.y<-10){p.y=innerHeight+10;p.x=Math.random()*innerWidth;}const g=x.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);g.addColorStop(0,`rgba(255,150,70,${p.a*Math.min(1,e*2)})`);g.addColorStop(1,"rgba(230,90,20,0)");x.fillStyle=g;x.beginPath();x.arc(p.x,p.y,p.r*4,0,7);x.fill();}
-   if(!done)raf=requestAnimationFrame(tick);};raf=requestAnimationFrame(tick);}
 })();
 /* ---------- First-run onboarding ---------- */
 function hasData(){return !!(S.goal||Object.keys(S.days||{}).some(k=>(S.days[k].entries||[]).length)||Object.keys(S.weights||{}).length);}
