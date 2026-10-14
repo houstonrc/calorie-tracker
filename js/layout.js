@@ -15,6 +15,6 @@
  m.querySelectorAll("[data-a]").forEach(b=>b.onclick=(ev)=>{tog(false);const sc=ev.target.closest("[data-sc]");if(b.dataset.a==="scan"&&sc&&sc.dataset.sc==="bar"){openScan();return;}({food:()=>$("addBtn").onclick(),scan:()=>$("snapBtn").click(),burn:()=>openBurn(),fridge:()=>openFridge()})[b.dataset.a]();});
  const rt=window.renderToday;window.renderToday=renderToday=function(){rt.apply(this,arguments);try{
   bn=burnOf(cur),b=+S.budget||0,ws=weekSpend().t;
-  $("lmBub").innerHTML=`<div><i>⚡</i><b>${calcStreak()}<small> days</small></b><span>Streak</span></div><div><i>💵</i><b>${b?"$"+Math.max(0,b-ws).toFixed(0):"$"+ws.toFixed(0)}</b><span>${b?"Budget left":"Spent this week"}</span></div><div><i>🔥</i><b>${bn.toLocaleString()}</b><span>Burned</span></div>`;
+  $("lmBub").innerHTML=`<div><i>⚡</i><b>${calcStreak()}<small> days</small></b><span>Streak</span></div><div><i>💵</i><b>${b?"$"+Math.max(0,b-ws).toFixed(0):"$"+ws.toFixed(0)}</b><span>${b?"Budget left":"Spent this week"}</span></div><div><i>🔥</i><b>${bn.toLocaleString()}</b><span>Burned</span></div>`;{const bd=$("lmBub").children[1];if(bd&&typeof goBudget==="function"){bd.style.cursor="pointer";bd.setAttribute("role","button");bd.setAttribute("aria-label","Edit weekly budget");bd.onclick=goBudget;}}
   document.querySelectorAll("#meals details.meal").forEach(d=>d.open=true);}catch(e){console.warn(e)}};
  renderToday();})();
