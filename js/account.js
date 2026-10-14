@@ -40,8 +40,8 @@ q("#dlX").onclick=()=>q("#delDlg").close();
 q("#delIn").oninput=e=>{q("#delGo").disabled=e.target.value.trim().toUpperCase()!=="DELETE";};
 async function wipeLocal(){try{localStorage.clear();sessionStorage.clear();}catch(e){}try{for(const k of await caches.keys())if(/photo/i.test(k))await caches.delete(k);}catch(e){}}
 q("#delGo").onclick=async()=>{const b=q("#delGo");b.disabled=true;q("#dlGoT").textContent="Deleting…";
- try{if(signed()&&sb){const uid=sbUser.id;const r=await sb.rpc("delete_my_account");
-   if(r.error){/* RPC not installed: remove what RLS allows */await sb.from("user_data").delete().eq("user_id",uid);await sb.from("profiles").delete().eq("id",uid);await sb.from("push_subscriptions").delete().eq("user_id",uid);}
+ try{if(signed()&&sb){const r=await sb.rpc("delete_my_account");window._delRpc={ok:!r.error,status:r.status,error:r.error?(r.error.code||"")+" "+r.error.message:null};try{sessionStorage.setItem("pj_del_rpc",JSON.stringify(window._delRpc));}catch(e){}
+   if(r.error){console.warn("delete_my_account failed",r.error);q("#dlErr").textContent="Your account could not be deleted, so nothing was removed and you are still signed in. Please try again later or contact support. ("+(r.error.message||"server error")+")";q("#dlGoT").textContent="Try again";b.disabled=false;return;}
    try{await sb.auth.signOut();}catch(e){}}
   await wipeLocal();location.replace(location.pathname);}
  catch(e){q("#dlErr").textContent="Couldn't delete right now. Check your connection and try again.";b.disabled=false;q("#dlGoT").textContent="Try again";}};
