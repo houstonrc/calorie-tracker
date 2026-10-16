@@ -782,7 +782,7 @@ html[data-bg] body .nttimes{display:flex;flex-wrap:wrap;gap:8px}html[data-bg] bo
   <div class="hstats"><div><b id="sEaten">0</b><span>Eaten</span></div><div><b id="sRem">–</b><span id="sRemL">Remaining</span></div><div><b id="sGoal">–</b><span>Goal</span></div></div>
   <div class="hburn" id="hBurn" style="display:none"></div>
   </div>
-  <div class="card" id="noGoal" style="display:none"><div class="empty">Set your daily calorie goal to get started.<br><br><button id="goSetup">Set my goal</button></div></div>
+  <div class="card" id="noGoal" style="display:none"><div class="empty">Set your daily calorie goal and weekly budget to get started.<br><small class="muted">Takes about 30 seconds.</small><br><br><button id="goSetup">Set my goal</button></div></div>
   <div class="card" id="burnCard"></div>
   <div class="card budstrip" id="budStrip"></div>
   <div class="card frcard" id="frCard" style="display:none"></div>
@@ -1418,7 +1418,7 @@ function renderToday(){try{rptBanner();renderCoach();renderBudStrip();}catch(e){
   return `<div class="mr"><i style="--v:${pct};--mc:var(${col})"><em>${Math.round(v)}</em></i><div><b>${n}</b><span>${goal?"of "+goal+" g":"g"}</span></div></div>`;}).join("");
  requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll("#macroBars .bar>i").forEach(i=>i.style.width=i.dataset.w+"%")));
  const d=day();
- if(!d.entries.length){$("meals").innerHTML=`<div class="empty">🥗 Nothing logged for this day yet.<br>Tap <b>＋ Add food</b> to log your first meal.</div>`;}
+ if(!d.entries.length){$("meals").innerHTML=`<div class="empty">🥗 Nothing logged yet.<br>Tap <b>＋ Add food</b> or try a <b>budget plan</b> in Plan.</div>`;}
  else{const hr=new Date().getHours(),curM=window._openMeal||(hr<11?"Breakfast":hr<15?"Lunch":hr<21?"Dinner":"Snacks");const nm=window._newId&&d.entries.find(e=>e.id===window._newId);window._mOpen=window._mOpen||{};
   $("meals").innerHTML=MEALS.map(m=>{const es=d.entries.filter(e=>e.meal===m);const sum=es.reduce((a,e)=>a+e.cal*e.qty,0);
   const op=m in window._mOpen?window._mOpen[m]:(m===curM||(nm&&nm.meal===m));
@@ -1972,7 +1972,7 @@ const KCAL_PRICE=0.0032; // est. US grocery cost per kcal for non-recipe foods (
 function entryCost(e){const rc=e.rid&&ALLR().find(r=>r.id===e.rid);const base=rc?recipeCost(rc).per:(+e.cal||0)*KCAL_PRICE;return base*(+e.qty||1);}
 function weekSpend(){const ks=rangeKeys(7);let t=0,n=0;ks.forEach(k=>{const es=day(k).entries;if(es.length){n++;es.forEach(e=>t+=entryCost(e));}});return {t,n,per:n?t/n:0};}
 function renderBudStrip(){const el=$("budStrip");if(!el)return;const b=+S.budget||0,w=weekSpend();
- if(!b){el.innerHTML=`<span class="bsi">💵</span><span class="bsl"><b>Eat well on a budget</b><small>Set a weekly food budget to see est. spend</small></span><button class="small" id="bsSet">Set budget</button>`;$("bsSet").onclick=e=>{e.stopPropagation();goBudget();};el.onclick=goBudget;return;}
+ if(!b){el.innerHTML=`<span class="bsi">💵</span><span class="bsl"><b>Track your weekly food spend</b><small>Set a budget to see estimated costs on Today</small></span><button class="small" id="bsSet">Set budget</button>`;$("bsSet").onclick=e=>{e.stopPropagation();goBudget();};el.onclick=goBudget;return;}
  const pc=Math.min(100,w.t/b*100),over=w.t>b;
  el.innerHTML=`<span class="bsi">💵</span><span class="bsl"><b>$${w.t.toFixed(0)} <small class="muted">of $${b.toFixed(0)} this week · est.</small></b><span class="bbar${over?" over":""}"><i style="width:${pc}%"></i></span><small>~$${w.per.toFixed(2)}/day · ${over?"$"+(w.t-b).toFixed(0)+" over":"$"+(b-w.t).toFixed(0)+" left"}</small></span>`;el.onclick=goBudget;}
 function planKeys(){const a=[];for(let i=0;i<7;i++){const d=parse(ymd(new Date()));d.setDate(d.getDate()+i);a.push(ymd(d));}return a;}
@@ -2115,7 +2115,7 @@ function frUse(s){const today=ymd(new Date());const meal=new Date().getHours()>=
  else{s.items.forEach(i=>{if(daysLeft(i)==null||daysLeft(i)>=0)v+=frItemVal(i,r);});const ids=new Set(s.items.map(i=>i.id));S.fridge=FR().filter(x=>!ids.has(x.id));addLeftover(r,r.serv-1);}
  frSaveVal(v,r.name);save();renderToday();if($("fridge").open)renderFridge();toast(`Logged ${r.name}${v>0?` · ~$${v.toFixed(2)} saved`:""}`);}
 function frEvening(){return window._forceEvening!=null?!!window._forceEvening:true;}
-function renderFridgeCard(){const el=$("frCard");if(!el)return;const L=FR();const today=cur===ymd(new Date());if(!today){el.style.display="none";return;}el.style.display="";if(!L.length){el.innerHTML=`<div class="frh"><span class="fri">🧊</span><span class="frl"><b>Fridge Rescue</b><small>Track what you have, waste less</small></span><span class="frsv"><b>$${weekSaved().toFixed(2)}</b><small>saved this week · est.</small></span></div><div class="frsub muted">Add fridge items or tick bought groceries to get dinner ideas.</div><div class="frbtns"><button class="ghost small" data-fo="1">Open fridge</button></div>`;return;}
+function renderFridgeCard(){const el=$("frCard");if(!el)return;const L=FR();const today=cur===ymd(new Date());if(!today){el.style.display="none";return;}el.style.display="";if(!L.length){el.innerHTML=`<div class="frh"><span class="fri">🧊</span><span class="frl"><b>Fridge Rescue</b><small>Use what you have before it goes bad</small></span><span class="frsv"><b>$${weekSaved().toFixed(2)}</b><small>saved this week · est.</small></span></div><div class="frsub muted">Add items from your fridge or mark groceries as bought to get meal ideas.</div><div class="frbtns"><button class="ghost small" data-fo="1">Open fridge</button></div>`;return;}
  const soon=L.filter(i=>{const d=daysLeft(i);return d!=null&&d<=2;}).length,sv=weekSaved();
  const head=`<div class="frh"><span class="fri">🧊</span><span class="frl"><b>Fridge Rescue</b><small>${L.length} item${L.length==1?"":"s"}${soon?` · <span class="frsoon">${soon} expiring soon</span>`:""}</small></span><span class="frsv"><b>$${sv.toFixed(2)}</b><small>saved this week · est.</small></span></div>`;
  if(!frEvening()){el.innerHTML=head+`<div class="frsub muted">Dinner ideas from your fridge show up here after 4 pm.</div><div class="frbtns"><button class="ghost small" data-fo="1">Open fridge</button></div>`;return;}
