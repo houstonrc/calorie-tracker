@@ -981,7 +981,7 @@ html[data-bg] body .nttimes{display:flex;flex-wrap:wrap;gap:8px}html[data-bg] bo
  <div class="row" style="margin-top:8px"><button type="button" id="rptShare">📤 Share</button><button type="button" class="ghost" id="rptDl">⬇️ Save PNG</button></div>
  <p class="fine" id="rptNote"></p></dialog>
 <dialog id="snap" class="tall"><div class="shd" tabindex="-1" autofocus style="outline:none"><h2>📷 Snap &amp; log</h2><button type="button" class="ghost small" id="snapClose">Cancel</button></div>
- <p class="fine" style="text-align:left;margin:0 0 8px">Snap your plate, then <b>you</b> pick the food and portion. PlateJack doesn't analyze the photo — no AI guessing.</p>
+ <p class="fine" style="text-align:left;margin:0 0 8px">Snap your plate, then <b>you</b> pick the food and portion. This photo stays on your phone as a tiny thumbnail.</p>
  <label class="snapbox" id="snapBox"><input type="file" accept="image/*" capture="environment" id="snapFile" hidden><img id="snapImg" alt=""><span id="snapPh">📸<b>Take or choose a photo</b><small>Optional — saved as a tiny thumbnail</small></span></label>
  <label>What is it?</label><div class="seg" id="snapSrc" style="grid-template-columns:repeat(3,1fr)"><button class="on" data-s="recent">Recent</button><button data-s="fav">Favorites</button><button data-s="search">Search</button></div>
  <input id="snapQ" placeholder="Search foods…" style="display:none;margin-top:8px"><div id="snapList" class="snaplist"></div>
@@ -2419,7 +2419,7 @@ if(hasData()&&!S.onb){S.onb=1;try{save();}catch(e){}}
 /* ---------- PWA (only when served over http/https; double-click file:// just works without it) ---------- */
 (function(){
  if(!/^https?:$/.test(location.protocol))return;
- if("serviceWorker" in navigator){const had=!!navigator.serviceWorker.controller;let reloaded=false;navigator.serviceWorker.addEventListener("controllerchange",()=>{if(!had||reloaded)return;reloaded=true;location.reload();});navigator.serviceWorker.register("./calorie-sw.js",{updateViaCache:"none"}).then(r=>{r.update().catch(()=>{});document.addEventListener("visibilitychange",()=>{if(!document.hidden)r.update().catch(()=>{});});}).catch(()=>{});}})();
+ if("serviceWorker" in navigator&&!(window.Capacitor&&Capacitor.isNativePlatform&&Capacitor.isNativePlatform())){const had=!!navigator.serviceWorker.controller;let reloaded=false;navigator.serviceWorker.addEventListener("controllerchange",()=>{if(!had||reloaded)return;reloaded=true;location.reload();});navigator.serviceWorker.register("./calorie-sw.js",{updateViaCache:"none"}).then(r=>{r.update().catch(()=>{});document.addEventListener("visibilitychange",()=>{if(!document.hidden)r.update().catch(()=>{});});}).catch(()=>{});}})();
 /* ---------- Notifications (local engine + inbox + Web Push) ---------- */
 const VAPID_PUB="BOEufJX7LPXUpq-uSQVXsxW9CuJRj7Wmu-sNX4sLAeHjguhZ2h2Skp6eRALhSkUB3R4pHthUJ8NGUcw2-BtHueI";
 const NT=[["meal","🍽️ Meal log reminders","If a meal isn't logged by these times"],["water","💧 Water","Every few hours during the day"],["fridge","🧊 Fridge Rescue","Evening heads-up when items expire soon"],["prep","🥡 Sunday prep nudge","Plan and prep for the week"],["report","📊 Plate Report ready","Sunday evening weekly recap"],["workout","Workout reminder","Evening nudge if you haven't worked out and your weekly goal isn't met yet"],["budget","💵 Budget alert","When estimated spend reaches 80% of your weekly budget"]];
@@ -2717,3 +2717,4 @@ html[data-bg] body .tab,.tab{padding-bottom:16px!important}
 .emst button{flex:0 0 auto;white-space:nowrap;padding:9px 14px;font-size:.82rem}
 </style>
 <script src="js/fix6.js"></script>
+<script src="js/hcsync.js" defer></script><script src="js/snapplate.js" defer></script>
