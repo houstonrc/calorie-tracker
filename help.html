@@ -1,6 +1,9 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Help Center &middot; PlateJack</title><meta name="description" content="PlateJack Help Center: answers about logging, Snap a plate, workouts, your account and data."><link rel="icon" href="favicon-32.png">
+<script>/* Inside the PlateJack Android app (Capacitor), hide web-install steps. */
+(function(){try{var C=window.Capacitor,n=!!(C&&C.isNativePlatform&&C.isNativePlatform())||/[?&]app=1(&|$)/.test(location.search);if(n)sessionStorage.setItem("pj_app","1");if(n||sessionStorage.getItem("pj_app")==="1")document.documentElement.classList.add("pjapp");}catch(e){}})();</script>
+<style>html.pjapp .webonly{display:none!important}</style>
 <style>
 @font-face{font-family:"PJ Cond";src:url(fonts/Oswald.ttf) format("truetype");font-weight:200 700;font-display:swap}
 :root{color-scheme:dark;--bg:#121417;--card:rgba(30,34,39,.85);--line:rgba(170,185,200,.16);--ink:#eef1f4;--mu:#97a1ad;--a1:#ff9a45;--acc:#f47b20}
@@ -37,8 +40,8 @@ footer{max-width:760px;margin:0 auto;padding:0 18px 40px}
 <section class="card" id="start"><h2>Getting started</h2>
 <details><summary>Do I need an account?</summary><p>No. PlateJack works without an account. Your food log, goals, plans and settings are saved on your device.</p></details>
 <details><summary>Why create an account?</summary><p>An optional account backs up your data and syncs it across your devices. Sign in with the same account on each device. To sign up, open <span class="path">Settings</span>, tap the top card, then <span class="path">Sign in or create account</span>.</p></details>
-<details><summary>How do I install it on Android?</summary><p>Open PlateJack in Chrome, tap the menu, then <span class="path">Install app</span> or <span class="path">Add to Home screen</span>.</p></details>
-<details><summary>How do I add it to my iPhone Home Screen?</summary><p>Open PlateJack in Safari, tap the Share button, then <span class="path">Add to Home Screen</span>. Open it from the new icon.</p></details>
+<details class="webonly"><summary>How do I install it on Android?</summary><p>Open PlateJack in Chrome, tap the menu, then <span class="path">Install app</span> or <span class="path">Add to Home screen</span>.</p></details>
+<details class="webonly"><summary>How do I add it to my iPhone Home Screen?</summary><p>Open PlateJack in Safari, tap the Share button, then <span class="path">Add to Home Screen</span>. Open it from the new icon.</p></details>
 <details><summary>Is PlateJack medical advice?</summary><p>No. Calorie, nutrient and cost numbers are estimates for general wellness tracking. Talk to a doctor or registered dietitian before big diet or exercise changes.</p></details>
 </section>
 
