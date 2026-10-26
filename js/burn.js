@@ -6,10 +6,10 @@ function burnOf(k=cur){return Math.round(wkList(k).reduce((a,w)=>a+(+w.kcal||0),
 function bodyKg(){const ks=Object.keys(S.weights||{}).sort();if(ks.length)return S.weights[ks[ks.length-1]]*0.4536;if(+S.wkKg)return +S.wkKg;return 0;}
 function estKcal(act,min,int,kg){const a=ACT[act]||ACT.other;return Math.round(a[3][int]*(kg||80)*min/60);}
 const BS={act:"walk",min:30,int:"moderate",mode:"est"};
-function wkLabel(w){const a=ACT[w.act]||ACT.other;return w.manual?`${a[2]} ${a[1]} · ${w.min?w.min+" min · ":""}${w.kcal} kcal`:`${a[2]} ${a[1]} · ${w.min} min · ${w.int}`;}
-function renderBurnCard(){const el=$("burnCard");if(!el)return;const L=wkList(),b=burnOf(),R=(S.recentWk||[]).slice(0,4);
+function wkLabel(w){const a=ACT[w.act]||ACT.other;return w.manual?`${a[2]} ${a[1]} · ${w.min?w.min+" min · ":""}${w.kcal} kcal`:`${a[2]} ${a[1]} · ${w.min} min${w.int?" · "+String(w.int).charAt(0).toUpperCase()+String(w.int).slice(1):""}`;}
+function renderBurnCard(){const el=$("burnCard");if(!el)return;const L=wkList(),b=burnOf(),same=(x,y)=>x.act===y.act&&!!x.manual===!!y.manual&&(x.manual?+x.kcal===+y.kcal:+x.min===+y.min&&x.int===y.int),R=(S.recentWk||[]).filter(r=>!L.some(w=>same(r,w))).slice(0,4);
  el.innerHTML=`<div class="bhd"><span class="ri">🔥</span><span class="rl"><b>Activity</b><small>${b?`Burned ${b.toLocaleString()} · +${burnBonus().toLocaleString()} to goal (${S.burnFull?"full":"half"})`:"Workouts add calories to today's goal"}</small></span><button class="small" id="wkAdd">＋ Add workout</button></div>`+
- (R.length?`<div class="chips wkchips">${R.map((w,i)=>`<button class="ghost" data-rc="${i}">${(ACT[w.act]||ACT.other)[2]} ${esc((ACT[w.act]||ACT.other)[1])} ${w.manual?w.kcal+" kcal":w.min+"m"}</button>`).join("")}</div>`:"")+
+ (R.length?`<div class="chips wkchips">${R.map((w,i)=>`<button class="ghost" data-rc="${i}">${(ACT[w.act]||ACT.other)[2]} ${esc((ACT[w.act]||ACT.other)[1])} ${w.manual?w.kcal+" kcal":w.min+" min"}</button>`).join("")}</div>`:"")+
  (L.length?`<div class="wklist">${L.map(w=>`<div class="entry" data-wid="${w.id}"><div class="n">${esc(wkLabel(w))}</div><b class="bk">−${w.kcal}</b><button class="ghost small wdel" aria-label="Remove">✕</button></div>`).join("")}</div>`:"");
  $("wkAdd").onclick=openBurn;
  el.querySelectorAll("[data-rc]").forEach(bt=>bt.onclick=()=>{const w=R[+bt.dataset.rc];const kcal=w.manual?w.kcal:estKcal(w.act,w.min,w.int,bodyKg()||80);addWk({act:w.act,min:w.min,int:w.int,kcal,manual:!!w.manual});});

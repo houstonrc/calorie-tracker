@@ -739,6 +739,13 @@ html[data-bg] body .nttimes{display:flex;flex-wrap:wrap;gap:8px}html[data-bg] bo
 @media (prefers-reduced-motion:reduce){#splash *{animation:none!important}#splash .xring{stroke-dashoffset:0}#splash .xfork{transform:rotate(-45deg)}#splash .xknife{transform:rotate(45deg)}}
 </style>
 <style id="launchfix">
+/* launch fixes: carousels */
+#meals,.mxrow{scroll-padding-inline:16px}
+#meals>*,.mxrow>*{scroll-snap-stop:normal}
+#meals::after,.mxrow::after{content:"";flex:0 0 1px}
+html body .mxsect small.pjhint,html[data-bg] body .mxsect small.pjhint,.pjhint{opacity:1;color:var(--acc-hi,#ff8a2a);font-size:.8rem;font-weight:800;letter-spacing:.02em}
+#burnCard .wklist .entry .n{white-space:normal;overflow:visible;text-overflow:clip;text-align:left;min-width:0;flex:1 1 auto;line-height:1.3}
+
 #pay .paysec{margin:14px 0 4px;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#f08a24}
 #pay .payfree{margin:0 0 4px;font-size:.88rem;line-height:1.45;color:var(--muted,#b9b9b9)}
 #pay .plans.soon .plan{cursor:default;opacity:.85}
@@ -1585,21 +1592,21 @@ function renderHistory(){if(!canUse("insightsFull")&&range>7)range=7;$("wtDate")
   $("hWorst").textContent=logged.length>1?shortDate(w):"–";$("hWorstL").textContent=logged.length>1?(S.goal?"furthest from goal":"highest")+" · "+Math.round(totals(w).cal).toLocaleString():"toughest day";}
  else{$("hBest").textContent="–";$("hWorst").textContent="–";$("hBestL").textContent="best day";$("hWorstL").textContent="toughest day";}
  // calorie chart
- const c=$("histChart"),[x,w,h]=prepCanvas(c);const pl=40,pb=24,pt=18,ch=h-pb-pt,cw=w-pl-6;
- const max=Math.max(S.goal||0,...vals,500)*1.12;gridY(x,w,pl,pt,ch,max,4,kfmt);
+ const c=$("histChart"),[x,w,h]=prepCanvas(c);const anyBurn=keys.some(k=>burnOf(k)),GK=keys.map(k=>goalFor(k));const pl=40,pb=24,pt=anyBurn?32:18,ch=h-pb-pt,cw=w-pl-6;
+ const max=Math.max(...GK,...vals,500)*1.12;gridY(x,w,pl,pt,ch,max,4,kfmt);
  const bw=cw/range,hits=[];
  vals.forEach((v,i)=>{const bh=ch*v/max,bx=pl+i*bw+bw*.15,bwd=bw*.7;const over=S.goal&&v>goalFor(keys[i]);
   const gy=x.createLinearGradient(0,pt+ch-bh,0,pt+ch);if(over){gy.addColorStop(0,"#e0604a");gy.addColorStop(1,"rgba(168,38,26,.35)");}else{gy.addColorStop(0,"#e9b862");gy.addColorStop(1,"rgba(200,123,44,.45)");}
   rbar(x,bx,pt+ch-bh,bwd,bh,gy,over?"rgba(217,67,47,.5)":"rgba(233,184,98,.5)");
-  if(range===7&&v>0){x.fillStyle=css("--text");x.font="700 11px -apple-system,system-ui,sans-serif";x.textAlign="center";x.fillText(kfmt(v),bx+bwd/2,pt+ch-bh-5);}
+  if(range===7&&v>0){x.fillStyle=css("--text");x.font="700 11px -apple-system,system-ui,sans-serif";x.textAlign="center";x.fillText(kfmt(v),bx+bwd/2,Math.max(pt+12,pt+ch-bh-5));}
   const lab=range===7||(range===30&&(i%5===0||i===range-1))||(range===90&&(i%15===0||i===range-1));
   if(lab){x.fillStyle=css("--muted");x.font="11px -apple-system,system-ui,sans-serif";x.textAlign="center";const dd=parse(keys[i]);x.fillText(range===7?DOW[dd.getDay()]:(dd.getMonth()+1)+"/"+dd.getDate(),pl+i*bw+bw/2,h-8);}
-  const t=T[i];hits.push({x0:pl+i*bw,x1:pl+(i+1)*bw,html:`<b>${shortDate(keys[i])}</b><br>${Math.round(v).toLocaleString()} kcal${S.goal?` (${v>S.goal?"+":""}${Math.round(v-S.goal).toLocaleString()} vs goal)`:""}<br>P ${Math.round(t.p)} · C ${Math.round(t.c)} · F ${Math.round(t.f)} g<br>${t.n} item${t.n==1?"":"s"}`});});
- if(keys.some(k=>burnOf(k))){keys.forEach((k,i)=>{const b=burnOf(k);if(!b)return;const bh=ch*b/max,bx=pl+i*bw+bw*.62,bwd=Math.max(3,bw*.18);rbar(x,bx,pt+ch-bh,bwd,bh,"#5fbf6e","rgba(95,191,110,.5)");});x.fillStyle="#7fc98a";x.font="700 10px -apple-system,system-ui,sans-serif";x.textAlign="right";x.fillText("▮ burned",w-6,12);}
+  const t=T[i];hits.push({x0:pl+i*bw,x1:pl+(i+1)*bw,html:`<b>${shortDate(keys[i])}</b><br>${Math.round(v).toLocaleString()} kcal${S.goal?` (${v>GK[i]?"+":""}${Math.round(v-GK[i]).toLocaleString()} vs goal${GK[i]>S.goal?" incl. workouts":""})`:""}<br>P ${Math.round(t.p)} · C ${Math.round(t.c)} · F ${Math.round(t.f)} g<br>${t.n} item${t.n==1?"":"s"}`});});
+ if(anyBurn){keys.forEach((k,i)=>{const b=burnOf(k);if(!b)return;const bh=ch*b/max,bx=pl+i*bw+bw*.62,bwd=Math.max(3,bw*.18);rbar(x,bx,pt+ch-bh,bwd,bh,"#5fbf6e","rgba(95,191,110,.5)");});x.fillStyle="#7fc98a";x.font="700 10px -apple-system,system-ui,sans-serif";x.textAlign="right";x.fillText("burned",w-6,13);x.fillRect(w-6-x.measureText("burned").width-11,5,7,9);}
  hits.forEach((hh,i)=>{const b=burnOf(keys[i]);if(b)hh.html+=`<br>🔥 ${b.toLocaleString()} burned`;});
  setHits(c,hits);
- if(S.goal){const y=pt+ch-ch*S.goal/max;x.strokeStyle=css("--accent2");x.setLineDash([6,4]);x.lineWidth=2;x.beginPath();x.moveTo(pl,y);x.lineTo(w-6,y);x.stroke();x.setLineDash([]);x.fillStyle=css("--accent2");x.textAlign="left";x.font="700 11px system-ui";x.fillText("goal "+S.goal.toLocaleString(),pl+4,y-5);}
- if(logged.length){const avg=LT.reduce((a,t)=>a+t.cal,0)/logged.length,y=pt+ch-ch*avg/max;x.strokeStyle="rgba(208,96,63,.8)";x.setLineDash([2,4]);x.lineWidth=1.5;x.beginPath();x.moveTo(pl,y);x.lineTo(w-6,y);x.stroke();x.setLineDash([]);x.fillStyle="#d0603f";x.textAlign="right";x.font="700 11px system-ui";x.fillText("avg",w-8,y-5);}
+ let gY=null;if(S.goal){x.strokeStyle=css("--accent2");x.setLineDash([6,4]);x.lineWidth=2;x.beginPath();keys.forEach((k,i)=>{const y=pt+ch-ch*GK[i]/max,x0=i?pl+i*bw:pl,x1=i===keys.length-1?w-6:pl+(i+1)*bw;if(i)x.lineTo(x0,y);else x.moveTo(x0,y);x.lineTo(x1,y);});x.stroke();x.setLineDash([]);const gl=GK[GK.length-1];gY=pt+ch-ch*gl/max;x.fillStyle=css("--accent2");x.textAlign="left";x.font="700 11px system-ui";x.fillText("goal "+gl.toLocaleString()+(gl>S.goal?" incl. workouts":""),pl+4,gY-5);}
+ if(logged.length){const avg=LT.reduce((a,t)=>a+t.cal,0)/logged.length,y=pt+ch-ch*avg/max;x.strokeStyle="rgba(208,96,63,.8)";x.setLineDash([2,4]);x.lineWidth=1.5;x.beginPath();x.moveTo(pl,y);x.lineTo(w-6,y);x.stroke();x.setLineDash([]);x.fillStyle="#d0603f";x.textAlign="left";x.font="700 11px system-ui";if(gY===null||Math.abs(gY-y)>16)x.fillText("avg "+Math.round(avg).toLocaleString(),pl+4,y+13);}
  if(!logged.length){x.fillStyle=css("--muted");x.textAlign="center";x.font="14px system-ui";x.fillText("Log some food to see your chart here",pl+cw/2,pt+ch/2);}
  renderNutAvg(logged,LT);renderMealChart(keys,logged);renderTimeChart(keys);renderTopFoods(keys);renderWeight();}
 function renderNutAvg(logged,LT){if(!canUse("insightsFull")){$("nutAvg").className="locked";$("nutAvg").innerHTML=`<div class="blur"><table class="ntab"><tr><th>Nutrient</th><th>Avg/day</th><th>Goal</th><th>Days on track</th></tr>${["Calories","Protein","Carbs","Fat","Fiber","Sugar","Sodium"].map(x=>`<tr><td>${x}</td><td>•••</td><td>•••</td><td>•/•</td></tr>`).join("")}</table></div>`+lockBox("Nutrient averages","See your daily averages and days on track for every nutrient.","insights");return;}$("nutAvg").className="";const n=logged.length;if(!n){$("nutAvg").innerHTML=`<div class="empty">No days logged in this range yet.</div>`;return;}
@@ -2781,4 +2788,4 @@ html[data-bg] body .tab,.tab{padding-bottom:16px!important}
 .emst button{flex:0 0 auto;white-space:nowrap;padding:9px 14px;font-size:.82rem}
 </style>
 <script src="js/fix6.js"></script>
-<script src="js/hcsync.js" defer></script><script src="js/snapplate.js" defer></script>
+<script src="js/hcsync.js" defer></script><script src="js/snapplate.js" defer></script><script src="js/launchfix.js" defer></script>
