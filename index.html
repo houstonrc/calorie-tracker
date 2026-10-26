@@ -1389,6 +1389,8 @@ const NUT=[["fib","Fiber","g","min"],["sug","Sugar","g","max"],["na","Sodium","m
 const NKEYS=NUT.map(n=>n[0]);
 const NDEF={fib:30,sug:50,na:2300,sat:20,chol:300};
 const ICON={Breakfast:"🌅",Lunch:"☀️",Dinner:"🌙",Snacks:"🍿"};
+/* Strip emoji from text that never reaches the DOM (OS notifications, canvas, share text). */
+function pjNoEmoji(t){return String(t==null?"":t).replace(/\p{Extended_Pictographic}\uFE0F?(?:\u200D\p{Extended_Pictographic}\uFE0F?)*/gu,"").replace(/[\uFE0F\u200D]/g,"").replace(/\s{2,}/g," ").trim();}
 const isNum=v=>typeof v==="number"&&isFinite(v);
 function blank(){return{goal:0,macros:{p:0,c:0,f:0},days:{},favs:[],weights:{},theme:null,waterUnit:"glass",ngoals:{...NDEF},goalWeight:0,schema:2,name:""};}
 /* Upgrade older saved data in place. Same storage key. Missing nutrients stay missing (= unknown). */
@@ -1639,11 +1641,11 @@ function renderNutAvg(logged,LT){if(!canUse("insightsFull")){$("nutAvg").classNa
 function renderMealChart(keys,logged){const c=$("mealChart"),[x,w,h]=prepCanvas(c);const n=logged.length;const sums=MEALS.map(m=>keys.reduce((a,k)=>a+day(k).entries.filter(e=>e.meal===m).reduce((s,e)=>s+e.cal*e.qty,0),0));const tot=sums.reduce((a,b)=>a+b,0);
  if(!tot){x.fillStyle=css("--muted");x.textAlign="center";x.font="14px system-ui";x.fillText("No meals logged in this range",w/2,h/2);setHits(c,[]);return;}
  const cols=[["#e8b65a","#c68a2e"],["#e9b862","#a0522d"],["#d0603f","#9c3a22"],["#e0604a","#a8261a"]];const pl=96,pr=60,rowH=(h-10)/4,hits=[];const mx=Math.max(...sums)/n;
- MEALS.forEach((m,i)=>{const avg=sums[i]/n,y=5+i*rowH,bh=rowH*.56,bw=(w-pl-pr)*avg/(mx||1);x.fillStyle=css("--text");x.font="600 13px -apple-system,system-ui,sans-serif";x.textAlign="left";x.fillText(ICON[m]+" "+m,4,y+rowH/2+4);
+ MEALS.forEach((m,i)=>{const avg=sums[i]/n,y=5+i*rowH,bh=rowH*.56,bw=(w-pl-pr)*avg/(mx||1);x.fillStyle=css("--text");x.font="600 13px -apple-system,system-ui,sans-serif";x.textAlign="left";x.fillText(m,4,y+rowH/2+4);
   x.fillStyle="rgba(190,165,130,.12)";x.beginPath();x.roundRect?x.roundRect(pl,y+(rowH-bh)/2,w-pl-pr,bh,8):x.rect(pl,y+(rowH-bh)/2,w-pl-pr,bh);x.fill();
   if(bw>0){const g=x.createLinearGradient(pl,0,pl+bw,0);g.addColorStop(0,cols[i][0]);g.addColorStop(1,cols[i][1]);x.save();x.fillStyle=g;x.shadowColor=cols[i][0];x.shadowBlur=5;x.beginPath();x.roundRect?x.roundRect(pl,y+(rowH-bh)/2,Math.max(bw,8),bh,8):x.rect(pl,y+(rowH-bh)/2,bw,bh);x.fill();x.restore();}
   x.fillStyle=css("--text");x.font="800 12px -apple-system,system-ui,sans-serif";x.textAlign="right";x.fillText(Math.round(sums[i]/tot*100)+"%",w-4,y+rowH/2+4);
-  hits.push({x0:0,x1:w,y0:y,y1:y+rowH,html:`<b>${ICON[m]} ${m}</b><br>avg ${Math.round(avg).toLocaleString()} kcal / logged day<br>${Math.round(sums[i]/tot*100)}% of calories in range`});});
+  hits.push({x0:0,x1:w,y0:y,y1:y+rowH,html:`<b>${m}</b><br>avg ${Math.round(avg).toLocaleString()} kcal / logged day<br>${Math.round(sums[i]/tot*100)}% of calories in range`});});
  setHits(c,hits);}
 function renderTimeChart(keys){const c=$("timeChart"),[x,w,h]=prepCanvas(c);const B=["12–4a","4–8a","8–12p","12–4p","4–8p","8–12a"],cnt=[0,0,0,0,0,0],kc=[0,0,0,0,0,0];let timed=0,guess=0;const GH={Breakfast:8,Lunch:12,Dinner:18,Snacks:15};
  keys.forEach(k=>day(k).entries.forEach(e=>{let hr;if(e.t){const dt=new Date(e.t);if(ymd(dt)===k){hr=dt.getHours();timed++;}}if(hr==null){hr=GH[e.meal]??12;guess++;}const b=Math.floor(hr/4);cnt[b]++;kc[b]+=e.cal*e.qty;}));
@@ -1673,7 +1675,7 @@ function renderWeight(){const ks=Object.keys(S.weights).sort();$("wtGoal").value
   $("wtProg").innerHTML=`<div class="nrow"><div class="top"><span>🎯 Progress to ${gw} lb</span><b>${Math.round(pct)}%</b></div><div class="bar" style="height:14px"><i style="width:${pct}%;background:linear-gradient(90deg,#c87b2c,#e9b862,#d0603f);color:#e9b862"></i></div><small>${Math.abs(r1(left))} lb to go · ${eta} Estimate only — not medical advice.</small></div>`;}
  else $("wtProg").innerHTML=gw?"":`<p class="muted" style="font-size:.8rem;margin:0">Set a goal weight to see progress and an estimated timeline.</p>`;
  x.font="12px system-ui";x.fillStyle=css("--muted");x.textAlign="center";
- if(ks.length<2){x.fillText(ks.length?"Log one more day to see a trend line":"⚖️ No weight logged yet",w/2,h/2);setHits($("wtChart"),[]);return;}
+ if(ks.length<2){x.fillText(ks.length?"Log one more day to see a trend line":"No weight logged yet",w/2,h/2);setHits($("wtChart"),[]);return;}
  const vs=ks.map(k=>S.weights[k]).concat(gw?[gw]:[]),mn=Math.min(...vs)-2,mx=Math.max(...vs)+2,t0=parse(ks[0]).getTime(),t1=parse(ks[ks.length-1]).getTime();
  const pl=40,pb=22,pt=12,cw=w-pl-12,ch=h-pb-pt;const X=k=>pl+cw*(parse(k).getTime()-t0)/Math.max(1,t1-t0),Y=v=>pt+ch-ch*(v-mn)/(mx-mn);
  x.strokeStyle=css("--line");x.lineWidth=1;for(let i=0;i<=3;i++){const v=mn+(mx-mn)*i/3,y=Y(v);x.beginPath();x.moveTo(pl,y);x.lineTo(w-10,y);x.stroke();x.textAlign="right";x.fillStyle=css("--muted");x.fillText(v.toFixed(0),pl-4,y+4);}
@@ -1863,7 +1865,7 @@ async function drawReport(opt){const W=1080,H=opt.fmt==="story"?1920:1080,sq=H==
  y+=Math.ceil(shown.length/cols)*(chh+gap)+(sq?10:30);
  // top foods
  if(st.top.length&&(!sq||y<H-170)){x.font=`800 ${sq?22:28}px -apple-system,sans-serif`;x.letterSpacing="4px";x.fillStyle=paper?a2:a1;x.fillText("TOP FOODS",P,y+(sq?20:30));x.letterSpacing="0px";
-  if(sq){fitFont(x,st.top.map(f=>f.replace(ERX,"").trim()).join(" · "),W-2*P,30,700);x.fillStyle=ink;x.fillText(st.top.join(" · "),P,y+62);}
+  if(sq){fitFont(x,st.top.map(f=>f.replace(ERX,"").trim()).join(" · "),W-2*P,30,700);x.fillStyle=ink;x.fillText(st.top.map(f=>f.replace(ERX,"").trim()).join(" · "),P,y+62);}
   else st.top.forEach((f,i)=>{f=f.replace(ERX,"").trim();fitFont(x,`${i+1}. ${f}`,W-2*P,44,700);x.fillStyle=ink;x.fillText(`${i+1}. ${f}`,P,y+84+i*58);});}
  // footer
  const fy=H-(sq?44:80);x.font=`900 ${sq?30:38}px "PJ Cond","Arial Black",sans-serif`;x.fillStyle=ink;x.fillText("platejack",P,fy);const fw=x.measureText("platejack").width;x.fillStyle=a1;x.beginPath();x.arc(P+fw+12,fy-8,7,0,7);x.fill();
@@ -2004,7 +2006,7 @@ $("coachOn").onchange=coachSet;$("coachTime").onchange=coachSet;
 $("coachNotif").onchange=async()=>{if($("coachNotif").checked){if(!("Notification" in window)){$("coachNotif").checked=false;toast("Notifications aren't supported here");return;}
   let p=Notification.permission;if(p==="default"){try{p=await Notification.requestPermission();}catch(e){}}if(p!=="granted"){$("coachNotif").checked=false;toast("Notifications blocked in browser settings");}}coachSet();};
 function coachRemind(){const C=S.coach||{};if(!C.notif||!("Notification" in window)||Notification.permission!=="granted")return;const now=new Date(),[h,m]=(C.time||"19:00").split(":").map(Number),td=ymd(now);
- if(C.last===td||now.getHours()*60+now.getMinutes()<h*60+m)return;C.last=td;S.coach=C;save();const L=coachLines();const body=L[0]?L[0].l:"Time to log your plate.";
+ if(C.last===td||now.getHours()*60+now.getMinutes()<h*60+m)return;C.last=td;S.coach=C;save();const L=coachLines();const body=L[0]?pjNoEmoji(L[0].l):"Time to log your plate.";
  const opt={body,icon:"icon-192.png",badge:"favicon-32.png",tag:"pj-coach"};if(navigator.serviceWorker&&navigator.serviceWorker.controller)navigator.serviceWorker.ready.then(r=>r.showNotification("Jack Coach",opt)).catch(()=>{});else try{new Notification("Jack Coach",opt);}catch(e){}}
 setInterval(coachRemind,60000);setTimeout(coachRemind,3000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)coachRemind();});
 
@@ -2027,7 +2029,7 @@ function renderCreators(){const el=$("creators");el.innerHTML="";el.style.displa
  (crOpen?(()=>{const c=CREATORS.find(x=>x.id===crOpen);return `<div class="crbio"><b>${esc(c.name)}</b> · ${esc(c.bio)} <span class="muted">Fictional sample profile for demo.</span></div>`+CRECIPES.filter(r=>r.cr===crOpen).map(r=>`<div class="rcard" data-r="${r.id}"><img class="rth" src="img/r/${r.img}-t.webp" alt="" loading="lazy" width="360" height="270"><div class="n"><b>${esc(r.name)}</b><span class="muted">by ${esc(r.by)} · ${r.serv} servings · ${r.prep+r.cook} min</span></div><div class="rk"><b>${r.cal}</b><small>${r.p}g protein</small><small class="rcst">$${recipeCost(r).per.toFixed(2)}/serv est.</small></div></div>`).join("");})():"");
  el.onclick=e=>{if(e.target.closest("#crSubmit")){openCsub();return;}const b=e.target.closest(".crc");if(b){crOpen=crOpen===b.dataset.c?null:b.dataset.c;renderCreators();return;}const rc=e.target.closest(".rcard");if(rc)openRecipe(CRECIPES.find(x=>x.id===rc.dataset.r));};}
 function openCsub(){$("csub").showModal();}
-function csText(){return `Recipe submission for PlateJack Featured Creators\n\nCreator: ${$("csName").value}\nRecipe: ${$("csTitle").value}\nServings: ${$("csServ").value}\nCalories/serving: ${$("csCal").value}\n\nIngredients:\n${$("csIng").value}\n\nSteps:\n${$("csSteps").value}\n\nI confirm this is my own recipe${$("csOk").checked?" ✅":" (not confirmed)"}.\n(Attach a photo you own if you'd like.)`;}
+function csText(){return `Recipe submission for PlateJack Featured Creators\n\nCreator: ${$("csName").value}\nRecipe: ${$("csTitle").value}\nServings: ${$("csServ").value}\nCalories/serving: ${$("csCal").value}\n\nIngredients:\n${$("csIng").value}\n\nSteps:\n${$("csSteps").value}\n\nI confirm this is my own recipe${$("csOk").checked?" (confirmed)":" (not confirmed)"}.\n(Attach a photo you own if you'd like.)`;}
 function csValid(){if(!$("csTitle").value.trim()||!$("csIng").value.trim()){toast("Add a recipe name and ingredients");return false;}if(!$("csOk").checked){toast("Please confirm it's your own recipe");return false;}return true;}
 $("csClose").onclick=()=>$("csub").close();
 $("csMail").onclick=()=>{if(!csValid())return;location.href="mailto:?subject="+encodeURIComponent("PlateJack recipe: "+$("csTitle").value)+"&body="+encodeURIComponent(csText());};
@@ -2147,7 +2149,7 @@ function renderGrocery(){const G=S.grocery||(S.grocery={checked:{},hidden:{}});G
 $("gList").onchange=e=>{const k=e.target.dataset.k;if(!k)return;const G=S.grocery;if(e.target.checked)G.checked[k]=1;else delete G.checked[k];save();e.target.closest(".gitem").classList.toggle("done",e.target.checked);};
 $("gClear").onclick=()=>{const G=S.grocery||{};const ks=Object.keys(G.checked||{});if(!ks.length){toast("Nothing checked");return;}ks.forEach(k=>{G.hidden[k]=1;delete G.checked[k];});save();renderGrocery();toast(`Cleared ${ks.length}`);};
 $("gShare").onclick=async()=>{const G=S.grocery||{checked:{},hidden:{}};const its=groceryItems().filter(x=>!(G.hidden||{})[x.key]);if(!its.length){toast("List is empty");return;}
- const txt="🛒 Grocery list\n"+GCAT.map(([c])=>{const L=its.filter(x=>x.cat===c);return L.length?"\n"+c+"\n"+L.map(x=>`${(G.checked||{})[x.key]?"☑":"☐"} ${x.name} — ${r1(x.qty)} × ${x.serving}`).join("\n"):"";}).join("")+"\n\nFrom PlateJack";
+ const txt="GROCERY LIST\n"+GCAT.map(([c])=>{const L=its.filter(x=>x.cat===c);return L.length?"\n"+c+"\n"+L.map(x=>`${(G.checked||{})[x.key]?"[x]":"[ ]"} ${x.name} — ${r1(x.qty)} × ${x.serving}`).join("\n"):"";}).join("")+"\n\nFrom PlateJack";
  try{if(navigator.share){await navigator.share({title:"Grocery list",text:txt});return;}}catch(e){if(e&&e.name==="AbortError")return;}
  try{await navigator.clipboard.writeText(txt);toast("Grocery list copied");}catch(e){window.prompt("Copy your grocery list:",txt);}};
 function renderAll(){renderPro();if($("tab-plan").classList.contains("on"))renderPlan();renderToday();renderSettings();renderMealChips();renderFoods();if($("tab-history").classList.contains("on"))renderHistory();}
@@ -2385,7 +2387,7 @@ async function sendFeedback(){const msg=$("fbMsg").value.trim();if(msg.length<3)
  $("fbSend").disabled=true;$("fbSt").textContent="Sending…";let ok=false;
  try{if(sb&&navigator.onLine){const {error}=await sb.from("feedback").insert(row);ok=!error;}}catch(e){}
  $("fbSend").disabled=false;
- if(ok){$("fbMsg").value="";$("fbSt").textContent="Thanks! Your feedback was sent. 💚";toast("Feedback sent");}
+ if(ok){$("fbMsg").value="";$("fbSt").textContent="Thanks! Your feedback was sent.";toast("Feedback sent");}
  else{const u="mailto:"+FB_TO+"?subject="+encodeURIComponent("PlateJack feedback")+"&body="+encodeURIComponent(msg+"\n\n— app "+row.app_version);$("fbSt").innerHTML=`Couldn't send in-app. <a href="${u}" id="fbMail">Email it instead</a>.`;}}
 // ---- Help Center
 const HELP={guides:[
@@ -2539,7 +2541,7 @@ function notifMsg(s){const dd=day(s.day);
  return null;}
 function budgetCheck(){const T=NS().types;if(!T.budget.on||!(+S.budget>0))return null;const w=weekSpend();if(w.t<S.budget*.8)return null;const wk="budget:"+rangeKeys(7)[0].slice(0,7)+":"+Math.floor(Date.now()/6048e5);if(NS().sent[wk])return null;
  return {type:"budget",key:wk,t:new Date(),title:"Budget heads-up 💵",body:`About $${w.t.toFixed(0)} of your $${(+S.budget).toFixed(0)} weekly food budget is used (est.).`,act:"budget"};}
-async function osNotify(m){try{if(!("Notification" in window)||Notification.permission!=="granted")return false;const r=await navigator.serviceWorker.getRegistration();const o={body:m.body,tag:m.key,icon:"icon-192.png",badge:"icon-192.png",data:{act:m.act}};if(r)await r.showNotification(m.title,o);else new Notification(m.title,o);return true;}catch(e){return false;}}
+async function osNotify(m){try{if(!("Notification" in window)||Notification.permission!=="granted")return false;const r=await navigator.serviceWorker.getRegistration();const o={body:pjNoEmoji(m.body),tag:m.key,icon:"icon-192.png",badge:"icon-192.png",data:{act:m.act}};if(r)await r.showNotification(pjNoEmoji(m.title),o);else new Notification(pjNoEmoji(m.title),o);return true;}catch(e){return false;}}
 function inboxAdd(m,missed){const N=NS();N.inbox.unshift({id:frId(),key:m.key,type:m.type,t:+m.t,title:m.title,body:m.body,act:m.act,read:false,missed:!!missed});if(N.inbox.length>50)N.inbox.length=50;}
 function notifCheck(opening){const N=NS();if(!N.on)return 0;const now=new Date();const from=new Date(Math.max(N.last||0,now-864e5));let missed=0,fired=0;
  dueSlots(from,now).forEach(s=>{if(N.sent[s.key])return;N.sent[s.key]=1;const m=notifMsg(s);if(!m)return;const mm={...s,...m};const late=now-s.t>15*6e4;inboxAdd(mm,late);if(late)missed++;else{fired++;osNotify(mm);}});
