@@ -30,6 +30,8 @@ const CAP=window.Capacitor,HCP=CAP&&CAP.isNativePlatform&&CAP.isNativePlatform()
 const NATIVE=!!HCP;window.PJ_HC_NATIVE=NATIVE;if(NATIVE)document.documentElement.classList.add("pjnative");
 const MOCK=!NATIVE&&/^(localhost|127\.0\.0\.1)$/.test(location.hostname)&&localStorage.getItem("pj_hc_demo")==="1";
 const WEB=!NATIVE&&!MOCK;if(WEB)document.documentElement.classList.add("pjhcweb");
+/* Android app built without the Health Connect plugin (first Play release): same "coming soon" UI, app-appropriate wording. */
+const APPNOHC=WEB&&!!(CAP&&CAP.isNativePlatform&&CAP.isNativePlatform());
 const RK="pj_hc_real",rget=()=>{try{return JSON.parse(localStorage.getItem(RK))||{days:{}}}catch(e){return {days:{}}}},rput=x=>localStorage.setItem(RK,JSON.stringify(x));
 const READ=["Steps","ExerciseSession","ActiveCaloriesBurned","Weight"];
 const APPS={"com.google.android.apps.fitness":"Google Fit","com.sec.android.app.shealth":"Samsung Health","com.fitbit.FitbitMobile":"Fitbit","com.strava":"Strava","com.garmin.android.apps.connectmobile":"Garmin","com.google.android.apps.healthdata":"Health Connect","com.ouraring.oura":"Oura","com.whoop.android":"WHOOP"};
@@ -102,7 +104,7 @@ const _rb=renderBurnCard;renderBurnCard=window.renderBurnCard=function(){_rb.app
 const syncedLb=()=>{const kg=NATIVE?rget().weightKg:MOCK?184.6*0.4536:0;return kg?(Math.round(kg/0.4536*10)/10):0;};
 function renderCap(){let c=$("capCard");if(!c){const L=$("sList");if(!L)return;c=document.createElement("div");c.className="card";c.id="capCard";L.after(c);}
  if(WEB){const wr=(name,sub,icon)=>`<div class="caprow"><span class="capic">${I(icon)}</span><span class="rl"><b>${name}</b><small>${sub}</small></span><span class="capand">Coming soon</span></div>`;
-  c.innerHTML=`<div class="caph"><span class="capt">Connected apps</span></div><p class="capp">Health Connect sync is coming soon in the PlateJack Android app. It will bring in steps, workouts, active calories and weight so Burned updates by itself. A browser can't read Health Connect, so on the web you log workouts yourself.</p><p class="capsoon">Coming soon in the Android app</p>
+  c.innerHTML=`<div class="caph"><span class="capt">Connected apps</span></div><p class="capp">${APPNOHC?"Health Connect sync is coming in a future update. It will bring in steps, workouts, active calories and weight so Burned updates by itself. For now, log workouts yourself.":"Health Connect sync is coming soon in the PlateJack Android app. It will bring in steps, workouts, active calories and weight so Burned updates by itself. A browser can't read Health Connect, so on the web you log workouts yourself."}</p><p class="capsoon">${APPNOHC?"Coming in a future update":"Coming soon in the Android app"}</p>
   ${wr("Health Connect","Android · phone, watch and fitness apps",IC.heart)}${wr("Google Fit","Shares its data through Health Connect",IC.fit)}
   <p class="fine capf">${I(IC.lock)}Read-only. PlateJack never writes to Health Connect and never uses health data for ads.</p>`;return;}
  const s=st(),hc=on(),gf=!!(s.gfit&&s.gfit.on),T=types();
@@ -125,7 +127,7 @@ document.body.insertAdjacentHTML("beforeend",`<dialog id="hcPerm"><div class="hc
  <p class="fine" style="text-align:left;margin:8px 0 0">Next, Android shows its Health Connect screen where you allow each one.</p>
  <button type="button" id="hcpGo">Continue</button><button type="button" class="ghost" id="hcpX">Not now</button></dialog>`);
 let pend="hc";
-function openPerm(which){if(WEB){toast("Coming soon in the Android app");return;}pend=which;$("hcpT").textContent=which==="gfit"?"Connect Google Fit":"Connect Health Connect";
+function openPerm(which){if(WEB){toast(APPNOHC?"Health Connect is coming in a future update":"Coming soon in the Android app");return;}pend=which;$("hcpT").textContent=which==="gfit"?"Connect Google Fit":"Connect Health Connect";
  $("hcpP").textContent=which==="gfit"?"Google Fit sends its steps and workouts to Health Connect, so PlateJack reads them from there. PlateJack will read:":"PlateJack will read these from Health Connect, so your phone, watch and other fitness apps fill in Burned for you:";
  $("hcpGo").disabled=false;$("hcpGo").textContent="Continue";$("hcPerm").showModal();}
 $("hcpX").onclick=()=>$("hcPerm").close();
