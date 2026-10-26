@@ -17,7 +17,7 @@ function renderBurnCard(){const el=$("burnCard");if(!el)return;const L=wkList(),
 function addWk(w){const b0=burnBonus();const d=dayW();if(!Array.isArray(d.workouts))d.workouts=[];w.id=Date.now().toString(36)+Math.random().toString(36).slice(2,5);d.workouts.push(w);
  const key=x=>x.act+"|"+(x.manual?"m"+x.kcal:x.min+x.int);S.recentWk=[{act:w.act,min:w.min,int:w.int,kcal:w.kcal,manual:w.manual},...(S.recentWk||[]).filter(x=>key(x)!==key(w))].slice(0,6);
  save();renderToday();const add=burnBonus()-b0;toast(`Burned ~${w.kcal.toLocaleString()} kcal, +${add.toLocaleString()} added to today's goal`);}
-function openBurn(){const dl=$("burn");drawBurn();dl.showModal();}
+function openBurn(){const dl=$("burn");drawBurn();if(!dl.open)dl.showModal();}
 function drawBurn(){const kg=bodyKg();const est=estKcal(BS.act,BS.min,BS.int,kg||80);
  $("bActs").innerHTML=ACTS.map(a=>`<button type="button" class="${a[0]===BS.act?"on":""}" data-a="${a[0]}">${a[2]} ${a[1]}</button>`).join("");
  $("bInts").innerHTML=["easy","moderate","intense"].map(i=>`<button type="button" class="${i===BS.int?"on":""}" data-i="${i}">${i[0].toUpperCase()+i.slice(1)}</button>`).join("");
