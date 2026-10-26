@@ -742,6 +742,13 @@ html[data-bg] body .nttimes{display:flex;flex-wrap:wrap;gap:8px}html[data-bg] bo
 #pay .paysec{margin:14px 0 4px;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#f08a24}
 #pay .payfree{margin:0 0 4px;font-size:.88rem;line-height:1.45;color:var(--muted,#b9b9b9)}
 #pay .plans.soon .plan{cursor:default;opacity:.85}
+dialog.pjcf{width:min(420px,92vw);margin:auto;border-radius:22px;padding:20px}
+dialog.pjcf h2{margin:0 0 8px;font-size:1.15rem}
+dialog.pjcf .pjcfm{margin:0 0 12px;color:var(--muted,#b9b9b9);font-size:.92rem;line-height:1.45;word-break:break-word}
+dialog.pjcf .pjcfck{display:flex;gap:10px;align-items:flex-start;margin:4px 0 14px;font-size:.9rem;line-height:1.35}
+dialog.pjcf .pjcfb{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+dialog.pjcf .pjcfb.col{grid-template-columns:1fr}
+dialog.pjcf .pjcfb button small{display:block;font-weight:500;font-size:.75rem;opacity:.8;margin-top:2px}
 </style>
 </head>
 <body>
@@ -1363,6 +1370,18 @@ function migrate(d){const o=Object.assign(blank(),d);if(!Array.isArray(o.favs))o
  if(!("name" in (d||{})))o.name="";if(!["brown","espresso","olive","terracotta","navy"].includes(o.bg))o.bg="brown";o.theme="dark";delete o.lastLight;o.schema=2;return o;}
 function load(){try{const d=JSON.parse(localStorage.getItem(KEY));if(d&&typeof d==="object")return migrate(d);}catch(e){}return blank();}
 let S=load();
+/* In-app confirm (replaces native confirm()). pjConfirm({title,msg,ok,cancel,danger,check,checked,choices:[{v,label,cls,sub}]})
+ -> Promise: false when cancelled; true (or {checked} when a checkbox is shown); with choices, the chosen v or null. */
+function pjConfirm(o){if(typeof o==="string")o={msg:o};return new Promise(res=>{let d=document.getElementById("pjCf");if(!d){d=document.createElement("dialog");d.id="pjCf";d.className="pjcf";document.body.appendChild(d);}
+ if(d.open){try{d.close();}catch(e){}}
+ const btns=o.choices?o.choices.map(c=>`<button type="button" class="${c.cls||""}" data-v="${esc(c.v)}">${esc(c.label)}${c.sub?`<small>${esc(c.sub)}</small>`:""}</button>`).join("")+`<button type="button" class="link" data-r="0">${esc(o.cancel||"Decide later")}</button>`
+  :`<button type="button" class="ghost" data-r="0">${esc(o.cancel||"Cancel")}</button><button type="button" class="${o.danger?"danger":""}" data-r="1">${esc(o.ok||"OK")}</button>`;
+ d.innerHTML=`<h2>${esc(o.title||"Are you sure?")}</h2>${o.msg?`<p class="pjcfm">${o.html?o.msg:esc(o.msg)}</p>`:""}${o.check?`<label class="tog pjcfck"><input type="checkbox" id="pjCfCk"${o.checked?" checked":""}> <span>${esc(o.check)}</span></label>`:""}<div class="pjcfb${o.choices?" col":""}">${btns}</div>`;
+ let done=false;const fin=v=>{if(done)return;done=true;const ck=!!(d.querySelector("#pjCfCk")||{}).checked;try{d.close();}catch(e){}res(v);void ck;};
+ d.onclick=e=>{const c=e.target.closest("[data-v]");if(c){fin(c.dataset.v);return;}const b=e.target.closest("[data-r]");if(b){const ok=b.dataset.r==="1";const ck=!!(d.querySelector("#pjCfCk")||{}).checked;fin(ok?(o.check?{checked:ck}:true):(o.choices?null:false));return;}if(e.target===d&&!o.choices)fin(false);};
+ d.oncancel=e=>{e.preventDefault();if(!o.choices)fin(false);};
+ d.showModal();setTimeout(()=>{const b=d.querySelector('[data-r="1"],[data-v]');if(b)b.focus();},30);});}
+window.pjConfirm=pjConfirm;
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){toast("Couldn't save — storage is full or blocked");}try{if(typeof pushPrefsSync==="function")pushPrefsSync();}catch(e){}}
 const ymd=d=>{const z=n=>String(n).padStart(2,"0");return d.getFullYear()+"-"+z(d.getMonth()+1)+"-"+z(d.getDate());};
 const parse=s=>{const[a,b,c]=s.split("-").map(Number);return new Date(a,b-1,c);};
@@ -1437,7 +1456,7 @@ function copyYesterday(m){const L=yMeal(m);if(!L.length)return;const d=dayW();le
 function saveMeal(m){const es=day().entries.filter(e=>e.meal===m);if(!es.length)return;const def=`My ${m.toLowerCase()}`;const nm=(prompt("Name this favorite meal",def)||"").trim();if(!nm)return;
  S.favMeals=S.favMeals||[];S.favMeals.unshift({id:Date.now().toString(36),name:nm.slice(0,40),items:es.map(e=>{const o={name:e.name,cal:e.cal,p:e.p||0,c:e.c||0,f:e.f||0,qty:e.qty||1};NKEYS.forEach(k=>{if(isNum(e[k]))o[k]=e[k];});return o;})});S.favMeals=S.favMeals.slice(0,30);save();toast(`⭐ Saved “${nm}”`);}
 $("meals").onclick=e=>{const cy=e.target.closest(".cpy");if(cy){copyYesterday(cy.dataset.m);return;}const sv=e.target.closest(".savm");if(sv){saveMeal(sv.dataset.m);return;}const pm=e.target.closest(".prepm");if(pm){openPrep(pm.dataset.m);return;}const am=e.target.closest(".addm");if(am){$("addBtn").onclick();selMeal=am.dataset.m;renderMealChips();return;}const row=e.target.closest(".entry");if(!row)return;const id=row.dataset.id;const d=dayW();const en=d.entries.find(x=>x.id===id);if(!en)return;
- if(e.target.closest(".del")){if(confirm(`Delete "${en.name}"?`)){d.entries=d.entries.filter(x=>x.id!==id);save();window._newId=null;row.classList.add("out");setTimeout(()=>{renderToday();toast("Deleted");},280);}}
+ if(e.target.closest(".del")){pjConfirm({title:"Delete this entry?",msg:en.name,ok:"Delete",danger:1}).then(ok=>{if(!ok)return;d.entries=d.entries.filter(x=>x.id!==id);save();window._newId=null;row.classList.add("out");setTimeout(()=>{renderToday();toast("Deleted");},280);});}
  else if(e.target.closest(".edit"))openDlg("edit",en);
  else openLabel(en);};
 function drawDonut(t){const c=$("donut"),x=c.getContext("2d"),W=300;x.setTransform(1,0,0,1,0,0);x.clearRect(0,0,W,W);
@@ -1504,7 +1523,7 @@ function renderFoods(){if(src==="recent"&&!window._srcPicked&&!recentFoods().len
 const nutOf=f=>{const o={};NKEYS.forEach(n=>{if(isNum(f[n]))o[n]=f[n];});return o;};
 function logMeal(m,meal){const add=m.items.map(x=>({...x,id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),t:Date.now(),meal}));const d=dayW();add.forEach(x=>{delete x.thumb;d.entries.push(x);});window._newId=add[add.length-1].id;save();renderToday();}
 $("foodList").onclick=e=>{const L=$("foodList");const mr=e.target.closest(".fmeal");if(mr){const m=L._meals[mr.dataset.mi];
-  if(e.target.closest("[data-rmm]")){if(confirm(`Remove “${m.name}” from favorites?`)){S.favMeals=S.favMeals.filter(x=>x!==m);save();renderFoods();}return;}
+  if(e.target.closest("[data-rmm]")){pjConfirm({title:"Remove from favorites?",msg:m.name,ok:"Remove",danger:1}).then(ok=>{if(!ok)return;S.favMeals=S.favMeals.filter(x=>x!==m);save();renderFoods();});return;}
   logMeal(m,selMeal);toast(`Logged ${m.name} to ${selMeal}`);return;}
  const row=e.target.closest(".food");if(!row)return;const f=L._items[row.dataset.i];const n=fullName(f);
  if(e.target.closest("[data-star]")){toggleFav(f);renderFoods();return;}
@@ -1655,9 +1674,9 @@ $("expCsv").onclick=()=>{const q=s=>`"${String(s).replace(/"/g,'""')}"`;const ro
  Object.keys(S.days).sort().forEach(k=>S.days[k].entries.forEach(e=>rows.push([k,e.meal,q(e.name),e.qty,e.cal,Math.round(e.cal*e.qty),r1(e.p*e.qty),r1(e.c*e.qty),r1(e.f*e.qty),...NKEYS.map(k=>isNum(e[k])?r1(e[k]*e.qty):"")])));
  download(`calorie-log-${ymd(new Date())}.csv`,rows.map(r=>r.join(",")).join("\n"),"text/csv");toast("CSV downloaded");};
 $("impBtn").onclick=()=>$("impFile").click();
-$("impFile").onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const j=JSON.parse(rd.result);const d=j.data||j;if(!d||typeof d.days!=="object")throw 0;
- if(!confirm("Replace the data on this device with this backup?"))return;S=migrate(d);save();applyTheme();renderAll();toast("Backup imported");}catch(err){alert("That file doesn't look like a PlateJack backup.");}e.target.value="";};rd.readAsText(f);};
-$("wipe").onclick=()=>{if(confirm("Erase ALL your data on this device? Export a backup first if you want to keep it.")){S=blank();save();applyTheme();renderAll();toast("All data erased");}};
+$("impFile").onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=async()=>{e.target.value="";let d;try{const j=JSON.parse(rd.result);d=j.data||j;if(!d||typeof d.days!=="object")throw 0;}catch(err){toast("That file doesn't look like a PlateJack backup.");return;}
+ if(!await pjConfirm({title:"Import this backup?",msg:"It replaces the data on this device.",ok:"Import"}))return;S=migrate(d);save();applyTheme();renderAll();toast("Backup imported");};rd.readAsText(f);};
+$("wipe").onclick=async()=>{if(await pjConfirm({title:"Erase all data on this device?",msg:"Export a backup first if you want to keep it.",ok:"Erase",danger:1})){S=blank();save();applyTheme();renderAll();toast("All data erased");}};
 
 /* ---------- Free vs Pro: the one place to change plan gating ----------
  PRO_ON_SALE stays false until real in-app billing exists. While it is false nobody is Pro
@@ -1870,8 +1889,8 @@ function autoWeek(budget){const g=S.goal||2000,pool=m=>ALLR().filter(r=>r.meal==
    if(sn){let bd=Math.abs(g-cal);for(const q of [1,2,3]){const d=Math.abs(g-cal-sn.cal*q);if(d<bd){bd=d;sq=q;}}}cal+=sn?sn.cal*sq:0;cost+=base.reduce((a,r)=>a+pc(r),0)+(sn?pc(sn)*sq:0);dev+=Math.abs(g-cal)/g;days.push({base,sq,cal});}
   const score=dev/7*3+(cost>budget*.97?(cost-budget*.97)/budget*60:0);if(!best||score<best.score)best={score,cost,days,sn,dev:dev/7};}
  return best;}
-function runAuto(){const b=+S.budget;const w=autoWeek(b);if(!w){toast("Not enough recipes");return;}const keys=planKeys();
- if(keys.some(k=>planList(k).length)&&!confirm("Replace your plan for the next 7 days with a "+$$m(w.cost)+" week?"))return;
+async function runAuto(){const b=+S.budget;const w=autoWeek(b);if(!w){toast("Not enough recipes");return;}const keys=planKeys();
+ if(keys.some(k=>planList(k).length)&&!await pjConfirm({title:"Replace your plan?",msg:"Replace your plan for the next 7 days with a "+$$m(w.cost)+" week?",ok:"Replace"}))return;
  S.plan=S.plan||{};keys.forEach((k,i)=>{const d=w.days[i];const L=d.base.map(r=>({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),...rcItem(r),meal:r.meal}));if(w.sn&&d.sq)L.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),...rcItem(w.sn),meal:"Snacks",qty:d.sq});S.plan[k]=L;});
  save();renderPlan();toast(w.cost<=b?`Planned a ~${$$m(w.cost)} week · ~${Math.round(w.days.reduce((a,d)=>a+d.cal,0)/7)} cal/day`:`Closest: ~${$$m(w.cost)} — try a higher budget`);}
 
@@ -2029,7 +2048,7 @@ function renderPlanDet(){const P=pdCur;if(!P)return;const st=planStats(P),ppl=P.
  <div class="pddays">${dn.map((d,i)=>`<button data-d="${i}" class="${i===pdDay?"on":""}">${d}</button>`).join("")}</div>
  <div class="card" style="padding:8px 14px">${rows}<div class="pdday"><span>${dn[pdDay]} total${ppl>1?" (per person)":""}</span><b>${Math.round(dk).toLocaleString()} kcal · ${Math.round(dp)} g protein</b></div></div>
  ${ed?`<div class="pdact">${P.gen?'<button class="ghost" id="pdShuf">🔀 Shuffle</button>':""}${P.gen?'<button class="ghost" id="pdSave">💾 Save plan</button>':'<button class="ghost" id="pdDel">🗑️ Delete</button>'}</div>`:""}<button id="pdUse" style="width:100%;margin-top:14px">✅ Use this plan</button><p class="fine">Fills the next 7 days in your planner and builds the grocery list. Prep days 1 and 5. Costs are estimates; calories approximate. Not medical advice.</p>`;}
-function usePlan(P){if(!canUse("planner")){openPay("plan");return;}const keys=planKeys();if(keys.some(k=>planList(k).length)&&!confirm(`Replace your plan for the next 7 days with "${P.name}"?`))return;
+async function usePlan(P){if(!canUse("planner")){openPay("plan");return;}const keys=planKeys();if(keys.some(k=>planList(k).length)&&!await pjConfirm({title:"Replace your plan?",msg:`Replace your plan for the next 7 days with "${P.name}"?`,ok:"Replace"}))return;
  S.plan=S.plan||{};keys.forEach((k,i)=>{S.plan[k]=(P.days[i]||[]).map(([id,q])=>{const r=ALLR().find(x=>x.id===id);return r?{id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),...rcItem(r),meal:r.meal,qty:q}:null;}).filter(Boolean);});
  S.planFrom={id:P.id,at:Date.now()};save();$("pldet").close();planView="plan";renderPlan();toast(`${P.e} ${P.name} added · grocery list ready`);}
 $("plansList").onclick=e=>{const b=e.target.closest("[data-pl]");if(b)openPlanDet(b.dataset.pl);};
@@ -2038,7 +2057,7 @@ $("pdBody").onclick=e=>{const d=e.target.closest("[data-d]");if(d){pdDay=+d.data
  const sw=e.target.closest("[data-sw]");if(sw){const np=PG.swap(RECIPES,genPrice(),{days:pdCur.days,opts:pdCur.opts||{kcal:pdCur.kcal,people:pdCur.people,mpd:4,diet:"any"},people:pdCur.people||1},pdDay,+sw.dataset.sw,Date.now());if(!np){toast("No other recipe fits here");return;}pdCur.days=np.days;if(pdCur.mine){const m=(S.myPlans||[]).find(x=>x.id===pdCur.id);if(m){m.days=np.days;save();}}renderPlanDet();toast("Swapped · portions re-balanced");return;}
  if(e.target.closest("#pdShuf")){runGen(pdCur.opts,Date.now());return;}
  if(e.target.closest("#pdSave")){S.myPlans=S.myPlans||[];const P={...pdCur,gen:false,mine:true,id:"my"+Date.now().toString(36),e:"⭐",name:"My plan "+(S.myPlans.length+1),saved:Date.now()};S.myPlans.unshift(P);S.myPlans=S.myPlans.slice(0,20);save();pdCur=P;$("pdTitle").textContent="⭐ "+P.name;renderPlanDet();renderPlans();toast("Plan saved to My plans");return;}
- if(e.target.closest("#pdDel")){if(!confirm("Delete this saved plan?"))return;S.myPlans=(S.myPlans||[]).filter(x=>x.id!==pdCur.id);save();$("pldet").close();renderPlans();toast("Plan deleted");return;}if(e.target.closest("#pdUse")){usePlan(pdCur);return;}
+ if(e.target.closest("#pdDel")){const P0=pdCur;pjConfirm({title:"Delete this saved plan?",msg:P0.name,ok:"Delete",danger:1}).then(ok=>{if(!ok)return;S.myPlans=(S.myPlans||[]).filter(x=>x.id!==P0.id);save();$("pldet").close();renderPlans();toast("Plan deleted");});return;}if(e.target.closest("#pdUse")){usePlan(pdCur);return;}
  const row=e.target.closest(".pdrow");if(row){const r=ALLR().find(x=>x.id===row.dataset.r);if(!canRecipe(r)){openPay("prep");return;}openRecipe(r);}};
 function renderPlan(){if(!canUse("planner"))planView="plans";if(planView==="plans"){[...$("planSeg").children].forEach(b=>b.classList.toggle("on",b.dataset.v==="plans"));$("planView").style.display="none";$("groceryView").style.display="none";$("plansView").style.display="";renderPlans();return;}$("plansView").style.display="none";if(!canUse("planner"))return;try{renderPlanBud();}catch(e){console.warn(e)}const keys=planKeys();if(!keys.includes(planDay))planDay=keys[0];
  Object.keys(S.plan||{}).forEach(k=>{if(k<keys[0])delete S.plan[k];});
@@ -2075,7 +2094,7 @@ $("ppList").onclick=e=>{const row=e.target.closest(".food");if(!row)return;const
  if(e.target.closest("[data-q]")){planAdd(en);return;}openDlg("plan",en,true);$("dlgTitle").textContent="Add to plan · "+shortDate(planDay);$("dlgSave").textContent="Add to plan";};
 $("ppCustom").onclick=()=>{openDlg("plan",{name:$("ppSearch").value,meal:planMeal,qty:1},true);$("dlgTitle").textContent="Custom food · "+shortDate(planDay);$("dlgSave").textContent="Add to plan";};
 $("ppClose").onclick=()=>$("planPick").close();
-$("planClear").onclick=()=>{if(!planList(planDay).length){toast("Nothing planned");return;}if(confirm("Remove everything planned for "+shortDate(planDay)+"?")){delete S.plan[planDay];save();renderPlan();toast("Day cleared");}};
+$("planClear").onclick=()=>{if(!planList(planDay).length){toast("Nothing planned");return;}const pd=planDay;pjConfirm({title:"Clear this day?",msg:"Remove everything planned for "+shortDate(pd)+"?",ok:"Clear",danger:1}).then(ok=>{if(!ok)return;delete S.plan[pd];save();renderPlan();toast("Day cleared");});};
 $("planCopy").onclick=()=>{if(!planList(planDay).length){toast("Plan something first");return;}$("cpFrom").textContent=`From ${shortDate(planDay)} (${planList(planDay).length} items) to:`;
  $("cpDays").innerHTML=planKeys().filter(k=>k!==planDay).map(k=>`<label><input type="checkbox" value="${k}"> ${parse(k).toLocaleDateString([],{weekday:"long",month:"short",day:"numeric"})} <span class="muted" style="margin-left:auto;font-size:.8rem">${planList(k).length?planList(k).length+" planned":""}</span></label>`).join("");$("cpReplace").checked=false;$("copyDlg").showModal();};
 $("cpCancel").onclick=()=>$("copyDlg").close();
@@ -2243,6 +2262,13 @@ try{if(window.supabase&&/^https?:$/.test(location.protocol))sb=window.supabase.c
 const _save0=save;save=function(){_save0();if(_applying)return;setMeta({localAt:new Date().toISOString(),dirty:true});queueSync();};
 function queueSync(ms=2000){if(!sbUser)return;clearTimeout(syncT);syncT=setTimeout(()=>syncNow(),ms);renderAccount();}
 const cloudCopy=()=>{const d=JSON.parse(JSON.stringify(S));delete d.pro;return d;};
+const _norm=d=>{const o=JSON.parse(JSON.stringify(d||{}));["pro","introN","coach","rptSeen","onb","intro"].forEach(k=>delete o[k]);return JSON.stringify(o,Object.keys(o).sort());};
+function sameData(a,b){try{return _norm(a)===_norm(b);}catch(e){return false;}}
+function dataSum(d){const ds=Object.keys((d&&d.days)||{}).filter(k=>(d.days[k].entries||[]).length);const n=ds.reduce((a,k)=>a+d.days[k].entries.length,0);const last=[...ds].sort().pop();return `${ds.length} day${ds.length==1?"":"s"} logged, ${n} food${n==1?"":"s"}${last?", last on "+parse(last).toLocaleDateString([],{month:"short",day:"numeric"}):""}`;}
+var _mergeAsk=null,_mergeLater=false;
+function askMerge(row){if(_mergeAsk)return _mergeAsk;_mergeAsk=pjConfirm({title:"Which data do you want to keep?",html:1,
+ msg:`This device and your account both have PlateJack data, and they are different. Pick one to use from now on. The one you don't pick is kept as a backup copy on this device, so you can switch back from Account &amp; Data.`,
+ choices:[{v:"local",label:"Keep this device's data",sub:"This device: "+dataSum(S)},{v:"cloud",label:"Use my account's data",cls:"ghost",sub:"Account: "+dataSum(row.data)}],cancel:"Decide later (stay unsynced)"}).finally(()=>{_mergeAsk=null;});return _mergeAsk;}
 function applyCloud(data){const pro=S.pro;_applying=true;S=migrate(data);if(pro)S.pro=pro;else delete S.pro;save();_applying=false;try{applyTheme();renderAll();}catch(e){}}
 function backup(data,src){try{localStorage.setItem(BK_KEY,JSON.stringify({at:new Date().toISOString(),source:src,data}));}catch(e){}}
 async function pushCloud(){const at=syncMeta().localAt||new Date().toISOString();const {error}=await sb.from("user_data").upsert({user_id:sbUser.id,data:cloudCopy(),updated_at:at});if(error)throw error;setMeta({dirty:false,cloudAt:at,syncedAt:new Date().toISOString()});}
@@ -2251,10 +2277,11 @@ async function syncNow(first){if(!sb||!sbUser||syncing)return;if(!navigator.onLi
   const localHas=hasData();
   if(!row){if(localHas||m.dirty)await pushCloud();else await pushCloud();}
   else{const cAt=new Date(row.updated_at).getTime(),lAt=m.localAt?new Date(m.localAt).getTime():0;
-   if(first||m.uid!==sbUser.id){ // sign-in merge: newest whole blob wins, other kept as backup
-    if(!localHas){applyCloud(row.data);setMeta({dirty:false,cloudAt:row.updated_at,localAt:row.updated_at});}
-    else if(cAt>=lAt){backup(cloudCopy(),"local");applyCloud(row.data);setMeta({dirty:false,cloudAt:row.updated_at,localAt:row.updated_at});toast("Synced from your account · local copy backed up");}
-    else{backup(row.data,"cloud");await pushCloud();toast("Synced to your account · cloud copy backed up");}}
+   if(m.uid!==sbUser.id){ // first sign-in on this device: if both sides have different data, ask which to keep
+    if(!localHas||sameData(row.data,cloudCopy())){applyCloud(row.data);setMeta({dirty:false,cloudAt:row.updated_at,localAt:row.updated_at});}
+    else{if(_mergeLater)return;const ch=await askMerge(row);if(!ch){_mergeLater=true;return;}
+     if(ch==="cloud"){backup(cloudCopy(),"this device");applyCloud(row.data);setMeta({dirty:false,cloudAt:row.updated_at,localAt:row.updated_at});toast("Using your account's data");}
+     else{backup(row.data,"your account");setMeta({localAt:new Date().toISOString()});await pushCloud();toast("Saved this device's data to your account");}}}
    else if(m.dirty){if(cAt>new Date(m.cloudAt||0).getTime()&&cAt>lAt){backup(cloudCopy(),"local");applyCloud(row.data);setMeta({dirty:false,cloudAt:row.updated_at,localAt:row.updated_at});}else await pushCloud();}
    else if(cAt>new Date(m.cloudAt||0).getTime()){applyCloud(row.data);setMeta({cloudAt:row.updated_at,localAt:row.updated_at});}}
   setMeta({uid:sbUser.id,err:null,syncedAt:new Date().toISOString()});}
@@ -2391,13 +2418,23 @@ renderHelp();
 function initSettingsNav(){const T=$("tab-settings");T.addEventListener("click",e=>{const r=e.target.closest("[data-go]");if(r)setGo(r.dataset.go);if(e.target.closest(".spback"))history.state?.sp?history.back():setGo(null);});
  $("setQ").oninput=setSearch;$("setBud").onclick=()=>openBudget();$("fbSend").onclick=sendFeedback;renderSetTop();setInterval(renderSetTop,30000);}
 setTimeout(initSettingsNav,0);
+function bkInfo(){let b=null;try{b=JSON.parse(localStorage.getItem(BK_KEY));}catch(e){}if(!b||!b.data)return "";return `<div class="note" style="margin-top:10px;font-size:.82rem"><b>Backup copy</b><br>When you picked which data to keep, PlateJack saved the other copy (from ${esc(b.source==="local"?"this device":b.source==="cloud"?"your account":b.source)}, ${esc(new Date(b.at).toLocaleDateString())}) here. <button class="link" id="acBk">Switch to it</button></div>`;}
+/* Sign out on this device only. scope:'local' never calls the server, so it cannot fail with 403;
+ the stored session is removed either way, and an error still counts as signed out. */
+async function pjSignOut(wipe){try{if(!wipe&&sbUser&&syncMeta().dirty&&navigator.onLine)await Promise.race([pushCloud(),new Promise(r=>setTimeout(r,4000))]);}catch(e){}
+ try{if(sb)await Promise.race([sb.auth.signOut({scope:"local"}),new Promise(r=>setTimeout(r,3000))]);}catch(e){console.warn("signOut",e);}
+ try{Object.keys(localStorage).forEach(k=>{if(k==="pj-auth"||k.startsWith("pj-auth-")||/^sb-.*-auth-token/.test(k))localStorage.removeItem(k);});}catch(e){}
+ sbUser=null;clearTimeout(syncT);setMeta({uid:null,err:null});
+ if(wipe){try{localStorage.clear();sessionStorage.clear();}catch(e){}try{for(const k of await caches.keys())if(/photo/i.test(k))await caches.delete(k);}catch(e){}location.replace(location.pathname);return;}
+ localStorage.setItem(AUTH_KEY,"local");renderAccount();toast("Signed out");}
+window.pjSignOut=pjSignOut;
 function renderAccount(){try{renderSetTop();}catch(e){}const el=$("acctCard");if(!el)return;const m=syncMeta();
  if(!sb){el.innerHTML=`<p class="muted" style="margin:0">Accounts need the web version (https).</p>`;return;}
  if(!sbUser){el.innerHTML=`<div class="arow"><span class="cav">👤</span><span class="rl"><b>Not signed in</b><small>Data is saved on this device only</small></span></div><button id="acIn" style="width:100%;margin-top:10px">Sign in or create account</button>`;$("acIn").onclick=()=>openAuth("signin");return;}
- const st=syncing?"Syncing…":m.err==="offline"?"Offline — will sync when you're back online":m.err?"Sync issue: "+m.err:m.dirty?"Changes waiting to sync":m.syncedAt?"Synced "+new Date(m.syncedAt).toLocaleTimeString([], {hour:"numeric",minute:"2-digit"}):"Not synced yet";
- el.innerHTML=`<div class="arow"><span class="cav">${esc((sbUser.email||"?")[0].toUpperCase())}</span><span class="rl"><b>${esc(sbUser.email||"")}</b><small id="acSt">☁️ ${esc(st)}</small></span></div><div class="row" style="margin-top:10px"><button class="ghost" id="acSync">Sync now</button><button class="ghost" id="acOut">Sign out</button></div>${localStorage.getItem(BK_KEY)?`<button class="link" id="acBk" style="margin-top:6px">Restore the backup copy from last merge</button>`:""}<p class="fine" style="text-align:left;margin:6px 0 0">Your log syncs to your account. PlateJack Pro stays on this device (demo, no billing).</p>`;
- $("acSync").onclick=()=>syncNow();$("acOut").onclick=async()=>{if(!confirm("Sign out? Your data stays on this device."))return;try{await sb.auth.signOut();}catch(e){}sbUser=null;setMeta({uid:null});localStorage.setItem(AUTH_KEY,"local");renderAccount();toast("Signed out");};
- const bk=$("acBk");if(bk)bk.onclick=()=>{const b=JSON.parse(localStorage.getItem(BK_KEY));if(!confirm(`Replace current data with the ${b.source} copy saved ${new Date(b.at).toLocaleString()}? (Current data becomes the new backup.)`))return;const cur=cloudCopy();applyCloud(b.data);backup(cur,"replaced");setMeta({localAt:new Date().toISOString(),dirty:true});queueSync(200);toast("Backup restored");};}
+ const st=syncing?"Syncing…":_mergeLater&&m.uid!==sbUser.id?"Sync paused until you choose which data to keep":m.err==="offline"?"Offline — will sync when you're back online":m.err?"Sync issue: "+m.err:m.dirty?"Changes waiting to sync":m.syncedAt?"Synced "+new Date(m.syncedAt).toLocaleTimeString([], {hour:"numeric",minute:"2-digit"}):"Not synced yet";
+ el.innerHTML=`<div class="arow"><span class="cav">${esc((sbUser.email||"?")[0].toUpperCase())}</span><span class="rl"><b>${esc(sbUser.email||"")}</b><small id="acSt">☁️ ${esc(st)}</small></span></div><div class="row" style="margin-top:10px"><button class="ghost" id="acSync">Sync now</button><button class="ghost" id="acOut">Sign out</button></div>${bkInfo()}<p class="fine" style="text-align:left;margin:6px 0 0">Your log syncs to your account, so you can sign in on another phone and pick up where you left off.</p>`;
+ $("acSync").onclick=()=>{_mergeLater=false;syncNow();};$("acOut").onclick=async()=>{const r=await pjConfirm({title:"Sign out?",msg:"Your log is saved to your account. Sign back in any time to get it.",ok:"Sign out",check:"Also clear this device's data (good for a shared phone)"});if(!r)return;await pjSignOut(r.checked);};
+ const bk=$("acBk");if(bk)bk.onclick=async()=>{const b=JSON.parse(localStorage.getItem(BK_KEY));if(!await pjConfirm({title:"Switch to the backup copy?",msg:`Use the copy from ${b.source} saved ${new Date(b.at).toLocaleString()}. What you have now becomes the backup, so you can switch back.`,ok:"Switch"}))return;const cur=cloudCopy();applyCloud(b.data);backup(cur,"replaced");setMeta({localAt:new Date().toISOString(),dirty:true});queueSync(200);toast("Backup restored");};}
 
 /* ---------- Launch intro ---------- */
 (function(){const sp=$("splash");const qs=new URLSearchParams(location.search);const RM=matchMedia("(prefers-reduced-motion: reduce)").matches;

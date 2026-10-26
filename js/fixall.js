@@ -34,7 +34,7 @@ badges();const _rs=typeof renderSettings==="function"?renderSettings:null;setInt
 /* ---- 3: one erase flow. Export/Import move to Account & Data; old erase button removed ---- */
 (function mv(){const w=$("wipe");if(w)w.remove();const dc=$("delCard");if(!dc){setTimeout(mv,200);return;}if($("bkCard"))return;const grp=dc.previousElementSibling;
  const card=document.createElement("div");card.className="card";card.id="bkCard";
- card.innerHTML=`<b style="display:block;margin-bottom:4px">Backup</b><p class="muted" style="font-size:.85rem;margin:0 0 10px">Without an account your data lives on this device only. Export a backup now and then.</p><div class="bkgrid"></div>`;
+ card.innerHTML=`<b style="display:block;margin-bottom:4px">Backup</b><p class="muted" id="bkTxt" style="font-size:.85rem;margin:0 0 10px">${typeof sbUser!=="undefined"&&sbUser?"Your log syncs to your account. A backup file is still handy to keep your own copy.":"Without an account your data lives on this device only. Export a backup now and then."}</p><div class="bkgrid"></div>`;
  const g=card.querySelector(".bkgrid");["expJson","expCsv","impBtn"].forEach(id=>{const b=$(id);if(b)g.append(b);});const f=$("impFile");if(f)card.append(f);
  const h=document.createElement("div");h.className="grp";h.textContent="Data";grp.before(h,card);
  const pg=q('.sp[data-p="data"]');if(pg)pg.remove();
