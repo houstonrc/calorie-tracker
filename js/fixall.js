@@ -6,33 +6,35 @@ const LK='<svg class="lic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 11
 const pro=()=>typeof isPro==="function"&&isPro();
 
 /* ---- 1 + 10: short explanation before the paywall ---- */
-const WHY={scan:["Barcode scanner is Pro","Scan any packaged food's barcode and log it in one tap. You can still log it free: search it on the Add tab, snap a photo, or use Quick add."],
- plan:["Planner & grocery list are Pro","Plan your week day by day and get a grocery list with estimated costs. The 3 free ready-made plans and Prep ideas stay free."],
- plans:["This plan is Pro","Free plans are marked Free. Pro unlocks all 50 ready-made plans with grocery lists and costs."],
- gen:["You've used this week's free plan","Build my plan makes 1 custom plan a week for free. Pro builds as many as you like."],
- prep:["This recipe is Pro","Free recipes have no PRO badge. Pro unlocks the full meal-prep library with costs per serving."],
- coach:["Full Jack Coach is Pro","You get a free tip every day. Pro adds smart tips based on your log and budget."],
- fridge:["More Fridge Rescue ideas are Pro","Free shows your best idea. Pro shows up to 3 ideas and your savings history."],
- insights:["Full Insights are Pro","7-day charts are free. Pro adds 30 and 90-day trends, nutrient tables and goal-weight projections."],
- report:["Bold & Paper styles are Pro","The Classic Plate Report is free. Pro adds more styles and removes the watermark."],
- budget:["Budget Mode is Pro","Pro adds editable ingredient prices and weekly budget tracking with cheaper swaps."],
- theme:["That color is Pro","Orange and a few colors are free. Pro unlocks every accent color."]};
-document.body.insertAdjacentHTML("beforeend",`<dialog id="whyDlg"><div class="whyi">${LK}</div><h2 id="whyT"></h2><p id="whyP"></p><button type="button" id="whyGo">See what Pro includes</button><button type="button" class="ghost" id="whyX">Not now</button></dialog>`);
+const WHY={scan:["Barcode scanner","Barcode scanning is free. If you see this, reload the app."],
+ plan:["Planner and grocery list","The planner and grocery list are free. If you see this, reload the app."],
+ plans:["Ready-made plans","All ready-made plans are free."],
+ gen:["You've used this week's free custom plan","Build my plan makes 1 custom plan a week for free. You can still use any ready-made plan. Unlimited custom plans are coming with PlateJack Pro."],
+ prep:["Recipes","Every recipe is free."],
+ coach:["Full Jack Coach is coming with Pro","You get a free tip every day. Pro will add smart tips based on your log and budget."],
+ fridge:["Fridge Rescue","Fridge Rescue is free."],
+ insights:["Full Insights are coming with Pro","7-day charts are free. Pro will add 30 and 90-day trends, the nutrient table and goal weight projection."],
+ report:["More Plate Report styles are coming with Pro","The Classic Plate Report is free. Pro will add Bold and Paper styles and remove the watermark."],
+ budget:["Budget Mode is coming with Pro","Cost per serving and grocery totals are free. Pro will add editable ingredient prices and \u201cbuild a week under $X\u201d auto-plans."],
+ snap:["More photo scans are coming with Pro","Free includes 3 photo scans a day. Pro will add more."],
+ theme:["Colors","Every accent color is free."]};
+document.body.insertAdjacentHTML("beforeend",`<dialog id="whyDlg"><div class="whyi">${LK}</div><h2 id="whyT"></h2><p id="whyP"></p><button type="button" id="whyX">OK</button><button type="button" class="ghost" id="whyGo">What\u2019s coming in Pro</button></dialog>`);
 const _op=window.openPay;let pend=null;
 window.openPay=openPay=function(why){const w=WHY[why];if(!w||pro()){_op(why);return;}pend=why;$("whyT").textContent=w[0];$("whyP").textContent=w[1];$("whyDlg").showModal();};
 $("whyGo").onclick=()=>{$("whyDlg").close();_op(pend);};$("whyX").onclick=()=>$("whyDlg").close();
 $("whyDlg").addEventListener("click",e=>{if(e.target===$("whyDlg"))$("whyDlg").close();});
 
 /* ---- 1: PRO badge on Barcode (+ menu); 10: badges on locked Plan segments ---- */
-function badges(){const p=pro();
- const bar=q('#lmMenu [data-sc="bar"]');if(bar){bar.querySelector(".probadge")?.remove();if(!p)bar.insertAdjacentHTML("beforeend",PRO);}
- document.querySelectorAll('#planSeg [data-v="plan"],#planSeg [data-v="grocery"]').forEach(b=>{b.querySelector(".probadge")?.remove();if(!p)b.insertAdjacentHTML("beforeend",PRO);});}
+const can=f=>typeof canUse==="function"?canUse(f):pro();
+function badges(){
+ const bar=q('#lmMenu [data-sc="bar"]');if(bar){bar.querySelector(".probadge")?.remove();if(!can("barcode"))bar.insertAdjacentHTML("beforeend",PRO);}
+ document.querySelectorAll('#planSeg [data-v="plan"],#planSeg [data-v="grocery"]').forEach(b=>{b.querySelector(".probadge")?.remove();if(!can(b.dataset.v==="grocery"?"grocery":"planner"))b.insertAdjacentHTML("beforeend",PRO);});}
 badges();const _rs=typeof renderSettings==="function"?renderSettings:null;setInterval(badges,1500);
 
 /* ---- 3: one erase flow. Export/Import move to Account & Data; old erase button removed ---- */
 (function mv(){const w=$("wipe");if(w)w.remove();const dc=$("delCard");if(!dc){setTimeout(mv,200);return;}if($("bkCard"))return;const grp=dc.previousElementSibling;
  const card=document.createElement("div");card.className="card";card.id="bkCard";
- card.innerHTML=`<b style="display:block;margin-bottom:4px">Backup</b><p class="muted" style="font-size:.85rem;margin:0 0 10px">Without an account your data lives on this device only. Export a backup now and then.</p><div class="bkgrid"></div>`;
+ card.innerHTML=`<b style="display:block;margin-bottom:4px">Backup</b><p class="muted" id="bkTxt" style="font-size:.85rem;margin:0 0 10px">${typeof sbUser!=="undefined"&&sbUser?"Your log syncs to your account. A backup file is still handy to keep your own copy.":"Without an account your data lives on this device only. Export a backup now and then."}</p><div class="bkgrid"></div>`;
  const g=card.querySelector(".bkgrid");["expJson","expCsv","impBtn"].forEach(id=>{const b=$(id);if(b)g.append(b);});const f=$("impFile");if(f)card.append(f);
  const h=document.createElement("div");h.className="grp";h.textContent="Data";grp.before(h,card);
  const pg=q('.sp[data-p="data"]');if(pg)pg.remove();
@@ -43,18 +45,17 @@ $("quickBtn").onclick=()=>{let keep;try{keep=selMeal;selMeal=null;}catch(e){}ope
 
 /* ---- 7: Fridge sheet shows ideas too ---- */
 (function(){const list=$("frList");if(!list)return;const box=document.createElement("div");box.id="frIdeas";list.after(box);
- const paint=()=>{if(typeof frSuggest!=="function")return;const L=FR();if(!L.length){box.innerHTML="";return;}const all=frSuggest(),n=pro()?3:1,sh=all.slice(0,n);box._s=sh;
+ const paint=()=>{if(typeof frSuggest!=="function")return;const L=FR();if(!L.length){box.innerHTML="";return;}const all=frSuggest(),n=can("fridgeAll")?3:1,sh=all.slice(0,n);box._s=sh;
   box.innerHTML=`<div class="frit">Ideas from your fridge</div>`+(sh.length?sh.map((s,i)=>`<div class="frs"><img class="frth" src="${s.r.img?"img/r/"+s.r.img+"-t.webp":"img/r/"+s.r.id+"-t.webp"}" alt="" loading="lazy" onerror="this.style.visibility='hidden'"><span class="n"><b>${esc(s.r.name)}</b><small>${esc(s.why)} · ${s.r.cal} cal</small></span><button class="small" data-fi="${i}">Log it</button></div>`).join("")
-  +(!pro()&&all.length>1?`<button class="ghost small frmore" data-fp="1">${Math.min(all.length,3)-1} more idea${Math.min(all.length,3)-1==1?"":"s"} with Pro ${PRO}</button>`:""):`<div class="muted" style="font-size:.85rem">No recipe fits your fridge and remaining calories right now.</div>`);};
+  +(!can("fridgeAll")&&all.length>1?`<button class="ghost small frmore" data-fp="1">${Math.min(all.length,3)-1} more idea${Math.min(all.length,3)-1==1?"":"s"} with Pro ${PRO}</button>`:""):`<div class="muted" style="font-size:.85rem">${typeof frEmptyMsg==="function"?frEmptyMsg():""}</div>`);};
  box.onclick=e=>{const b=e.target.closest("[data-fi]");if(b){frUse(box._s[+b.dataset.fi]);paint();return;}if(e.target.closest("[data-fp]"))openPay("fridge");};
  const _rf=renderFridge;window.renderFridge=renderFridge=function(){_rf.apply(this,arguments);paint();};})();
 
-/* ---- 14: Food database page: raw key hidden under "Use my own key" ---- */
+/* ---- 14: Food database page: plain wording, own key tucked under Advanced ---- */
 (function(){const k=$("usdaKey");if(!k)return;const card=k.closest(".card");const lab=card.querySelector('label[for="usdaKey"]'),sv=$("usdaKeySave");
- const wrap=document.createElement("div");wrap.id="ownKey";wrap.hidden=!k.value;lab.before(wrap);wrap.append(lab,k,sv);
- const t=document.createElement("button");t.type="button";t.className="ghost";t.id="ownKeyT";t.textContent=k.value?"Hide my own key":"Use my own key";wrap.before(t);
- t.onclick=()=>{wrap.hidden=!wrap.hidden;t.textContent=wrap.hidden?"Use my own key":"Hide my own key";};
- const p=card.querySelector("p.muted");if(p)p.innerHTML=`Food search uses USDA FoodData Central with PlateJack's built-in key, plus Open Food Facts for packaged foods. Search a lot? Get a free key at <a href="https://fdc.nal.usda.gov/api-key-signup" target="_blank" rel="noopener">api.data.gov</a> and add it below. It stays on this device.`;
+ const adv=document.createElement("details");adv.className="pjadv";adv.open=!!k.value;adv.innerHTML=`<summary>Advanced</summary><p class="muted" style="font-size:.82rem;margin:8px 0">Searching a lot? You can add your own free USDA search key from <a href="https://fdc.nal.usda.gov/api-key-signup" target="_blank" rel="noopener">api.data.gov</a>. It stays on this device. Most people never need this.</p>`;
+ lab.before(adv);adv.append(lab,k,sv);if(lab)lab.textContent="Your own USDA search key";
+ const p=card.querySelector("p.muted");if(p)p.innerHTML=`Food search looks up the USDA food database and Open Food Facts for packaged foods. It works out of the box, no setup needed.`;
  const h=card.querySelector("h2");if(h)h.textContent="Food search";})();
 
 /* ---- 15: swipe rows get a peek fade + dots ---- */
