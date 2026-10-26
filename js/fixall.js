@@ -51,12 +51,11 @@ $("quickBtn").onclick=()=>{let keep;try{keep=selMeal;selMeal=null;}catch(e){}ope
  box.onclick=e=>{const b=e.target.closest("[data-fi]");if(b){frUse(box._s[+b.dataset.fi]);paint();return;}if(e.target.closest("[data-fp]"))openPay("fridge");};
  const _rf=renderFridge;window.renderFridge=renderFridge=function(){_rf.apply(this,arguments);paint();};})();
 
-/* ---- 14: Food database page: raw key hidden under "Use my own key" ---- */
+/* ---- 14: Food database page: plain wording, own key tucked under Advanced ---- */
 (function(){const k=$("usdaKey");if(!k)return;const card=k.closest(".card");const lab=card.querySelector('label[for="usdaKey"]'),sv=$("usdaKeySave");
- const wrap=document.createElement("div");wrap.id="ownKey";wrap.hidden=!k.value;lab.before(wrap);wrap.append(lab,k,sv);
- const t=document.createElement("button");t.type="button";t.className="ghost";t.id="ownKeyT";t.textContent=k.value?"Hide my own key":"Use my own key";wrap.before(t);
- t.onclick=()=>{wrap.hidden=!wrap.hidden;t.textContent=wrap.hidden?"Use my own key":"Hide my own key";};
- const p=card.querySelector("p.muted");if(p)p.innerHTML=`Food search uses USDA FoodData Central with PlateJack's built-in key, plus Open Food Facts for packaged foods. Search a lot? Get a free key at <a href="https://fdc.nal.usda.gov/api-key-signup" target="_blank" rel="noopener">api.data.gov</a> and add it below. It stays on this device.`;
+ const adv=document.createElement("details");adv.className="pjadv";adv.open=!!k.value;adv.innerHTML=`<summary>Advanced</summary><p class="muted" style="font-size:.82rem;margin:8px 0">Searching a lot? You can add your own free USDA search key from <a href="https://fdc.nal.usda.gov/api-key-signup" target="_blank" rel="noopener">api.data.gov</a>. It stays on this device. Most people never need this.</p>`;
+ lab.before(adv);adv.append(lab,k,sv);if(lab)lab.textContent="Your own USDA search key";
+ const p=card.querySelector("p.muted");if(p)p.innerHTML=`Food search looks up the USDA food database and Open Food Facts for packaged foods. It works out of the box, no setup needed.`;
  const h=card.querySelector("h2");if(h)h.textContent="Food search";})();
 
 /* ---- 15: swipe rows get a peek fade + dots ---- */

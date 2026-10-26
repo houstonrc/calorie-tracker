@@ -739,6 +739,28 @@ html[data-bg] body .nttimes{display:flex;flex-wrap:wrap;gap:8px}html[data-bg] bo
 @media (prefers-reduced-motion:reduce){#splash *{animation:none!important}#splash .xring{stroke-dashoffset:0}#splash .xfork{transform:rotate(-45deg)}#splash .xknife{transform:rotate(45deg)}}
 </style>
 <style id="launchfix">
+.pddays button:not(.on){background:rgba(255,255,255,.06)!important;background-image:none!important;color:inherit!important;box-shadow:none!important;border:1px solid var(--line)!important;font-weight:600}
+.pddays button.on{box-shadow:0 0 0 2px rgba(255,138,42,.35)!important}
+.costlk{background:rgba(255,255,255,.05)!important;background-image:none!important;color:inherit!important;border:1px solid var(--line)!important;box-shadow:none!important;padding:10px 12px!important;text-align:left}
+.costlk b{color:#ff8a2a}
+.rcost{padding:10px 12px!important}
+.rcost summary{line-height:1.4;padding-top:1px}
+#meals .entry button.del{margin-left:10px!important}
+.xfood>b small.kc{font-size:.72em;font-weight:500;opacity:.7}
+html{scrollbar-color:rgba(255,255,255,.18) transparent}
+*{scrollbar-color:rgba(255,255,255,.18) transparent;scrollbar-width:thin}
+::-webkit-scrollbar{width:8px;height:8px;background:transparent}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:8px}
+::-webkit-scrollbar-thumb:hover{background:rgba(255,138,42,.6)}
+.pjadv{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+.pjadv summary{cursor:pointer;font-weight:700;font-size:.85rem;color:#ff8a2a;list-style:none}
+.pjadv summary::-webkit-details-marker{display:none}
+.pjadv summary::after{content:" \203A"}
+.pjadv[open] summary::after{content:" \2039"}
+
+#splash.i-short.gone{transition-duration:.4s}
+
 /* launch fixes: carousels */
 #meals,.mxrow{scroll-padding-inline:16px}
 #meals>*,.mxrow>*{scroll-snap-stop:normal}
@@ -874,7 +896,7 @@ dialog.pjcf .pjcfb button small{display:block;font-weight:500;font-size:.75rem;o
   <h1 class="lt">Settings</h1>
   <div class="sroot"><div class="card stop" data-go="acct" role="button" tabindex="0"><div class="sav" id="stAv">👤</div><div class="sinfo"><b id="stEm">Not signed in</b><small id="stSy">Saved on this device</small></div><span class="spro" id="stPro">Free</span><span class="sch">›</span></div>
   <div class="ssearch"><span>🔍</span><input id="setQ" type="search" placeholder="Search settings" autocomplete="off" aria-label="Search settings"></div>
-  <div class="card slist" id="sList"><button class="srow" data-go="goals"><span class="sic" style="background:#d9f7e6">🎯</span><span class="rl"><b>Goals &amp; Budget</b><small>Calories, macros, budget, profile</small></span><span class="sch">›</span></button><button class="srow" data-go="look"><span class="sic" style="background:#ffe6f1">🎨</span><span class="rl"><b>Appearance</b><small>Accent color, launch intro</small></span><span class="sch">›</span></button><button class="srow" data-go="notif"><span class="sic" style="background:#fff2cf">🔔</span><span class="rl"><b>Notifications</b><small>Reminders, coach nudges</small></span><span class="sch">›</span></button><button class="srow" data-go="food"><span class="sic" style="background:#e3efff">🥫</span><span class="rl"><b>Food database</b><small>USDA key, sources</small></span><span class="sch">›</span></button><button class="srow" data-go="acct"><span class="sic" style="background:#ece6ff">💾</span><span class="rl"><b>Account &amp; Data</b><small>Sign in, export, import, delete</small></span><span class="sch">›</span></button><button class="srow" data-go="help"><span class="sic" style="background:#dff6f6">💬</span><span class="rl"><b>Help Center</b><small>Guides, glossary, FAQ, contact</small></span><span class="sch">›</span></button></div><p class="fine" id="setNone" style="display:none">No settings match.</p><p class="fine">Not medical advice · PlateJack · <a href="privacy.html" id="lnkPriv">Privacy Policy</a> · <a href="terms.html" id="lnkTerms">Terms of Use</a></p></div>
+  <div class="card slist" id="sList"><button class="srow" data-go="goals"><span class="sic" style="background:#d9f7e6">🎯</span><span class="rl"><b>Goals &amp; Budget</b><small>Calories, macros, budget, profile</small></span><span class="sch">›</span></button><button class="srow" data-go="look"><span class="sic" style="background:#ffe6f1">🎨</span><span class="rl"><b>Appearance</b><small>Accent color, launch intro</small></span><span class="sch">›</span></button><button class="srow" data-go="notif"><span class="sic" style="background:#fff2cf">🔔</span><span class="rl"><b>Notifications</b><small>Reminders, coach nudges</small></span><span class="sch">›</span></button><button class="srow" data-go="food"><span class="sic" style="background:#e3efff">🥫</span><span class="rl"><b>Food database</b><small>Where search results come from</small></span><span class="sch">›</span></button><button class="srow" data-go="acct"><span class="sic" style="background:#ece6ff">💾</span><span class="rl"><b>Account &amp; Data</b><small>Sign in, export, import, delete</small></span><span class="sch">›</span></button><button class="srow" data-go="help"><span class="sic" style="background:#dff6f6">💬</span><span class="rl"><b>Help Center</b><small>Guides, glossary, FAQ, contact</small></span><span class="sch">›</span></button></div><p class="fine" id="setNone" style="display:none">No settings match.</p><p class="fine">Not medical advice · PlateJack · <a href="privacy.html" id="lnkPriv">Privacy Policy</a> · <a href="terms.html" id="lnkTerms">Terms of Use</a></p></div>
   <div class="sp" data-p="acct"><div class="sphead"><button class="ghost spback" aria-label="Back">‹</button><h1>Account &amp; Pro</h1></div>
   <div class="grp">Account</div><div class="card" id="acctCard"></div>
   <div class="grp">Membership</div><div class="card" id="proCard"></div>
@@ -904,15 +926,15 @@ dialog.pjcf .pjcfb button small{display:block;font-weight:500;font-size:.75rem;o
   </div></details>
   </div>
   <div class="sp" data-p="look"><div class="sphead"><button class="ghost spback" aria-label="Back">‹</button><h1>Appearance</h1></div>
-  <div class="grp">Appearance</div><div class="card"><h2>Background</h2><div class="swatches" id="bgPick"></div><p class="muted" style="font-size:.8rem;margin:10px 0 0">Pick the accent tint for your dark background.</p></div>
+  <div class="card"><h2>Background</h2><div class="swatches" id="bgPick"></div><p class="muted" style="font-size:.8rem;margin:10px 0 0">Pick the accent tint for your dark background.</p></div>
   <div class="grp">Launch</div><div class="card"><label class="tog"><input type="checkbox" id="introOn"> Play launch intro</label><p class="fine" style="text-align:left;margin:2px 0 0">Plays the full intro every time you open the app. Turn off to skip it.</p></div>
   </div>
   <div class="sp" data-p="notif"><div class="sphead"><button class="ghost spback" aria-label="Back">‹</button><h1>Notifications</h1></div>
-  <div class="grp">Notifications</div><div class="card" id="ntCard"><button class="hq" data-help="notif" aria-label="Help" style="float:right">?</button><button id="ntMaster" style="width:100%">🔔 Turn on notifications</button><p class="fine" style="text-align:left" id="ntStatus"></p><div class="note" id="ntIOS" style="display:none">📱 On iPhone, notifications need PlateJack installed: tap Share › <b>Add to Home Screen</b>, open it from there (iOS 16.4 or later), then turn notifications on.</div><div id="ntTypes"></div><button class="ghost small" id="ntTest" style="width:100%;margin-top:12px">Send a test notification</button><p class="fine" style="text-align:left">Missed reminders show up in the 🔔 inbox when you open the app. Reminders are general nudges, not medical advice.</p></div>
+  <div class="card" id="ntCard"><button class="hq" data-help="notif" aria-label="Help" style="float:right">?</button><button id="ntMaster" style="width:100%">🔔 Turn on notifications</button><p class="fine" style="text-align:left" id="ntStatus"></p><div class="note" id="ntIOS" style="display:none">📱 On iPhone, notifications need PlateJack installed: tap Share › <b>Add to Home Screen</b>, open it from there (iOS 16.4 or later), then turn notifications on.</div><div id="ntTypes"></div><button class="ghost small" id="ntTest" style="width:100%;margin-top:12px">Send a test notification</button><p class="fine" style="text-align:left">Missed reminders show up in the 🔔 inbox when you open the app. Reminders are general nudges, not medical advice.</p></div>
   <div class="grp">Jack Coach</div><div class="card"><label class="tog"><input type="checkbox" id="coachOn"> Show coach nudges on Today</label><label class="tog"><input type="checkbox" id="coachNotif"> Daily reminder notification</label><label for="coachTime">Reminder time</label><input type="time" id="coachTime" value="19:00"><p class="fine" style="text-align:left" id="coachNote">Reminders are local and only fire when your browser allows it. On iPhone, add PlateJack to your Home Screen first (iOS 16.4+), and reminders may only show after you open the app.</p></div>
   </div>
   <div class="sp" data-p="food"><div class="sphead"><button class="ghost spback" aria-label="Back">‹</button><h1>Food database</h1></div>
-  <div class="grp">Food database</div><div class="card"><h2>USDA API key</h2><p class="muted" style="font-size:.85rem;margin:0 0 8px">Live USDA search works out of the box with PlateJack's built-in key. If you search a lot, you can get your own free key at <a href="https://fdc.nal.usda.gov/api-key-signup" target="_blank" rel="noopener">api.data.gov</a> and paste it here (kept on this device only).</p><label for="usdaKey">api.data.gov key</label><input id="usdaKey" placeholder="Optional · uses the built-in key when empty" autocomplete="off" spellcheck="false"><button class="ghost" id="usdaKeySave" style="width:100%;margin-top:10px">Save key</button><p class="fine" style="text-align:left">Sources: USDA FoodData Central (public domain) and Open Food Facts (ODbL). A bundled set of 2,000 USDA foods works offline.</p></div>
+  <div class="card"><h2>USDA API key</h2><p class="muted" style="font-size:.85rem;margin:0 0 8px">Live USDA search works out of the box with PlateJack's built-in key. If you search a lot, you can get your own free key at <a href="https://fdc.nal.usda.gov/api-key-signup" target="_blank" rel="noopener">api.data.gov</a> and paste it here (kept on this device only).</p><label for="usdaKey">api.data.gov key</label><input id="usdaKey" placeholder="Optional · uses the built-in key when empty" autocomplete="off" spellcheck="false"><button class="ghost" id="usdaKeySave" style="width:100%;margin-top:10px">Save key</button><p class="fine" style="text-align:left">Sources: USDA FoodData Central (public domain) and Open Food Facts (ODbL). A bundled set of 2,000 USDA foods works offline.</p></div>
   </div>
   <div class="sp" data-p="data"><div class="sphead"><button class="ghost spback" aria-label="Back">‹</button><h1>Data &amp; Backup</h1></div>
   <div class="grp">Data</div><details class="card disc"><summary><span class="ri">💾</span><span class="rl"><b>Backup &amp; data</b><small>Export, import or erase</small></span><i class="chev"></i></summary><div class="discb">
@@ -2234,7 +2256,7 @@ function rerenderFoods(){if(src==="all"&&$("tab-add").classList.contains("on"))r
 function defSv(f){return f.sv&&f.sv.length?f.sv[0]:["100 g",100];}
 function perServ(f,g){const o={};Object.entries(f.per).forEach(([k,v])=>{if(isFinite(+v))o[k]=Math.round(v*g/100*(k==="cal"||k==="na"||k==="chol"?1:10))/(k==="cal"||k==="na"||k==="chol"?1:10);});return o;}
 const SRCL={sr:"USDA · bundled",usda:"USDA FoodData Central",off:"Open Food Facts"};
-function xRow(f,i){const [lab,g]=defSv(f),v=perServ(f,g);return `<div class="xfood" data-x="${i}"><span class="thumb">${catEmoji(f.name)}</span><div class="n"><b>${esc(f.name)}</b><div class="muted">${f.brand?`<span class="xbr">${esc(f.brand)}</span> · `:""}${esc(lab)} · P ${r1(v.p)} C ${r1(v.c)} F ${r1(v.f)}</div></div><b>${Math.round(v.cal)}</b></div>`;}
+function xRow(f,i){const [lab,g]=defSv(f),v=perServ(f,g);return `<div class="xfood" data-x="${i}"><span class="thumb">${catEmoji(f.name)}</span><div class="n"><b>${esc(f.name)}</b><div class="muted">${f.brand?`<span class="xbr">${esc(f.brand)}</span> · `:""}${esc(lab)} · P ${r1(v.p)} C ${r1(v.c)} F ${r1(v.f)}</div></div><b>${Math.round(v.cal)} <small class="kc">kcal</small></b></div>`;}
 {const rf0=renderFoods;renderFoods=function(keep){rf0();const L=$("foodList");if(src!=="all")return;const q=$("search").value.trim();const terms=q.toLowerCase().split(/\s+/).filter(Boolean);
  if(q.length<2){L._x=[];return;}
  if(!FDB.sr){loadSR().then(()=>rerenderFoods()).catch(()=>{});}
@@ -2267,7 +2289,7 @@ $("fdLog").onclick=()=>{const en=fdEntry();if(!(fdGrams()>0)){toast("Pick an amo
 $("fdFav").onclick=()=>{const en=fdEntry();cacheFood(en);toggleFav({...en,serving:"1 serving"});fdCalc();};
 $("fdClose").onclick=()=>$("fdet").close();
 {const fi0=foodItems;foodItems=function(){const a=fi0();if(src!=="all"||!(S.foodCache||[]).length)return a;const n=new Set(a.map(f=>f.name));return S.foodCache.filter(f=>!n.has(f.name)).map(f=>({...f,serving:"1 serving",cached:1})).concat(a);};}
-$("usdaKey").value=usdaKey()===USDA_APP_KEY?"":usdaKey();$("usdaKeySave").onclick=()=>{const v=$("usdaKey").value.trim();if(v&&!/^[A-Za-z0-9]{20,64}$/.test(v)){toast("That doesn't look like an api.data.gov key");return;}try{if(v)localStorage.setItem("pj_usda_key",v);else localStorage.removeItem("pj_usda_key");localStorage.removeItem("pj_pause_usda");}catch(e){}FDB.cache.clear();toast(v?"USDA key saved":"Using the USDA demo key");};
+$("usdaKey").value=usdaKey()===USDA_APP_KEY?"":usdaKey();$("usdaKeySave").onclick=()=>{const v=$("usdaKey").value.trim();if(v&&!/^[A-Za-z0-9]{20,64}$/.test(v)){toast("That doesn't look like an api.data.gov key");return;}try{if(v)localStorage.setItem("pj_usda_key",v);else localStorage.removeItem("pj_usda_key");localStorage.removeItem("pj_pause_usda");}catch(e){}FDB.cache.clear();toast(v?"Search key saved":"Using the built-in search key");};
 window.addEventListener("online",rerenderFoods);window.addEventListener("offline",()=>{FDB.cache.clear();rerenderFoods();});
 /* ---------- Accounts & cloud sync (Supabase) ---------- */
 const SB_URL="https://gxlxdpsnvgdbgfzeyusd.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd4bHhkcHNudmdkYmdmemV5dXNkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE4MzYxNzMsImV4cCI6MjEwNzQxMjE3M30.164cIzZ3baF8Jc3oJV3LjN9vDACIGnQaU7Ai4jkSfLI";
@@ -2456,12 +2478,13 @@ function renderAccount(){try{renderSetTop();}catch(e){}const el=$("acctCard");if
 
 /* ---------- Launch intro ---------- */
 (function(){const sp=$("splash");const qs=new URLSearchParams(location.search);const RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
- const n=S.introN||0,auto=navigator.webdriver&&!qs.has("intro");let mode=S.intro===false?"off":RM?"rm":(qs.get("intro")==="short"||(auto&&qs.get("intro")!=="full"))?"short":"full";
+ const n=S.introN||0,auto=navigator.webdriver&&!qs.has("intro");let mode=S.intro===false?"off":RM?"rm":(qs.get("intro")==="short"||(auto&&qs.get("intro")!=="full")||(n>0&&qs.get("intro")!=="full"))?"short":"full";
  if(qs.get("intro")==="short")mode="short";
  S.introN=n+1;try{save();}catch(e){}
- const D={full:2925,short:1500,rm:450,off:0}[mode];sp.className="i-"+mode;window._introMode=mode;
- let done=false,raf=0;const end=()=>{if(done)return;done=true;cancelAnimationFrame(raf);sp.classList.add("gone");setTimeout(()=>{sp.remove();maybeAuth(maybeOnb);},mode==="off"?0:820);};
+ const D={full:2925,short:1100,rm:450,off:0}[mode];sp.className="i-"+mode;window._introMode=mode;
+ let done=false,raf=0;const end=()=>{if(done)return;done=true;cancelAnimationFrame(raf);sp.classList.add("gone");setTimeout(()=>{sp.remove();maybeAuth(maybeOnb);},mode==="off"?0:mode==="full"?820:420);};
  if(mode==="off"){end();return;}
+ sp.addEventListener("click",end);
  setTimeout(end,D);
 })();
 /* ---------- First-run onboarding ---------- */
