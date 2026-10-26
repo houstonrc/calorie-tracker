@@ -106,7 +106,7 @@ async function run(img,hint){st.hint=hint;st.img=img;st.step="scan";draw();
 // Fallback: the original manual Snap & log, keeping the photo as its thumbnail.
 async function fallback(img,msg,code){D.close();try{openSnap();}catch(e){return toast(msg);}toast(msg);
  try{const th=await toJpegB64(img,200);const u="data:image/jpeg;base64,"+th;snapThumb=u;$("snapImg").src=u;$("snapBox").classList.add("has");}catch(e){}
- if(code==="limit"){const n=$("snapNoteLimit")||document.createElement("p");n.id="snapNoteLimit";n.className="fine";n.style.textAlign="left";n.innerHTML='Free plan: 3 photo scans a day. <a href="#" id="snapGoPro">Pro scans are unlimited</a>.';$("snapBox").before(n);$("snapGoPro").onclick=ev=>{ev.preventDefault();$("snap").close();try{openPay("snap")}catch(x){}};}
+ if(code==="limit"){const n=$("snapNoteLimit")||document.createElement("p");n.id="snapNoteLimit";n.className="fine";n.style.textAlign="left";n.innerHTML='Free plan: 3 photo scans a day. <a href="#" id="snapGoPro">More scans are coming with Pro</a>.';$("snapBox").before(n);$("snapGoPro").onclick=ev=>{ev.preventDefault();$("snap").close();try{openPay("snap")}catch(x){}};}
  else{const n=$("snapNoteLimit");if(n)n.remove();}}
 function onFile(e){const f=e.target.files&&e.target.files[0];e.target.value="";if(!f)return;const rd=new FileReader();rd.onload=()=>run(rd.result,"photo");rd.readAsDataURL(f);}
 $("psCam").onchange=onFile;$("psLib").onchange=onFile;
