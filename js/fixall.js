@@ -47,7 +47,7 @@ $("quickBtn").onclick=()=>{let keep;try{keep=selMeal;selMeal=null;}catch(e){}ope
 (function(){const list=$("frList");if(!list)return;const box=document.createElement("div");box.id="frIdeas";list.after(box);
  const paint=()=>{if(typeof frSuggest!=="function")return;const L=FR();if(!L.length){box.innerHTML="";return;}const all=frSuggest(),n=can("fridgeAll")?3:1,sh=all.slice(0,n);box._s=sh;
   box.innerHTML=`<div class="frit">Ideas from your fridge</div>`+(sh.length?sh.map((s,i)=>`<div class="frs"><img class="frth" src="${s.r.img?"img/r/"+s.r.img+"-t.webp":"img/r/"+s.r.id+"-t.webp"}" alt="" loading="lazy" onerror="this.style.visibility='hidden'"><span class="n"><b>${esc(s.r.name)}</b><small>${esc(s.why)} · ${s.r.cal} cal</small></span><button class="small" data-fi="${i}">Log it</button></div>`).join("")
-  +(!can("fridgeAll")&&all.length>1?`<button class="ghost small frmore" data-fp="1">${Math.min(all.length,3)-1} more idea${Math.min(all.length,3)-1==1?"":"s"} with Pro ${PRO}</button>`:""):`<div class="muted" style="font-size:.85rem">No recipe fits your fridge and remaining calories right now.</div>`);};
+  +(!can("fridgeAll")&&all.length>1?`<button class="ghost small frmore" data-fp="1">${Math.min(all.length,3)-1} more idea${Math.min(all.length,3)-1==1?"":"s"} with Pro ${PRO}</button>`:""):`<div class="muted" style="font-size:.85rem">${typeof frEmptyMsg==="function"?frEmptyMsg():""}</div>`);};
  box.onclick=e=>{const b=e.target.closest("[data-fi]");if(b){frUse(box._s[+b.dataset.fi]);paint();return;}if(e.target.closest("[data-fp]"))openPay("fridge");};
  const _rf=renderFridge;window.renderFridge=renderFridge=function(){_rf.apply(this,arguments);paint();};})();
 
