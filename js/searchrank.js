@@ -9,7 +9,8 @@
       made-from words not in the query such as flour, bran, crackers, pudding, juice (+1.2),
       fast food / restaurant / chain names in capitals (+1.5), branded entries (+1 in the USDA list, +0.3 in Open Food Facts;
       generic USDA Foundation / SR Legacy -0.5).
-      first part of the name is a different food ("Oil, oat" for oats) (+1).
+      first part of the name is a different food (+1), unless it is only a USDA group label such as "Cereals" or "Fish";
+      if that first part is itself a made-from word ("Oil, oat" is oat oil, "Bread, oat bran") push it down a further +1.5.
    4. Brand mismatch: a branded entry whose name is just the query, but whose brand names a different food
       (e.g. "Banana" by a peanut butter brand), or whose calories per 100 g are more than 2x off the top generic
       USDA match AND whose protein/carb/fat mix is clearly different (e.g. a candy sold as "Eggs") (+3).
@@ -20,11 +21,12 @@ const words=s=>(String(s||"").toLowerCase().match(/[a-z0-9%']+/g)||[]).map(stem)
 const same=(a,b)=>{const A=new Set(a),B=new Set(b);if(A.size!==B.size)return false;for(const x of A)if(!B.has(x))return false;return true;};
 const hasAll=(need,have)=>{const H=new Set(have);return need.every(w=>H.has(w));};
 const BASIC=/\b(raw|cooked|plain|whole|fresh|boiled|steamed|roasted|grilled|baked)\b/;
-const DERIV=["flour","bran","cracker","cake","noodle","powder","dehydrated","dried","chip","bar","pudding","oil","chocolate","vanilla","strawberry","sweetened","condensed","evaporated","buttermilk","juice","sauce","soup","muffin","cookie","candie","candy","pie","smoothie","shake","flavored","dessert","syrup","substitute","imitation","spread","dressing","pancake","waffle","nectar","drink","beverage","mix","bread","crumb","stick","roll","sandwich","burrito","taco","pizza","salad","casserole"];
+const DERIV=["flour","bran","cracker","cake","noodle","powder","dehydrated","dried","chip","bar","pudding","oil","chocolate","vanilla","strawberry","sweetened","condensed","evaporated","buttermilk","juice","sauce","soup","muffin","bagel","cookie","candie","candy","pie","smoothie","shake","flavored","dessert","syrup","substitute","imitation","spread","dressing","pancake","waffle","nectar","drink","beverage","mix","bread","crumb","stick","roll","sandwich","burrito","taco","pizza","salad","casserole"];
 const BABY=/\b(baby ?foods?|infant|toddler)\b/;
 const TRIBAL=/\b(navajo|hopi|apache|shoshone|bannock|alaska native|inupiat|yupik|northern plains|southwest|indians|native american|tribal|eskimo)\b/;
 const ODD=["human","sheep","goat","buffalo","camel","mare","caribou","moose","bison","emu","ostrich","seal","whale","walrus","beaver","bear","squirrel"];
 const CHAIN=/^(fast foods?|restaurant)\b/;
+const CATHEAD=/^(cereals|fish|crustaceans|mollusks)$/;
 const BRANDFOOD=/\b(peanut butter|chocolate|candy|cookie|cracker|chips|sauce|dressing|juice|cereal|bar|craisins|smoothie|snack|syrup|spread)\b/;
 function score(f,q,ctx){const n=String(f.name||""),lc=n.toLowerCase(),qW=words(q);if(!qW.length)return 9;
  const segs=lc.split(","),nW=words(n),hW=words(segs[0]),h2W=words(segs.slice(0,2).join(" "));
@@ -37,7 +39,8 @@ function score(f,q,ctx){const n=String(f.name||""),lc=n.toLowerCase(),qW=words(q
  if(BABY.test(lc)&&!BABY.test(q.toLowerCase()))s+=5;
  if(TRIBAL.test(lc)&&!TRIBAL.test(q.toLowerCase()))s+=4;
  if(ODD.some(w=>nW.includes(stem(w))&&!inQ(w)))s+=2;
- if(!qW.some(w=>hW.includes(w)))s+=1;
+ if(!qW.some(w=>hW.includes(w))){if(!CATHEAD.test(segs[0].trim()))s+=1;
+  if(DERIV.some(w=>hW.includes(stem(w))&&!inQ(w)))s+=1.5;}
  if(DERIV.some(w=>nW.includes(stem(w))&&!inQ(w)))s+=1.2;
  if((CHAIN.test(lc)&&!CHAIN.test(q.toLowerCase()))||/(^|,\s*)[A-Z][A-Z'.&\- ]{2,}(,|$)/.test(n)&&f.src==="sr")s+=1.5;
  const branded=f.src==="off"||f.kind==="Branded"||!!f.brand;

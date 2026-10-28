@@ -5,6 +5,8 @@ const top=(list,q,ctx)=>R.rank(list,q,ctx)[0].name;
 assert.equal(top(["Rice crackers","Rice bran, crude","Rice flour, brown","Rice, white, long-grain, cooked"].map(sr),"rice"),"Rice, white, long-grain, cooked");
 assert.equal(top(["Melon, banana (Navajo)","Babyfood, banana no tapioca, strained","Bananas, raw"].map(sr),"banana"),"Bananas, raw");
 assert.equal(top(["APPLEBEE'S, chili","Apples, raw, without skin"].map(sr),"apple"),"Apples, raw, without skin");
+assert.equal(top(["Oil, oat","Bread, oat bran","Bagels, oat bran","Cereals, QUAKER, Quick Oats, Dry","Cereals, oats and quick, not fortified, dry"].map(sr),"oats"),"Cereals, oats and quick, not fortified, dry");
+assert.ok(R.rank(["Oil, oat","Cereals, QUAKER, Quick Oats, Dry"].map(sr),"oats")[1].name==="Oil, oat");
 const ref={cal:89,p:1.1,c:22.8,f:0.3};
 const us=[{src:"usda",kind:"Branded",name:"Banana",brand:"Better'n Peanut Butter",per:{cal:265,p:12.5,c:40,f:6}},{src:"usda",kind:"SR Legacy",name:"Bananas, raw",per:ref}];
 assert.equal(top(us,"banana",{ref}),"Bananas, raw");
