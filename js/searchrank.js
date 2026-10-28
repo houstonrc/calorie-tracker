@@ -11,6 +11,9 @@
       generic USDA Foundation / SR Legacy -0.5).
       first part of the name is a different food (+1), unless it is only a USDA group label such as "Cereals" or "Fish";
       if that first part is itself a made-from word ("Oil, oat" is oat oil, "Bread, oat bran") push it down a further +1.5.
+      Chicken / turkey / duck: odd parts not in the query (feet, back, neck, giblets, liver, skin only, stewing birds) +1,
+      main cuts (breast, thigh, meat only, light / dark meat) -0.1, fried / battered / breaded (unless asked for) +0.1.
+      Whole-grain form of a grain query ("whole-wheat" for wheat) -1.5 (bundled and FDC lists only).
    4. Brand mismatch: a branded entry whose name is just the query, but whose brand names a different food
       (e.g. "Banana" by a peanut butter brand), or whose calories per 100 g are more than 2x off the top generic
       USDA match AND whose protein/carb/fat mix is clearly different (e.g. a candy sold as "Eggs") (+3).
@@ -26,6 +29,10 @@ const BABY=/\b(baby ?foods?|infant|toddler)\b/;
 const TRIBAL=/\b(navajo|hopi|apache|shoshone|bannock|alaska native|inupiat|yupik|northern plains|southwest|indians|native american|tribal|eskimo)\b/;
 const ODD=["human","sheep","goat","buffalo","camel","mare","caribou","moose","bison","emu","ostrich","seal","whale","walrus","beaver","bear","squirrel"];
 const CHAIN=/^(fast foods?|restaurant)\b/;
+const POULTRY=/^(chicken|turkey|duck|cornish game hens?)$/;
+const OFFCUT=/\b(feet|back|neck|giblets?|liver|heart|gizzards?|skin only|stewing|capons?|mechanically|separable fat|tail|meat and skin and giblets)\b/;
+const PRIME=/\b(breast|thigh|meat only|light meat|dark meat)\b/;
+const WHOLEGRAIN=/^(wheat|grain|rye|oat|barley|spelt)$/;
 const CATHEAD=/^(cereals|fish|crustaceans|mollusks)$/;
 const BRANDFOOD=/\b(peanut butter|chocolate|candy|cookie|cracker|chips|sauce|dressing|juice|cereal|bar|craisins|smoothie|snack|syrup|spread)\b/;
 function score(f,q,ctx){const n=String(f.name||""),lc=n.toLowerCase(),qW=words(q);if(!qW.length)return 9;
@@ -39,6 +46,11 @@ function score(f,q,ctx){const n=String(f.name||""),lc=n.toLowerCase(),qW=words(q
  if(BABY.test(lc)&&!BABY.test(q.toLowerCase()))s+=5;
  if(TRIBAL.test(lc)&&!TRIBAL.test(q.toLowerCase()))s+=4;
  if(ODD.some(w=>nW.includes(stem(w))&&!inQ(w)))s+=2;
+ if(POULTRY.test(segs[0].trim())){const rest=segs.slice(1).join(",");const qa=q.toLowerCase();
+  if(OFFCUT.test(rest)&&!OFFCUT.test(qa))s+=1;
+  if(PRIME.test(rest))s-=0.1;
+  if(/\b(fried|batter|breaded)\b/.test(rest)&&!/\b(fried|batter|breaded)\b/.test(qa))s+=0.1;}
+ if(f.src!=="off"&&qW.some(w=>WHOLEGRAIN.test(w)&&new RegExp("\\bwhole[- ]"+w).test(lc)))s-=1.5;
  if(!qW.some(w=>hW.includes(w))){if(!CATHEAD.test(segs[0].trim()))s+=1;
   if(DERIV.some(w=>hW.includes(stem(w))&&!inQ(w)))s+=1.5;}
  if(DERIV.some(w=>nW.includes(stem(w))&&!inQ(w)))s+=1.2;
