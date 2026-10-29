@@ -1,16 +1,16 @@
 /* Quick Burn: workout / activity tracker. Data: day.workouts=[{id,act,min,int,kcal,manual}], S.recentWk=[...] (both optional). */
-const ACTS=[["walk","Walking","🚶",{easy:2.8,moderate:3.5,intense:5}],["run","Running","🏃",{easy:7,moderate:9.8,intense:11.5}],["lift","Lifting","🏋️",{easy:3.5,moderate:5,intense:6}],["bike","Cycling","🚴",{easy:4,moderate:6.8,intense:10}],["bball","Basketball","🏀",{easy:4.5,moderate:6.5,intense:8}],["yard","Yard work","🌿",{easy:3,moderate:4,intense:5.5}],["hiit","HIIT","⚡",{easy:6,moderate:8,intense:10}],["swim","Swimming","🏊",{easy:5,moderate:7,intense:9.8}],["other","Other","✨",{easy:3,moderate:5,intense:7}]];
+const ACTS=[["walk","Walking","walk",{easy:2.8,moderate:3.5,intense:5}],["run","Running","run",{easy:7,moderate:9.8,intense:11.5}],["lift","Lifting","dumbbell",{easy:3.5,moderate:5,intense:6}],["bike","Cycling","bike",{easy:4,moderate:6.8,intense:10}],["bball","Basketball","ball",{easy:4.5,moderate:6.5,intense:8}],["yard","Yard work","leaf",{easy:3,moderate:4,intense:5.5}],["hiit","HIIT","zap",{easy:6,moderate:8,intense:10}],["swim","Swimming","waves",{easy:5,moderate:7,intense:9.8}],["other","Other","sparkles",{easy:3,moderate:5,intense:7}]];
 const ACT=Object.fromEntries(ACTS.map(a=>[a[0],a]));
 function wkList(k=cur){const d=S.days[k];return d&&Array.isArray(d.workouts)?d.workouts:[];}
 function burnOf(k=cur){return Math.round(wkList(k).reduce((a,w)=>a+(+w.kcal||0),0));}
 function bodyKg(){const ks=Object.keys(S.weights||{}).sort();if(ks.length)return S.weights[ks[ks.length-1]]*0.4536;if(+S.wkKg)return +S.wkKg;return 0;}
 function estKcal(act,min,int,kg){const a=ACT[act]||ACT.other;return Math.round(a[3][int]*(kg||80)*min/60);}
 const BS={act:"walk",min:30,int:"moderate",mode:"est"};
-function wkLabel(w){const a=ACT[w.act]||ACT.other;return w.manual?`${a[2]} ${a[1]} · ${w.min?w.min+" min · ":""}${w.kcal} kcal`:`${a[2]} ${a[1]} · ${w.min} min${w.int?" · "+String(w.int).charAt(0).toUpperCase()+String(w.int).slice(1):""}`;}
+function wkLabel(w){const a=ACT[w.act]||ACT.other;return w.manual?`${a[1]} · ${w.min?w.min+" min · ":""}${w.kcal} kcal`:`${a[1]} · ${w.min} min${w.int?" · "+String(w.int).charAt(0).toUpperCase()+String(w.int).slice(1):""}`;}
 function renderBurnCard(){const el=$("burnCard");if(!el)return;const L=wkList(),b=burnOf(),same=(x,y)=>x.act===y.act&&!!x.manual===!!y.manual&&(x.manual?+x.kcal===+y.kcal:+x.min===+y.min&&x.int===y.int),R=(S.recentWk||[]).filter(r=>!L.some(w=>same(r,w))).slice(0,4);
- el.innerHTML=`<div class="bhd"><span class="ri">🔥</span><span class="rl"><b>Activity</b><small>${b?`Burned ${b.toLocaleString()} · +${burnBonus().toLocaleString()} to goal (${S.burnFull?"full":"half"})`:"Workouts add calories to today's goal"}</small></span><button class="small" id="wkAdd">＋ Add workout</button></div>`+
- (R.length?`<div class="chips wkchips">${R.map((w,i)=>`<button class="ghost" data-rc="${i}">${(ACT[w.act]||ACT.other)[2]} ${esc((ACT[w.act]||ACT.other)[1])} ${w.manual?w.kcal+" kcal":w.min+" min"}</button>`).join("")}</div>`:"")+
- (L.length?`<div class="wklist">${L.map(w=>`<div class="entry" data-wid="${w.id}"><div class="n">${esc(wkLabel(w))}</div><b class="bk">−${w.kcal}</b><button class="ghost small wdel" aria-label="Remove">✕</button></div>`).join("")}</div>`:"");
+ el.innerHTML=`<div class="bhd"><span class="ri">${ico("flame")}</span><span class="rl"><b>Activity</b><small>${b?`Burned ${b.toLocaleString()} · +${burnBonus().toLocaleString()} to goal (${S.burnFull?"full":"half"})`:"Workouts add calories to today's goal"}</small></span><button class="small" id="wkAdd">＋ Add workout</button></div>`+
+ (R.length?`<div class="chips wkchips">${R.map((w,i)=>`<button class="ghost" data-rc="${i}">${ico((ACT[w.act]||ACT.other)[2])} ${esc((ACT[w.act]||ACT.other)[1])} ${w.manual?w.kcal+" kcal":w.min+" min"}</button>`).join("")}</div>`:"")+
+ (L.length?`<div class="wklist">${L.map(w=>`<div class="entry" data-wid="${w.id}"><div class="n">${ico((ACT[w.act]||ACT.other)[2])} ${esc(wkLabel(w))}</div><b class="bk">−${w.kcal}</b><button class="ghost small wdel" aria-label="Remove">${ico("x")}</button></div>`).join("")}</div>`:"");
  $("wkAdd").onclick=openBurn;
  el.querySelectorAll("[data-rc]").forEach(bt=>bt.onclick=()=>{const w=R[+bt.dataset.rc];const kcal=w.manual?w.kcal:estKcal(w.act,w.min,w.int,bodyKg()||80);addWk({act:w.act,min:w.min,int:w.int,kcal,manual:!!w.manual});});
  el.querySelectorAll(".wdel").forEach(bt=>bt.onclick=()=>{const id=bt.closest("[data-wid]").dataset.wid;const d=dayW();d.workouts=(d.workouts||[]).filter(w=>w.id!==id);save();renderToday();toast("Workout removed");});}
@@ -19,7 +19,7 @@ function addWk(w){const b0=burnBonus();const d=dayW();if(!Array.isArray(d.workou
  save();renderToday();const add=burnBonus()-b0;toast(`Burned ~${w.kcal.toLocaleString()} kcal, +${add.toLocaleString()} added to today's goal`);}
 function openBurn(){const dl=$("burn");drawBurn();if(!dl.open)dl.showModal();}
 function drawBurn(){const kg=bodyKg();const est=estKcal(BS.act,BS.min,BS.int,kg||80);
- $("bActs").innerHTML=ACTS.map(a=>`<button type="button" class="${a[0]===BS.act?"on":""}" data-a="${a[0]}">${a[2]} ${a[1]}</button>`).join("");
+ $("bActs").innerHTML=ACTS.map(a=>`<button type="button" class="${a[0]===BS.act?"on":""}" data-a="${a[0]}">${ico(a[2])} ${a[1]}</button>`).join("");
  $("bInts").innerHTML=["easy","moderate","intense"].map(i=>`<button type="button" class="${i===BS.int?"on":""}" data-i="${i}">${i[0].toUpperCase()+i.slice(1)}</button>`).join("");
  $("bModes").innerHTML=[["est","Estimate for me"],["man","Type exact number"]].map(([m,n])=>`<button type="button" class="${m===BS.mode?"on":""}" data-m="${m}">${n}</button>`).join("");
  $("bEstBox").style.display=BS.mode==="est"?"":"none";$("bManBox").style.display=BS.mode==="man"?"":"none";
@@ -39,6 +39,6 @@ function burnFactor(){return S.burnFull?1:0.5;}
 function burnBonus(k=cur){return Math.round(burnOf(k)*burnFactor());}
 function goalFor(k=cur){return S.goal?S.goal+burnBonus(k):0;}
 function renderBurnSet(){let el=$("burnSet");if(!el){const L=$("sList");if(!L)return;el=document.createElement("div");el.className="card";el.id="burnSet";L.after(el);}const f=!!S.burnFull;
- el.innerHTML=`<div class="bhd"><span class="ri">🔥</span><span class="rl"><b>Workout calories added to goal</b><small>${f?"All burned calories raise your goal.":"Half is safer, since workout estimates often run high."}</small></span></div><div class="chips" style="margin-top:14px"><button class="${f?"ghost":"on"}" data-bf="0">Half (recommended)</button><button class="${f?"on":"ghost"}" data-bf="1">Full</button></div>`;
+ el.innerHTML=`<div class="bhd"><span class="ri">${ico("flame")}</span><span class="rl"><b>Workout calories added to goal</b><small>${f?"All burned calories raise your goal.":"Half is safer, since workout estimates often run high."}</small></span></div><div class="chips" style="margin-top:14px"><button class="${f?"ghost":"on"}" data-bf="0">Half (recommended)</button><button class="${f?"on":"ghost"}" data-bf="1">Full</button></div>`;
  el.querySelectorAll("[data-bf]").forEach(b=>b.onclick=()=>{S.burnFull=b.dataset.bf==="1";save();renderBurnSet();renderToday();toast(S.burnFull?"Full workout calories added to goal":"Half of workout calories added to goal");});}
 document.addEventListener("DOMContentLoaded",()=>setTimeout(renderBurnSet,0));
