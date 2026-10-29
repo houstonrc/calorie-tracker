@@ -2224,7 +2224,7 @@ function migFoods(o){if(!Array.isArray(o.foodCache))delete o.foodCache;else o.fo
 {const m0=migrate;migrate=function(d){return migFoods(m0(d));};migFoods(S);}
 function loadSR(){if(FDB.sr)return Promise.resolve(FDB.sr);if(FDB.loading)return FDB.loading;
  FDB.loading=fetch("data/usda-foods.json").then(r=>{if(!r.ok)throw new Error(r.status);return r.json();}).then(d=>{FDB.sr=d.f.map(x=>({src:"sr",id:"sr"+x[0],name:x[1],cat:d.cats[x[2]],lc:x[1].toLowerCase(),per:{cal:x[3],p:x[4],c:x[5],f:x[6],fib:x[7],sug:x[8],na:x[9],sat:x[10],chol:x[11]},sv:x[12]||[]}));return FDB.sr;}).catch(e=>{FDB.loading=null;throw e;});return FDB.loading;}
-function srSearch(terms){if(!FDB.sr)return[];const out=[];for(const f of FDB.sr){if(terms.every(t=>f.lc.includes(t))){const sc=(f.lc.startsWith(terms[0])?0:2)+(f.lc.split(",")[0].includes(terms[0])?0:1)+f.lc.length/80;out.push([sc,f]);}}return out.sort((a,b)=>a[0]-b[0]).slice(0,25).map(x=>x[1]);}
+function srSearch(terms){if(!FDB.sr)return[];const R=window.pjRank;if(R){const q=terms.join(" ");return R.rank(FDB.sr.filter(f=>R.matches(f.lc,terms)),q,null).slice(0,25);}const out=[];for(const f of FDB.sr){if(terms.every(t=>f.lc.includes(t))){const sc=(f.lc.startsWith(terms[0])?0:2)+(f.lc.split(",")[0].includes(terms[0])?0:1)+f.lc.length/80;out.push([sc,f]);}}return out.sort((a,b)=>a[0]-b[0]).slice(0,25).map(x=>x[1]);}
 const USDA_APP_KEY="1jjlMWSkFAfeURr6cIYUn39ijLJ3zjR3JLcWuArK";const usdaKey=()=>{try{return (localStorage.getItem("pj_usda_key")||"").trim()||USDA_APP_KEY;}catch(e){return USDA_APP_KEY;}};
 function rl(name,max,win){const k="pj_rl_"+name;let a=[];try{a=JSON.parse(localStorage.getItem(k))||[];}catch(e){}const now=Date.now();a=a.filter(t=>now-t<win);if(a.length>=max)return false;a.push(now);try{localStorage.setItem(k,JSON.stringify(a));}catch(e){}return true;}
 function paused(name){try{return (+localStorage.getItem("pj_pause_"+name)||0)>Date.now();}catch(e){return false;}}
@@ -2264,7 +2264,7 @@ function xRow(f,i){const [lab,g]=defSv(f),v=perServ(f,g);return `<div class="xfo
  if(!FDB.sr){loadSR().then(()=>rerenderFoods()).catch(()=>{});}
  if(!keep||FDB.live.q!==q.toLowerCase())q.length>=3?liveSearch(q):(FDB.live={q:"",usda:null,off:null,st:{}});
  const seen=new Set();const uniq=a=>(a||[]).filter(f=>{const k=(f.name+"|"+(f.brand||"")).toLowerCase();if(seen.has(k))return false;seen.add(k);return true;});
- const sr=uniq(srSearch(terms)),us=uniq(FDB.live.usda),of=uniq(FDB.live.off);const X=[...sr,...us,...of];L._x=X;let i=0;const st=FDB.live.st||{};
+ const sr=uniq(srSearch(terms)),R=window.pjRank,rq=terms.join(" "),ctx=R?{ref:R.refFood(sr,rq)}:null,us=uniq(R?R.rank(FDB.live.usda,rq,ctx):FDB.live.usda),of=uniq(R?R.rank(FDB.live.off,rq,ctx):FDB.live.off);const X=[...sr,...us,...of];L._x=X;let i=0;const st=FDB.live.st||{};
  const sec=(t,a,note)=>a.length||note?`<div class="xsec">${t}${note?`<small>${note}</small>`:""}</div>`+a.map(f=>xRow(f,i++)).join(""):"";
  const msg=k=>st[k]==="limit"?(k==="usda"&&usdaKey()===USDA_APP_KEY?"USDA search limit reached for now. Try again later, or add your own free api.data.gov key in Settings.":"Rate limit reached, try again in a minute"):st[k]==="paused"?"Paused briefly (rate limit)":st[k]==="offline"?"Offline":st[k]==="http"?"Couldn't reach it":"";
  let h=sec("USDA foods · works offline",sr,"");
@@ -2736,6 +2736,7 @@ html[data-bg] body main,html[data-bg] body .tab{padding-bottom:calc(120px + env(
  fab.innerHTML='<svg class="lic" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>';
  document.querySelectorAll("#lmMenu .lmgrid i").forEach(i=>i.removeAttribute("style"));})();
 </script>
+<script src="js/searchrank.js"></script>
 <script src="js/icons.js"></script>
 <style>
 nav[aria-label="Tabs"] button[data-t="settings"]{display:none!important}
