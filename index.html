@@ -178,9 +178,9 @@ nav button{position:relative}
 .pitem.logged{opacity:.6}.pitem.logged .n b{text-decoration:line-through}
 .prow{display:flex;gap:8px;margin:4px 0 6px}.prow button{flex:1;min-height:40px;font-size:.85rem;padding:6px 8px}
 .gcat{font-size:.78rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px;display:flex;align-items:center;gap:6px}
-.gitem{display:flex;align-items:center;gap:12px;padding:10px 4px;border-bottom:1px solid var(--line);cursor:pointer}.gitem input{width:22px;height:22px;min-height:0;flex:0 0 22px;accent-color:#c87b2c}.gitem .n{flex:1;min-width:0}.gitem .q{font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
+.gitem{display:flex;align-items:center;gap:12px;padding:10px 4px;border-bottom:1px solid var(--line);cursor:pointer}.gitem input{width:22px;height:22px;min-height:0;flex:0 0 22px}.gitem .n{flex:1;min-width:0}.gitem .q{font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
 .gitem.done .n{text-decoration:line-through;color:var(--muted)}
-.cpdays label{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid var(--line);font-size:1rem;color:var(--text);margin:0}.cpdays input{width:22px;height:22px;min-height:0;flex:0 0 22px;accent-color:#c87b2c}
+.cpdays label{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid var(--line);font-size:1rem;color:var(--text);margin:0}.cpdays input{width:22px;height:22px;min-height:0;flex:0 0 22px}
 .sw i.sys{background:linear-gradient(135deg,#0d0a07 0 50%,#faf7f2 50% 100%)}
 [data-theme=light] #bg::after{background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(250,247,242,.72) 40%,rgba(250,247,242,.88))}
 header{background:transparent;border-bottom-color:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;transition:background .25s,border-color .25s,backdrop-filter .25s;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
@@ -2825,6 +2825,17 @@ html[data-bg] body .tab,.tab{padding-bottom:16px!important}
 .emst .emi{flex:0 0 40px;height:40px;border-radius:50%;display:grid;place-items:center;color:var(--acc,#f47b20);background:rgba(var(--accrgb,244,123,32),.14);border:1px solid rgba(var(--accrgb,244,123,32),.35)}
 .emst .emt{flex:1;min-width:0}.emst .emt b{display:block;font-size:.92rem}.emst .emt small{display:block;color:var(--muted,#97a1ad);font-size:.76rem;line-height:1.35;margin-top:2px}
 .emst button{flex:0 0 auto;white-space:nowrap;padding:9px 14px;font-size:.82rem}
+
+/* fix6: theme-matched checkboxes (grocery list and the other native boxes) */
+input[type=checkbox]{-webkit-appearance:none!important;appearance:none!important;padding:0!important;margin:0;min-height:0!important;width:22px;height:22px;flex:none;border:1.5px solid color-mix(in srgb,var(--muted) 55%,transparent)!important;border-radius:6px!important;background:var(--input)!important;background-position:center!important;background-repeat:no-repeat!important;background-size:70%!important;box-shadow:none;cursor:pointer;vertical-align:middle;color:inherit;transition:background .15s,border-color .15s,box-shadow .15s}
+input[type=checkbox]:checked{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l5 5 9-10'/%3E%3C/svg%3E") center/70% no-repeat,linear-gradient(135deg,var(--acc,var(--accent)),var(--acc2,var(--accent2)))!important;border-color:transparent!important;box-shadow:0 2px 8px rgba(var(--acc2rgb,196,82,15),.35)}
+html[data-acc=steel] input[type=checkbox]:checked,html[data-acc=gold] input[type=checkbox]:checked{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23121417' stroke-width='3.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l5 5 9-10'/%3E%3C/svg%3E"),linear-gradient(135deg,var(--acc,var(--accent)),var(--acc2,var(--accent2)))!important}
+input[type=checkbox]:focus{outline:0;border-color:var(--acc,var(--accent2))!important;box-shadow:0 0 0 3px rgba(var(--accrgb,184,105,42),.28)}
+input[type=checkbox]:focus:not(:focus-visible){box-shadow:none}
+input[type=checkbox]:focus-visible{box-shadow:0 0 0 3px rgba(var(--accrgb,184,105,42),.28)}
+[data-theme=light] input[type=checkbox]:not(:checked),html[data-bg=white] input[type=checkbox]:not(:checked),html[data-bg=cream] input[type=checkbox]:not(:checked),html[data-bg=sage] input[type=checkbox]:not(:checked){background:var(--input,#fffdf9)!important;border-color:color-mix(in srgb,var(--muted,#7a6450) 45%,transparent)!important}
+.tog input,.rptopts input{width:20px;height:20px}
+.gitem input,.cpdays input{width:22px;height:22px;flex:0 0 22px}
 </style>
 <script src="js/fix6.js"></script>
 <script src="js/hcsync.js" defer></script><script src="js/snapplate.js" defer></script><script src="js/launchfix.js" defer></script>
