@@ -11,7 +11,7 @@ const WHY={scan:["Barcode scanner","Barcode scanning is free. If you see this, r
  plans:["Ready-made plans","All ready-made plans are free."],
  gen:["You've used this week's free custom plan","Build my plan makes 1 custom plan a week for free. You can still use any ready-made plan. Unlimited custom plans are coming with PlateJack Pro."],
  prep:["Recipes","Every recipe is free."],
- coach:["Full Jack Coach is coming with Pro","You get a free tip every day. Pro will add smart tips based on your log and budget."],
+ coach:["Full Jack Coach is coming with Pro","You get a free tip every day. Pro adds a daily game plan, Fix my day, gym-day targets and a Sunday check-in card you can share, plus tips that use your log and budget."],
  fridge:["Fridge Rescue","Fridge Rescue is free."],
  insights:["Full Insights are coming with Pro","7-day charts are free. Pro will add 30 and 90-day trends, the nutrient table and goal weight projection."],
  report:["More Plate Report styles are coming with Pro","The Classic Plate Report is free. Pro will add Bold and Paper styles and remove the watermark."],
