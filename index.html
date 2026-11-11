@@ -1479,7 +1479,7 @@ function renderToday(){try{rptBanner();renderCoach();renderBudStrip();}catch(e){
   return `<div class="mr"><i style="--v:${pct};--mc:var(${col})"><em>${Math.round(v)}</em></i><div><b>${n}</b><span>${goal?"of "+goal+" g":"g"}</span></div></div>`;}).join("");
  requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll("#macroBars .bar>i").forEach(i=>i.style.width=i.dataset.w+"%")));
  const d=day();
- if(!d.entries.length){$("meals").innerHTML=`<div class="empty">🥗 Nothing logged for this day yet.<br>Tap <b>＋ Add food</b> to log your first meal.</div>`;}
+ if(!d.entries.length){$("meals").innerHTML=`<div class="empty">Nothing logged for this day yet.<br>Tap <b>＋ Add food</b> to log your first meal.</div>`;}
  else{const hr=new Date().getHours(),curM=window._openMeal||(hr<11?"Breakfast":hr<15?"Lunch":hr<21?"Dinner":"Snacks");const nm=window._newId&&d.entries.find(e=>e.id===window._newId);window._mOpen=window._mOpen||{};
   $("meals").innerHTML=MEALS.map(m=>{const es=d.entries.filter(e=>e.meal===m);const sum=es.reduce((a,e)=>a+e.cal*e.qty,0);
   const op=m in window._mOpen?window._mOpen[m]:(m===curM||(nm&&nm.meal===m));
@@ -1966,10 +1966,10 @@ $("snapLog").onclick=()=>{if(!snapFood)return;const f=snapFood,m=PORTIONS[snapPo
 
 /* ---------- Jack Coach ---------- */
 const COACH={
- start:["Fresh day, empty plate. Let's jack it. 🍳","First log of the day is the hardest. Make it easy — snap breakfast.","Nothing logged yet. Future you is waiting for the data.","Clean slate. Log one thing and you're officially in the game.","The plate is yours today. Claim it with a quick log."],
+ start:["Fresh day, empty plate. Let's jack it.","First log of the day is the hardest. Make it easy — snap breakfast.","Nothing logged yet. Future you is waiting for the data.","Clean slate. Log one thing and you're officially in the game.","The plate is yours today. Claim it with a quick log."],
  protein:["Protein's at {p}g — {left}g to go. Eggs, Greek yogurt or chicken get you there fast.","You're {left}g short on protein. A cottage cheese cup is basically a cheat code.","Muscles called. They'd like {left}g more protein, please.","Protein check: {p}/{g}g. One solid serving closes the gap.","Easy protein win: tuna, turkey or a shake gets you {left}g closer."],
  proteinOk:["Protein goal smashed. Your muscles say thanks.","{p}g protein — that's a jacked plate right there.","Protein: handled. You make this look easy.","Protein target hit. Coach is impressed."],
- sodium:["Sodium's running high today (~{na}mg). Extra water and veggies help balance things out. 🥦","Salty day! Try fresh foods for the next meal.","Sodium's at ~{na}mg. Lean on fruit, veggies and water tonight.","Heads up: sauces and takeout pack sodium. Keep the next plate simple."],
+ sodium:["Sodium's running high today (~{na}mg). Extra water and veggies help balance things out.","Salty day! Try fresh foods for the next meal.","Sodium's at ~{na}mg. Lean on fruit, veggies and water tonight.","Heads up: sauces and takeout pack sodium. Keep the next plate simple."],
  water:["Water's at {w}. Grab a glass — your energy will thank you.","Hydration check: {w} so far. Sip something now.","Thirsty brain, cranky brain. Top up your water.","Quick win: one glass of water right now. Done? Tap ＋."],
  waterOk:["Hydration on point.","Water goal crushed. Look at you go.","Fully hydrated and dangerous."],
  under:["{rem} cal left for today — room for a solid meal.","You've got {rem} cal of runway. Make it a good one.","Plenty of room left ({rem} cal). Don't skip dinner — fuel matters.","{rem} cal left. A balanced plate with protein would fit nicely."],
@@ -1982,7 +1982,7 @@ const COACH={
  nowater:["No water logged yet today. Grab a glass and tap ＋.","Your water tracker is empty. One glass now is a quick win."],
  late:["Late-night log! If you're still hungry, keep it light and protein-y.","Logging late is still logging. Try to wrap up eating a couple of hours before bed."],
  weekend:["It's the weekend! Enjoy it. Plan one fun meal and keep the rest simple.","Weekend tip: a quick grocery plan now makes next week easier.","Weekend brunch? Add eggs or yogurt for protein and fruit for fiber."],
- general:["Small plates, big wins.","Progress, not perfection.","Every log is a vote for the person you're becoming.","Veggies first, then everything else. Easy hack. 🥗","Slow down at meals — you'll notice when you're full.","Fiber keeps you full longer. Beans, oats and berries are your friends.","Snap your plate — it makes logging take seconds.","You don't have to be perfect. You just have to show up.","Consistency is the secret sauce."]};
+ general:["Small plates, big wins.","Progress, not perfection.","Every log is a vote for the person you're becoming.","Veggies first, then everything else. Easy hack.","Slow down at meals — you'll notice when you're full.","Fiber keeps you full longer. Beans, oats and berries are your friends.","Snap your plate — it makes logging take seconds.","You don't have to be perfect. You just have to show up.","Consistency is the secret sauce."]};
 function coachLines(){const d=day(),t=totals(),g=S.goal||0,pg=(S.macros&&S.macros.p)||0,hr=new Date().getHours(),isT=cur===ymd(new Date());const pick=(cat,vars)=>{const a=COACH[cat];const seed=(+cur.replace(/-/g,"")+(window._coachRot||0)*7+cat.length);let l=a[seed%a.length];Object.entries(vars||{}).forEach(([k,v])=>l=l.split("{"+k+"}").join(v));return {cat,l};};
  const out=[];const es=d.entries;let na=0,naK=0;es.forEach(e=>{if(e.na!=null){na+=e.na*e.qty;naK++;}});
  const wv=d.water||0,wg=S.waterUnit==="oz"?64:8,wtxt=wv+(S.waterUnit==="oz"?" oz":" glasses");
