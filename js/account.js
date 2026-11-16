@@ -42,9 +42,15 @@ async function wipeLocal(){try{localStorage.clear();sessionStorage.clear();}catc
 q("#delGo").onclick=async()=>{const b=q("#delGo");b.disabled=true;q("#dlGoT").textContent="Deleting…";
  try{if(signed()&&sb){const r=await sb.rpc("delete_my_account");window._delRpc={ok:!r.error,status:r.status,error:r.error?(r.error.code||"")+" "+r.error.message:null};try{sessionStorage.setItem("pj_del_rpc",JSON.stringify(window._delRpc));}catch(e){}
    if(r.error){console.warn("delete_my_account failed",r.error);q("#dlErr").textContent="Your account could not be deleted, so nothing was removed and you are still signed in. Please try again later or contact support. ("+(r.error.message||"server error")+")";q("#dlGoT").textContent="Try again";b.disabled=false;return;}
-   try{await sb.auth.signOut({scope:"local"});}catch(e){}}
-  await wipeLocal();location.replace(location.pathname);}
+   /* The account is gone on the server, so do not call signOut (its /logout request returns 403 for a
+      deleted user). Stop token refresh and drop the stored session locally; wipeLocal clears it. */
+   try{sb.auth.stopAutoRefresh();}catch(e){}}
+  const was=signed()?"account":"data";await wipeLocal();try{sessionStorage.setItem("pj_deleted",was);}catch(e){}location.replace(location.pathname);}
  catch(e){q("#dlErr").textContent="Couldn't delete right now. Check your connection and try again.";b.disabled=false;q("#dlGoT").textContent="Try again";}};
 const _ra=typeof renderAccount==="function"?renderAccount:null;if(_ra)window.renderAccount=renderAccount=function(){_ra();paint();const t=q("#bkTxt");if(t)t.textContent=signed()?"Your log syncs to your account. A backup file is still handy to keep your own copy.":"Without an account your data lives on this device only. Export a backup now and then.";};
 paint();
+// After the reload that follows a deletion, say plainly that it worked.
+{let d=null;try{d=sessionStorage.getItem("pj_deleted");sessionStorage.removeItem("pj_deleted");}catch(e){}
+ if(d){document.body.insertAdjacentHTML("beforeend",`<dialog id="delDone"><h2 style="margin:0 0 8px">${d==="account"?"Account deleted":"Data deleted"}</h2><p class="muted" style="margin:0 0 14px">${d==="account"?"Your account was deleted.":"Your data was deleted from this device."}</p><button type="button" id="delDoneOk" style="width:100%">OK</button></dialog>`);
+  const dd=q("#delDone");q("#delDoneOk").onclick=()=>dd.close();setTimeout(()=>{try{dd.showModal();}catch(e){}},300);}}
 })();

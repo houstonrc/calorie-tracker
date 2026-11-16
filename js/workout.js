@@ -33,6 +33,8 @@ function monday(k){const d=pd(k);d.setDate(d.getDate()-((d.getDay()+6)%7));retur
 function weekOf(k){const m=monday(k);let n=0,kc=0;const days=[];for(let i=0;i<7;i++){const d=new Date(m);d.setDate(m.getDate()+i);const L=wkList(ymd(d));n+=L.length;kc+=L.reduce((a,w)=>a+(+w.kcal||0),0);days.push(L.length>0);}return{n,kc,days};}
 const G=()=>Object.assign({n:4,kcal:0},S.wkGoal||{});
 function met(w){const g=G();return w.n>=g.n&&(!g.kcal||w.kc>=g.kcal);}
+/* used by the workout reminder in index.html */
+window.pjWorkoutWeek=k=>{const w=weekOf(k);return {n:w.n,goal:G().n,met:met(w),today:wkList(k).length};};
 function streak(k){let s=0;const m=monday(k);if(met(weekOf(k)))s++;for(let i=1;i<104;i++){const d=new Date(m);d.setDate(m.getDate()-7*i);if(met(weekOf(ymd(d))))s++;else break;}return s;}
 function ringSVG(p,p2){const R=38,C=2*Math.PI*R,R2=30,C2=2*Math.PI*R2;return `<svg class="r" viewBox="0 0 92 92"><circle cx="46" cy="46" r="${R}" fill="none" stroke="#2c2c2c" stroke-width="9"/><circle cx="46" cy="46" r="${R}" fill="none" stroke="var(--acc,#f47b20)" stroke-width="9" stroke-linecap="round" stroke-dasharray="${C*Math.min(p,1)} ${C}" transform="rotate(-90 46 46)"/>`+(p2!=null?`<circle cx="46" cy="46" r="${R2}" fill="none" stroke="#2c2c2c" stroke-width="5"/><circle cx="46" cy="46" r="${R2}" fill="none" stroke="var(--acc-lt,#f0a24a)" stroke-width="5" stroke-linecap="round" stroke-dasharray="${C2*Math.min(p2,1)} ${C2}" transform="rotate(-90 46 46)"/>`:"")+`<text x="46" y="52" text-anchor="middle" fill="#fff" font-family="Oswald,sans-serif" font-size="20" font-weight="700">${Math.round(Math.min(p,1)*100)}%</text></svg>`;}
 function ringHTML(){const g=G(),w=weekOf(cur),s=streak(cur);const left=Math.max(0,g.n-w.n);
