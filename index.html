@@ -13,7 +13,7 @@
 <link rel="icon" href="platejack.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
 <link rel="manifest" href="./manifest.webmanifest">
-<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
 <title>PlateJack — Eat well. Spend less.</title>
 <style>
 :root{--bg:#ffffff;--bg2:#faf7f2;--card:rgba(255,255,255,.80);--text:#2a1c10;--muted:#7a6450;--line:rgba(42,28,16,.10);--accent:#c87b2c;--accent2:#b8692a;--grad:linear-gradient(135deg,#c47a2c,#8f4517);--glow:rgba(120,62,20,.28);--warn:#d9432f;--p:#d0603f;--c:#e8b65a;--f:#b3b062;--p2:#9c3a22;--c2:#c68a2e;--f2:#6f7a35;--input:#fffdf9}
@@ -2882,6 +2882,23 @@ input[type=checkbox]:focus-visible{box-shadow:0 0 0 3px rgba(var(--accrgb,184,10
 [data-theme=light] input[type=checkbox]:not(:checked),html[data-bg=white] input[type=checkbox]:not(:checked),html[data-bg=cream] input[type=checkbox]:not(:checked),html[data-bg=sage] input[type=checkbox]:not(:checked){background:var(--input,#fffdf9)!important;border-color:color-mix(in srgb,var(--muted,#7a6450) 45%,transparent)!important}
 .tog input,.rptopts input{width:20px;height:20px}
 .gitem input,.cpdays input{width:22px;height:22px;flex:0 0 22px}
+</style>
+<style id="iphone-web">
+/* iPhone home-screen (Add to Home Screen) tweaks */
+/* iOS Safari zooms the page when a focused input is under 16px. */
+.hero .datebar{max-width:280px!important}
+.hero .datebar input{font-size:16px!important;min-width:11em}
+.prow input{font-size:16px!important;min-height:36px!important;height:auto}
+/* Lift bottom sheets above the home indicator. WebKit often ignores
+   padding-bottom on overflow:auto dialogs, so margin is more reliable.
+   vh is a fallback for older browsers. */
+dialog{margin-bottom:env(safe-area-inset-bottom)!important;max-height:92vh;max-height:calc(92dvh - env(safe-area-inset-bottom))}
+dialog.tall{max-height:90vh;max-height:calc(90dvh - env(safe-area-inset-bottom))}
+.rptprev img{height:min(52vh,420px);height:min(52dvh,420px)}
+#rpt .row:has(#rptShare){position:sticky;bottom:0;z-index:2;padding-top:8px;padding-bottom:8px;background:var(--bg2,#171a1e)}
+/* A later compact rule set tab padding-bottom to 16px, which hides the
+   last rows under the tab bar and home indicator. */
+html[data-bg] body .tab,.tab{padding-bottom:calc(88px + env(safe-area-inset-bottom))!important}
 </style>
 <script src="js/fix6.js"></script>
 <script src="js/hcsync.js" defer></script><script src="js/snapplate.js" defer></script><script src="js/launchfix.js" defer></script>
